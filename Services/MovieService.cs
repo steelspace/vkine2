@@ -12,15 +12,30 @@ public class MovieService : IMovieService
         this.environment = environment;
     }
 
-    public async Task<List<Movie>> GetMoviesAsync()
-    {
-        var filePath = Path.Combine(environment.ContentRootPath, "Data", "movies.json");
-        var jsonData = await File.ReadAllTextAsync(filePath);
-        var movies = JsonSerializer.Deserialize<List<Movie>>(jsonData, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+    private List<Movie>? cachedMovies;
 
-        return movies ?? new List<Movie>();
+    private async Task EnsureMoviesLoaded()
+    {
+        if (cachedMovies == null)
+        {
+            var filePath = Path.Combine(environment.ContentRootPath, "Data", "movies.json");
+            var jsonData = await File.ReadAllTextAsync(filePath);
+            cachedMovies = JsonSerializer.Deserialize<List<Movie>>(jsonData, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new List<Movie>();
+        }
+    }
+
+    public async Task<List<Movie>> GetMovies(int startIndex, int count)
+    {
+        await EnsureMoviesLoaded();
+        return cachedMovies!.Skip(startIndex).Take(count).ToList();
+    }
+
+    public async Task<int> GetTotalMovieCount()
+    {
+        await EnsureMoviesLoaded();
+        return cachedMovies!.Count;
     }
 }

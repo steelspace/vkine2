@@ -2,33 +2,32 @@
 @inject IMovieService MovieService
 @rendermode InteractiveServer
 
-<h1>Movies</h1>
+<PageTitle>Virtualized Table</PageTitle>
 
-@if (movies == null)
-{
-    <p>Loading...</p>
-}
-else if (!movies.Any())
-{
-    <p>No movies found.</p>
-}
+@if (false) { }
 else
 {
     <div>
-        @foreach (var movie in movies)
-        {
-            <div style="padding: 10px; border-bottom: 1px solid #ccc;">
-                <strong>@movie.Title</strong> - <img src="@movie.CoverUrl" alt="@movie.Title" width="100" />
-            </div>
-        }
+        <Virtualize ItemsProvider="@LoadMovies" Context="movie">
+            <ItemContent>
+                <div style="padding: 10px; border-bottom: 1px solid #ccc;">
+                    <strong>@movie.Title</strong> - <img src="@movie.CoverUrl" alt="@movie.Title" width="100" />
+                </div>
+            </ItemContent>
+            <Placeholder>
+                <div style="padding: 10px; border-bottom: 1px solid #ccc;">
+                    Loading...
+                </div>
+            </Placeholder>
+        </Virtualize>
     </div>
 }
 
 @code {
-    private List<Movie>? movies;
-
-    protected override async Task OnInitializedAsync()
+    private async ValueTask<ItemsProviderResult<Movie>> LoadMovies(ItemsProviderRequest request)
     {
-        movies = await MovieService.GetMoviesAsync();
+        var movies = await MovieService.GetMovies(request.StartIndex, request.Count);
+        var totalCount = await MovieService.GetTotalMovieCount();
+        return new ItemsProviderResult<Movie>(movies, totalCount);
     }
 }
