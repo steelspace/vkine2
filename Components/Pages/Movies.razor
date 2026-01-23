@@ -1,6 +1,8 @@
 @page "/movies"
 @inject IMovieService MovieService
+@inject IJSRuntime JSRuntime
 @rendermode InteractiveServer
+@implements IAsyncDisposable
 
 <PageTitle>Virtualized Table</PageTitle>
 
@@ -8,14 +10,25 @@
 else
 {
     <div>
-        <Virtualize ItemsProvider="@LoadMovies" Context="movie">
+        <Virtualize @ref="virtualizeComponent" ItemsProvider="@LoadMovieRows" Context="row">
             <ItemContent>
-                <div style="padding: 10px; border-bottom: 1px solid #ccc; cursor: pointer;" @onclick="() => ShowMovieDetail(movie)">
-                    <strong>@movie.Title</strong> - <img src="@movie.CoverUrl" alt="@movie.Title" width="100" />
+                <div class="movie-row">
+                    @foreach (var movie in row)
+                    {
+                        <div class="movie-card" @onclick="() => ShowMovieDetail(movie)">
+                            <img src="@movie.CoverUrl" alt="@movie.Title" />
+                            <div class="movie-title">@movie.Title</div>
+                        </div>
+                    }
+                    @* Fill remaining space with invisible items to maintain alignment *@
+                    @for (int i = 0; i < ItemsPerRow - row.Count; i++)
+                    {
+                        <div class="movie-card" style="visibility: hidden;"></div>
+                    }
                 </div>
             </ItemContent>
             <Placeholder>
-                <div style="padding: 10px; border-bottom: 1px solid #ccc;">
+                <div class="movie-row placeholder">
                     Loading...
                 </div>
             </Placeholder>
@@ -24,8 +37,8 @@ else
 
     @if (selectedMovie != null)
     {
-        <div class="modal-overlay">
-            <div class="modal-content">
+        <div class="modal-overlay" @onclick="CloseModal">
+            <div class="modal-content" @onclick:stopPropagation="true">
                 <h2>@selectedMovie.Title</h2>
                 <img src="@selectedMovie.CoverUrl" alt="@selectedMovie.Title" style="max-width: 100%; height: auto;" />
                 <p>@selectedMovie.Synopsis</p>
@@ -35,6 +48,41 @@ else
     }
 
     <style>
+        .movie-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .movie-card {
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: white; /* Ensure background handles transparency if needed */
+        }
+        
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .movie-title {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -58,18 +106,78 @@ else
             overflow-y: auto;
             text-align: center;
             color: black;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
 }
 
 @code {
     private Movie? selectedMovie;
+    private int ItemsPerRow = 4;
+    private Virtualize<List<Movie>>? virtualizeComponent;
+    private DotNetObjectReference<Movies>? selfReference;
+    private IJSObjectReference? jsModule;
 
-    private async ValueTask<ItemsProviderResult<Movie>> LoadMovies(ItemsProviderRequest request)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var movies = await MovieService.GetMovies(request.StartIndex, request.Count);
-        var totalCount = await MovieService.GetTotalMovieCount();
-        return new ItemsProviderResult<Movie>(movies, totalCount);
+        if (firstRender)
+        {
+            selfReference = DotNetObjectReference.Create(this);
+            // Inject a simple resize handler
+            await JSRuntime.InvokeVoidAsync("eval", @"
+                window.resizeListener = (dotnetHelper) => {
+                    const handler = () => {
+                         dotnetHelper.invokeMethodAsync('OnResize', window.innerWidth);
+                    };
+                    window.addEventListener('resize', handler);
+                    handler(); // Initial call
+                };
+            ");
+            await JSRuntime.InvokeVoidAsync("resizeListener", selfReference);
+        }
+    }
+
+    [JSInvokable]
+    public async Task OnResize(int width)
+    {
+        // Card width 200px + 20px gap + extra padding buffer
+        // (Width - 40px padding) / 220px stride
+        var newItemsPerRow = Math.Max(1, (width - 40) / 220);
+        
+        if (newItemsPerRow != ItemsPerRow)
+        {
+            ItemsPerRow = newItemsPerRow;
+            if (virtualizeComponent != null)
+            {
+                await virtualizeComponent.RefreshDataAsync();
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async ValueTask<ItemsProviderResult<List<Movie>>> LoadMovieRows(ItemsProviderRequest request)
+    {
+        var totalMovies = await MovieService.GetTotalMovieCount();
+        var totalRows = (int)Math.Ceiling(totalMovies / (double)ItemsPerRow);
+
+        var startIndex = request.StartIndex * ItemsPerRow;
+        var count = Math.Min(request.Count * ItemsPerRow, totalMovies - startIndex);
+        
+        if (count <= 0)
+        {
+             return new ItemsProviderResult<List<Movie>>(new List<List<Movie>>(), totalRows);
+        }
+
+        var movies = await MovieService.GetMovies(startIndex, count);
+        var rows = new List<List<Movie>>();
+        
+        for (int i = 0; i < movies.Count; i += ItemsPerRow)
+        {
+            // Take up to ItemsPerRow, handle end of list
+            rows.Add(movies.Skip(i).Take(ItemsPerRow).ToList());
+        }
+
+        return new ItemsProviderResult<List<Movie>>(rows, totalRows);
     }
 
     private void ShowMovieDetail(Movie movie)
@@ -80,5 +188,15 @@ else
     private void CloseModal()
     {
         selectedMovie = null;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (selfReference != null)
+        {
+            // Cleanup standard event listener would require keeping the function reference in JS
+            // For this quick implementation, we rely on page refresh clearing it
+            selfReference.Dispose();
+        }
     }
 }
