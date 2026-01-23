@@ -1,7 +1,6 @@
 @page "/movies"
 @inject IMovieService MovieService
-
-<PageTitle>Movies</PageTitle>
+@rendermode InteractiveServer
 
 <h1>Movies</h1>
 
@@ -15,14 +14,14 @@ else if (!movies.Any())
 }
 else
 {
-    <ul>
+    <div>
         @foreach (var movie in movies)
         {
-            <li>
+            <div style="padding: 10px; border-bottom: 1px solid #ccc;">
                 <strong>@movie.Title</strong> - <img src="@movie.CoverUrl" alt="@movie.Title" width="100" />
-            </li>
+            </div>
         }
-    </ul>
+    </div>
 }
 
 @code {
