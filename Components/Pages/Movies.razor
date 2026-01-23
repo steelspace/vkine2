@@ -10,7 +10,7 @@ else
     <div>
         <Virtualize ItemsProvider="@LoadMovies" Context="movie">
             <ItemContent>
-                <div style="padding: 10px; border-bottom: 1px solid #ccc;">
+                <div style="padding: 10px; border-bottom: 1px solid #ccc; cursor: pointer;" @onclick="() => ShowMovieDetail(movie)">
                     <strong>@movie.Title</strong> - <img src="@movie.CoverUrl" alt="@movie.Title" width="100" />
                 </div>
             </ItemContent>
@@ -21,13 +21,64 @@ else
             </Placeholder>
         </Virtualize>
     </div>
+
+    @if (selectedMovie != null)
+    {
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <h2>@selectedMovie.Title</h2>
+                <img src="@selectedMovie.CoverUrl" alt="@selectedMovie.Title" style="max-width: 100%; height: auto;" />
+                <p>@selectedMovie.Synopsis</p>
+                <button @onclick="CloseModal">Close</button>
+            </div>
+        </div>
+    }
+
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+            color: black;
+        }
+    </style>
 }
 
 @code {
+    private Movie? selectedMovie;
+
     private async ValueTask<ItemsProviderResult<Movie>> LoadMovies(ItemsProviderRequest request)
     {
         var movies = await MovieService.GetMovies(request.StartIndex, request.Count);
         var totalCount = await MovieService.GetTotalMovieCount();
         return new ItemsProviderResult<Movie>(movies, totalCount);
+    }
+
+    private void ShowMovieDetail(Movie movie)
+    {
+        selectedMovie = movie;
+    }
+
+    private void CloseModal()
+    {
+        selectedMovie = null;
     }
 }
