@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "The Shawshank Redemption",
+    "coverUrl": "https://example.com/covers/shawshank.jpg"
+  },
+  {
+    "id": 2,
+    "title": "The Godfather",
+    "coverUrl": "https://example.com/covers/godfather.jpg"
+  },
+  {
+    "id": 3,
+    "title": "The Dark Knight",
+    "coverUrl": "https://example.com/covers/darkknight.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Pulp Fiction",
+    "coverUrl": "https://example.com/covers/pulpfiction.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Forrest Gump",
+    "coverUrl": "https://example.com/covers/forrestgump.jpg"
+  }
+]

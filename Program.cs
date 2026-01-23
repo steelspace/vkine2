@@ -1,9 +1,11 @@
 using vkine.Components;
+using vkine.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
 
