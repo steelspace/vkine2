@@ -1,41 +1,35 @@
-using System.Text.Json;
+using MongoDB.Driver;
 using vkine.Models;
 
 namespace vkine.Services;
 
 public class MovieService : IMovieService
 {
-    private readonly IWebHostEnvironment environment;
+    private readonly IMongoCollection<MovieDocument> _moviesCollection;
 
-    public MovieService(IWebHostEnvironment environment)
+    public MovieService(IMongoDatabase database)
     {
-        this.environment = environment;
-    }
-
-    private List<Movie>? cachedMovies;
-
-    private async Task EnsureMoviesLoaded()
-    {
-        if (cachedMovies == null)
-        {
-            var filePath = Path.Combine(environment.ContentRootPath, "Data", "movies.json");
-            var jsonData = await File.ReadAllTextAsync(filePath);
-            cachedMovies = JsonSerializer.Deserialize<List<Movie>>(jsonData, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }) ?? new List<Movie>();
-        }
+        _moviesCollection = database.GetCollection<MovieDocument>("movies1");
     }
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
     {
-        await EnsureMoviesLoaded();
-        return cachedMovies!.Skip(startIndex).Take(count).ToList();
+        var documents = await _moviesCollection.Find(_ => true)
+            .Skip(startIndex)
+            .Limit(count)
+            .ToListAsync();
+
+        return documents.Select(d => new Movie
+        {
+            Id = int.TryParse(d.Id, out var id) ? id : 0,
+            Title = !string.IsNullOrEmpty(d.Csfd?.CzechName) ? d.Csfd.CzechName : d.Csfd?.OriginalName ?? string.Empty,
+            Synopsis = d.Csfd?.Plot ?? string.Empty,
+            CoverUrl = d.Csfd?.PosterUrl ?? string.Empty
+        }).ToList();
     }
 
     public async Task<int> GetTotalMovieCount()
     {
-        await EnsureMoviesLoaded();
-        return cachedMovies!.Count;
+        return (int)await _moviesCollection.CountDocumentsAsync(_ => true);
     }
 }

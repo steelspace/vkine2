@@ -1,11 +1,17 @@
 using vkine.Components;
 using vkine.Services;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+var connectionString = builder.Configuration.GetConnectionString("MongoDb");
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
+builder.Services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDatabase("movies"));
+
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
