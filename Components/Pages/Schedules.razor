@@ -1,0 +1,63 @@
+@page "/schedules"
+@inject IMovieService MovieService
+@rendermode InteractiveServer
+
+<PageTitle>Today's Movie Schedules</PageTitle>
+
+@if (schedules == null)
+{
+    <p>Loading schedules...</p>
+}
+else if (!schedules.Any())
+{
+    <p>No movie schedules found for today.</p>
+}
+else
+{
+    <h1>Movies Showing Today</h1>
+    @foreach (var schedule in schedules)
+    {
+        <div class="movie-schedule">
+            <h2>@schedule.MovieTitle</h2>
+            @foreach (var performance in schedule.Performances)
+            {
+                <div class="venue">
+                    <h3>Venue @performance.VenueId</h3>
+                    <ul>
+                        @foreach (var showtime in performance.Showtimes)
+                        {
+                            <li>
+                                @showtime.StartAt.ToLocalTime().ToString("HH:mm")
+                                @if (showtime.TicketsAvailable)
+                                {
+                                    <span> - Tickets Available</span>
+                                    @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                                    {
+                                        <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <span> - Sold Out</span>
+                                }
+                                @if (showtime.Badges.Any())
+                                {
+                                    <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    }
+}
+
+@code {
+    private List<ScheduleDocument>? schedules;
+
+    protected override async Task OnInitializedAsync()
+    {
+        schedules = await MovieService.GetTodaysSchedules();
+    }
+}
