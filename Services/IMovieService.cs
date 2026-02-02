@@ -6,5 +6,5 @@ public interface IMovieService
 {
     Task<List<Movie>> GetMovies(int startIndex, int count);
     Task<int> GetTotalMovieCount();
-    Task<List<ScheduleDocument>> GetTodaysSchedules();
+    Task<List<Schedule>> GetTodaysSchedules();
 }

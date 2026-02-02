@@ -21,40 +21,76 @@ else
             <h2>@schedule.MovieTitle</h2>
             @foreach (var performance in schedule.Performances)
             {
-                <div class="venue">
-                    <h3>Venue @performance.VenueId</h3>
-                    <ul>
-                        @foreach (var showtime in performance.Showtimes)
-                        {
-                            <li>
-                                @showtime.StartAt.ToLocalTime().ToString("HH:mm")
-                                @if (showtime.TicketsAvailable)
-                                {
-                                    <span> - Tickets Available</span>
-                                    @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                @if (performance.Venue != null)
+                {
+                    <div class="venue">
+                        <h3>
+                            <a href="@performance.Venue.DetailUrl" target="_blank">@performance.Venue.Name</a>
+                            <small> - <a href="@performance.Venue.MapUrl" target="_blank">@performance.Venue.Address</a></small>
+                        </h3>
+                        <ul>
+                            @foreach (var showtime in performance.Showtimes)
+                            {
+                                <li>
+                                    @showtime.StartAt.ToLocalTime().ToString("HH:mm")
+                                    @if (showtime.TicketsAvailable)
                                     {
-                                        <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
+                                        <span> - Tickets Available</span>
+                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                                        {
+                                            <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    <span> - Sold Out</span>
-                                }
-                                @if (showtime.Badges.Any())
-                                {
-                                    <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </div>
+                                    else
+                                    {
+                                        <span> - Sold Out</span>
+                                    }
+                                    @if (showtime.Badges.Any())
+                                    {
+                                        <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="venue">
+                        <h3>Venue @performance.VenueId</h3>
+                        <ul>
+                            @foreach (var showtime in performance.Showtimes)
+                            {
+                                <li>
+                                    @showtime.StartAt.ToLocalTime().ToString("HH:mm")
+                                    @if (showtime.TicketsAvailable)
+                                    {
+                                        <span> - Tickets Available</span>
+                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                                        {
+                                            <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span> - Sold Out</span>
+                                    }
+                                    @if (showtime.Badges.Any())
+                                    {
+                                        <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             }
         </div>
     }
 }
 
 @code {
-    private List<ScheduleDocument>? schedules;
+    private List<Schedule>? schedules;
 
     protected override async Task OnInitializedAsync()
     {

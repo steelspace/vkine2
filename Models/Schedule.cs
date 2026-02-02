@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace vkine.Models;
 
 [BsonIgnoreExtraElements]
-public class ScheduleDocument
+public class Schedule
 {
     [BsonId]
     public ObjectId Id { get; set; }
@@ -33,6 +33,8 @@ public class Performance
 
     [BsonElement("showtimes")]
     public List<Showtime> Showtimes { get; set; } = new();
+
+    public Venue? Venue { get; set; }
 }
 
 [BsonIgnoreExtraElements]
