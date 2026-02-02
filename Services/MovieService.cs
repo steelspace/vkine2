@@ -19,17 +19,17 @@ public class MovieService : IMovieService
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
     {
-        var documents = await _moviesCollection.Find(_ => true)
+var documents = await _moviesCollection.Find(_ => true)
             .Skip(startIndex)
             .Limit(count)
             .ToListAsync();
 
         return documents.Select(d => new Movie
         {
-            Id = int.TryParse(d.Id, out var id) ? id : 0,
-            Title = !string.IsNullOrEmpty(d.Csfd?.CzechName) ? d.Csfd.CzechName : d.Csfd?.OriginalName ?? string.Empty,
-            Synopsis = d.Csfd?.Plot ?? string.Empty,
-            CoverUrl = d.Csfd?.PosterUrl ?? string.Empty
+            Id = d.CsfdId ?? d.TmdbId ?? 0,
+            Title = !string.IsNullOrEmpty(d.Title) ? d.Title : d.LocalizedTitles?.Original ?? string.Empty,
+            Synopsis = d.Description ?? string.Empty,
+            CoverUrl = d.PosterUrl ?? string.Empty
         }).ToList();
     }
 

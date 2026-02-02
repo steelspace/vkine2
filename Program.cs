@@ -8,7 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-var connectionString = builder.Configuration.GetConnectionString("MongoDb");
+var connectionString = builder.Configuration.GetConnectionString("MongoDb")
+    ?? builder.Configuration["ConnectionStrings:MongoDb"]
+    ?? builder.Configuration["MongoDb"];
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    // Helpful message when configuration is missing; in development prefer user-secrets or env vars
+    throw new InvalidOperationException("MongoDB connection string not configured. Set 'ConnectionStrings:MongoDb' in user-secrets or an environment variable.");
+}
+
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
 builder.Services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDatabase("movies"));
 
