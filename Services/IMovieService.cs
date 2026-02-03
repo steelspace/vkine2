@@ -8,4 +8,5 @@ public interface IMovieService
     Task<int> GetTotalMovieCount();
     Task<List<Schedule>> GetTodaysSchedules();
     Task<List<Schedule>> SearchTodaysSchedules(string query);
+    void InvalidatePerformanceCache();
 }
