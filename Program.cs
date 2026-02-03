@@ -10,8 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var connectionString = builder.Configuration.GetConnectionString("MongoDb")
-    ?? builder.Configuration["ConnectionStrings:MongoDb"]
-    ?? builder.Configuration["MongoDb"];
+    ?? builder.Configuration["ConnectionStrings:MongoDb"];
 
 if (string.IsNullOrWhiteSpace(connectionString))
 {
