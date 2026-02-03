@@ -262,3 +262,81 @@
     background-color: #eef2ff;
     color: #3730a3;
 }
+
+.schedule-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    padding: 1.5rem;
+}
+
+.schedule-modal {
+    position: relative;
+    width: min(960px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 1.25rem;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: #0f172a;
+}
+
+.schedule-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: 9999px;
+    background-color: rgba(148, 163, 184, 0.2);
+    color: #0f172a;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.schedule-modal-close:hover {
+    background-color: rgba(99, 102, 241, 0.2);
+}
+
+.schedule-modal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.schedule-modal-title {
+    font-size: clamp(1.5rem, 2vw, 2.4rem);
+    font-weight: 700;
+}
+
+.schedule-modal-backdrop {
+    border-radius: 1rem;
+    height: clamp(180px, 30vw, 260px);
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+}
+
+.schedule-modal-performances {
+    gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+    .schedule-modal {
+        padding: 1.5rem;
+    }
+
+    .schedule-modal-close {
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+}
