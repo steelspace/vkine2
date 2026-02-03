@@ -114,19 +114,12 @@
                                     {
                                         <div class="showtime-item">
                                             <span class="showtime-time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
-                                            @if (showtime.TicketsAvailable)
-                                            {
-                                                <span class="showtime-status available">Tickets available</span>
-                                                @if (!string.IsNullOrEmpty(showtime.TicketUrl))
-                                                {
-                                                    <a class="showtime-link" href="@showtime.TicketUrl" target="_blank" rel="noopener noreferrer">Buy Tickets</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <span class="showtime-status soldout">Sold out</span>
-                                            }
 
+                                            @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                                            {
+                                                <a class="showtime-link" href="@showtime.TicketUrl" target="_blank" rel="noopener noreferrer">Buy Tickets</a>
+                                            }
+                                            
                                             @if (showtime.Badges.Any())
                                             {
                                                 <div class="showtime-badges">
