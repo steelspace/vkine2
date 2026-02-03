@@ -4,6 +4,10 @@
 
 <PageTitle>Today's Movie Schedules</PageTitle>
 
+<div class="search-bar" style="margin-bottom:1rem">
+    <input placeholder="Search title, description or crew..." @oninput="OnSearchInput" value="@searchQuery" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid #ccc;" />
+</div>
+
 @if (schedules == null)
 {
     <p>Loading schedules...</p>
@@ -91,9 +95,38 @@ else
 
 @code {
     private List<Schedule>? schedules;
+    private string searchQuery = string.Empty;
+    private CancellationTokenSource? searchCts;
 
     protected override async Task OnInitializedAsync()
     {
         schedules = await MovieService.GetTodaysSchedules();
+    }
+
+    private async Task OnSearchInput(ChangeEventArgs e)
+    {
+        searchQuery = e?.Value?.ToString() ?? string.Empty;
+
+        // debounce
+        searchCts?.Cancel();
+        searchCts = new CancellationTokenSource();
+        var token = searchCts.Token;
+
+        try
+        {
+            await Task.Delay(350, token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+
+        await PerformSearchAsync(searchQuery);
+    }
+
+    private async Task PerformSearchAsync(string query)
+    {
+        schedules = await MovieService.SearchTodaysSchedules(query);
+        StateHasChanged();
     }
 }
