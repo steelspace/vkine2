@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -10,6 +11,7 @@ public class Movie
     public string Synopsis { get; set; } = string.Empty;
     public string CoverUrl { get; set; } = string.Empty;
     public string BackdropUrl { get; set; } = string.Empty;
+    public List<string> OriginCountries { get; set; } = new();
 }
 
 [BsonIgnoreExtraElements]
@@ -38,6 +40,12 @@ public class MovieDocument
 
     [BsonElement("localized_titles")]
     public LocalizedTitles? LocalizedTitles { get; set; }
+
+    [BsonElement("origin")]
+    public string? Origin { get; set; }
+
+    [BsonElement("origin_countries")]
+    public List<string>? OriginCountries { get; set; }
 }
 
 [BsonIgnoreExtraElements]

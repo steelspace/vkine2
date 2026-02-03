@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
@@ -229,7 +230,8 @@ public class MovieService : IMovieService
             Title = !string.IsNullOrEmpty(document.Title) ? document.Title : document.LocalizedTitles?.Original ?? string.Empty,
             Synopsis = document.Description ?? string.Empty,
             CoverUrl = document.PosterUrl ?? string.Empty,
-            BackdropUrl = document.BackdropUrl ?? string.Empty
+            BackdropUrl = document.BackdropUrl ?? string.Empty,
+            OriginCountries = ResolveOriginCountries(document)
         };
     }
 
@@ -248,4 +250,29 @@ public class MovieService : IMovieService
 
     private static string GetMovieCacheKey(int index) => $"movie-index-{index}";
     private static string GetMovieByIdCacheKey(int id) => $"movie-id-{id}";
+
+    private static List<string> ResolveOriginCountries(MovieDocument document)
+    {
+        if (document.OriginCountries != null && document.OriginCountries.Count > 0)
+        {
+            return document.OriginCountries
+                .Where(country => !string.IsNullOrWhiteSpace(country))
+                .Select(country => country.Trim())
+                .Where(country => country.Length > 0)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        if (!string.IsNullOrWhiteSpace(document.Origin))
+        {
+            return document.Origin
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(country => country.Trim())
+                .Where(country => country.Length > 0)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        return new List<string>();
+    }
 }

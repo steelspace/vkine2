@@ -68,6 +68,11 @@
                                 <p class="detail-description">@movie.Synopsis</p>
                             }
 
+                            @if (movie?.OriginCountries.Count > 0)
+                            {
+                                <div class="detail-origin">Origin: @string.Join(", ", movie.OriginCountries)</div>
+                            }
+
                             <div class="detail-performances">
                                 @foreach (var performance in schedule.Performances)
                                 {

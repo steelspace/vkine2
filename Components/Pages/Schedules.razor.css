@@ -154,6 +154,11 @@
     line-height: 1.5;
 }
 
+.detail-origin {
+    font-weight: 600;
+    color: #1f2937;
+}
+
 .detail-performances {
     display: flex;
     flex-direction: column;

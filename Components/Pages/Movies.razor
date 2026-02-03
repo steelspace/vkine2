@@ -42,6 +42,10 @@ else
             <div class="modal-content" @onclick:stopPropagation="true">
                 <h2>@selectedMovie.Title</h2>
                 <img src="@selectedMovie.CoverUrl" alt="@selectedMovie.Title" style="max-width: 100%; height: auto;" />
+                @if (selectedMovie.OriginCountries.Count > 0)
+                {
+                    <p class="movie-origin">Origin: @string.Join(", ", selectedMovie.OriginCountries)</p>
+                }
                 <p>@selectedMovie.Synopsis</p>
                 <button @onclick="CloseModal">Close</button>
             </div>
