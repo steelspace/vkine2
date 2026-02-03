@@ -13,6 +13,8 @@ public sealed class PerformanceCache
     private readonly object _sync = new();
     private List<Schedule>? _cachedSchedules;
     private DateOnly _cachedDay;
+    private Task<List<Schedule>>? _inFlight;
+    private DateOnly _inFlightDay;
 
     public PerformanceCache(IMongoCollection<Schedule> schedulesCollection, IMongoCollection<Venue> venuesCollection)
     {
@@ -22,40 +24,28 @@ public sealed class PerformanceCache
 
     public async Task<List<Schedule>> GetAsync(DateOnly day)
     {
+        Task<List<Schedule>>? pending;
+
         lock (_sync)
         {
             if (_cachedSchedules != null && _cachedDay == day)
             {
                 return new List<Schedule>(_cachedSchedules);
             }
-        }
 
-        var start = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-        var end = start.AddDays(1);
-
-        var filter = Builders<Schedule>.Filter.And(
-            Builders<Schedule>.Filter.Gte(s => s.Date, start),
-            Builders<Schedule>.Filter.Lt(s => s.Date, end)
-        );
-
-        var schedules = await _schedulesCollection.Find(filter).ToListAsync();
-        var venues = await _venuesCollection.Find(_ => true).ToListAsync();
-        var venueMap = venues.ToDictionary(v => v.VenueId);
-
-        foreach (var schedule in schedules)
-        {
-            foreach (var performance in schedule.Performances)
+            if (_inFlight != null && _inFlightDay == day)
             {
-                performance.Venue = venueMap.TryGetValue(performance.VenueId, out var venue) ? venue : null;
+                pending = _inFlight;
+            }
+            else
+            {
+                pending = LoadAsync(day);
+                _inFlight = pending;
+                _inFlightDay = day;
             }
         }
 
-        lock (_sync)
-        {
-            _cachedSchedules = schedules;
-            _cachedDay = day;
-            return new List<Schedule>(_cachedSchedules);
-        }
+        return await pending;
     }
 
     public void Clear()
@@ -64,6 +54,52 @@ public sealed class PerformanceCache
         {
             _cachedSchedules = null;
             _cachedDay = default;
+            _inFlight = null;
+            _inFlightDay = default;
+        }
+        }
+
+    private async Task<List<Schedule>> LoadAsync(DateOnly day)
+    {
+        try
+        {
+            var start = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+            var end = start.AddDays(1);
+
+            var filter = Builders<Schedule>.Filter.And(
+                Builders<Schedule>.Filter.Gte(s => s.Date, start),
+                Builders<Schedule>.Filter.Lt(s => s.Date, end)
+            );
+
+            var schedules = await _schedulesCollection.Find(filter).ToListAsync();
+            var venues = await _venuesCollection.Find(_ => true).ToListAsync();
+            var venueMap = venues.ToDictionary(v => v.VenueId);
+
+            foreach (var schedule in schedules)
+            {
+                foreach (var performance in schedule.Performances)
+                {
+                    performance.Venue = venueMap.TryGetValue(performance.VenueId, out var venue) ? venue : null;
+                }
+            }
+
+            lock (_sync)
+            {
+                _cachedSchedules = schedules;
+                _cachedDay = day;
+                return new List<Schedule>(_cachedSchedules);
+            }
+        }
+        finally
+        {
+            lock (_sync)
+            {
+                if (_inFlightDay == day)
+                {
+                    _inFlight = null;
+                    _inFlightDay = default;
+                }
+            }
         }
     }
 }
