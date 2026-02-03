@@ -1,26 +1,26 @@
+using Microsoft.Extensions.Caching.Memory;
 using MongoDB.Driver;
 using vkine.Models;
 using vkine.Services.Caching;
+using vkine.Services.Search;
 
 namespace vkine.Services;
 
 public class MovieService : IMovieService
 {
-    private const int MovieCacheCapacity = 256;
-
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
     private readonly PerformanceCache _performanceCache;
     private readonly IScheduleSearchService _scheduleSearchService;
-    private readonly MovieCache _movieCache;
+    private readonly IMemoryCache _memoryCache;
 
-    public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService)
+    public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService, IMemoryCache memoryCache)
     {
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
         var schedulesCollection = database.GetCollection<Schedule>("schedule");
         var venuesCollection = database.GetCollection<Venue>("venues");
         _performanceCache = new PerformanceCache(schedulesCollection, venuesCollection);
-        _movieCache = new MovieCache(MovieCacheCapacity);
         _scheduleSearchService = scheduleSearchService;
+        _memoryCache = memoryCache;
     }
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
@@ -37,7 +37,20 @@ public class MovieService : IMovieService
             return new List<Movie>();
         }
 
-        var cacheHits = _movieCache.SnapshotForIndexes(indexList, out var missingIndexes);
+        var moviesByIndex = new Dictionary<int, Movie>(indexList.Count);
+        var missingIndexes = new List<int>();
+
+        foreach (var index in indexList)
+        {
+            if (_memoryCache.TryGetValue(GetMovieCacheKey(index), out Movie? cached) && cached is not null)
+            {
+                moviesByIndex[index] = cached;
+            }
+            else
+            {
+                missingIndexes.Add(index);
+            }
+        }
 
         if (missingIndexes.Count > 0)
         {
@@ -67,8 +80,11 @@ public class MovieService : IMovieService
                 {
                     var index = rangeStart + offset;
                     var movie = mapped[offset];
-                    cacheHits[index] = movie;
-                    _movieCache.Store(index, movie);
+                    moviesByIndex[index] = movie;
+                    _memoryCache.Set(GetMovieCacheKey(index), movie, new MemoryCacheEntryOptions
+                    {
+                        Size = 1
+                    });
                 }
             }
         }
@@ -77,7 +93,7 @@ public class MovieService : IMovieService
 
         foreach (var index in indexList)
         {
-            if (cacheHits.TryGetValue(index, out var movie))
+            if (moviesByIndex.TryGetValue(index, out var movie))
             {
                 ordered.Add(movie);
             }
@@ -146,4 +162,5 @@ public class MovieService : IMovieService
         yield return (start, length);
     }
 
+    private static string GetMovieCacheKey(int index) => $"movie-index-{index}";
 }

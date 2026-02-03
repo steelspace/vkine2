@@ -22,6 +22,7 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
 builder.Services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDatabase("movies"));
 
+builder.Services.AddMemoryCache(options => options.SizeLimit = 256);
 builder.Services.AddSingleton<IScheduleSearchService, ScheduleSearchService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 

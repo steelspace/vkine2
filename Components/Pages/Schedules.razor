@@ -54,15 +54,10 @@ else
                                     @showtime.StartAt.ToLocalTime().ToString("HH:mm")
                                     @if (showtime.TicketsAvailable)
                                     {
-                                        <span> - Tickets Available</span>
                                         @if (!string.IsNullOrEmpty(showtime.TicketUrl))
                                         {
                                             <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
                                         }
-                                    }
-                                    else
-                                    {
-                                        <span> - Sold Out</span>
                                     }
                                     @if (showtime.Badges.Any())
                                     {
