@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using MongoDB.Driver;
 using vkine.Models;
@@ -67,13 +69,7 @@ public class MovieService : IMovieService
                 }
 
                 var mapped = documents
-                    .Select(d => new Movie
-                    {
-                        Id = d.CsfdId ?? d.TmdbId ?? 0,
-                        Title = !string.IsNullOrEmpty(d.Title) ? d.Title : d.LocalizedTitles?.Original ?? string.Empty,
-                        Synopsis = d.Description ?? string.Empty,
-                        CoverUrl = d.PosterUrl ?? string.Empty
-                    })
+                    .Select(document => MapMovieDocument(document))
                     .ToList();
 
                 for (var offset = 0; offset < mapped.Count; offset++)
@@ -85,6 +81,10 @@ public class MovieService : IMovieService
                     {
                         Size = 1
                     });
+                    if (movie.Id > 0)
+                    {
+                        CacheMovieById(movie.Id, movie);
+                    }
                 }
             }
         }
@@ -127,6 +127,65 @@ public class MovieService : IMovieService
         return _scheduleSearchService.FilterByQuery(schedules, query);
     }
 
+    public async Task<Dictionary<int, Movie>> GetMoviesByIdsAsync(IEnumerable<int> ids)
+    {
+        if (ids == null)
+        {
+            return new Dictionary<int, Movie>();
+        }
+
+        var candidates = ids.Where(id => id > 0).Distinct().ToList();
+
+        if (candidates.Count == 0)
+        {
+            return new Dictionary<int, Movie>();
+        }
+
+        var result = new Dictionary<int, Movie>(candidates.Count);
+        var missing = new List<int>();
+
+        foreach (var id in candidates)
+        {
+            if (_memoryCache.TryGetValue(GetMovieByIdCacheKey(id), out Movie? cached) && cached is not null)
+            {
+                result[id] = cached;
+            }
+            else
+            {
+                missing.Add(id);
+            }
+        }
+
+        if (missing.Count > 0)
+        {
+            var missingSet = new HashSet<int>(missing);
+            var csfdFilter = Builders<MovieDocument>.Filter.In(d => d.CsfdId, missing.Select(id => (int?)id));
+            var tmdbFilter = Builders<MovieDocument>.Filter.In(d => d.TmdbId, missing.Select(id => (int?)id));
+            var filter = Builders<MovieDocument>.Filter.Or(csfdFilter, tmdbFilter);
+
+            var documents = await _moviesCollection.Find(filter).ToListAsync();
+
+            foreach (var document in documents)
+            {
+                if (document.CsfdId.HasValue && missingSet.Remove(document.CsfdId.Value))
+                {
+                    var movie = MapMovieDocument(document, document.CsfdId.Value);
+                    result[document.CsfdId.Value] = movie;
+                    CacheMovieById(document.CsfdId.Value, movie);
+                }
+
+                if (document.TmdbId.HasValue && missingSet.Remove(document.TmdbId.Value))
+                {
+                    var movie = MapMovieDocument(document, document.TmdbId.Value);
+                    result[document.TmdbId.Value] = movie;
+                    CacheMovieById(document.TmdbId.Value, movie);
+                }
+            }
+        }
+
+        return result;
+    }
+
     public void InvalidatePerformanceCache()
     {
         _performanceCache.Clear();
@@ -162,5 +221,31 @@ public class MovieService : IMovieService
         yield return (start, length);
     }
 
+    private static Movie MapMovieDocument(MovieDocument document, int? forcedId = null)
+    {
+        return new Movie
+        {
+            Id = forcedId ?? document.CsfdId ?? document.TmdbId ?? 0,
+            Title = !string.IsNullOrEmpty(document.Title) ? document.Title : document.LocalizedTitles?.Original ?? string.Empty,
+            Synopsis = document.Description ?? string.Empty,
+            CoverUrl = document.PosterUrl ?? string.Empty,
+            BackdropUrl = document.BackdropUrl ?? string.Empty
+        };
+    }
+
+    private void CacheMovieById(int movieId, Movie movie)
+    {
+        if (movieId <= 0)
+        {
+            return;
+        }
+
+        _memoryCache.Set(GetMovieByIdCacheKey(movieId), movie, new MemoryCacheEntryOptions
+        {
+            Size = 1
+        });
+    }
+
     private static string GetMovieCacheKey(int index) => $"movie-index-{index}";
+    private static string GetMovieByIdCacheKey(int id) => $"movie-id-{id}";
 }

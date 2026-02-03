@@ -4,116 +4,153 @@
 
 <PageTitle>Today's Movie Schedules</PageTitle>
 
-<div class="search-bar" style="margin-bottom:1rem">
-    <input placeholder="Search title, description or crew..." @oninput="OnSearchInput" value="@searchQuery" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid #ccc;" />
-</div>
+<div class="schedule-page">
+    <div class="schedule-controls">
+        <div class="search-bar">
+            <input placeholder="Search title, description or crew..." @oninput="OnSearchInput" value="@searchQuery" />
+        </div>
 
-@if (badgeOptions.Any())
-{
-    <div class="badge-filter-container" style="margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
-        @foreach (var option in badgeOptions)
+        @if (badgeOptions.Any())
         {
-            <label class="badge-filter" style="display:flex;align-items:center;gap:0.25rem;">
-                <input type="checkbox"
-                       checked="@activeBadgeCodes.Contains(option.Code)"
-                       @onchange="e => OnBadgeToggle(option.Code, e)" />
-                @option.Label
-            </label>
+            <div class="badge-filter-container">
+                @foreach (var option in badgeOptions)
+                {
+                    <label class="badge-filter">
+                        <input type="checkbox"
+                               checked="@activeBadgeCodes.Contains(option.Code)"
+                               @onchange="e => OnBadgeToggle(option.Code, e)" />
+                        <span>@option.Label</span>
+                    </label>
+                }
+            </div>
         }
     </div>
-}
 
-@if (schedules == null)
-{
-    <p>Loading schedules...</p>
-}
-else if (!schedules.Any())
-{
-    <p>No movie schedules found for today.</p>
-}
-else
-{
-    <h1>Movies Showing Today</h1>
-    @foreach (var schedule in schedules)
+    @if (schedules == null)
     {
-        <div class="movie-schedule">
-            <h2>@schedule.MovieTitle</h2>
-            @foreach (var performance in schedule.Performances)
+        <p>Loading schedules...</p>
+    }
+    else if (!schedules.Any())
+    {
+        <p>No movie schedules found for today.</p>
+    }
+    else
+    {
+        <div class="schedule-grid">
+            @foreach (var schedule in schedules)
             {
-                @if (performance.Venue != null)
-                {
-                    <div class="venue">
-                        <h3>
-                            <a href="@performance.Venue.DetailUrl" target="_blank">@performance.Venue.Name</a>
-                            <small> - <a href="@performance.Venue.MapUrl" target="_blank">@performance.Venue.Address</a></small>
-                        </h3>
-                        <ul>
-                            @foreach (var showtime in performance.Showtimes)
+                var movie = LookupMovie(schedule.MovieId);
+                <div class="schedule-card">
+                    <div class="card-main" role="button" tabindex="0" @onclick="() => ToggleScheduleDetail(schedule.MovieId)" @onkeydown="e => OnCardKeyDown(e, schedule.MovieId)">
+                        <div class="card-cover">
+                            @if (!string.IsNullOrWhiteSpace(movie?.CoverUrl))
                             {
-                                <li>
-                                    @showtime.StartAt.ToLocalTime().ToString("HH:mm")
-                                    @if (showtime.TicketsAvailable)
-                                    {
-                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
-                                        {
-                                            <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
-                                        }
-                                    }
-                                    @if (showtime.Badges.Any())
-                                    {
-                                        <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
-                                    }
-                                </li>
+                                <img src="@movie.CoverUrl" alt="@schedule.MovieTitle" loading="lazy" />
                             }
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div class="venue">
-                        <h3>Venue @performance.VenueId</h3>
-                        <ul>
-                            @foreach (var showtime in performance.Showtimes)
+                            else
                             {
-                                <li>
-                                    @showtime.StartAt.ToLocalTime().ToString("HH:mm")
-                                    @if (showtime.TicketsAvailable)
-                                    {
-                                        <span> - Tickets Available</span>
-                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
-                                        {
-                                            <a href="@showtime.TicketUrl" target="_blank">Buy Tickets</a>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span> - Sold Out</span>
-                                    }
-                                    @if (showtime.Badges.Any())
-                                    {
-                                        <span> (@string.Join(", ", showtime.Badges.Select(b => b.Description)))</span>
-                                    }
-                                </li>
+                                <div class="cover-fallback">@BuildFallbackLabel(schedule.MovieTitle)</div>
                             }
-                        </ul>
+                        </div>
+                        <div class="card-title">@schedule.MovieTitle</div>
                     </div>
-                }
+
+                    @if (expandedMovieId == schedule.MovieId)
+                    {
+                        <div class="card-detail">
+                            @if (!string.IsNullOrWhiteSpace(movie?.BackdropUrl))
+                            {
+                                <div class="detail-backdrop" style="@BuildBackdropStyle(movie)"></div>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(movie?.Synopsis))
+                            {
+                                <p class="detail-description">@movie.Synopsis</p>
+                            }
+
+                            <div class="detail-performances">
+                                @foreach (var performance in schedule.Performances)
+                                {
+                                    <div class="detail-venue">
+                                        <div class="venue-header">
+                                            @if (performance.Venue != null)
+                                            {
+                                                <div class="venue-name">
+                                                    @if (!string.IsNullOrWhiteSpace(performance.Venue.DetailUrl))
+                                                    {
+                                                        <a href="@performance.Venue.DetailUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Name</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        @performance.Venue.Name
+                                                    }
+                                                </div>
+                                                @if (!string.IsNullOrWhiteSpace(performance.Venue.MapUrl))
+                                                {
+                                                    <a class="venue-map" href="@performance.Venue.MapUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Address</a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="venue-name">Venue @performance.VenueId</div>
+                                            }
+                                        </div>
+
+                                        <div class="showtime-list">
+                                            @foreach (var showtime in performance.Showtimes)
+                                            {
+                                                <div class="showtime-item">
+                                                    <span class="showtime-time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
+                                                    @if (showtime.TicketsAvailable)
+                                                    {
+                                                        <span class="showtime-status available">Tickets available</span>
+                                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
+                                                        {
+                                                            <a class="showtime-link" href="@showtime.TicketUrl" target="_blank" rel="noopener noreferrer">Buy Tickets</a>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="showtime-status soldout">Sold out</span>
+                                                    }
+
+                                                    @if (showtime.Badges.Any())
+                                                    {
+                                                        <div class="showtime-badges">
+                                                            @foreach (var badge in showtime.Badges)
+                                                            {
+                                                                <span class="showtime-badge">@(!string.IsNullOrWhiteSpace(badge.Description) ? badge.Description : badge.Code)</span>
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
             }
         </div>
     }
-}
+</div>
 
 @code {
+    private readonly Dictionary<int, Movie> movieDetails = new();
     private List<Schedule>? schedules;
     private List<Schedule>? allSchedules;
     private string searchQuery = string.Empty;
     private CancellationTokenSource? searchCts;
     private List<BadgeOption> badgeOptions = new();
     private HashSet<string> activeBadgeCodes = new(StringComparer.OrdinalIgnoreCase);
+    private int? expandedMovieId;
 
     protected override async Task OnInitializedAsync()
     {
         allSchedules = await MovieService.GetTodaysSchedules();
+        await EnsureMovieDetailsAsync(allSchedules);
         UpdateBadgeFilters(allSchedules);
         ApplyFilters();
     }
@@ -122,8 +159,8 @@ else
     {
         searchQuery = e?.Value?.ToString() ?? string.Empty;
 
-        // debounce
         searchCts?.Cancel();
+        searchCts?.Dispose();
         searchCts = new CancellationTokenSource();
         var token = searchCts.Token;
 
@@ -137,21 +174,21 @@ else
         }
 
         await PerformSearchAsync(searchQuery);
+        searchCts?.Dispose();
+        searchCts = null;
     }
 
     private async Task PerformSearchAsync(string query)
     {
         allSchedules = await MovieService.SearchTodaysSchedules(query);
+        await EnsureMovieDetailsAsync(allSchedules);
         UpdateBadgeFilters(allSchedules);
         ApplyFilters();
     }
 
     private void OnBadgeToggle(string code, ChangeEventArgs e)
     {
-        if (!bool.TryParse(e?.Value?.ToString(), out var isChecked))
-        {
-            isChecked = false;
-        }
+        var isChecked = IsCheckboxChecked(e);
 
         if (isChecked)
         {
@@ -163,6 +200,73 @@ else
         }
 
         ApplyFilters();
+    }
+
+    private async Task EnsureMovieDetailsAsync(List<Schedule>? dataset)
+    {
+        if (dataset == null || dataset.Count == 0)
+        {
+            return;
+        }
+
+        var missingIds = dataset
+            .Select(schedule => schedule.MovieId)
+            .Where(id => id > 0 && !movieDetails.ContainsKey(id))
+            .Distinct()
+            .ToList();
+
+        if (missingIds.Count == 0)
+        {
+            return;
+        }
+
+        var fetched = await MovieService.GetMoviesByIdsAsync(missingIds);
+
+        foreach (var kvp in fetched)
+        {
+            movieDetails[kvp.Key] = kvp.Value;
+        }
+    }
+
+    private Movie? LookupMovie(int movieId)
+    {
+        if (movieDetails.TryGetValue(movieId, out var movie))
+        {
+            return movie;
+        }
+
+        return null;
+    }
+
+    private void ToggleScheduleDetail(int movieId)
+    {
+        expandedMovieId = expandedMovieId == movieId ? null : movieId;
+    }
+
+    private void OnCardKeyDown(KeyboardEventArgs args, int movieId)
+    {
+        if (args == null)
+        {
+            return;
+        }
+
+        if (args.Key.Equals("Enter", StringComparison.OrdinalIgnoreCase) ||
+            args.Key.Equals(" ", StringComparison.Ordinal) ||
+            args.Key.Equals("Space", StringComparison.OrdinalIgnoreCase))
+        {
+            ToggleScheduleDetail(movieId);
+        }
+    }
+
+    private static bool IsCheckboxChecked(ChangeEventArgs args)
+    {
+        return args?.Value switch
+        {
+            bool boolean => boolean,
+            string text when text.Equals("on", StringComparison.OrdinalIgnoreCase) => true,
+            string text when bool.TryParse(text, out var parsed) => parsed,
+            _ => false
+        };
     }
 
     private void UpdateBadgeFilters(List<Schedule>? dataset)
@@ -233,12 +337,14 @@ else
         if (allSchedules == null)
         {
             schedules = null;
+            expandedMovieId = null;
             return;
         }
 
         if (!badgeOptions.Any() || activeBadgeCodes.Count == badgeOptions.Count)
         {
             schedules = allSchedules;
+            EnsureExpandedScheduleStillVisible();
             return;
         }
 
@@ -283,6 +389,59 @@ else
         }
 
         schedules = filtered;
+        EnsureExpandedScheduleStillVisible();
+    }
+
+    private void EnsureExpandedScheduleStillVisible()
+    {
+        if (!expandedMovieId.HasValue)
+        {
+            return;
+        }
+
+        if (schedules == null || !schedules.Any(schedule => schedule.MovieId == expandedMovieId.Value))
+        {
+            expandedMovieId = null;
+        }
+    }
+
+    private static string BuildFallbackLabel(string title)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            return "?";
+        }
+
+        var trimmed = title.Trim();
+
+        if (trimmed.Length == 0)
+        {
+            return "?";
+        }
+
+        var first = char.ToUpperInvariant(trimmed[0]);
+        char? second = null;
+
+        for (var i = 1; i < trimmed.Length && !second.HasValue; i++)
+        {
+            if (char.IsWhiteSpace(trimmed[i - 1]) && char.IsLetterOrDigit(trimmed[i]))
+            {
+                second = char.ToUpperInvariant(trimmed[i]);
+            }
+        }
+
+        return second.HasValue ? $"{first}{second.Value}" : first.ToString();
+    }
+
+    private static string BuildBackdropStyle(Movie? movie)
+    {
+        if (movie == null || string.IsNullOrWhiteSpace(movie.BackdropUrl))
+        {
+            return string.Empty;
+        }
+
+        var safeUrl = movie.BackdropUrl.Replace("'", "%27", StringComparison.Ordinal);
+        return $"background-image: url('{safeUrl}')";
     }
 
     private sealed class BadgeOption

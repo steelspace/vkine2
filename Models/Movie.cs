@@ -9,6 +9,7 @@ public class Movie
     public string Title { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;
     public string CoverUrl { get; set; } = string.Empty;
+    public string BackdropUrl { get; set; } = string.Empty;
 }
 
 [BsonIgnoreExtraElements]
@@ -31,6 +32,9 @@ public class MovieDocument
 
     [BsonElement("poster_url")]
     public string? PosterUrl { get; set; }
+
+    [BsonElement("backdrop_url")]
+    public string? BackdropUrl { get; set; }
 
     [BsonElement("localized_titles")]
     public LocalizedTitles? LocalizedTitles { get; set; }

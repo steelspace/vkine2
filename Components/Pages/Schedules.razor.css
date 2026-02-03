@@ -1,0 +1,259 @@
+.schedule-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.schedule-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .schedule-controls {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .search-bar {
+        flex: 1;
+    }
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d0d5dd;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+.badge-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.badge-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid #d0d5dd;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    color: #1f2937;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge-filter:hover {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.badge-filter input {
+    margin: 0;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.schedule-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.card-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-main:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+}
+
+.schedule-card:hover .card-main {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.15);
+}
+
+.card-cover {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, #c8d0ff, #e8ecff);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cover-fallback {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #3730a3;
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    color: #111827;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-detail {
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #f8fafc;
+}
+
+.detail-backdrop {
+    width: 100%;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.75rem;
+}
+
+.detail-description {
+    margin: 0;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.detail-performances {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-venue {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.venue-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.venue-header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.venue-header a:hover {
+    text-decoration: underline;
+}
+
+.venue-map {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #6366f1;
+}
+
+.showtime-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.showtime-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #1f2937;
+}
+
+.showtime-time {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.showtime-status {
+    font-size: 0.85rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    background-color: #e2e8f0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.showtime-status.available {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.showtime-status.soldout {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.showtime-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    text-decoration: none;
+}
+
+.showtime-link:hover {
+    text-decoration: underline;
+}
+
+.showtime-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.showtime-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 9999px;
+    background-color: #eef2ff;
+    color: #3730a3;
+}
