@@ -10,15 +10,17 @@ public class MovieService : IMovieService
 
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
     private readonly PerformanceCache _performanceCache;
+    private readonly IScheduleSearchService _scheduleSearchService;
     private readonly MovieCache _movieCache;
 
-    public MovieService(IMongoDatabase database)
+    public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService)
     {
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
         var schedulesCollection = database.GetCollection<Schedule>("schedule");
         var venuesCollection = database.GetCollection<Venue>("venues");
         _performanceCache = new PerformanceCache(schedulesCollection, venuesCollection);
         _movieCache = new MovieCache(MovieCacheCapacity);
+        _scheduleSearchService = scheduleSearchService;
     }
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
@@ -106,11 +108,7 @@ public class MovieService : IMovieService
             return schedules;
         }
 
-        var trimmed = query.Trim();
-
-        return schedules
-            .Where(schedule => MatchesQuery(schedule, trimmed))
-            .ToList();
+        return _scheduleSearchService.FilterByQuery(schedules, query);
     }
 
     public void InvalidatePerformanceCache()
@@ -148,53 +146,4 @@ public class MovieService : IMovieService
         yield return (start, length);
     }
 
-    private static bool MatchesQuery(Schedule schedule, string query)
-    {
-        if (schedule.MovieTitle.Contains(query, StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
-        foreach (var performance in schedule.Performances)
-        {
-            if (performance.Venue != null)
-            {
-                if (!string.IsNullOrEmpty(performance.Venue.Name) &&
-                    performance.Venue.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-
-                if (!string.IsNullOrEmpty(performance.Venue.Address) &&
-                    performance.Venue.Address.Contains(query, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-
-                if (!string.IsNullOrEmpty(performance.Venue.City) &&
-                    performance.Venue.City.Contains(query, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-
-            foreach (var showtime in performance.Showtimes)
-            {
-                if (showtime.Badges.Any(b =>
-                        (!string.IsNullOrEmpty(b.Description) && b.Description.Contains(query, StringComparison.OrdinalIgnoreCase)) ||
-                        (!string.IsNullOrEmpty(b.Code) && b.Code.Contains(query, StringComparison.OrdinalIgnoreCase))))
-                {
-                    return true;
-                }
-
-                if (!string.IsNullOrEmpty(showtime.TicketUrl) &&
-                    showtime.TicketUrl.Contains(query, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 }
