@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using vkine.Models;
+using vkine.Services.Caching;
 
 namespace vkine.Services;
 
@@ -10,10 +11,8 @@ public class MovieService : IMovieService
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
     private readonly IMongoCollection<Schedule> _schedulesCollection;
     private readonly IMongoCollection<Venue> _venuesCollection;
-    private readonly object _movieCacheLock = new();
     private readonly object _performanceCacheLock = new();
-    private readonly Dictionary<int, Movie> _movieCache = new();
-    private readonly Queue<int> _movieOrder = new();
+    private readonly MovieCache _movieCache;
     private List<Schedule>? _cachedSchedules;
     private DateOnly _cachedSchedulesDate;
 
@@ -22,6 +21,7 @@ public class MovieService : IMovieService
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
         _schedulesCollection = database.GetCollection<Schedule>("schedule");
         _venuesCollection = database.GetCollection<Venue>("venues");
+        _movieCache = new MovieCache(MovieCacheCapacity);
     }
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
@@ -33,27 +33,16 @@ public class MovieService : IMovieService
 
         var indexList = Enumerable.Range(startIndex, count).ToList();
 
-        while (true)
+        if (indexList.Count == 0)
         {
-            if (indexList.Count == 0)
-            {
-                return new List<Movie>();
-            }
+            return new List<Movie>();
+        }
 
-            List<(int start, int length)> missing;
+        var cacheHits = _movieCache.SnapshotForIndexes(indexList, out var missingIndexes);
 
-            lock (_movieCacheLock)
-            {
-                missing = GetMissingRanges(indexList);
-                if (missing.Count == 0)
-                {
-                    return indexList.Select(idx => _movieCache[idx]).ToList();
-                }
-            }
-
-            var anyInserted = false;
-
-            foreach (var (rangeStart, rangeLength) in missing)
+        if (missingIndexes.Count > 0)
+        {
+            foreach (var (rangeStart, rangeLength) in BuildRanges(missingIndexes))
             {
                 var documents = await _moviesCollection.Find(_ => true)
                     .Skip(rangeStart)
@@ -62,7 +51,6 @@ public class MovieService : IMovieService
 
                 if (documents.Count == 0)
                 {
-                    indexList.RemoveAll(idx => idx >= rangeStart && idx < rangeStart + rangeLength);
                     continue;
                 }
 
@@ -76,37 +64,27 @@ public class MovieService : IMovieService
                     })
                     .ToList();
 
-                lock (_movieCacheLock)
+                for (var offset = 0; offset < mapped.Count; offset++)
                 {
-                    for (var offset = 0; offset < mapped.Count; offset++)
-                    {
-                        AddMovieToCache(rangeStart + offset, mapped[offset]);
-                    }
+                    var index = rangeStart + offset;
+                    var movie = mapped[offset];
+                    cacheHits[index] = movie;
+                    _movieCache.Store(index, movie);
                 }
-
-                if (mapped.Count < rangeLength)
-                {
-                    var removalStart = rangeStart + mapped.Count;
-                    var removalEnd = rangeStart + rangeLength;
-                    indexList.RemoveAll(idx => idx >= removalStart && idx < removalEnd);
-                }
-
-                anyInserted = true;
-            }
-
-            if (!anyInserted)
-            {
-                break;
             }
         }
 
-        lock (_movieCacheLock)
+        var ordered = new List<Movie>(indexList.Count);
+
+        foreach (var index in indexList)
         {
-            return indexList
-                .Where(idx => _movieCache.TryGetValue(idx, out _))
-                .Select(idx => _movieCache[idx])
-                .ToList();
+            if (cacheHits.TryGetValue(index, out var movie))
+            {
+                ordered.Add(movie);
+            }
         }
+
+        return ordered;
     }
 
     public async Task<int> GetTotalMovieCount()
@@ -147,70 +125,34 @@ public class MovieService : IMovieService
         }
     }
 
-    private void AddMovieToCache(int index, Movie movie)
+    private static IEnumerable<(int start, int length)> BuildRanges(List<int> indexes)
     {
-        if (MovieCacheCapacity <= 0)
-        {
-            return;
-        }
-
-        if (_movieCache.TryGetValue(index, out _))
-        {
-            _movieCache[index] = movie;
-            return;
-        }
-
-        _movieCache[index] = movie;
-        _movieOrder.Enqueue(index);
-
-        while (_movieCache.Count > MovieCacheCapacity && _movieOrder.TryDequeue(out var toRemove))
-        {
-            if (_movieCache.Remove(toRemove))
-            {
-                break;
-            }
-        }
-    }
-
-    private List<(int start, int length)> GetMissingRanges(List<int> indexes)
-    {
-        var missing = new List<(int start, int length)>();
-
         if (indexes.Count == 0)
         {
-            return missing;
+            yield break;
         }
 
-        var currentStart = -1;
-        var previousIndex = -1;
+        var start = indexes[0];
+        var length = 1;
 
-        foreach (var index in indexes)
+        for (var i = 1; i < indexes.Count; i++)
         {
-            if (_movieCache.ContainsKey(index))
+            var current = indexes[i];
+            var previous = indexes[i - 1];
+
+            if (current == previous + 1)
             {
-                if (currentStart >= 0)
-                {
-                    missing.Add((currentStart, previousIndex - currentStart + 1));
-                    currentStart = -1;
-                }
-
-                continue;
+                length++;
             }
-
-            if (currentStart < 0)
+            else
             {
-                currentStart = index;
+                yield return (start, length);
+                start = current;
+                length = 1;
             }
-
-            previousIndex = index;
         }
 
-        if (currentStart >= 0)
-        {
-            missing.Add((currentStart, indexes[^1] - currentStart + 1));
-        }
-
-        return missing;
+        yield return (start, length);
     }
 
     private async Task<List<Schedule>> EnsurePerformanceCacheAsync(DateOnly day)
