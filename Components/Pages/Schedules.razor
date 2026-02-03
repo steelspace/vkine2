@@ -8,6 +8,21 @@
     <input placeholder="Search title, description or crew..." @oninput="OnSearchInput" value="@searchQuery" style="width:100%;padding:0.5rem;border-radius:4px;border:1px solid #ccc;" />
 </div>
 
+@if (badgeOptions.Any())
+{
+    <div class="badge-filter-container" style="margin-bottom:1rem;display:flex;flex-wrap:wrap;gap:0.5rem;">
+        @foreach (var option in badgeOptions)
+        {
+            <label class="badge-filter" style="display:flex;align-items:center;gap:0.25rem;">
+                <input type="checkbox"
+                       checked="@activeBadgeCodes.Contains(option.Code)"
+                       @onchange="e => OnBadgeToggle(option.Code, e)" />
+                @option.Label
+            </label>
+        }
+    </div>
+}
+
 @if (schedules == null)
 {
     <p>Loading schedules...</p>
@@ -95,12 +110,17 @@ else
 
 @code {
     private List<Schedule>? schedules;
+    private List<Schedule>? allSchedules;
     private string searchQuery = string.Empty;
     private CancellationTokenSource? searchCts;
+    private List<BadgeOption> badgeOptions = new();
+    private HashSet<string> activeBadgeCodes = new(StringComparer.OrdinalIgnoreCase);
 
     protected override async Task OnInitializedAsync()
     {
-        schedules = await MovieService.GetTodaysSchedules();
+        allSchedules = await MovieService.GetTodaysSchedules();
+        UpdateBadgeFilters(allSchedules);
+        ApplyFilters();
     }
 
     private async Task OnSearchInput(ChangeEventArgs e)
@@ -126,7 +146,153 @@ else
 
     private async Task PerformSearchAsync(string query)
     {
-        schedules = await MovieService.SearchTodaysSchedules(query);
-        StateHasChanged();
+        allSchedules = await MovieService.SearchTodaysSchedules(query);
+        UpdateBadgeFilters(allSchedules);
+        ApplyFilters();
+    }
+
+    private void OnBadgeToggle(string code, ChangeEventArgs e)
+    {
+        if (!bool.TryParse(e?.Value?.ToString(), out var isChecked))
+        {
+            isChecked = false;
+        }
+
+        if (isChecked)
+        {
+            activeBadgeCodes.Add(code);
+        }
+        else
+        {
+            activeBadgeCodes.Remove(code);
+        }
+
+        ApplyFilters();
+    }
+
+    private void UpdateBadgeFilters(List<Schedule>? dataset)
+    {
+        var discovered = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        if (dataset != null)
+        {
+            foreach (var schedule in dataset)
+            {
+                foreach (var performance in schedule.Performances)
+                {
+                    foreach (var showtime in performance.Showtimes)
+                    {
+                        foreach (var badge in showtime.Badges)
+                        {
+                            if (string.IsNullOrWhiteSpace(badge.Code))
+                            {
+                                continue;
+                            }
+
+                            if (!discovered.ContainsKey(badge.Code))
+                            {
+                                discovered[badge.Code] = string.IsNullOrWhiteSpace(badge.Description)
+                                    ? badge.Code
+                                    : badge.Description;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!discovered.Any())
+        {
+            badgeOptions.Clear();
+            activeBadgeCodes.Clear();
+            return;
+        }
+
+        if (activeBadgeCodes.Count == 0)
+        {
+            foreach (var code in discovered.Keys)
+            {
+                activeBadgeCodes.Add(code);
+            }
+        }
+        else
+        {
+            activeBadgeCodes.RemoveWhere(code => !discovered.ContainsKey(code));
+            foreach (var code in discovered.Keys)
+            {
+                if (!activeBadgeCodes.Contains(code))
+                {
+                    activeBadgeCodes.Add(code);
+                }
+            }
+        }
+
+        badgeOptions = discovered
+            .Select(kvp => new BadgeOption { Code = kvp.Key, Label = kvp.Value })
+            .OrderBy(option => option.Label, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private void ApplyFilters()
+    {
+        if (allSchedules == null)
+        {
+            schedules = null;
+            return;
+        }
+
+        if (!badgeOptions.Any() || activeBadgeCodes.Count == badgeOptions.Count)
+        {
+            schedules = allSchedules;
+            return;
+        }
+
+        var disallowed = new HashSet<string>(badgeOptions.Select(option => option.Code), StringComparer.OrdinalIgnoreCase);
+        disallowed.ExceptWith(activeBadgeCodes);
+
+        var filtered = new List<Schedule>();
+
+        foreach (var schedule in allSchedules)
+        {
+            var filteredPerformances = new List<Performance>();
+
+            foreach (var performance in schedule.Performances)
+            {
+                var filteredShowtimes = performance.Showtimes
+                    .Where(showtime => !showtime.Badges.Any(badge => disallowed.Contains(badge.Code)))
+                    .ToList();
+
+                if (filteredShowtimes.Any())
+                {
+                    filteredPerformances.Add(new Performance
+                    {
+                        VenueId = performance.VenueId,
+                        Venue = performance.Venue,
+                        Showtimes = filteredShowtimes
+                    });
+                }
+            }
+
+            if (filteredPerformances.Any())
+            {
+                filtered.Add(new Schedule
+                {
+                    Id = schedule.Id,
+                    MovieId = schedule.MovieId,
+                    Date = schedule.Date,
+                    MovieTitle = schedule.MovieTitle,
+                    Performances = filteredPerformances,
+                    StoredAt = schedule.StoredAt
+                });
+            }
+        }
+
+        schedules = filtered;
+    }
+
+    private sealed class BadgeOption
+    {
+        public string Code { get; init; } = string.Empty;
+        public string Label { get; init; } = string.Empty;
     }
 }
