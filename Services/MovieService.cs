@@ -9,18 +9,15 @@ public class MovieService : IMovieService
     private const int MovieCacheCapacity = 256;
 
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
-    private readonly IMongoCollection<Schedule> _schedulesCollection;
-    private readonly IMongoCollection<Venue> _venuesCollection;
-    private readonly object _performanceCacheLock = new();
+    private readonly PerformanceCache _performanceCache;
     private readonly MovieCache _movieCache;
-    private List<Schedule>? _cachedSchedules;
-    private DateOnly _cachedSchedulesDate;
 
     public MovieService(IMongoDatabase database)
     {
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
-        _schedulesCollection = database.GetCollection<Schedule>("schedule");
-        _venuesCollection = database.GetCollection<Venue>("venues");
+        var schedulesCollection = database.GetCollection<Schedule>("schedule");
+        var venuesCollection = database.GetCollection<Venue>("venues");
+        _performanceCache = new PerformanceCache(schedulesCollection, venuesCollection);
         _movieCache = new MovieCache(MovieCacheCapacity);
     }
 
@@ -95,18 +92,18 @@ public class MovieService : IMovieService
     public async Task<List<Schedule>> GetTodaysSchedules()
     {
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var schedules = await EnsurePerformanceCacheAsync(today);
-        return schedules.ToList();
+        var schedules = await _performanceCache.GetAsync(today);
+        return schedules;
     }
 
     public async Task<List<Schedule>> SearchTodaysSchedules(string query)
     {
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var schedules = await EnsurePerformanceCacheAsync(today);
+        var schedules = await _performanceCache.GetAsync(today);
 
         if (string.IsNullOrWhiteSpace(query))
         {
-            return schedules.ToList();
+            return schedules;
         }
 
         var trimmed = query.Trim();
@@ -118,11 +115,7 @@ public class MovieService : IMovieService
 
     public void InvalidatePerformanceCache()
     {
-        lock (_performanceCacheLock)
-        {
-            _cachedSchedules = null;
-            _cachedSchedulesDate = default;
-        }
+        _performanceCache.Clear();
     }
 
     private static IEnumerable<(int start, int length)> BuildRanges(List<int> indexes)
@@ -153,54 +146,6 @@ public class MovieService : IMovieService
         }
 
         yield return (start, length);
-    }
-
-    private async Task<List<Schedule>> EnsurePerformanceCacheAsync(DateOnly day)
-    {
-        var needsReload = false;
-
-        lock (_performanceCacheLock)
-        {
-            if (_cachedSchedules != null && _cachedSchedulesDate == day)
-            {
-                return _cachedSchedules;
-            }
-
-            needsReload = true;
-        }
-
-        if (needsReload)
-        {
-            InvalidatePerformanceCache();
-        }
-
-        var start = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
-        var end = start.AddDays(1);
-
-        var filter = Builders<Schedule>.Filter.And(
-            Builders<Schedule>.Filter.Gte(s => s.Date, start),
-            Builders<Schedule>.Filter.Lt(s => s.Date, end)
-        );
-
-        var schedules = await _schedulesCollection.Find(filter).ToListAsync();
-
-        var venues = await _venuesCollection.Find(_ => true).ToListAsync();
-        var venueMap = venues.ToDictionary(v => v.VenueId);
-
-        foreach (var schedule in schedules)
-        {
-            foreach (var perf in schedule.Performances)
-            {
-                perf.Venue = venueMap.TryGetValue(perf.VenueId, out var venue) ? venue : null;
-            }
-        }
-
-        lock (_performanceCacheLock)
-        {
-            _cachedSchedules = schedules;
-            _cachedSchedulesDate = day;
-            return _cachedSchedules;
-        }
     }
 
     private static bool MatchesQuery(Schedule schedule, string query)
