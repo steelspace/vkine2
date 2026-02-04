@@ -116,6 +116,25 @@ public class MovieService : IMovieService
         return schedules;
     }
 
+    public async Task<Dictionary<DateOnly, List<Schedule>>> GetUpcomingSchedulesForMovie(int movieId, int days)
+    {
+        var start = DateOnly.FromDateTime(DateTime.UtcNow);
+        var result = new Dictionary<DateOnly, List<Schedule>>();
+
+        for (var i = 0; i < Math.Max(1, days); i++)
+        {
+            var day = start.AddDays(i);
+            var schedules = await _performanceCache.GetAsync(day);
+            var filtered = schedules.Where(s => s.MovieId == movieId).ToList();
+            if (filtered.Count > 0)
+            {
+                result[day] = filtered;
+            }
+        }
+
+        return result;
+    }
+
     public async Task<List<Schedule>> SearchTodaysSchedules(string query)
     {
         var today = DateOnly.FromDateTime(DateTime.UtcNow);

@@ -59,20 +59,33 @@
             }
         </div>
 
-        @if (selectedSchedule != null)
+        @if (selectedSchedules != null && selectedSchedules.Any())
         {
             <div class="schedule-modal-overlay" @onclick="CloseScheduleModal">
                 <div class="schedule-modal" @onclick:stopPropagation="true">
                     <button class="schedule-modal-close" type="button" @onclick="CloseScheduleModal" aria-label="Close schedule details">×</button>
                     <div class="schedule-modal-header">
-                        <div class="schedule-modal-title">@selectedSchedule.MovieTitle</div>
+                        <div class="schedule-modal-title">@selectedMovie?.Title ?? selectedMovie?.MovieTitle</div>
                         @if (selectedMovie?.OriginCountries.Count > 0)
                         {
                             <div class="detail-origin">Origin: @string.Join(", ", selectedMovie.OriginCountries)</div>
                         }
+                    </div>
 
-                        @{
-                            var day = DateOnly.FromDateTime(selectedSchedule.Date.ToUniversalTime());
+                    @if (!string.IsNullOrWhiteSpace(selectedMovie?.BackdropUrl))
+                    {
+                        <div class="schedule-modal-backdrop detail-backdrop" style="@BuildBackdropStyle(selectedMovie)"></div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(selectedMovie?.Synopsis))
+                    {
+                        <p class="detail-description">@selectedMovie.Synopsis</p>
+                    }
+
+                    <div class="schedule-modal-performances detail-performances">
+                        @foreach (var kv in selectedSchedules.OrderBy(k => k.Key))
+                        {
+                            var day = kv.Key;
                             var today = DateOnly.FromDateTime(DateTime.UtcNow);
                             string dateLabel;
                             if (day == today)
@@ -87,73 +100,64 @@
                             {
                                 dateLabel = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd yyyy-MM-dd");
                             }
-                        }
 
-                        <div class="detail-date">@dateLabel</div>
-                    </div>
+                            <h4 class="schedule-day-header">@dateLabel (@kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("yyyy-MM-dd"))</h4>
 
-                    @if (!string.IsNullOrWhiteSpace(selectedMovie?.BackdropUrl))
-                    {
-                        <div class="schedule-modal-backdrop detail-backdrop" style="@BuildBackdropStyle(selectedMovie)"></div>
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(selectedMovie?.Synopsis))
-                    {
-                        <p class="detail-description">@selectedMovie.Synopsis</p>
-                    }
-
-                    <div class="schedule-modal-performances detail-performances">
-                        @foreach (var performance in selectedSchedule.Performances)
-                        {
-                            <div class="detail-venue">
-                                <div class="venue-header">
-                                    @if (performance.Venue != null)
-                                    {
-                                        <div class="venue-name">
-                                            @if (!string.IsNullOrWhiteSpace(performance.Venue.DetailUrl))
+                            @foreach (var schedule in kv.Value)
+                            {
+                                @foreach (var performance in schedule.Performances)
+                                {
+                                    <div class="detail-venue">
+                                        <div class="venue-header">
+                                            @if (performance.Venue != null)
                                             {
-                                                <a href="@performance.Venue.DetailUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Name</a>
+                                                <div class="venue-name">
+                                                    @if (!string.IsNullOrWhiteSpace(performance.Venue.DetailUrl))
+                                                    {
+                                                        <a href="@performance.Venue.DetailUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Name</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        @performance.Venue.Name
+                                                    }
+                                                </div>
+                                                @if (!string.IsNullOrWhiteSpace(performance.Venue.MapUrl))
+                                                {
+                                                    <a class="venue-map" href="@performance.Venue.MapUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Address</a>
+                                                }
                                             }
                                             else
                                             {
-                                                @performance.Venue.Name
+                                                <div class="venue-name">Venue @performance.VenueId</div>
                                             }
                                         </div>
-                                        @if (!string.IsNullOrWhiteSpace(performance.Venue.MapUrl))
-                                        {
-                                            <a class="venue-map" href="@performance.Venue.MapUrl" target="_blank" rel="noopener noreferrer">@performance.Venue.Address</a>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <div class="venue-name">Venue @performance.VenueId</div>
-                                    }
-                                </div>
 
-                                <div class="showtime-list">
-                                    @foreach (var showtime in performance.Showtimes)
-                                    {
-                                        <div class="showtime-item">
-                                            <span class="showtime-time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
+                                        <div class="showtime-list">
+                                            @foreach (var showtime in performance.Showtimes.OrderBy(s => s.StartAt))
+                                            {
+                                                <div class="showtime-item">
+                                                    <span class="showtime-time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
 
-                                            @if (!string.IsNullOrEmpty(showtime.TicketUrl))
-                                            {
-                                                <a class="showtime-link" href="@showtime.TicketUrl" target="_blank" rel="noopener noreferrer">Buy Tickets</a>
-                                            }
-                                            
-                                            @if (showtime.Badges.Any())
-                                            {
-                                                <div class="showtime-badges">
-                                                    @foreach (var badge in showtime.Badges)
+                                                    @if (!string.IsNullOrEmpty(showtime.TicketUrl))
                                                     {
-                                                        <span class="showtime-badge">@(!string.IsNullOrWhiteSpace(badge.Description) ? badge.Description : badge.Code)</span>
+                                                        <a class="showtime-link" href="@showtime.TicketUrl" target="_blank" rel="noopener noreferrer">Buy Tickets</a>
+                                                    }
+                                                    
+                                                    @if (showtime.Badges.Any())
+                                                    {
+                                                        <div class="showtime-badges">
+                                                            @foreach (var badge in showtime.Badges)
+                                                            {
+                                                                <span class="showtime-badge">@(!string.IsNullOrWhiteSpace(badge.Description) ? badge.Description : badge.Code)</span>
+                                                            }
+                                                        </div>
                                                     }
                                                 </div>
                                             }
                                         </div>
-                                    }
-                                </div>
-                            </div>
+                                    </div>
+                                }
+                            }
                         }
                     </div>
                 </div>
@@ -171,7 +175,7 @@
     private List<BadgeOption> badgeOptions = new();
     private HashSet<string> activeBadgeCodes = new(StringComparer.OrdinalIgnoreCase);
     private int? selectedMovieId;
-    private Schedule? selectedSchedule;
+    private Dictionary<DateOnly, List<Schedule>>? selectedSchedules;
     private Movie? selectedMovie;
 
     protected override async Task OnInitializedAsync()
@@ -265,7 +269,7 @@
         return null;
     }
 
-    private void OnCardKeyDown(KeyboardEventArgs args, int movieId)
+    private async Task OnCardKeyDown(KeyboardEventArgs args, int movieId)
     {
         if (args == null)
         {
@@ -276,11 +280,11 @@
             args.Key.Equals(" ", StringComparison.Ordinal) ||
             args.Key.Equals("Space", StringComparison.OrdinalIgnoreCase))
         {
-            HandleScheduleActivation(movieId);
+            await HandleScheduleActivation(movieId);
         }
     }
 
-    private void HandleScheduleActivation(int movieId)
+    private async Task HandleScheduleActivation(int movieId)
     {
         if (selectedMovieId == movieId)
         {
@@ -288,29 +292,28 @@
             return;
         }
 
-        OpenScheduleModal(movieId);
+        await OpenScheduleModal(movieId);
     }
 
-    private void OpenScheduleModal(int movieId)
+    private async Task OpenScheduleModal(int movieId)
     {
-        var matchingSchedule = schedules?.FirstOrDefault(s => s.MovieId == movieId)
-            ?? allSchedules?.FirstOrDefault(s => s.MovieId == movieId);
+        var fetched = await MovieService.GetUpcomingSchedulesForMovie(movieId, 14);
 
-        if (matchingSchedule == null)
+        if (fetched == null || fetched.Count == 0)
         {
             CloseScheduleModal();
             return;
         }
 
         selectedMovieId = movieId;
-        selectedSchedule = matchingSchedule;
+        selectedSchedules = fetched;
         selectedMovie = LookupMovie(movieId);
     }
 
     private void CloseScheduleModal()
     {
         selectedMovieId = null;
-        selectedSchedule = null;
+        selectedSchedules = null;
         selectedMovie = null;
     }
 
@@ -469,7 +472,7 @@
             return;
         }
 
-        selectedSchedule = schedule;
+        // Keep the modal opened only if the movie is still present in the visible schedules
         selectedMovie = LookupMovie(schedule.MovieId);
     }
 
