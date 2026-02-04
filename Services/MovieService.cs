@@ -12,6 +12,7 @@ namespace vkine.Services;
 public class MovieService : IMovieService
 {
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
+    private readonly IMongoCollection<Schedule> _schedulesCollection;
     private readonly PerformanceCache _performanceCache;
     private readonly IScheduleSearchService _scheduleSearchService;
     private readonly IMemoryCache _memoryCache;
@@ -19,9 +20,9 @@ public class MovieService : IMovieService
     public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService, IMemoryCache memoryCache)
     {
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
-        var schedulesCollection = database.GetCollection<Schedule>("schedule");
+        _schedulesCollection = database.GetCollection<Schedule>("schedule");
         var venuesCollection = database.GetCollection<Venue>("venues");
-        _performanceCache = new PerformanceCache(schedulesCollection, venuesCollection);
+        _performanceCache = new PerformanceCache(_schedulesCollection, venuesCollection);
         _scheduleSearchService = scheduleSearchService;
         _memoryCache = memoryCache;
     }
@@ -106,6 +107,75 @@ public class MovieService : IMovieService
     public async Task<int> GetTotalMovieCount()
     {
         return (int)await _moviesCollection.CountDocumentsAsync(_ => true);
+    }
+
+    public async Task<int> GetTotalMovieCountWithFutureSchedules()
+    {
+        var start = DateOnly.FromDateTime(DateTime.UtcNow).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+        var filter = Builders<Schedule>.Filter.Gte(s => s.Date, start);
+        var movieIds = await _schedulesCollection.Find(filter).Project(s => s.MovieId).ToListAsync();
+        return movieIds.Distinct().Count();
+    }
+
+    public async Task<List<Movie>> GetMoviesWithFutureSchedules(int startIndex, int count)
+    {
+        if (count <= 0)
+        {
+            return new List<Movie>();
+        }
+
+        var start = DateOnly.FromDateTime(DateTime.UtcNow).ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc);
+        var filter = Builders<Schedule>.Filter.Gte(s => s.Date, start);
+        var moviePairs = await _schedulesCollection.Find(filter).Project(s => new { s.MovieId, s.Date }).ToListAsync();
+        var ids = moviePairs
+            .GroupBy(p => p.MovieId)
+            .Select(g => new { MovieId = g.Key, NextDate = g.Min(p => p.Date) })
+            .OrderBy(p => p.NextDate)
+            .Select(p => p.MovieId)
+            .ToList();
+
+        if (startIndex >= ids.Count)
+        {
+            return new List<Movie>();
+        }
+
+        var pageIds = ids.Skip(startIndex).Take(count).ToList();
+        var moviesById = await GetMoviesByIdsAsync(pageIds);
+
+        var result = new List<Movie>(pageIds.Count);
+
+        foreach (var id in pageIds)
+        {
+            if (moviesById.TryGetValue(id, out var movie))
+            {
+                result.Add(movie);
+            }
+            else
+            {
+                result.Add(new Movie { Id = id, Title = string.Empty, Synopsis = string.Empty, CoverUrl = string.Empty, BackdropUrl = string.Empty, OriginCountries = new List<string>() });
+            }
+        }
+
+        return result;
+    }
+
+    public async Task<Dictionary<DateOnly, List<Schedule>>> GetUpcomingSchedulesForMovie(int movieId, int days)
+    {
+        var start = DateOnly.FromDateTime(DateTime.UtcNow);
+        var result = new Dictionary<DateOnly, List<Schedule>>();
+
+        for (var i = 0; i < Math.Max(1, days); i++)
+        {
+            var day = start.AddDays(i);
+            var schedules = await _performanceCache.GetAsync(day);
+            var filtered = schedules.Where(s => s.MovieId == movieId).ToList();
+            if (filtered.Count > 0)
+            {
+                result[day] = filtered;
+            }
+        }
+
+        return result;
     }
 
     public async Task<List<Schedule>> GetTodaysSchedules()

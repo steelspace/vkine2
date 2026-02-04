@@ -69,6 +69,26 @@
                         {
                             <div class="detail-origin">Origin: @string.Join(", ", selectedMovie.OriginCountries)</div>
                         }
+
+                        @{
+                            var day = DateOnly.FromDateTime(selectedSchedule.Date.ToUniversalTime());
+                            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+                            string dateLabel;
+                            if (day == today)
+                            {
+                                dateLabel = "Today";
+                            }
+                            else if (day == today.AddDays(1))
+                            {
+                                dateLabel = "Tomorrow";
+                            }
+                            else
+                            {
+                                dateLabel = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd yyyy-MM-dd");
+                            }
+                        }
+
+                        <div class="detail-date">@dateLabel</div>
                     </div>
 
                     @if (!string.IsNullOrWhiteSpace(selectedMovie?.BackdropUrl))

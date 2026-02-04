@@ -63,3 +63,52 @@
     margin: 10px 0;
     font-weight: 600;
 }
+
+/* Schedule/day styling to make day labels more visible */
+.schedule-day {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.schedule-day h4 {
+    margin: 8px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.schedule-date {
+    display: block;
+    font-size: .95rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.schedule-entry {
+    padding-left: 6px;
+    margin-bottom: 8px;
+}
+
+.performance {
+    margin-bottom: 6px;
+    text-align: left;
+}
+
+.performance-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.performance-date {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.showtime {
+    display: inline-block;
+    margin-right: 8px;
+}

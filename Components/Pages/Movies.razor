@@ -47,6 +47,59 @@ else
                     <p class="movie-origin">Origin: @string.Join(", ", selectedMovie.OriginCountries)</p>
                 }
                 <p>@selectedMovie.Synopsis</p>
+
+                @if (selectedSchedules != null && selectedSchedules.Count > 0)
+                {
+                    <h3>Upcoming schedules</h3>
+                    @foreach (var kv in selectedSchedules.OrderBy(k => k.Key))
+                    {
+                        <div class="schedule-day">
+                            @{
+                                var today = DateOnly.FromDateTime(DateTime.UtcNow);
+                                string dateLabel;
+                                if (kv.Key == today)
+                                {
+                                    dateLabel = "Today";
+                                }
+                                else if (kv.Key == today.AddDays(1))
+                                {
+                                    dateLabel = "Tomorrow";
+                                }
+                                else
+                                {
+                                    dateLabel = kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd");
+                                }
+                            }
+                            <h4>@dateLabel (@kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("yyyy-MM-dd"))</h4>
+                            @foreach (var schedule in kv.Value)
+                            {
+                                <div class="schedule-entry">
+                                    <div class="schedule-date">@((kv.Key == today) ? "Today" : (kv.Key == today.AddDays(1) ? "Tomorrow" : kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd yyyy-MM-dd")))</div>
+                                    @foreach (var perf in schedule.Performances)
+                                    {
+                                        <div class="performance">
+                                            <div class="performance-header">
+                                                <div class="performance-date">@((kv.Key == today) ? "Today" : (kv.Key == today.AddDays(1) ? "Tomorrow" : kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd yyyy-MM-dd")))</div>
+                                                <div class="venue">@((perf.Venue?.Name) ?? $"Venue #{perf.VenueId}")</div>
+                                            </div>
+                                            <div class="showtimes">
+                                                @foreach (var st in perf.Showtimes)
+                                                {
+                                                    <span class="showtime">@st.StartAt.ToLocalTime().ToString("HH:mm")</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No upcoming schedules available.</p>
+                }
+
                 <button @onclick="CloseModal">Close</button>
             </div>
         </div>
@@ -55,6 +108,7 @@ else
 
 @code {
     private Movie? selectedMovie;
+    private Dictionary<DateOnly, List<Schedule>>? selectedSchedules;
     private int ItemsPerRow = 4;
     private Virtualize<List<Movie>>? virtualizeComponent;
     private DotNetObjectReference<Movies>? selfReference;
@@ -98,18 +152,18 @@ else
 
     private async ValueTask<ItemsProviderResult<List<Movie>>> LoadMovieRows(ItemsProviderRequest request)
     {
-        var totalMovies = await MovieService.GetTotalMovieCount();
+        var totalMovies = await MovieService.GetTotalMovieCountWithFutureSchedules();
         var totalRows = (int)Math.Ceiling(totalMovies / (double)ItemsPerRow);
 
         var startIndex = request.StartIndex * ItemsPerRow;
-        var count = Math.Min(request.Count * ItemsPerRow, totalMovies - startIndex);
+        var count = Math.Min(request.Count * ItemsPerRow, Math.Max(0, totalMovies - startIndex));
         
         if (count <= 0)
         {
              return new ItemsProviderResult<List<Movie>>(new List<List<Movie>>(), totalRows);
         }
 
-        var movies = await MovieService.GetMovies(startIndex, count);
+        var movies = await MovieService.GetMoviesWithFutureSchedules(startIndex, count);
         var rows = new List<List<Movie>>();
         
         for (int i = 0; i < movies.Count; i += ItemsPerRow)
@@ -121,14 +175,17 @@ else
         return new ItemsProviderResult<List<Movie>>(rows, totalRows);
     }
 
-    private void ShowMovieDetail(Movie movie)
+    private async Task ShowMovieDetail(Movie movie)
     {
         selectedMovie = movie;
+        selectedSchedules = await MovieService.GetUpcomingSchedulesForMovie(movie.Id, 14);
+        await InvokeAsync(StateHasChanged);
     }
 
     private void CloseModal()
     {
         selectedMovie = null;
+        selectedSchedules = null;
     }
 
     public async ValueTask DisposeAsync()

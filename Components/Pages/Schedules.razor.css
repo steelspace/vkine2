@@ -159,6 +159,13 @@
     color: #1f2937;
 }
 
+/* Date label for schedule modal */
+.detail-date {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
 .detail-performances {
     display: flex;
     flex-direction: column;
