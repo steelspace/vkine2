@@ -65,7 +65,7 @@
                 <div class="schedule-modal" @onclick:stopPropagation="true">
                     <button class="schedule-modal-close" type="button" @onclick="CloseScheduleModal" aria-label="Close schedule details">×</button>
                     <div class="schedule-modal-header">
-                        <div class="schedule-modal-title">@selectedMovie?.Title ?? selectedMovie?.MovieTitle</div>
+                        <div class="schedule-modal-title">@selectedMovie?.Title</div>
                         @if (selectedMovie?.OriginCountries.Count > 0)
                         {
                             <div class="detail-origin">Origin: @string.Join(", ", selectedMovie.OriginCountries)</div>
