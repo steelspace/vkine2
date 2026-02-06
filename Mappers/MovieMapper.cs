@@ -11,13 +11,12 @@ public class MovieMapper
     /// Maps a MovieDocument to a Movie domain model.
     /// </summary>
     /// <param name="document">The MongoDB document to map.</param>
-    /// <param name="forcedId">Optional ID to override the document's ID values.</param>
     /// <returns>A Movie instance.</returns>
-    public Movie Map(MovieDocument document, int? forcedId = null)
+    public Movie Map(MovieDocument document)
     {
         return new Movie
         {
-            Id = forcedId ?? document.CsfdId ?? document.TmdbId ?? 0,
+            Id = document.CsfdId ?? 0,
             Title = ResolveTitle(document),
             Synopsis = document.Description ?? string.Empty,
             CoverUrl = document.PosterUrl ?? string.Empty,

@@ -173,16 +173,9 @@ public class MovieService : IMovieService
             {
                 if (document.CsfdId.HasValue && missingSet.Remove(document.CsfdId.Value))
                 {
-                    var movie = _movieMapper.Map(document, document.CsfdId.Value);
+                    var movie = _movieMapper.Map(document);
                     result[document.CsfdId.Value] = movie;
                     CacheMovieById(document.CsfdId.Value, movie);
-                }
-
-                if (document.TmdbId.HasValue && missingSet.Remove(document.TmdbId.Value))
-                {
-                    var movie = _movieMapper.Map(document, document.TmdbId.Value);
-                    result[document.TmdbId.Value] = movie;
-                    CacheMovieById(document.TmdbId.Value, movie);
                 }
             }
 
