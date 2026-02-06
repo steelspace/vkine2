@@ -4,27 +4,17 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using MongoDB.Driver;
 using vkine.Models;
-using vkine.Services.Caching;
-using vkine.Services.Search;
 
 namespace vkine.Services;
 
 public class MovieService : IMovieService
 {
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
-    private readonly IMongoCollection<Schedule> _schedulesCollection;
-    private readonly PerformanceCache _performanceCache;
-    private readonly IScheduleSearchService _scheduleSearchService;
     private readonly IMemoryCache _memoryCache;
-    private const int UpcomingDayWindow = 14;
 
-    public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService, IMemoryCache memoryCache)
+    public MovieService(IMongoDatabase database, IMemoryCache memoryCache)
     {
         _moviesCollection = database.GetCollection<MovieDocument>("movies");
-        _schedulesCollection = database.GetCollection<Schedule>("schedule");
-        var venuesCollection = database.GetCollection<Venue>("venues");
-        _performanceCache = new PerformanceCache(_schedulesCollection, venuesCollection);
-        _scheduleSearchService = scheduleSearchService;
         _memoryCache = memoryCache;
     }
 
@@ -110,74 +100,6 @@ public class MovieService : IMovieService
         return (int)await _moviesCollection.CountDocumentsAsync(_ => true);
     }
 
-    public async Task<List<ScheduleSummary>> GetTodaysSchedules()
-    {
-        var schedules = await GetUpcomingSchedulesInternal(UpcomingDayWindow);
-        return schedules.Select(BuildSummary).ToList();
-    }
-
-    public async Task<List<ScheduleSummary>> SearchTodaysSchedules(string query)
-    {
-        var schedules = await GetUpcomingSchedulesInternal(UpcomingDayWindow);
-
-        if (!string.IsNullOrWhiteSpace(query))
-        {
-            schedules = _scheduleSearchService.FilterByQuery(schedules, query);
-        }
-
-        return schedules.Select(BuildSummary).ToList();
-    }
-
-    public async Task<Dictionary<DateOnly, List<Schedule>>> GetUpcomingSchedulesForMovie(int movieId, int? days = null)
-    {
-        var start = DateOnly.FromDateTime(DateTime.UtcNow);
-        var result = new Dictionary<DateOnly, List<Schedule>>();
-
-        if (days.HasValue && days.Value > 0)
-        {
-            for (var i = 0; i < days.Value; i++)
-            {
-                var day = start.AddDays(i);
-                var schedules = await _performanceCache.GetAsync(day);
-                var filtered = schedules.Where(s => s.MovieId == movieId).ToList();
-                if (filtered.Count > 0)
-                {
-                    result[day] = filtered;
-                }
-            }
-
-            return result;
-        }
-
-        const int maxDaysToScan = 365;
-        const int maxEmptyStreak = 7;
-
-        var currentDay = start;
-        var scanned = 0;
-        var emptyStreak = 0;
-
-        while (scanned < maxDaysToScan && emptyStreak < maxEmptyStreak)
-        {
-            var schedules = await _performanceCache.GetAsync(currentDay);
-            var filtered = schedules.Where(s => s.MovieId == movieId).ToList();
-
-            if (filtered.Count > 0)
-            {
-                result[currentDay] = filtered;
-                emptyStreak = 0;
-            }
-            else
-            {
-                emptyStreak++;
-            }
-
-            currentDay = currentDay.AddDays(1);
-            scanned++;
-        }
-
-        return result;
-    }
-
     public async Task<Dictionary<int, Movie>> GetMoviesByIdsAsync(IEnumerable<int> ids)
     {
         if (ids == null)
@@ -235,77 +157,6 @@ public class MovieService : IMovieService
         }
 
         return result;
-    }
-
-    public void InvalidatePerformanceCache()
-    {
-        _performanceCache.Clear();
-    }
-
-    private static ScheduleSummary BuildSummary(Schedule schedule)
-    {
-        if (schedule == null)
-        {
-            return new ScheduleSummary();
-        }
-
-        var badges = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        var signatureKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var signatures = new List<ScheduleBadgeSignature>();
-
-        foreach (var performance in schedule.Performances)
-        {
-            foreach (var showtime in performance.Showtimes)
-            {
-                var normalized = showtime.Badges
-                    .Where(badge => !string.IsNullOrWhiteSpace(badge.Code))
-                    .Select(badge => badge.Code.Trim())
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
-                    .OrderBy(code => code, StringComparer.OrdinalIgnoreCase)
-                    .ToArray();
-
-                var signatureKey = string.Join('|', normalized);
-
-                if (signatureKeys.Add(signatureKey))
-                {
-                    signatures.Add(new ScheduleBadgeSignature
-                    {
-                        Badges = normalized
-                    });
-                }
-
-                foreach (var badge in showtime.Badges)
-                {
-                    if (string.IsNullOrWhiteSpace(badge.Code))
-                    {
-                        continue;
-                    }
-
-                    if (!badges.ContainsKey(badge.Code))
-                    {
-                        badges[badge.Code] = string.IsNullOrWhiteSpace(badge.Description)
-                            ? badge.Code
-                            : badge.Description;
-                    }
-                }
-            }
-        }
-
-        return new ScheduleSummary
-        {
-            MovieId = schedule.MovieId,
-            MovieTitle = schedule.MovieTitle ?? string.Empty,
-            FirstDate = DateOnly.FromDateTime(schedule.Date),
-            Badges = badges
-                .OrderBy(kvp => kvp.Value, StringComparer.OrdinalIgnoreCase)
-                .Select(kvp => new ScheduleSummaryBadge
-                {
-                    Code = kvp.Key,
-                    Label = kvp.Value
-                })
-                .ToList(),
-            ShowtimeBadgeSignatures = signatures
-        };
     }
 
     private static IEnumerable<(int start, int length)> BuildRanges(List<int> indexes)
@@ -392,128 +243,4 @@ public class MovieService : IMovieService
         return new List<string>();
     }
 
-    private async Task<List<Schedule>> GetUpcomingSchedulesInternal(int days)
-    {
-        var start = DateOnly.FromDateTime(DateTime.UtcNow);
-        var limit = Math.Max(1, days);
-        var aggregated = new Dictionary<int, Schedule>();
-
-        for (var offset = 0; offset < limit; offset++)
-        {
-            var day = start.AddDays(offset);
-            var dailySchedules = await _performanceCache.GetAsync(day);
-
-            if (dailySchedules == null || dailySchedules.Count == 0)
-            {
-                continue;
-            }
-
-            foreach (var schedule in dailySchedules)
-            {
-                MergeSchedule(aggregated, schedule);
-            }
-        }
-
-        return aggregated
-            .Values
-            .OrderBy(schedule => schedule.Date)
-            .ThenBy(schedule => schedule.MovieTitle, StringComparer.OrdinalIgnoreCase)
-            .ToList();
-    }
-
-    private static void MergeSchedule(Dictionary<int, Schedule> aggregated, Schedule schedule)
-    {
-        if (!aggregated.TryGetValue(schedule.MovieId, out var existing))
-        {
-            aggregated[schedule.MovieId] = CloneSchedule(schedule);
-            return;
-        }
-
-        if (schedule.Date < existing.Date)
-        {
-            existing.Date = schedule.Date;
-        }
-
-        if (schedule.StoredAt < existing.StoredAt)
-        {
-            existing.StoredAt = schedule.StoredAt;
-        }
-
-        foreach (var performance in schedule.Performances)
-        {
-            if (performance.Showtimes.Count == 0)
-            {
-                continue;
-            }
-
-            var target = existing.Performances.FirstOrDefault(p => p.VenueId == performance.VenueId);
-
-            if (target == null)
-            {
-                existing.Performances.Add(ClonePerformance(performance));
-                continue;
-            }
-
-            if (target.Venue == null)
-            {
-                target.Venue = performance.Venue;
-            }
-
-            foreach (var showtime in performance.Showtimes)
-            {
-                target.Showtimes.Add(CloneShowtime(showtime));
-            }
-        }
-    }
-
-    private static Schedule CloneSchedule(Schedule schedule)
-    {
-        return new Schedule
-        {
-            Id = schedule.Id,
-            MovieId = schedule.MovieId,
-            Date = schedule.Date,
-            MovieTitle = schedule.MovieTitle,
-            Performances = schedule.Performances
-                .Select(ClonePerformance)
-                .ToList(),
-            StoredAt = schedule.StoredAt
-        };
-    }
-
-    private static Performance ClonePerformance(Performance performance)
-    {
-        return new Performance
-        {
-            VenueId = performance.VenueId,
-            Venue = performance.Venue,
-            Showtimes = performance.Showtimes
-                .Select(CloneShowtime)
-                .ToList()
-        };
-    }
-
-    private static Showtime CloneShowtime(Showtime showtime)
-    {
-        return new Showtime
-        {
-            StartAt = showtime.StartAt,
-            TicketsAvailable = showtime.TicketsAvailable,
-            TicketUrl = showtime.TicketUrl,
-            IsPast = showtime.IsPast,
-            Badges = showtime.Badges
-                .Select(CloneBadge)
-                .ToList()
-        };
-    }
-
-    private static Badge CloneBadge(Badge badge)
-    {
-        return new Badge
-        {
-            Kind = badge.Kind,
-            Code = badge.Code,
-            Description = badge.Description
-        };
-    }
 }

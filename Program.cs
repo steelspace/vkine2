@@ -1,6 +1,5 @@
 using vkine.Components;
 using vkine.Services;
-using vkine.Services.Search;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +21,6 @@ builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionStrin
 builder.Services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDatabase("movies"));
 
 builder.Services.AddMemoryCache(options => options.SizeLimit = 256);
-builder.Services.AddSingleton<IScheduleSearchService, ScheduleSearchService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 var app = builder.Build();
