@@ -1,0 +1,61 @@
+@using vkine.Models
+
+@if (IsOpen && Movie != null)
+{
+    <div class="modal-backdrop" @onclick="OnClose">
+        <div class="modal-content" @onclick:stopPropagation="true">
+            <div class="modal-header">
+                <h2>@Movie.Title</h2>
+                <button class="modal-close" @onclick="OnClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
+                {
+                    <div class="modal-backdrop-image">
+                        <img src="@Movie.BackdropUrl" alt="@Movie.Title backdrop" />
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(Movie.CoverUrl))
+                {
+                    <div class="modal-poster-image">
+                        <img src="@Movie.CoverUrl" alt="@Movie.Title" />
+                    </div>
+                }
+
+                <div class="modal-details">
+                    <div class="modal-info-row">
+                        <strong>CSFD ID:</strong>
+                        <span>@Movie.Id</span>
+                    </div>
+
+                    @if (Movie.OriginCountries.Count > 0)
+                    {
+                        <div class="modal-info-row">
+                            <strong>Countries:</strong>
+                            <span>@string.Join(", ", Movie.OriginCountries)</span>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Movie.Synopsis))
+                    {
+                        <div class="modal-synopsis">
+                            <strong>Synopsis:</strong>
+                            <p>@Movie.Synopsis</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public Movie? Movie { get; set; }
+
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+}
