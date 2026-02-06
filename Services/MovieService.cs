@@ -29,7 +29,7 @@ public class MovieService : IMovieService
         _movieMapper = new MovieMapper();
     }
 
-    public async Task<List<Movie>> GetMovies(int startIndex, int count)
+    public async Task<List<Movie>> GetMoviesAsync(int startIndex, int count)
     {
         if (count <= 0)
         {
@@ -117,7 +117,7 @@ public class MovieService : IMovieService
         return ordered;
     }
 
-    public async Task<int> GetTotalMovieCount()
+    public async Task<int> GetTotalMovieCountAsync()
     {
         _logger.LogDebug("Fetching total movie count from database");
         var count = (int)await _moviesCollection.CountDocumentsAsync(_ => true);
