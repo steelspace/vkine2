@@ -1,21 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using vkine.Mappers;
 using vkine.Models;
+using vkine.Utilities;
 
 namespace vkine.Services;
 
 public class MovieService : IMovieService
 {
+    private const string MOVIE_INDEX_CACHE_KEY_PREFIX = "movie-index-";
+    private const string MOVIE_ID_CACHE_KEY_PREFIX = "movie-id-";
+    private const string MOVIES_COLLECTION_NAME = "movies";
+
     private readonly IMongoCollection<MovieDocument> _moviesCollection;
     private readonly IMemoryCache _memoryCache;
+    private readonly ILogger<MovieService> _logger;
+    private readonly MovieMapper _movieMapper;
 
-    public MovieService(IMongoDatabase database, IMemoryCache memoryCache)
+    public MovieService(
+        IMongoDatabase database,
+        IMemoryCache memoryCache,
+        ILogger<MovieService> logger)
     {
-        _moviesCollection = database.GetCollection<MovieDocument>("movies");
+        _moviesCollection = database.GetCollection<MovieDocument>(MOVIES_COLLECTION_NAME);
         _memoryCache = memoryCache;
+        _logger = logger;
+        _movieMapper = new MovieMapper();
     }
 
     public async Task<List<Movie>> GetMovies(int startIndex, int count)
@@ -49,8 +60,12 @@ public class MovieService : IMovieService
 
         if (missingIndexes.Count > 0)
         {
-            foreach (var (rangeStart, rangeLength) in BuildRanges(missingIndexes))
+            _logger.LogDebug("Cache miss for {Count} movie indexes. Fetching from database.", missingIndexes.Count);
+
+            foreach (var (rangeStart, rangeLength) in IndexRangeBuilder.BuildRanges(missingIndexes))
             {
+                _logger.LogTrace("Fetching movie range: start={Start}, length={Length}", rangeStart, rangeLength);
+
                 var documents = await _moviesCollection.Find(_ => true)
                     .Skip(rangeStart)
                     .Limit(rangeLength)
@@ -58,11 +73,12 @@ public class MovieService : IMovieService
 
                 if (documents.Count == 0)
                 {
+                    _logger.LogWarning("No documents found for range: start={Start}, length={Length}", rangeStart, rangeLength);
                     continue;
                 }
 
                 var mapped = documents
-                    .Select(document => MapMovieDocument(document))
+                    .Select(document => _movieMapper.Map(document))
                     .ToList();
 
                 for (var offset = 0; offset < mapped.Count; offset++)
@@ -80,6 +96,12 @@ public class MovieService : IMovieService
                     }
                 }
             }
+
+            _logger.LogDebug("Successfully fetched and cached {Count} movies", moviesByIndex.Count);
+        }
+        else
+        {
+            _logger.LogDebug("All {Count} requested movies found in cache", indexList.Count);
         }
 
         var ordered = new List<Movie>(indexList.Count);
@@ -97,7 +119,10 @@ public class MovieService : IMovieService
 
     public async Task<int> GetTotalMovieCount()
     {
-        return (int)await _moviesCollection.CountDocumentsAsync(_ => true);
+        _logger.LogDebug("Fetching total movie count from database");
+        var count = (int)await _moviesCollection.CountDocumentsAsync(_ => true);
+        _logger.LogInformation("Total movie count: {Count}", count);
+        return count;
     }
 
     public async Task<Dictionary<int, Movie>> GetMoviesByIdsAsync(IEnumerable<int> ids)
@@ -113,6 +138,8 @@ public class MovieService : IMovieService
         {
             return new Dictionary<int, Movie>();
         }
+
+        _logger.LogDebug("Fetching {Count} movies by IDs", candidates.Count);
 
         var result = new Dictionary<int, Movie>(candidates.Count);
         var missing = new List<int>();
@@ -131,6 +158,8 @@ public class MovieService : IMovieService
 
         if (missing.Count > 0)
         {
+            _logger.LogDebug("Cache miss for {Count} movie IDs. Querying database.", missing.Count);
+
             var missingSet = new HashSet<int>(missing);
             var csfdFilter = Builders<MovieDocument>.Filter.In(d => d.CsfdId, missing.Select(id => (int?)id));
             var tmdbFilter = Builders<MovieDocument>.Filter.In(d => d.TmdbId, missing.Select(id => (int?)id));
@@ -138,68 +167,37 @@ public class MovieService : IMovieService
 
             var documents = await _moviesCollection.Find(filter).ToListAsync();
 
+            _logger.LogDebug("Found {Count} documents for {RequestedCount} missing IDs", documents.Count, missing.Count);
+
             foreach (var document in documents)
             {
                 if (document.CsfdId.HasValue && missingSet.Remove(document.CsfdId.Value))
                 {
-                    var movie = MapMovieDocument(document, document.CsfdId.Value);
+                    var movie = _movieMapper.Map(document, document.CsfdId.Value);
                     result[document.CsfdId.Value] = movie;
                     CacheMovieById(document.CsfdId.Value, movie);
                 }
 
                 if (document.TmdbId.HasValue && missingSet.Remove(document.TmdbId.Value))
                 {
-                    var movie = MapMovieDocument(document, document.TmdbId.Value);
+                    var movie = _movieMapper.Map(document, document.TmdbId.Value);
                     result[document.TmdbId.Value] = movie;
                     CacheMovieById(document.TmdbId.Value, movie);
                 }
             }
+
+            if (missingSet.Count > 0)
+            {
+                _logger.LogWarning("Could not find {Count} movies in database: {MissingIds}",
+                    missingSet.Count, string.Join(", ", missingSet));
+            }
+        }
+        else
+        {
+            _logger.LogDebug("All {Count} requested movies found in cache", candidates.Count);
         }
 
         return result;
-    }
-
-    private static IEnumerable<(int start, int length)> BuildRanges(List<int> indexes)
-    {
-        if (indexes.Count == 0)
-        {
-            yield break;
-        }
-
-        var start = indexes[0];
-        var length = 1;
-
-        for (var i = 1; i < indexes.Count; i++)
-        {
-            var current = indexes[i];
-            var previous = indexes[i - 1];
-
-            if (current == previous + 1)
-            {
-                length++;
-            }
-            else
-            {
-                yield return (start, length);
-                start = current;
-                length = 1;
-            }
-        }
-
-        yield return (start, length);
-    }
-
-    private static Movie MapMovieDocument(MovieDocument document, int? forcedId = null)
-    {
-        return new Movie
-        {
-            Id = forcedId ?? document.CsfdId ?? document.TmdbId ?? 0,
-            Title = !string.IsNullOrEmpty(document.Title) ? document.Title : document.LocalizedTitles?.Original ?? string.Empty,
-            Synopsis = document.Description ?? string.Empty,
-            CoverUrl = document.PosterUrl ?? string.Empty,
-            BackdropUrl = document.BackdropUrl ?? string.Empty,
-            OriginCountries = ResolveOriginCountries(document)
-        };
     }
 
     private void CacheMovieById(int movieId, Movie movie)
@@ -215,32 +213,6 @@ public class MovieService : IMovieService
         });
     }
 
-    private static string GetMovieCacheKey(int index) => $"movie-index-{index}";
-    private static string GetMovieByIdCacheKey(int id) => $"movie-id-{id}";
-
-    private static List<string> ResolveOriginCountries(MovieDocument document)
-    {
-        if (document.OriginCountries != null && document.OriginCountries.Count > 0)
-        {
-            return document.OriginCountries
-                .Where(country => !string.IsNullOrWhiteSpace(country))
-                .Select(country => country.Trim())
-                .Where(country => country.Length > 0)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
-        }
-
-        if (!string.IsNullOrWhiteSpace(document.Origin))
-        {
-            return document.Origin
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(country => country.Trim())
-                .Where(country => country.Length > 0)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
-        }
-
-        return new List<string>();
-    }
-
+    private static string GetMovieCacheKey(int index) => $"{MOVIE_INDEX_CACHE_KEY_PREFIX}{index}";
+    private static string GetMovieByIdCacheKey(int id) => $"{MOVIE_ID_CACHE_KEY_PREFIX}{id}";
 }
