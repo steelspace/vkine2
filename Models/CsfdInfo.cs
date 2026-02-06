@@ -11,15 +11,15 @@ public class CsfdInfo
     [BsonElement("id")]
     public int Id { get; set; }
 
-    [BsonElement("czechName")]
+    [BsonElement("czech_name")]
     public string? CzechName { get; set; }
 
-    [BsonElement("originalName")]
+    [BsonElement("original_name")]
     public string? OriginalName { get; set; }
 
     [BsonElement("plot")]
     public string? Plot { get; set; }
 
-    [BsonElement("posterUrl")]
+    [BsonElement("poster_url")]
     public string? PosterUrl { get; set; }
 }

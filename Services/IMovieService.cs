@@ -22,9 +22,9 @@ public interface IMovieService
     Task<int> GetTotalMovieCountAsync();
 
     /// <summary>
-    /// Retrieves movies by their IDs (CSFD or TMDB).
+    /// Retrieves movies by their CSFD IDs.
     /// </summary>
-    /// <param name="ids">Collection of movie IDs to fetch.</param>
-    /// <returns>Dictionary mapping IDs to Movie objects.</returns>
+    /// <param name="ids">Collection of CSFD IDs to fetch.</param>
+    /// <returns>Dictionary mapping CSFD IDs to Movie objects.</returns>
     Task<Dictionary<int, Movie>> GetMoviesByIdsAsync(IEnumerable<int> ids);
 }

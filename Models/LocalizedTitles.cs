@@ -8,6 +8,6 @@ namespace vkine.Models;
 [BsonIgnoreExtraElements]
 public class LocalizedTitles
 {
-    [BsonElement("Original")]
+    [BsonElement("original")]
     public string? Original { get; set; }
 }

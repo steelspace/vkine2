@@ -6,25 +6,18 @@ using vkine.Models;
 
 namespace vkine.Services;
 
-public class MovieService : IMovieService
+public class MovieService(
+    IMongoDatabase database,
+    IMemoryCache memoryCache,
+    ILogger<MovieService> logger) : IMovieService
 {
     private const string MOVIE_CACHE_KEY_PREFIX = "movie-";
+    private const string MOVIES_COLLECTION_NAME = "movies";
 
-    private readonly IMongoCollection<MovieDocument> _moviesCollection;
-    private readonly IMemoryCache _memoryCache;
-    private readonly ILogger<MovieService> _logger;
-    private readonly MovieMapper _movieMapper;
-
-    public MovieService(
-        IMongoDatabase database,
-        IMemoryCache memoryCache,
-        ILogger<MovieService> logger)
-    {
-        _moviesCollection = database.GetCollection<MovieDocument>("movies");
-        _memoryCache = memoryCache;
-        _logger = logger;
-        _movieMapper = new MovieMapper();
-    }
+    private readonly IMongoCollection<MovieDocument> _moviesCollection = database.GetCollection<MovieDocument>(MOVIES_COLLECTION_NAME);
+    private readonly IMemoryCache _memoryCache = memoryCache;
+    private readonly ILogger<MovieService> _logger = logger;
+    private readonly MovieMapper _movieMapper = new();
 
     public async Task<List<Movie>> GetMoviesAsync(int startIndex, int count)
     {
