@@ -86,22 +86,10 @@
                         @foreach (var kv in selectedSchedules.OrderBy(k => k.Key))
                         {
                             var day = kv.Key;
-                            var today = DateOnly.FromDateTime(DateTime.UtcNow);
-                            string dateLabel;
-                            if (day == today)
-                            {
-                                dateLabel = "Today";
-                            }
-                            else if (day == today.AddDays(1))
-                            {
-                                dateLabel = "Tomorrow";
-                            }
-                            else
-                            {
-                                dateLabel = day.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("dddd yyyy-MM-dd");
-                            }
+                            var friendlyLabel = BuildFriendlyDateLabel(day);
+                            var isoLabel = FormatIsoDate(day);
 
-                            <h4 class="schedule-day-header">@dateLabel (@kv.Key.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc).ToString("yyyy-MM-dd"))</h4>
+                            <h4 class="schedule-day-header">@friendlyLabel (@isoLabel)</h4>
 
                             @foreach (var schedule in kv.Value)
                             {
@@ -474,6 +462,28 @@
 
         // Keep the modal opened only if the movie is still present in the visible schedules
         selectedMovie = LookupMovie(schedule.MovieId);
+    }
+
+    private static string BuildFriendlyDateLabel(DateOnly day)
+    {
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        if (day == today)
+        {
+            return "Today";
+        }
+
+        if (day == today.AddDays(1))
+        {
+            return "Tomorrow";
+        }
+
+        return day.DayOfWeek.ToString();
+    }
+
+    private static string FormatIsoDate(DateOnly day)
+    {
+        return day.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
     }
 
     private static string BuildFallbackLabel(string title)

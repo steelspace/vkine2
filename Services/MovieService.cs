@@ -16,6 +16,7 @@ public class MovieService : IMovieService
     private readonly PerformanceCache _performanceCache;
     private readonly IScheduleSearchService _scheduleSearchService;
     private readonly IMemoryCache _memoryCache;
+    private const int UpcomingDayWindow = 14;
 
     public MovieService(IMongoDatabase database, IScheduleSearchService scheduleSearchService, IMemoryCache memoryCache)
     {
@@ -111,9 +112,7 @@ public class MovieService : IMovieService
 
     public async Task<List<Schedule>> GetTodaysSchedules()
     {
-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var schedules = await _performanceCache.GetAsync(today);
-        return schedules;
+        return await GetUpcomingSchedulesInternal(UpcomingDayWindow);
     }
 
     public async Task<Dictionary<DateOnly, List<Schedule>>> GetUpcomingSchedulesForMovie(int movieId, int days)
@@ -137,8 +136,7 @@ public class MovieService : IMovieService
 
     public async Task<List<Schedule>> SearchTodaysSchedules(string query)
     {
-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
-        var schedules = await _performanceCache.GetAsync(today);
+        var schedules = await GetUpcomingSchedulesInternal(UpcomingDayWindow);
 
         if (string.IsNullOrWhiteSpace(query))
         {
@@ -294,5 +292,130 @@ public class MovieService : IMovieService
         }
 
         return new List<string>();
+    }
+
+    private async Task<List<Schedule>> GetUpcomingSchedulesInternal(int days)
+    {
+        var start = DateOnly.FromDateTime(DateTime.UtcNow);
+        var limit = Math.Max(1, days);
+        var aggregated = new Dictionary<int, Schedule>();
+
+        for (var offset = 0; offset < limit; offset++)
+        {
+            var day = start.AddDays(offset);
+            var dailySchedules = await _performanceCache.GetAsync(day);
+
+            if (dailySchedules == null || dailySchedules.Count == 0)
+            {
+                continue;
+            }
+
+            foreach (var schedule in dailySchedules)
+            {
+                MergeSchedule(aggregated, schedule);
+            }
+        }
+
+        return aggregated
+            .Values
+            .OrderBy(schedule => schedule.Date)
+            .ThenBy(schedule => schedule.MovieTitle, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    private static void MergeSchedule(Dictionary<int, Schedule> aggregated, Schedule schedule)
+    {
+        if (!aggregated.TryGetValue(schedule.MovieId, out var existing))
+        {
+            aggregated[schedule.MovieId] = CloneSchedule(schedule);
+            return;
+        }
+
+        if (schedule.Date < existing.Date)
+        {
+            existing.Date = schedule.Date;
+        }
+
+        if (schedule.StoredAt < existing.StoredAt)
+        {
+            existing.StoredAt = schedule.StoredAt;
+        }
+
+        foreach (var performance in schedule.Performances)
+        {
+            if (performance.Showtimes.Count == 0)
+            {
+                continue;
+            }
+
+            var target = existing.Performances.FirstOrDefault(p => p.VenueId == performance.VenueId);
+
+            if (target == null)
+            {
+                existing.Performances.Add(ClonePerformance(performance));
+                continue;
+            }
+
+            if (target.Venue == null)
+            {
+                target.Venue = performance.Venue;
+            }
+
+            foreach (var showtime in performance.Showtimes)
+            {
+                target.Showtimes.Add(CloneShowtime(showtime));
+            }
+        }
+    }
+
+    private static Schedule CloneSchedule(Schedule schedule)
+    {
+        return new Schedule
+        {
+            Id = schedule.Id,
+            MovieId = schedule.MovieId,
+            Date = schedule.Date,
+            MovieTitle = schedule.MovieTitle,
+            Performances = schedule.Performances
+                .Select(ClonePerformance)
+                .ToList(),
+            StoredAt = schedule.StoredAt
+        };
+    }
+
+    private static Performance ClonePerformance(Performance performance)
+    {
+        return new Performance
+        {
+            VenueId = performance.VenueId,
+            Venue = performance.Venue,
+            Showtimes = performance.Showtimes
+                .Select(CloneShowtime)
+                .ToList()
+        };
+    }
+
+    private static Showtime CloneShowtime(Showtime showtime)
+    {
+        return new Showtime
+        {
+            StartAt = showtime.StartAt,
+            TicketsAvailable = showtime.TicketsAvailable,
+            TicketUrl = showtime.TicketUrl,
+            IsPast = showtime.IsPast,
+            Badges = showtime.Badges
+                .Select(CloneBadge)
+                .ToList()
+        };
+    }
+
+    private static Badge CloneBadge(Badge badge)
+    {
+        return new Badge
+        {
+            Kind = badge.Kind,
+            Code = badge.Code,
+            Description = badge.Description
+        };
     }
 }
