@@ -161,9 +161,7 @@ public class MovieService : IMovieService
             _logger.LogDebug("Cache miss for {Count} movie IDs. Querying database.", missing.Count);
 
             var missingSet = new HashSet<int>(missing);
-            var csfdFilter = Builders<MovieDocument>.Filter.In(d => d.CsfdId, missing.Select(id => (int?)id));
-            var tmdbFilter = Builders<MovieDocument>.Filter.In(d => d.TmdbId, missing.Select(id => (int?)id));
-            var filter = Builders<MovieDocument>.Filter.Or(csfdFilter, tmdbFilter);
+            var filter = Builders<MovieDocument>.Filter.In(d => d.CsfdId, missing.Select(id => (int?)id));
 
             var documents = await _moviesCollection.Find(filter).ToListAsync();
 
