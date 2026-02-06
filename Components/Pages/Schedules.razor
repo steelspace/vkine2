@@ -27,33 +27,33 @@
         }
     </div>
 
-    @if (schedules == null)
+    @if (visibleSummaries == null)
     {
         <p>Loading schedules...</p>
     }
-    else if (!schedules.Any())
+    else if (!visibleSummaries.Any())
     {
         <p>No movie schedules found for today.</p>
     }
     else
     {
         <div class="schedule-grid">
-            @foreach (var schedule in schedules)
+            @foreach (var summary in visibleSummaries)
             {
-                var movie = LookupMovie(schedule.MovieId);
+                var movie = LookupMovie(summary.MovieId);
                 <div class="schedule-card">
-                    <div class="card-main" role="button" tabindex="0" @onclick="() => HandleScheduleActivation(schedule.MovieId)" @onkeydown="e => OnCardKeyDown(e, schedule.MovieId)">
+                    <div class="card-main" role="button" tabindex="0" @onclick="() => HandleScheduleActivation(summary.MovieId)" @onkeydown="e => OnCardKeyDown(e, summary.MovieId)">
                         <div class="card-cover">
                             @if (!string.IsNullOrWhiteSpace(movie?.CoverUrl))
                             {
-                                <img src="@movie.CoverUrl" alt="@schedule.MovieTitle" loading="lazy" />
+                                <img src="@movie.CoverUrl" alt="@summary.MovieTitle" loading="lazy" />
                             }
                             else
                             {
-                                <div class="cover-fallback">@BuildFallbackLabel(schedule.MovieTitle)</div>
+                                <div class="cover-fallback">@BuildFallbackLabel(summary.MovieTitle)</div>
                             }
                         </div>
-                        <div class="card-title">@schedule.MovieTitle</div>
+                        <div class="card-title">@summary.MovieTitle</div>
                     </div>
                 </div>
             }
@@ -156,8 +156,8 @@
 
 @code {
     private readonly Dictionary<int, Movie> movieDetails = new();
-    private List<Schedule>? schedules;
-    private List<Schedule>? allSchedules;
+    private List<ScheduleSummary>? visibleSummaries;
+    private List<ScheduleSummary>? allSummaries;
     private string searchQuery = string.Empty;
     private CancellationTokenSource? searchCts;
     private List<BadgeOption> badgeOptions = new();
@@ -168,9 +168,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        allSchedules = await MovieService.GetTodaysSchedules();
-        await EnsureMovieDetailsAsync(allSchedules);
-        UpdateBadgeFilters(allSchedules);
+        allSummaries = await MovieService.GetTodaysSchedules();
+        await EnsureMovieDetailsAsync(allSummaries?.Select(summary => summary.MovieId));
+        UpdateBadgeFilters(allSummaries);
         ApplyFilters();
     }
 
@@ -199,9 +199,9 @@
 
     private async Task PerformSearchAsync(string query)
     {
-        allSchedules = await MovieService.SearchTodaysSchedules(query);
-        await EnsureMovieDetailsAsync(allSchedules);
-        UpdateBadgeFilters(allSchedules);
+        allSummaries = await MovieService.SearchTodaysSchedules(query);
+        await EnsureMovieDetailsAsync(allSummaries?.Select(summary => summary.MovieId));
+        UpdateBadgeFilters(allSummaries);
         ApplyFilters();
     }
 
@@ -221,25 +221,24 @@
         ApplyFilters();
     }
 
-    private async Task EnsureMovieDetailsAsync(List<Schedule>? dataset)
+    private async Task EnsureMovieDetailsAsync(IEnumerable<int>? movieIds)
     {
-        if (dataset == null || dataset.Count == 0)
+        if (movieIds == null)
         {
             return;
         }
 
-        var missingIds = dataset
-            .Select(schedule => schedule.MovieId)
+        var candidates = movieIds
             .Where(id => id > 0 && !movieDetails.ContainsKey(id))
             .Distinct()
             .ToList();
 
-        if (missingIds.Count == 0)
+        if (candidates.Count == 0)
         {
             return;
         }
 
-        var fetched = await MovieService.GetMoviesByIdsAsync(missingIds);
+        var fetched = await MovieService.GetMoviesByIdsAsync(candidates);
 
         foreach (var kvp in fetched)
         {
@@ -285,7 +284,7 @@
 
     private async Task OpenScheduleModal(int movieId)
     {
-        var fetched = await MovieService.GetUpcomingSchedulesForMovie(movieId, 14);
+        var fetched = await MovieService.GetUpcomingSchedulesForMovie(movieId);
 
         if (fetched == null || fetched.Count == 0)
         {
@@ -295,6 +294,7 @@
 
         selectedMovieId = movieId;
         selectedSchedules = fetched;
+        await EnsureMovieDetailsAsync(new[] { movieId });
         selectedMovie = LookupMovie(movieId);
     }
 
@@ -316,32 +316,26 @@
         };
     }
 
-    private void UpdateBadgeFilters(List<Schedule>? dataset)
+    private void UpdateBadgeFilters(List<ScheduleSummary>? dataset)
     {
         var discovered = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         if (dataset != null)
         {
-            foreach (var schedule in dataset)
+            foreach (var summary in dataset)
             {
-                foreach (var performance in schedule.Performances)
+                foreach (var badge in summary.Badges)
                 {
-                    foreach (var showtime in performance.Showtimes)
+                    if (string.IsNullOrWhiteSpace(badge.Code))
                     {
-                        foreach (var badge in showtime.Badges)
-                        {
-                            if (string.IsNullOrWhiteSpace(badge.Code))
-                            {
-                                continue;
-                            }
+                        continue;
+                    }
 
-                            if (!discovered.ContainsKey(badge.Code))
-                            {
-                                discovered[badge.Code] = string.IsNullOrWhiteSpace(badge.Description)
-                                    ? badge.Code
-                                    : badge.Description;
-                            }
-                        }
+                    if (!discovered.ContainsKey(badge.Code))
+                    {
+                        discovered[badge.Code] = string.IsNullOrWhiteSpace(badge.Label)
+                            ? badge.Code
+                            : badge.Label;
                     }
                 }
             }
@@ -381,16 +375,16 @@
 
     private void ApplyFilters()
     {
-        if (allSchedules == null)
+        if (allSummaries == null)
         {
-            schedules = null;
+            visibleSummaries = null;
             CloseScheduleModal();
             return;
         }
 
         if (!badgeOptions.Any() || activeBadgeCodes.Count == badgeOptions.Count)
         {
-            schedules = allSchedules;
+            visibleSummaries = allSummaries;
             EnsureSelectedScheduleStillVisible();
             return;
         }
@@ -398,44 +392,20 @@
         var disallowed = new HashSet<string>(badgeOptions.Select(option => option.Code), StringComparer.OrdinalIgnoreCase);
         disallowed.ExceptWith(activeBadgeCodes);
 
-        var filtered = new List<Schedule>();
-
-        foreach (var schedule in allSchedules)
-        {
-            var filteredPerformances = new List<Performance>();
-
-            foreach (var performance in schedule.Performances)
+        var filtered = allSummaries
+            .Where(summary =>
             {
-                var filteredShowtimes = performance.Showtimes
-                    .Where(showtime => !showtime.Badges.Any(badge => disallowed.Contains(badge.Code)))
-                    .ToList();
-
-                if (filteredShowtimes.Any())
+                if (summary.ShowtimeBadgeSignatures == null || !summary.ShowtimeBadgeSignatures.Any())
                 {
-                    filteredPerformances.Add(new Performance
-                    {
-                        VenueId = performance.VenueId,
-                        Venue = performance.Venue,
-                        Showtimes = filteredShowtimes
-                    });
+                    return true;
                 }
-            }
 
-            if (filteredPerformances.Any())
-            {
-                filtered.Add(new Schedule
-                {
-                    Id = schedule.Id,
-                    MovieId = schedule.MovieId,
-                    Date = schedule.Date,
-                    MovieTitle = schedule.MovieTitle,
-                    Performances = filteredPerformances,
-                    StoredAt = schedule.StoredAt
-                });
-            }
-        }
+                return summary.ShowtimeBadgeSignatures.Any(signature =>
+                    signature.Badges.All(code => !disallowed.Contains(code)));
+            })
+            .ToList();
 
-        schedules = filtered;
+        visibleSummaries = filtered;
         EnsureSelectedScheduleStillVisible();
     }
 
@@ -446,22 +416,22 @@
             return;
         }
 
-        if (schedules == null)
+        if (visibleSummaries == null)
         {
             CloseScheduleModal();
             return;
         }
 
-        var schedule = schedules.FirstOrDefault(s => s.MovieId == selectedMovieId.Value);
+        var summary = visibleSummaries.FirstOrDefault(s => s.MovieId == selectedMovieId.Value);
 
-        if (schedule == null)
+        if (summary == null)
         {
             CloseScheduleModal();
             return;
         }
 
         // Keep the modal opened only if the movie is still present in the visible schedules
-        selectedMovie = LookupMovie(schedule.MovieId);
+        selectedMovie = LookupMovie(summary.MovieId);
     }
 
     private static string BuildFriendlyDateLabel(DateOnly day)
