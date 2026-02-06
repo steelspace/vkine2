@@ -194,3 +194,125 @@
         min-width: auto;
     }
 }
+
+/* Schedules Styles */
+.modal-loading {
+    padding: 1rem;
+    text-align: center;
+    color: #666;
+}
+
+.modal-schedules {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.modal-schedules h3 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.schedule-date {
+    margin-bottom: 2rem;
+}
+
+.schedule-date h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #512bd4;
+}
+
+.performance {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.venue-info {
+    margin-bottom: 0.75rem;
+    color: #333;
+}
+
+.venue-info strong {
+    font-size: 1.1rem;
+}
+
+.venue-city {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.showtimes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.showtime {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.showtime.available {
+    border-color: #28a745;
+    background-color: #f0fff4;
+}
+
+.showtime.unavailable {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+    opacity: 0.7;
+}
+
+.showtime .time {
+    font-weight: 600;
+    color: #333;
+}
+
+.showtime .badges {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.showtime .badge {
+    padding: 0.15rem 0.4rem;
+    background-color: #512bd4;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.showtime .ticket-link {
+    padding: 0.25rem 0.5rem;
+    background-color: #512bd4;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.showtime .ticket-link:hover {
+    background-color: #3d1fa3;
+}
+
+.no-schedules {
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}

@@ -1,4 +1,6 @@
 @using vkine.Models
+@using vkine.Services
+@inject IScheduleService ScheduleService
 
 @if (IsOpen && Movie != null)
 {
@@ -43,6 +45,73 @@
                             <p>@Movie.Synopsis</p>
                         </div>
                     }
+
+                    @if (isLoadingSchedules)
+                    {
+                        <div class="modal-loading">
+                            <p>Loading showtimes...</p>
+                        </div>
+                    }
+                    else if (schedules != null && schedules.Count > 0)
+                    {
+                        <div class="modal-schedules">
+                            <h3>Upcoming Showtimes</h3>
+                            @foreach (var schedule in schedules)
+                            {
+                                <div class="schedule-date">
+                                    <h4>@schedule.Date.ToLocalTime().ToString("dddd, MMMM dd, yyyy")</h4>
+                                    @foreach (var performance in schedule.Performances)
+                                    {
+                                        <div class="performance">
+                                            @if (venues.TryGetValue(performance.VenueId, out var venue))
+                                            {
+                                                <div class="venue-info">
+                                                    <strong>@venue.Name</strong>
+                                                    @if (!string.IsNullOrEmpty(venue.City))
+                                                    {
+                                                        <span class="venue-city"> - @venue.City</span>
+                                                    }
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="venue-info">
+                                                    <strong>Venue ID: @performance.VenueId</strong>
+                                                </div>
+                                            }
+                                            <div class="showtimes">
+                                                @foreach (var showtime in performance.Showtimes)
+                                                {
+                                                    <div class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
+                                                        <span class="time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
+                                                        @if (showtime.Badges.Count > 0)
+                                                        {
+                                                            <span class="badges">
+                                                                @foreach (var badge in showtime.Badges)
+                                                                {
+                                                                    <span class="badge" title="@badge.Description">@badge.Code</span>
+                                                                }
+                                                            </span>
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl) && showtime.TicketsAvailable)
+                                                        {
+                                                            <a href="@showtime.TicketUrl" target="_blank" class="ticket-link">Buy Tickets</a>
+                                                        }
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (!isLoadingSchedules)
+                    {
+                        <div class="no-schedules">
+                            <p>No upcoming showtimes available.</p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -58,4 +127,51 @@
 
     [Parameter]
     public EventCallback OnClose { get; set; }
+
+    private List<ScheduleDto>? schedules;
+    private Dictionary<int, VenueDto> venues = new();
+    private bool isLoadingSchedules = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (IsOpen && Movie != null && Movie.Id > 0)
+        {
+            await LoadSchedulesAsync();
+        }
+        else if (!IsOpen)
+        {
+            // Clear data when modal is closed
+            schedules = null;
+            venues.Clear();
+        }
+    }
+
+    private async Task LoadSchedulesAsync()
+    {
+        try
+        {
+            isLoadingSchedules = true;
+            schedules = await ScheduleService.GetUpcomingPerformancesForMovieAsync(Movie!.Id);
+
+            if (schedules != null && schedules.Count > 0)
+            {
+                var venueIds = schedules
+                    .SelectMany(s => s.Performances)
+                    .Select(p => p.VenueId)
+                    .Distinct()
+                    .ToList();
+
+                venues = await ScheduleService.GetVenuesByIdsAsync(venueIds);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading schedules: {ex.Message}");
+            schedules = new List<ScheduleDto>();
+        }
+        finally
+        {
+            isLoadingSchedules = false;
+        }
+    }
 }

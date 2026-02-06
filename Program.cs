@@ -22,6 +22,7 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IMongoClient>().GetDataba
 
 builder.Services.AddMemoryCache(options => options.SizeLimit = 256);
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 var app = builder.Build();
 
