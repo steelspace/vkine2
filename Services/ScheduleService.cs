@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using vkine.Models;
 
@@ -106,6 +107,36 @@ public class ScheduleService(
         {
             _logger.LogError(ex, "Error fetching venues by IDs");
             return new Dictionary<int, VenueDto>();
+        }
+    }
+
+    public async Task<List<int>> GetMovieIdsWithUpcomingPerformancesAsync(int skip, int limit)
+    {
+        try
+        {
+            var now = DateTime.UtcNow;
+
+            // Use constants for nested fields to avoid scattering string literals
+            const string showtimeField = "performances.showtimes.start_at";
+
+            // Build aggregation stages using BsonDocument for unwind/group and Builders for match where convenient
+            var unwindPerf = new BsonDocument("$unwind", "$performances");
+            var unwindShow = new BsonDocument("$unwind", "$performances.showtimes");
+            var match = new BsonDocument("$match", new BsonDocument(showtimeField, new BsonDocument("$gte", now)));
+            var group = new BsonDocument("$group", new BsonDocument { { "_id", "$movie_id" }, { "firstShow", new BsonDocument("$min", "$performances.showtimes.start_at") } });
+            var sort = new BsonDocument("$sort", new BsonDocument("firstShow", 1));
+            var skipDoc = new BsonDocument("$skip", skip);
+            var limitDoc = new BsonDocument("$limit", limit);
+
+            var pipeline = new[] { unwindPerf, unwindShow, match, group, sort, skipDoc, limitDoc };
+            var results = await _schedulesCollection.Aggregate<BsonDocument>(pipeline).ToListAsync();
+
+            return results.Select(d => d["_id"].AsInt32).ToList();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching movie IDs with upcoming performances");
+            return new List<int>();
         }
     }
 }

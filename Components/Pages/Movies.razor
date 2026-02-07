@@ -22,7 +22,7 @@
     else
     {
         <div class="movies-stats">
-            <p>Showing @movies.Count of @totalMovies movies</p>
+            <p>Showing @movies.Count movies</p>
         </div>
 
         <div class="movies-grid">
@@ -52,7 +52,7 @@
             }
         </div>
 
-        @if (totalMovies > movies.Count)
+        @if (_hasMore)
         {
             <div class="load-more-container">
                 <button class="btn-load-more" @onclick="LoadMoreMovies" disabled="@isLoadingMore">

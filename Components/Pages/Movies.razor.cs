@@ -9,14 +9,19 @@ public partial class Movies : ComponentBase
     [Inject]
     private IMovieService MovieService { get; set; } = default!;
 
+    [Inject]
+    private IScheduleService ScheduleService { get; set; } = default!;
+
     private List<Movie> movies = new();
-    private int totalMovies = 0;
     private bool isLoading = true;
     private bool isLoadingMore = false;
-    private int currentPage = 0;
     private const int PageSize = 20;
     private bool isModalOpen = false;
     private Movie? selectedMovie = null;
+
+    // Paging state for schedule-based movie IDs
+    private int _skip = 0;
+    private bool _hasMore = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -28,14 +33,17 @@ public partial class Movies : ComponentBase
         try
         {
             isLoading = true;
-            totalMovies = await MovieService.GetTotalMovieCountAsync();
-            movies = await MovieService.GetMoviesAsync(0, PageSize);
-            currentPage = 1;
+            movies.Clear();
+            _skip = 0;
+            _hasMore = true;
+
+            await LoadMoreMovies();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading movies: {ex.Message}");
             movies = new List<Movie>();
+            _hasMore = false;
         }
         finally
         {
@@ -45,13 +53,27 @@ public partial class Movies : ComponentBase
 
     private async Task LoadMoreMovies()
     {
+        if (!_hasMore) return;
+
         try
         {
             isLoadingMore = true;
-            var startIndex = currentPage * PageSize;
-            var moreMovies = await MovieService.GetMoviesAsync(startIndex, PageSize);
-            movies.AddRange(moreMovies);
-            currentPage++;
+
+            var ids = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(_skip, PageSize);
+            if (ids.Count == 0)
+            {
+                _hasMore = false;
+                return;
+            }
+
+            _skip += ids.Count;
+            if (ids.Count < PageSize) _hasMore = false;
+
+            var moviesById = await MovieService.GetMoviesByIdsAsync(ids);
+            var pageMovies = ids.Where(id => moviesById.ContainsKey(id)).Select(id => moviesById[id]).ToList();
+
+            // Append found movies
+            movies.AddRange(pageMovies);
         }
         catch (Exception ex)
         {
