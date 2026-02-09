@@ -30,12 +30,15 @@ public class MovieDocument
     [BsonElement("backdrop_url")]
     public string? BackdropUrl { get; set; }
 
-    // Optional cast & crew arrays in the Mongo document (new) - may not exist for all docs
+    // Optional cast, crew & directors arrays in the Mongo document (may not exist for all docs)
     [BsonElement("cast")]
     public List<string>? Cast { get; set; }
 
     [BsonElement("crew")]
     public List<string>? Crew { get; set; }
+
+    [BsonElement("directors")]
+    public List<string>? Directors { get; set; }
 
     [BsonElement("localized_titles")]
     public LocalizedTitles? LocalizedTitles { get; set; }

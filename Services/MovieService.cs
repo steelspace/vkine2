@@ -123,6 +123,7 @@ public class MovieService(
                 Builders<MovieDocument>.Filter.Regex(d => d.Description, new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("cast", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("crew", new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex("directors", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("localized_titles.original", new BsonRegularExpression(token, "i"))
             )).ToList();
 

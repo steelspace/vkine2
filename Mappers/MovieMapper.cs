@@ -23,8 +23,9 @@ public class MovieMapper
             BackdropUrl = document.BackdropUrl ?? string.Empty,
             OriginCountries = ParseOriginCountries(document),
             Cast = document.Cast ?? new List<string>(),
-            Crew = document.Crew ?? new List<string>()
-        };
+            Crew = document.Crew ?? new List<string>(),
+            Directors = document.Directors ?? new List<string>()
+        }; 
     }
 
     /// <summary>

@@ -15,4 +15,7 @@ public class Movie
     // New: lists of cast and crew names for richer searching
     public List<string> Cast { get; set; } = new();
     public List<string> Crew { get; set; } = new();
+
+    // New: list of directors for searching
+    public List<string> Directors { get; set; } = new();
 } 
