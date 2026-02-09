@@ -6,6 +6,14 @@
 <div class="movies-container">
     <h1 class="movies-title">Movies</h1>
 
+    <div class="search-container">
+        <input class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
+        @if (isSearching)
+        {
+            <span class="search-loading">Searching...</span>
+        }
+    </div>
+
     @if (isLoading)
     {
         <div class="loading-container">
@@ -21,51 +29,87 @@
     }
     else
     {
-        <div class="movies-stats">
-            <p>Showing @movies.Count movies</p>
-        </div>
+        @if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            <div class="movies-stats">
+                <p>Search results: @searchResults.Count</p>
+            </div>
 
-        <div class="movies-grid">
-            @foreach (var movie in movies)
+            <div class="movies-grid">
+                @foreach (var movie in searchResults)
+                {
+                    <div class="movie-card" @onclick="() => OpenModal(movie)">
+                        <div class="movie-poster">
+                            @if (!string.IsNullOrEmpty(movie.CoverUrl))
+                            {
+                                <img src="@movie.CoverUrl" alt="@movie.Title" />
+                            }
+                            else
+                            {
+                                <div class="no-poster">
+                                    <span>No Image</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">@movie.Title</h3>
+                            @if (movie.OriginCountries.Count > 0)
+                            {
+                                <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="movies-stats">
+                <p>Showing @movies.Count movies</p>
+            </div>
+
+            <div class="movies-grid">
+                @foreach (var movie in movies)
+                {
+                    <div class="movie-card" @onclick="() => OpenModal(movie)">
+                        <div class="movie-poster">
+                            @if (!string.IsNullOrEmpty(movie.CoverUrl))
+                            {
+                                <img src="@movie.CoverUrl" alt="@movie.Title" />
+                            }
+                            else
+                            {
+                                <div class="no-poster">
+                                    <span>No Image</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">@movie.Title</h3>
+                            @if (movie.OriginCountries.Count > 0)
+                            {
+                                <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (_hasMore)
             {
-                <div class="movie-card" @onclick="() => OpenModal(movie)">
-                    <div class="movie-poster">
-                        @if (!string.IsNullOrEmpty(movie.CoverUrl))
+                <div class="load-more-container">
+                    <button class="btn-load-more" @onclick="LoadMoreMovies" disabled="@isLoadingMore">
+                        @if (isLoadingMore)
                         {
-                            <img src="@movie.CoverUrl" alt="@movie.Title" />
+                            <span>Loading...</span>
                         }
                         else
                         {
-                            <div class="no-poster">
-                                <span>No Image</span>
-                            </div>
+                            <span>Load More</span>
                         }
-                    </div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">@movie.Title</h3>
-                        @if (movie.OriginCountries.Count > 0)
-                        {
-                            <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
-                        }
-                    </div>
+                    </button>
                 </div>
             }
-        </div>
-
-        @if (_hasMore)
-        {
-            <div class="load-more-container">
-                <button class="btn-load-more" @onclick="LoadMoreMovies" disabled="@isLoadingMore">
-                    @if (isLoadingMore)
-                    {
-                        <span>Loading...</span>
-                    }
-                    else
-                    {
-                        <span>Load More</span>
-                    }
-                </button>
-            </div>
         }
     }
 

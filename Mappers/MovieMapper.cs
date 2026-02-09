@@ -21,7 +21,9 @@ public class MovieMapper
             Synopsis = document.Description ?? string.Empty,
             CoverUrl = document.PosterUrl ?? string.Empty,
             BackdropUrl = document.BackdropUrl ?? string.Empty,
-            OriginCountries = ParseOriginCountries(document)
+            OriginCountries = ParseOriginCountries(document),
+            Cast = document.Cast ?? new List<string>(),
+            Crew = document.Crew ?? new List<string>()
         };
     }
 

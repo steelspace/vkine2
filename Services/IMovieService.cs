@@ -16,6 +16,15 @@ public interface IMovieService
     Task<List<Movie>> GetMoviesAsync(int startIndex, int count);
 
     /// <summary>
+    /// Search movies by free-text query across title, description, cast and crew.
+    /// Queries are tokenized and require all tokens to appear in any of the searchable fields (AND semantics).
+    /// This is tuned to behave like a Google-like quick search.
+    /// </summary>
+    /// <param name="query">The free text query.</param>
+    /// <param name="limit">Maximum number of results to return.</param>
+    Task<List<Movie>> SearchMoviesAsync(string query, int limit = 50);
+
+    /// <summary>
     /// Gets the total count of movies in the database.
     /// </summary>
     /// <returns>Total movie count.</returns>

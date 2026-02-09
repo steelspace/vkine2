@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using MongoDB.Bson;
+using System.Text.RegularExpressions;
 using vkine.Mappers;
 using vkine.Models;
 
@@ -99,6 +101,36 @@ public class MovieService(
         }
 
         return result;
+    }
+
+    public async Task<List<Movie>> SearchMoviesAsync(string query, int limit = 50)
+    {
+        if (string.IsNullOrWhiteSpace(query)) return new List<Movie>();
+
+        // Tokenize query and escape regex characters so user input doesn't break regex
+        var tokens = query
+            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(t => Regex.Escape(t.Trim()))
+            .Where(t => t.Length > 0)
+            .ToList();
+
+        if (tokens.Count == 0) return new List<Movie>();
+
+        // For each token create an OR filter that looks for the token in title, description, cast or crew
+        var filtersPerToken = tokens.Select(token =>
+            Builders<MovieDocument>.Filter.Or(
+                Builders<MovieDocument>.Filter.Regex(d => d.Title, new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex(d => d.Description, new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex("cast", new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex("crew", new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex("localized_titles.original", new BsonRegularExpression(token, "i"))
+            )).ToList();
+
+        var finalFilter = Builders<MovieDocument>.Filter.And(filtersPerToken);
+
+        var documents = await _moviesCollection.Find(finalFilter).Limit(limit).ToListAsync();
+
+        return documents.Select(_movieMapper.Map).ToList();
     }
 
     private void CacheMovie(Movie movie)
