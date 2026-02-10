@@ -22,10 +22,10 @@ public class ScheduleService(
         {
             _logger.LogInformation("Fetching schedules for movie {MovieId}", movieId);
 
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
             var today = now.Date;
 
-            _logger.LogInformation("Current UTC time: {Now}, Today date: {Today}", now, today);
+            _logger.LogInformation("Current local time: {Now}, Today date: {Today}", now, today);
 
             // First, check if there are any schedules for this movie at all
             var anyScheduleFilter = Builders<ScheduleDto>.Filter.Eq(s => s.MovieId, movieId);
@@ -114,7 +114,7 @@ public class ScheduleService(
     {
         try
         {
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             // Use constants for nested fields to avoid scattering string literals
             const string showtimeField = "performances.showtimes.start_at";

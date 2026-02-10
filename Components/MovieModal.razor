@@ -59,7 +59,7 @@
                             @foreach (var schedule in schedules)
                             {
                                 <div class="schedule-date">
-                                    <h4>@schedule.Date.ToLocalTime().ToString("dddd, MMMM dd, yyyy")</h4>
+                                    <h4>@schedule.Date.ToString("dddd, MMMM dd, yyyy")</h4>
                                     @foreach (var performance in schedule.Performances)
                                     {
                                         <div class="performance">
@@ -83,7 +83,7 @@
                                                 @foreach (var showtime in performance.Showtimes)
                                                 {
                                                     <div class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
-                                                        <span class="time">@showtime.StartAt.ToLocalTime().ToString("HH:mm")</span>
+                                                        <span class="time">@showtime.StartAt.ToString("HH:mm")</span>
                                                         @if (showtime.Badges.Count > 0)
                                                         {
                                                             <span class="badges">
