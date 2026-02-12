@@ -9,7 +9,7 @@ public class ScheduleDto
     public ObjectId Id { get; set; }
 
     [BsonElement("date")]
-    public DateTime Date { get; set; }
+    public DateOnly Date { get; set; }
 
     [BsonElement("movie_id")]
     public int MovieId { get; set; }
@@ -36,7 +36,7 @@ public class PerformanceDto
 public class ShowtimeDto
 {
     [BsonElement("start_at")]
-    public DateTime StartAt { get; set; }
+    public TimeOnly StartAt { get; set; }
 
     [BsonElement("tickets_available")]
     public bool TicketsAvailable { get; set; }

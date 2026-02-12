@@ -23,10 +23,11 @@ public class ScheduleService(
             _logger.LogInformation("Fetching schedules for movie {MovieId}", movieId);
 
             var now = DateTime.Now;
-            var today = now.Date;
+            var today = DateOnly.FromDateTime(now);
+            var currentTime = TimeOnly.FromDateTime(now);
 
-            _logger.LogInformation("Current local time: {Now} (Kind: {Kind}), Today date: {Today}", 
-                now.ToString("yyyy-MM-dd HH:mm:ss"), now.Kind, today.ToString("yyyy-MM-dd"));
+            _logger.LogInformation("Current local time: {Now}, Today: {Today}, Current time: {CurrentTime}", 
+                now.ToString("yyyy-MM-dd HH:mm:ss"), today, currentTime);
 
             // First, check if there are any schedules for this movie at all
             var anyScheduleFilter = Builders<ScheduleDto>.Filter.Eq(s => s.MovieId, movieId);
@@ -59,11 +60,8 @@ public class ScheduleService(
             if (schedules.Count > 0 && schedules[0].Performances.Count > 0 && schedules[0].Performances[0].Showtimes.Count > 0)
             {
                 var firstShowtime = schedules[0].Performances[0].Showtimes[0];
-                _logger.LogInformation("Sample: Schedule.Date={ScheduleDate} (Kind: {ScheduleKind}), Showtime.StartAt={StartAt} (Kind: {StartAtKind})", 
-                    schedules[0].Date.ToString("yyyy-MM-dd HH:mm:ss"),
-                    schedules[0].Date.Kind,
-                    firstShowtime.StartAt.ToString("yyyy-MM-dd HH:mm:ss"),
-                    firstShowtime.StartAt.Kind);
+                _logger.LogInformation("Sample: Schedule.Date={ScheduleDate}, Showtime.StartAt={StartAt}", 
+                    schedules[0].Date, firstShowtime.StartAt);
             }
 
             // Filter out past showtimes, keeping schedule structure intact
@@ -73,15 +71,16 @@ public class ScheduleService(
                 {
                     var before = performance.Showtimes.Count;
                     
-                    // Only keep future showtimes - log any that are being filtered
+                    // Only keep future showtimes - combine date with time for comparison
                     performance.Showtimes = performance.Showtimes
                         .Where(st =>
                         {
-                            var isFuture = st.StartAt >= now;
+                            var showtimeDateTime = schedule.Date.ToDateTime(st.StartAt);
+                            var isFuture = showtimeDateTime >= now;
                             if (!isFuture)
                             {
-                                _logger.LogDebug("Filtering out past showtime: {StartAt} (Kind: {Kind}) < {Now}",
-                                    st.StartAt.ToString("yyyy-MM-dd HH:mm:ss"), st.StartAt.Kind, now.ToString("yyyy-MM-dd HH:mm:ss"));
+                                _logger.LogDebug("Filtering out past showtime: {ShowtimeDateTime} < {Now}",
+                                    showtimeDateTime.ToString("yyyy-MM-dd HH:mm:ss"), now.ToString("yyyy-MM-dd HH:mm:ss"));
                             }
                             return isFuture;
                         })
@@ -145,23 +144,56 @@ public class ScheduleService(
         try
         {
             var now = DateTime.Now;
+            var today = DateOnly.FromDateTime(now);
+            var currentTime = TimeOnly.FromDateTime(now);
 
-            // Use constants for nested fields to avoid scattering string literals
-            const string showtimeField = "performances.showtimes.start_at";
+            _logger.LogInformation("Fetching movie IDs with performances >= {Today} {Time}", today, currentTime);
 
-            // Build aggregation stages using BsonDocument for unwind/group and Builders for match where convenient
-            var unwindPerf = new BsonDocument("$unwind", "$performances");
-            var unwindShow = new BsonDocument("$unwind", "$performances.showtimes");
-            var match = new BsonDocument("$match", new BsonDocument(showtimeField, new BsonDocument("$gte", now)));
-            var group = new BsonDocument("$group", new BsonDocument { { "_id", "$movie_id" }, { "firstShow", new BsonDocument("$min", "$performances.showtimes.start_at") } });
-            var sort = new BsonDocument("$sort", new BsonDocument("firstShow", 1));
-            var skipDoc = new BsonDocument("$skip", skip);
-            var limitDoc = new BsonDocument("$limit", limit);
+            // Fetch all schedules from today onwards
+            var filter = Builders<ScheduleDto>.Filter.Gte(s => s.Date, today);
+            var schedules = await _schedulesCollection
+                .Find(filter)
+                .ToListAsync();
 
-            var pipeline = new[] { unwindPerf, unwindShow, match, group, sort, skipDoc, limitDoc };
-            var results = await _schedulesCollection.Aggregate<BsonDocument>(pipeline).ToListAsync();
+            _logger.LogInformation("Found {Count} schedules from today onwards", schedules.Count);
 
-            return results.Select(d => d["_id"].AsInt32).ToList();
+            // Process in memory: find earliest upcoming showtime for each movie
+            var movieShowtimes = new Dictionary<int, DateTime>();
+
+            foreach (var schedule in schedules)
+            {
+                foreach (var performance in schedule.Performances)
+                {
+                    foreach (var showtime in performance.Showtimes)
+                    {
+                        var showtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt);
+                        
+                        // Only consider future showtimes
+                        if (showtimeDateTime >= now)
+                        {
+                            if (!movieShowtimes.ContainsKey(schedule.MovieId) || 
+                                showtimeDateTime < movieShowtimes[schedule.MovieId])
+                            {
+                                movieShowtimes[schedule.MovieId] = showtimeDateTime;
+                            }
+                        }
+                    }
+                }
+            }
+
+            _logger.LogInformation("Found {Count} unique movies with upcoming showtimes", movieShowtimes.Count);
+
+            // Sort by earliest showtime, apply paging
+            var result = movieShowtimes
+                .OrderBy(kvp => kvp.Value)
+                .Skip(skip)
+                .Take(limit)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            _logger.LogInformation("Returning {Count} movie IDs after skip={Skip} limit={Limit}", result.Count, skip, limit);
+
+            return result;
         }
         catch (Exception ex)
         {
