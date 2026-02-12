@@ -280,6 +280,11 @@
     color: #333;
 }
 
+.showtime .time .showtime-date-mismatch {
+    color: #dc3545;
+    font-weight: 700;
+}
+
 .showtime .badges {
     display: flex;
     gap: 0.25rem;

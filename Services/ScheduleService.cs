@@ -25,7 +25,8 @@ public class ScheduleService(
             var now = DateTime.Now;
             var today = now.Date;
 
-            _logger.LogInformation("Current local time: {Now}, Today date: {Today}", now, today);
+            _logger.LogInformation("Current local time: {Now} (Kind: {Kind}), Today date: {Today}", 
+                now.ToString("yyyy-MM-dd HH:mm:ss"), now.Kind, today.ToString("yyyy-MM-dd"));
 
             // First, check if there are any schedules for this movie at all
             var anyScheduleFilter = Builders<ScheduleDto>.Filter.Eq(s => s.MovieId, movieId);
@@ -54,15 +55,44 @@ public class ScheduleService(
             var initialScheduleCount = schedules.Count;
             var initialShowtimeCount = schedules.Sum(s => s.Performances.Sum(p => p.Showtimes.Count));
 
-            // Filter out past showtimes within today's schedules
+            // Log sample showtime data for debugging
+            if (schedules.Count > 0 && schedules[0].Performances.Count > 0 && schedules[0].Performances[0].Showtimes.Count > 0)
+            {
+                var firstShowtime = schedules[0].Performances[0].Showtimes[0];
+                _logger.LogInformation("Sample: Schedule.Date={ScheduleDate} (Kind: {ScheduleKind}), Showtime.StartAt={StartAt} (Kind: {StartAtKind})", 
+                    schedules[0].Date.ToString("yyyy-MM-dd HH:mm:ss"),
+                    schedules[0].Date.Kind,
+                    firstShowtime.StartAt.ToString("yyyy-MM-dd HH:mm:ss"),
+                    firstShowtime.StartAt.Kind);
+            }
+
+            // Filter out past showtimes, keeping schedule structure intact
             foreach (var schedule in schedules)
             {
                 foreach (var performance in schedule.Performances)
                 {
+                    var before = performance.Showtimes.Count;
+                    
+                    // Only keep future showtimes - log any that are being filtered
                     performance.Showtimes = performance.Showtimes
-                        .Where(st => st.StartAt >= now)
+                        .Where(st =>
+                        {
+                            var isFuture = st.StartAt >= now;
+                            if (!isFuture)
+                            {
+                                _logger.LogDebug("Filtering out past showtime: {StartAt} (Kind: {Kind}) < {Now}",
+                                    st.StartAt.ToString("yyyy-MM-dd HH:mm:ss"), st.StartAt.Kind, now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            }
+                            return isFuture;
+                        })
                         .OrderBy(st => st.StartAt)
                         .ToList();
+                    
+                    if (before > performance.Showtimes.Count)
+                    {
+                        _logger.LogInformation("Filtered {Count} past showtimes from venue {VenueId}",
+                            before - performance.Showtimes.Count, performance.VenueId);
+                    }
                 }
 
                 // Remove performances with no upcoming showtimes

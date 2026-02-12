@@ -83,7 +83,14 @@
                                                 @foreach (var showtime in performance.Showtimes)
                                                 {
                                                     <div class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
-                                                        <span class="time">@showtime.StartAt.ToString("HH:mm")</span>
+                                                        <span class="time">
+                                                            @if (showtime.StartAt.Date != schedule.Date.Date)
+                                                            {
+                                                                @* Show full date if it differs from schedule date *@
+                                                                <span class="showtime-date-mismatch">@showtime.StartAt.ToString("MMM dd, ")</span>
+                                                            }
+                                                            @showtime.StartAt.ToString("HH:mm")
+                                                        </span>
                                                         @if (showtime.Badges.Count > 0)
                                                         {
                                                             <span class="badges">
