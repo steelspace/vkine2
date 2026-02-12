@@ -157,29 +157,21 @@ public class ScheduleService(
 
             _logger.LogInformation("Found {Count} schedules from today onwards", schedules.Count);
 
-            // Process in memory: find earliest upcoming showtime for each movie
-            var movieShowtimes = new Dictionary<int, DateTime>();
-
-            foreach (var schedule in schedules)
-            {
-                foreach (var performance in schedule.Performances)
-                {
-                    foreach (var showtime in performance.Showtimes)
-                    {
-                        var showtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt);
-                        
-                        // Only consider future showtimes
-                        if (showtimeDateTime >= now)
+            // Process in memory: find earliest upcoming showtime for each movie using LINQ
+            var movieShowtimes = schedules
+                .SelectMany(schedule => schedule.Performances
+                    .SelectMany(performance => performance.Showtimes
+                        .Select(showtime => new 
                         {
-                            if (!movieShowtimes.ContainsKey(schedule.MovieId) || 
-                                showtimeDateTime < movieShowtimes[schedule.MovieId])
-                            {
-                                movieShowtimes[schedule.MovieId] = showtimeDateTime;
-                            }
-                        }
-                    }
-                }
-            }
+                            MovieId = schedule.MovieId,
+                            ShowtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt)
+                        })))
+                .Where(item => item.ShowtimeDateTime >= now)
+                .GroupBy(item => item.MovieId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Min(item => item.ShowtimeDateTime)
+                );
 
             _logger.LogInformation("Found {Count} unique movies with upcoming showtimes", movieShowtimes.Count);
 
@@ -199,6 +191,38 @@ public class ScheduleService(
         {
             _logger.LogError(ex, "Error fetching movie IDs with upcoming performances");
             return new List<int>();
+        }
+    }
+
+    public async Task<HashSet<int>> GetAllMovieIdsWithUpcomingPerformancesAsync()
+    {
+        try
+        {
+            var now = DateTime.Now;
+            var today = DateOnly.FromDateTime(now);
+
+            // Fetch all schedules from today onwards
+            var filter = Builders<ScheduleDto>.Filter.Gte(s => s.Date, today);
+            var schedules = await _schedulesCollection
+                .Find(filter)
+                .ToListAsync();
+
+            // Find all movies with at least one upcoming showtime using LINQ
+            var movieIds = schedules
+                .Where(schedule => schedule.Performances
+                    .Any(performance => performance.Showtimes
+                        .Any(showtime => schedule.Date.ToDateTime(showtime.StartAt) >= now)))
+                .Select(schedule => schedule.MovieId)
+                .ToHashSet();
+
+            _logger.LogInformation("Found {Count} unique movies with upcoming showtimes", movieIds.Count);
+
+            return movieIds;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching all movie IDs with upcoming performances");
+            return new HashSet<int>();
         }
     }
 }

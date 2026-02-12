@@ -11,6 +11,7 @@ namespace vkine.Services;
 public class MovieService(
     IMongoDatabase database,
     IMemoryCache memoryCache,
+    IScheduleService scheduleService,
     ILogger<MovieService> logger) : IMovieService
 {
     private const string MOVIE_CACHE_KEY_PREFIX = "movie-";
@@ -18,6 +19,7 @@ public class MovieService(
 
     private readonly IMongoCollection<MovieDocument> _moviesCollection = database.GetCollection<MovieDocument>(MOVIES_COLLECTION_NAME);
     private readonly IMemoryCache _memoryCache = memoryCache;
+    private readonly IScheduleService _scheduleService = scheduleService;
     private readonly ILogger<MovieService> _logger = logger;
     private readonly MovieMapper _movieMapper = new();
 
@@ -107,6 +109,15 @@ public class MovieService(
     {
         if (string.IsNullOrWhiteSpace(query)) return new List<Movie>();
 
+        // Get movie IDs with upcoming showtimes
+        var movieIdsWithShowtimes = await _scheduleService.GetAllMovieIdsWithUpcomingPerformancesAsync();
+
+        if (movieIdsWithShowtimes.Count == 0)
+        {
+            _logger.LogWarning("No movies with upcoming showtimes found");
+            return new List<Movie>();
+        }
+
         // Tokenize query and escape regex characters so user input doesn't break regex
         var tokens = query
             .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
@@ -127,7 +138,10 @@ public class MovieService(
                 Builders<MovieDocument>.Filter.Regex("localized_titles.original", new BsonRegularExpression(token, "i"))
             )).ToList();
 
-        var finalFilter = Builders<MovieDocument>.Filter.And(filtersPerToken);
+        // Add filter to only include movies with upcoming showtimes
+        var textSearchFilter = Builders<MovieDocument>.Filter.And(filtersPerToken);
+        var showtimeFilter = Builders<MovieDocument>.Filter.In(d => d.CsfdId, movieIdsWithShowtimes.Select(id => (int?)id));
+        var finalFilter = Builders<MovieDocument>.Filter.And(textSearchFilter, showtimeFilter);
 
         var documents = await _moviesCollection.Find(finalFilter).Limit(limit).ToListAsync();
 
