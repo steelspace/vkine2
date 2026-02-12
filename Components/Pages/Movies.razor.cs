@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using vkine.Models;
 using vkine.Services;
 
 namespace vkine.Components.Pages;
 
-public partial class Movies : ComponentBase, IDisposable
+public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 {
     [Inject]
     private IMovieService MovieService { get; set; } = default!;
@@ -13,12 +14,13 @@ public partial class Movies : ComponentBase, IDisposable
     [Inject]
     private IScheduleService ScheduleService { get; set; } = default!;
 
-    private List<Movie> movies = new();
-    private bool isLoading = true;
-    private bool isLoadingMore = false;
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
     private const int PageSize = 20;
     private bool isModalOpen = false;
     private Movie? selectedMovie = null;
+    private bool isLoadingMore = false;
 
     // Search state
     private string searchQuery = string.Empty;
@@ -26,61 +28,62 @@ public partial class Movies : ComponentBase, IDisposable
     private bool isSearching = false;
     private CancellationTokenSource? _searchCts;
 
-    // Paging state for schedule-based movie IDs
-    private int _skip = 0;
+    // Infinite scroll state
+    private List<Movie> visibleMovies = new();
+    private int _currentSkip = 0;
     private bool _hasMore = true;
+    private ElementReference scrollContainer;
+    private IJSObjectReference? _scrollModule;
+    private DotNetObjectReference<Movies>? _dotnetRef;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadMovies();
+        await LoadMoreMovies();
     }
 
-    private async Task LoadMovies()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        try
+        if (firstRender)
         {
-            isLoading = true;
-            movies.Clear();
-            _skip = 0;
-            _hasMore = true;
+            _dotnetRef = DotNetObjectReference.Create(this);
+            _scrollModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Movies.razor.js");
+            await _scrollModule.InvokeVoidAsync("initializeScrollObserver", scrollContainer, _dotnetRef);
+        }
+    }
 
+    [JSInvokable]
+    public async Task OnScrollNearEnd()
+    {
+        if (!isLoadingMore && _hasMore && string.IsNullOrWhiteSpace(searchQuery))
+        {
             await LoadMoreMovies();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading movies: {ex.Message}");
-            movies = new List<Movie>();
-            _hasMore = false;
-        }
-        finally
-        {
-            isLoading = false;
         }
     }
 
     private async Task LoadMoreMovies()
     {
-        if (!_hasMore) return;
+        if (!_hasMore || isLoadingMore) return;
 
         try
         {
             isLoadingMore = true;
+            StateHasChanged();
 
-            var ids = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(_skip, PageSize);
+            var ids = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(_currentSkip, PageSize);
+            
             if (ids.Count == 0)
             {
                 _hasMore = false;
                 return;
             }
 
-            _skip += ids.Count;
+            _currentSkip += ids.Count;
             if (ids.Count < PageSize) _hasMore = false;
 
             var moviesById = await MovieService.GetMoviesByIdsAsync(ids);
             var pageMovies = ids.Where(id => moviesById.ContainsKey(id)).Select(id => moviesById[id]).ToList();
 
-            // Append found movies
-            movies.AddRange(pageMovies);
+            visibleMovies.AddRange(pageMovies);
         }
         catch (Exception ex)
         {
@@ -89,6 +92,7 @@ public partial class Movies : ComponentBase, IDisposable
         finally
         {
             isLoadingMore = false;
+            StateHasChanged();
         }
     }
 
@@ -163,6 +167,21 @@ public partial class Movies : ComponentBase, IDisposable
     {
         _searchCts?.Cancel();
         _searchCts?.Dispose();
+        _dotnetRef?.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_scrollModule != null)
+        {
+            try
+            {
+                await _scrollModule.InvokeVoidAsync("dispose");
+                await _scrollModule.DisposeAsync();
+            }
+            catch { }
+        }
+        _dotnetRef?.Dispose();
     }
 
     private void OpenModal(Movie movie)
