@@ -10,12 +10,11 @@ public class Movie
     public string Synopsis { get; set; } = string.Empty;
     public string CoverUrl { get; set; } = string.Empty;
     public string BackdropUrl { get; set; } = string.Empty;
+    public string Year { get; set; } = string.Empty;
+    public string Duration { get; set; } = string.Empty;
+    public List<string> Genres { get; set; } = new();
     public List<string> OriginCountries { get; set; } = new();
-
-    // New: lists of cast and crew names for richer searching
     public List<string> Cast { get; set; } = new();
     public List<string> Crew { get; set; } = new();
-
-    // New: list of directors for searching
     public List<string> Directors { get; set; } = new();
 } 

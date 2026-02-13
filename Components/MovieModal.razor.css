@@ -148,6 +148,59 @@
     line-height: 1.6;
 }
 
+/* Meta row (year, duration, countries) */
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.meta-item {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.meta-item + .meta-item::before {
+    content: "·";
+    margin-right: 0.5rem;
+    color: #aaa;
+    font-weight: bold;
+}
+
+/* Genre tags */
+.modal-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.genre-tag {
+    padding: 0.2rem 0.6rem;
+    background-color: #f0ecfa;
+    color: #512bd4;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* People (cast, crew) */
+.modal-people {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.modal-people strong {
+    color: #512bd4;
+}
+
+.modal-people p {
+    margin: 0;
+    color: #555;
+    line-height: 1.5;
+}
+
 /* Modal Responsive Design */
 @media (max-width: 768px) {
     .modal-content {

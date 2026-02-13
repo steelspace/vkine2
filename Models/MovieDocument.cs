@@ -43,6 +43,15 @@ public class MovieDocument
     [BsonElement("localized_titles")]
     public LocalizedTitles? LocalizedTitles { get; set; }
 
+    [BsonElement("year")]
+    public string? Year { get; set; }
+
+    [BsonElement("duration")]
+    public string? Duration { get; set; }
+
+    [BsonElement("genres")]
+    public List<string>? Genres { get; set; }
+
     [BsonElement("origin")]
     public string? Origin { get; set; }
 

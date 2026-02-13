@@ -25,16 +25,28 @@
                 }
 
                 <div class="modal-details">
-                    <div class="modal-info-row">
-                        <strong>CSFD ID:</strong>
-                        <span>@Movie.Id</span>
+                    <div class="modal-meta">
+                        @if (!string.IsNullOrEmpty(Movie.Year))
+                        {
+                            <span class="meta-item">@Movie.Year</span>
+                        }
+                        @if (!string.IsNullOrEmpty(Movie.Duration))
+                        {
+                            <span class="meta-item">@Movie.Duration</span>
+                        }
+                        @if (Movie.OriginCountries.Count > 0)
+                        {
+                            <span class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
+                        }
                     </div>
 
-                    @if (Movie.OriginCountries.Count > 0)
+                    @if (Movie.Genres.Count > 0)
                     {
-                        <div class="modal-info-row">
-                            <strong>Countries:</strong>
-                            <span>@string.Join(", ", Movie.OriginCountries)</span>
+                        <div class="modal-genres">
+                            @foreach (var genre in Movie.Genres)
+                            {
+                                <span class="genre-tag">@genre</span>
+                            }
                         </div>
                     }
 
@@ -43,6 +55,30 @@
                         <div class="modal-synopsis">
                             <strong>Synopsis:</strong>
                             <p>@Movie.Synopsis</p>
+                        </div>
+                    }
+
+                    @if (Movie.Directors.Count > 0)
+                    {
+                        <div class="modal-info-row">
+                            <strong>Director:</strong>
+                            <span>@string.Join(", ", Movie.Directors)</span>
+                        </div>
+                    }
+
+                    @if (Movie.Cast.Count > 0)
+                    {
+                        <div class="modal-people">
+                            <strong>Cast:</strong>
+                            <p>@string.Join(", ", Movie.Cast)</p>
+                        </div>
+                    }
+
+                    @if (Movie.Crew.Count > 0)
+                    {
+                        <div class="modal-people">
+                            <strong>Crew:</strong>
+                            <p>@string.Join(", ", Movie.Crew)</p>
                         </div>
                     }
 
