@@ -4,6 +4,11 @@ let pendingIds = new Set();
 let debounceTimer = null;
 
 export function observeCards(gridElement, dotnetReference) {
+    // Disconnect previous observer if re-attaching after search clear
+    if (observer) {
+        observer.disconnect();
+    }
+
     dotnetRef = dotnetReference;
 
     observer = new IntersectionObserver((entries) => {

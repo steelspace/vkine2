@@ -51,12 +51,12 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Initialize JS observer once the grid is actually in the DOM
-        if (!_jsInitialized && !isLoading && AllMovieIds.Count > 0)
+        // (Re-)initialize JS observer whenever the grid is in the DOM but not yet observed
+        if (!_jsInitialized && !isLoading && AllMovieIds.Count > 0 && string.IsNullOrWhiteSpace(searchQuery))
         {
             _jsInitialized = true;
-            _dotnetRef = DotNetObjectReference.Create(this);
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            _dotnetRef ??= DotNetObjectReference.Create(this);
+            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./Components/Pages/Movies.razor.js");
             await _jsModule.InvokeVoidAsync("observeCards", _gridRef, _dotnetRef);
         }
@@ -98,6 +98,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             if (string.IsNullOrWhiteSpace(searchQuery))
             {
                 searchResults.Clear();
+                _jsInitialized = false; // grid will re-enter the DOM, observer must re-attach
                 StateHasChanged();
                 return;
             }
