@@ -152,6 +152,13 @@
                     {
                         <div class="modal-schedules">
                             <h3>Upcoming Showtimes</h3>
+                            @if (HasActiveFilters)
+                            {
+                                <div class="filter-banner">
+                                    <span class="filter-banner-icon">&#9888;</span>
+                                    Showing only showtimes matching active filters: @FilterSummary
+                                </div>
+                            }
                             @foreach (var schedule in schedules)
                             {
                                 <div class="schedule-date">
@@ -226,6 +233,30 @@
     [Parameter]
     public EventCallback OnClose { get; set; }
 
+    [Parameter]
+    public DateOnly? DateFrom { get; set; }
+
+    [Parameter]
+    public DateOnly? DateTo { get; set; }
+
+    [Parameter]
+    public TimeOnly? TimeFrom { get; set; }
+
+    private bool HasActiveFilters => DateFrom.HasValue || DateTo.HasValue || TimeFrom.HasValue;
+
+    private string FilterSummary
+    {
+        get
+        {
+            var parts = new List<string>();
+            if (DateFrom.HasValue && DateTo.HasValue)
+                parts.Add($"{DateFrom.Value:MMM d} – {DateTo.Value:MMM d, yyyy}");
+            if (TimeFrom.HasValue)
+                parts.Add($"after {TimeFrom.Value:HH:mm}");
+            return string.Join(", ", parts);
+        }
+    }
+
     private List<ScheduleDto>? schedules;
     private Dictionary<int, VenueDto> venues = new();
     private bool isLoadingSchedules = false;
@@ -250,6 +281,36 @@
         {
             isLoadingSchedules = true;
             schedules = await ScheduleService.GetUpcomingPerformancesForMovieAsync(Movie!.Id);
+
+            // Apply date range filter
+            if (DateFrom.HasValue && DateTo.HasValue)
+            {
+                schedules = schedules
+                    .Where(s => s.Date >= DateFrom.Value && s.Date <= DateTo.Value)
+                    .ToList();
+            }
+
+            // Apply time-of-day filter
+            if (TimeFrom.HasValue)
+            {
+                foreach (var schedule in schedules)
+                {
+                    foreach (var performance in schedule.Performances)
+                    {
+                        performance.Showtimes = performance.Showtimes
+                            .Where(st => st.StartAt >= TimeFrom.Value)
+                            .ToList();
+                    }
+
+                    schedule.Performances = schedule.Performances
+                        .Where(p => p.Showtimes.Count > 0)
+                        .ToList();
+                }
+
+                schedules = schedules
+                    .Where(s => s.Performances.Count > 0)
+                    .ToList();
+            }
 
             if (schedules != null && schedules.Count > 0)
             {

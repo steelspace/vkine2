@@ -436,3 +436,23 @@
     background-color: #f8f9fa;
     border-radius: 8px;
 }
+
+/* Filter warning banner */
+.filter-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1.25rem;
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    color: #6d4c00;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+.filter-banner-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
