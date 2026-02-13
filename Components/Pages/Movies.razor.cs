@@ -41,8 +41,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     // Sort state
     private enum SortField { None, Rating, Name, ReleaseDate }
-    private SortField _currentSort = SortField.None;
-    private bool _sortAscending = true;
+    private SortField _currentSort = SortField.Rating;
+    private bool _sortAscending = false;
     private List<int>? _unsortedMovieIds;
     private bool _isSortLoading;
 
@@ -63,6 +63,14 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         if (AllMovieIds.Count == 0)
         {
             AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+        }
+
+        // Apply default sort (rating descending) — requires all movie data
+        if (_currentSort != SortField.None)
+        {
+            _unsortedMovieIds = AllMovieIds.ToList();
+            await EnsureAllMoviesLoadedAsync();
+            SortMovieIds();
         }
 
         isLoading = false;
