@@ -148,6 +148,57 @@
     line-height: 1.6;
 }
 
+/* Rating badges */
+.modal-ratings {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.3;
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.rating-badge:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.rating-source {
+    opacity: 0.85;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.rating-value {
+    font-weight: 700;
+}
+
+.rating-badge.csfd {
+    background: #ba0305;
+    color: #fff;
+}
+
+.rating-badge.tmdb {
+    background: #032541;
+    color: #01d277;
+}
+
+.rating-badge.imdb {
+    background: #f5c518;
+    color: #000;
+}
+
 /* Meta row (year, duration, countries) */
 .modal-meta {
     display: flex;
