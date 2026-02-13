@@ -1,0 +1,30 @@
+name: Playwright E2E
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright deps & run tests
+        working-directory: ./playwright
+        run: |
+          npm ci
+          npx playwright install --with-deps
+          npx playwright test --config=playwright.config.ts --reporter=list
