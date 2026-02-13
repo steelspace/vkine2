@@ -55,7 +55,7 @@
                         <span>★ Rating</span>
                         @if (_currentSort == SortField.Rating)
                         {
-                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                            <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
                         }
                     </button>
                     <button class="segment @(_currentSort == SortField.Name ? "active" : "")"
@@ -63,7 +63,7 @@
                         <span>Name</span>
                         @if (_currentSort == SortField.Name)
                         {
-                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                            <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
                         }
                     </button>
                     <button class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
@@ -71,7 +71,7 @@
                         <span>Year</span>
                         @if (_currentSort == SortField.ReleaseDate)
                         {
-                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                            <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
                         }
                     </button>
                 </div>
