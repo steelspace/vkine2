@@ -50,18 +50,24 @@
                     </div>
 
                     <div class="modal-ratings">
-                        @if (!string.IsNullOrEmpty(Movie.CsfdRating))
+                        @if (Movie.Id > 0)
                         {
                             <a href="https://www.csfd.cz/film/@Movie.Id" target="_blank" class="rating-badge csfd" title="CSFD rating">
                                 <span class="rating-source">ČSFD</span>
-                                <span class="rating-value">@Movie.CsfdRating</span>
+                                @if (!string.IsNullOrEmpty(Movie.CsfdRating))
+                                {
+                                    <span class="rating-value">@Movie.CsfdRating</span>
+                                }
                             </a>
                         }
-                        @if (Movie.TmdbRating.HasValue)
+                        @if (Movie.TmdbId.HasValue)
                         {
                             <a href="https://www.themoviedb.org/movie/@Movie.TmdbId" target="_blank" class="rating-badge tmdb" title="TMDB rating">
                                 <span class="rating-source">TMDB</span>
-                                <span class="rating-value">@Movie.TmdbRating.Value.ToString("0.#")</span>
+                                @if (Movie.TmdbRating.HasValue)
+                                {
+                                    <span class="rating-value">@Movie.TmdbRating.Value.ToString("0.#")</span>
+                                }
                             </a>
                         }
                         @if (!string.IsNullOrEmpty(Movie.ImdbId))
