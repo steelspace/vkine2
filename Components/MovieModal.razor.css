@@ -1,96 +1,120 @@
-/* Modal Styles */
+/* ── Modal Backdrop (frosted glass) ──────────────────────────── */
+
 .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     padding: 20px;
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeIn 0.2s var(--ease-default);
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
+/* ── Modal Content (Apple sheet) ─────────────────────────────── */
+
 .modal-content {
-    background: white;
-    border-radius: 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
     max-width: 800px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.3s ease-out;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.35s var(--ease-spring);
 }
 
 @keyframes slideUp {
     from {
-        transform: translateY(30px);
+        transform: translateY(40px) scale(0.97);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
 }
 
+/* Grabber indicator */
+.modal-grabber {
+    width: 36px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--separator-opaque);
+    margin: 10px auto 0;
+}
+
+/* ── Modal Header ────────────────────────────────────────────── */
+
 .modal-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem 1rem;
 }
 
 .modal-header h2 {
     margin: 0;
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #333;
+    font-size: var(--font-size-title2);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
     flex: 1;
     padding-right: 1rem;
+    line-height: 1.27;
 }
 
+.movie-title-link {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.movie-title-link:hover {
+    text-decoration: underline;
+}
+
+/* Close button (Apple circular style) */
 .modal-close {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: #666;
-    cursor: pointer;
-    padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: background-color 0.2s, color 0.2s;
+    background: var(--fill-secondary);
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: background var(--duration-fast) var(--ease-default),
+                color var(--duration-fast) var(--ease-default);
 }
 
 .modal-close:hover {
-    background-color: #f0f0f0;
-    color: #333;
+    background: var(--fill-primary);
+    color: var(--text-primary);
 }
 
+/* ── Modal Body ──────────────────────────────────────────────── */
+
 .modal-body {
-    padding: 1.5rem;
+    padding: 0 1.5rem 1.5rem;
 }
 
 .modal-backdrop-image,
 .modal-poster-image {
     margin-bottom: 1.5rem;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 
@@ -109,7 +133,7 @@
     max-width: 300px;
     height: auto;
     display: block;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 }
 
 .modal-details {
@@ -118,37 +142,47 @@
     gap: 1rem;
 }
 
-.modal-info-row {
-    display: flex;
-    gap: 0.5rem;
+/* ── Section Label (Apple caption style) ─────────────────────── */
+
+.section-label {
+    font-size: var(--font-size-footnote);
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
-.modal-info-row strong {
-    color: #512bd4;
-    min-width: 100px;
+/* ── Info Rows ───────────────────────────────────────────────── */
+
+.modal-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .modal-info-row span {
-    color: #333;
+    color: var(--text-primary);
+    font-size: var(--font-size-subheadline);
+    line-height: 1.47;
 }
+
+/* ── Synopsis ────────────────────────────────────────────────── */
 
 .modal-synopsis {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-}
-
-.modal-synopsis strong {
-    color: #512bd4;
+    gap: 6px;
 }
 
 .modal-synopsis p {
     margin: 0;
-    color: #555;
-    line-height: 1.6;
+    color: var(--text-primary);
+    font-size: var(--font-size-subheadline);
+    line-height: 1.53;
 }
 
-/* Rating badges */
+/* ── Rating Badges ───────────────────────────────────────────── */
+
 .modal-ratings {
     display: flex;
     gap: 0.5rem;
@@ -158,24 +192,26 @@
 .rating-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 5px;
-    font-size: 0.85rem;
+    gap: 4px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: var(--font-size-footnote);
     font-weight: 600;
     text-decoration: none;
     line-height: 1.3;
-    transition: opacity 0.15s, transform 0.15s;
+    transition: opacity var(--duration-fast) var(--ease-default),
+                transform var(--duration-fast) var(--ease-default);
 }
 
 .rating-badge:hover {
     opacity: 0.85;
     transform: scale(1.05);
+    text-decoration: none;
 }
 
 .rating-source {
     opacity: 0.85;
-    font-size: 0.75rem;
+    font-size: var(--font-size-caption1);
     text-transform: uppercase;
     letter-spacing: 0.02em;
 }
@@ -185,21 +221,22 @@
 }
 
 .rating-badge.csfd {
-    background: #ba0305;
+    background: var(--rating-csfd);
     color: #fff;
 }
 
 .rating-badge.tmdb {
-    background: #032541;
-    color: #01d277;
+    background: var(--rating-tmdb-bg);
+    color: var(--rating-tmdb-text);
 }
 
 .rating-badge.imdb {
-    background: #f5c518;
+    background: var(--rating-imdb);
     color: #000;
 }
 
-/* Meta row (year, duration, countries) */
+/* ── Meta Row ────────────────────────────────────────────────── */
+
 .modal-meta {
     display: flex;
     flex-wrap: wrap;
@@ -208,51 +245,49 @@
 }
 
 .meta-item {
-    color: #555;
-    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-size: var(--font-size-subheadline);
 }
 
 .meta-item + .meta-item::before {
     content: "·";
     margin-right: 0.5rem;
-    color: #aaa;
+    color: var(--text-tertiary);
     font-weight: bold;
 }
 
-/* Genre tags */
+/* ── Genre Tags (Apple pill style) ───────────────────────────── */
+
 .modal-genres {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 6px;
 }
 
 .genre-tag {
-    padding: 0.2rem 0.6rem;
-    background-color: #f0ecfa;
-    color: #512bd4;
-    border-radius: 12px;
-    font-size: 0.85rem;
+    padding: 4px 12px;
+    background: rgba(0, 122, 255, 0.1);
+    color: var(--accent);
+    border-radius: 14px;
+    font-size: var(--font-size-footnote);
     font-weight: 500;
 }
 
-/* People (cast, crew) */
+/* ── People (cast, crew) ─────────────────────────────────────── */
+
 .modal-people {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-}
-
-.modal-people strong {
-    color: #512bd4;
+    gap: 4px;
 }
 
 .modal-people p {
     margin: 0;
-    color: #555;
-    line-height: 1.5;
+    color: var(--text-primary);
+    font-size: var(--font-size-subheadline);
+    line-height: 1.53;
 }
 
-/* Hidden person links */
 .person-link {
     color: inherit;
     text-decoration: none;
@@ -260,22 +295,194 @@
 
 .person-link:hover {
     text-decoration: underline;
-    color: #512bd4;
+    color: var(--accent);
 }
 
-/* Modal Responsive Design */
+/* ── Schedules ───────────────────────────────────────────────── */
+
+.modal-loading {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-subheadline);
+}
+
+.modal-schedules {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--separator);
+}
+
+.modal-schedules h3 {
+    margin: 0 0 1.25rem 0;
+    font-size: var(--font-size-title3);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.schedule-date {
+    margin-bottom: 1.5rem;
+}
+
+.schedule-date h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.performance {
+    margin-bottom: 1rem;
+    padding: 12px 14px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+}
+
+.venue-info {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.venue-info strong {
+    font-size: var(--font-size-subheadline);
+    font-weight: 600;
+}
+
+.venue-city {
+    color: var(--text-secondary);
+    font-size: var(--font-size-footnote);
+}
+
+.showtimes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.showtime {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--separator);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-subheadline);
+    transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.showtime.available {
+    border-color: #34C759;
+    background: rgba(52, 199, 89, 0.08);
+}
+
+.showtime.unavailable {
+    border-color: #FF3B30;
+    background: rgba(255, 59, 48, 0.05);
+    opacity: 0.65;
+}
+
+.showtime .time {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.showtime .time .showtime-date-mismatch {
+    color: #FF3B30;
+    font-weight: 700;
+}
+
+.showtime .badges {
+    display: flex;
+    gap: 4px;
+}
+
+.showtime .badge {
+    padding: 2px 6px;
+    background: var(--accent);
+    color: white;
+    border-radius: 5px;
+    font-size: var(--font-size-caption2);
+    font-weight: 600;
+}
+
+.showtime .ticket-link {
+    padding: 4px 10px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: var(--font-size-footnote);
+    font-weight: 600;
+    transition: background var(--duration-fast) var(--ease-default);
+}
+
+.showtime .ticket-link:hover {
+    background: var(--accent-hover);
+    text-decoration: none;
+}
+
+.no-schedules {
+    margin-top: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-subheadline);
+}
+
+/* ── Filter Banner ───────────────────────────────────────────── */
+
+.filter-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-bottom: 1rem;
+    background: rgba(255, 204, 0, 0.12);
+    border: 1px solid rgba(255, 204, 0, 0.3);
+    border-radius: var(--radius-sm);
+    color: #946800;
+    font-size: var(--font-size-footnote);
+    line-height: 1.4;
+}
+
+.filter-banner-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
+    .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+    }
+
     .modal-content {
-        max-width: 95%;
+        max-width: 100%;
         max-height: 95vh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        animation: slideUpSheet 0.4s var(--ease-spring);
+    }
+
+    @keyframes slideUpSheet {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
     }
 
     .modal-header h2 {
-        font-size: 1.25rem;
+        font-size: var(--font-size-title3);
     }
 
     .modal-body {
-        padding: 1rem;
+        padding: 0 1rem 1rem;
     }
 
     .modal-poster-image img {
@@ -284,175 +491,19 @@
 }
 
 @media (max-width: 480px) {
-    .modal-backdrop {
-        padding: 10px;
-    }
-
     .modal-header {
         padding: 1rem;
     }
 
     .modal-header h2 {
-        font-size: 1.1rem;
+        font-size: var(--font-size-body);
     }
 
     .modal-body {
-        padding: 0.75rem;
+        padding: 0 0.75rem 0.75rem;
     }
 
     .modal-info-row {
-        flex-direction: column;
-        gap: 0.25rem;
+        gap: 2px;
     }
-
-    .modal-info-row strong {
-        min-width: auto;
-    }
-}
-
-/* Schedules Styles */
-.modal-loading {
-    padding: 1rem;
-    text-align: center;
-    color: #666;
-}
-
-.modal-schedules {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e0e0e0;
-}
-
-.modal-schedules h3 {
-    margin: 0 0 1.5rem 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.schedule-date {
-    margin-bottom: 2rem;
-}
-
-.schedule-date h4 {
-    margin: 0 0 1rem 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #512bd4;
-}
-
-.performance {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-.venue-info {
-    margin-bottom: 0.75rem;
-    color: #333;
-}
-
-.venue-info strong {
-    font-size: 1.1rem;
-}
-
-.venue-city {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-.showtimes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.showtime {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.95rem;
-}
-
-.showtime.available {
-    border-color: #28a745;
-    background-color: #f0fff4;
-}
-
-.showtime.unavailable {
-    border-color: #dc3545;
-    background-color: #fff5f5;
-    opacity: 0.7;
-}
-
-.showtime .time {
-    font-weight: 600;
-    color: #333;
-}
-
-.showtime .time .showtime-date-mismatch {
-    color: #dc3545;
-    font-weight: 700;
-}
-
-.showtime .badges {
-    display: flex;
-    gap: 0.25rem;
-}
-
-.showtime .badge {
-    padding: 0.15rem 0.4rem;
-    background-color: #512bd4;
-    color: white;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.showtime .ticket-link {
-    padding: 0.25rem 0.5rem;
-    background-color: #512bd4;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    transition: background-color 0.2s;
-}
-
-.showtime .ticket-link:hover {
-    background-color: #3d1fa3;
-}
-
-.no-schedules {
-    margin-top: 2rem;
-    padding: 2rem;
-    text-align: center;
-    color: #666;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-}
-
-/* Filter warning banner */
-.filter-banner {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1rem;
-    margin-bottom: 1.25rem;
-    background-color: #fff8e1;
-    border: 1px solid #ffe082;
-    border-radius: 6px;
-    color: #6d4c00;
-    font-size: 0.88rem;
-    line-height: 1.4;
-}
-
-.filter-banner-icon {
-    font-size: 1.1rem;
-    flex-shrink: 0;
 }

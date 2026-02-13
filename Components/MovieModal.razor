@@ -6,6 +6,7 @@
 {
     <div class="modal-backdrop" @onclick="OnClose">
         <div class="modal-content" @onclick:stopPropagation="true">
+            <div class="modal-grabber"></div>
             <div class="modal-header">
                 <h2>
                     @if (!string.IsNullOrEmpty(Movie.Homepage))
@@ -17,7 +18,12 @@
                         @Movie.Title
                     }
                 </h2>
-                <button class="modal-close" @onclick="OnClose">&times;</button>
+                <button class="modal-close" @onclick="OnClose">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
             </div>
             <div class="modal-body">
                 @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
@@ -95,7 +101,7 @@
                     @if (!string.IsNullOrEmpty(Movie.Synopsis))
                     {
                         <div class="modal-synopsis">
-                            <strong>Synopsis:</strong>
+                            <span class="section-label">Synopsis</span>
                             <p>@Movie.Synopsis</p>
                         </div>
                     }
@@ -103,7 +109,7 @@
                     @if (Movie.Directors.Count > 0)
                     {
                         <div class="modal-info-row">
-                            <strong>Director:</strong>
+                            <span class="section-label">Director</span>
                             <span>
                                 @for (int i = 0; i < Movie.Directors.Count; i++)
                                 {
@@ -117,7 +123,7 @@
                     @if (Movie.Cast.Count > 0)
                     {
                         <div class="modal-people">
-                            <strong>Cast:</strong>
+                            <span class="section-label">Cast</span>
                             <p>
                                 @for (int i = 0; i < Movie.Cast.Count; i++)
                                 {
@@ -131,7 +137,7 @@
                     @if (Movie.Crew.Count > 0)
                     {
                         <div class="modal-people">
-                            <strong>Crew:</strong>
+                            <span class="section-label">Crew</span>
                             <p>
                                 @for (int i = 0; i < Movie.Crew.Count; i++)
                                 {
