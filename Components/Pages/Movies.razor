@@ -57,11 +57,11 @@
     else
     {
         <div class="movies-stats">
-            <p>@_allMovieIds.Count upcoming movies</p>
+            <p>@AllMovieIds.Count upcoming movies</p>
         </div>
 
         <div class="movies-grid" @ref="_gridRef">
-            @foreach (var movieId in _allMovieIds)
+            @foreach (var movieId in AllMovieIds)
             {
                 var movie = GetLoadedMovie(movieId);
                 @if (movie is not null)

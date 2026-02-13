@@ -27,8 +27,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private bool isSearching = false;
     private CancellationTokenSource? _searchCts;
 
-    // All movie IDs (ordered by earliest showtime) — loaded once
-    private List<int> _allMovieIds = new();
+    // All movie IDs (ordered by earliest showtime) — loaded once, persisted across prerender
+    [PersistentState]
+    public List<int> AllMovieIds { get => field ??= []; set; }
     // Loaded movie data, keyed by ID
     private readonly Dictionary<int, Movie> _loadedMovies = new();
 
@@ -39,15 +40,19 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        // Load all scheduled movie IDs at once (just integers — lightweight)
-        _allMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+        // If state was restored from prerender, skip the DB call
+        if (AllMovieIds.Count == 0)
+        {
+            AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+        }
+
         isLoading = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         // Initialize JS observer once the grid is actually in the DOM
-        if (!_jsInitialized && !isLoading && _allMovieIds.Count > 0)
+        if (!_jsInitialized && !isLoading && AllMovieIds.Count > 0)
         {
             _jsInitialized = true;
             _dotnetRef = DotNetObjectReference.Create(this);
