@@ -22,6 +22,14 @@
                 <button class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">&times;</button>
             }
         </div>
+        <div class="time-filter">
+            <div class="time-filter-header">
+                <span class="time-filter-label">Start after</span>
+                <span class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
+            </div>
+            <input type="range" class="time-slider" min="540" max="1410" step="30"
+                   value="@_timeFromMinutes" @oninput="OnTimeFromInput" />
+        </div>
         @if (_isDateFiltering)
         {
             <span class="search-loading">Filtering...</span>

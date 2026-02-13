@@ -121,9 +121,9 @@ public class ScheduleService(
         }
     }
 
-    public async Task<List<int>> GetMovieIdsWithUpcomingPerformancesAsync(int skip, int limit)
+    public async Task<List<int>> GetMovieIdsWithUpcomingPerformancesAsync(int skip, int limit, TimeOnly? timeFrom = null)
     {
-        var orderedIds = await GetCachedUpcomingMovieIdsAsync();
+        var orderedIds = await GetCachedUpcomingMovieIdsAsync(timeFrom);
 
         return orderedIds
             .Skip(skip)
@@ -141,9 +141,13 @@ public class ScheduleService(
     /// Core method: fetches all schedules from today, computes movie IDs ordered by earliest showtime,
     /// and caches the result for 5 minutes.
     /// </summary>
-    private async Task<List<int>> GetCachedUpcomingMovieIdsAsync()
+    private async Task<List<int>> GetCachedUpcomingMovieIdsAsync(TimeOnly? timeFrom = null)
     {
-        if (_memoryCache.TryGetValue(UPCOMING_MOVIE_IDS_CACHE_KEY, out List<int>? cached) && cached is not null)
+        var cacheKey = timeFrom.HasValue
+            ? $"{UPCOMING_MOVIE_IDS_CACHE_KEY}-from-{timeFrom.Value:HHmm}"
+            : UPCOMING_MOVIE_IDS_CACHE_KEY;
+
+        if (_memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
         {
             return cached;
         }
@@ -161,6 +165,7 @@ public class ScheduleService(
             var movieShowtimes = schedules
                 .SelectMany(schedule => schedule.Performances
                     .SelectMany(performance => performance.Showtimes
+                        .Where(showtime => !timeFrom.HasValue || showtime.StartAt >= timeFrom.Value)
                         .Select(showtime => new
                         {
                             schedule.MovieId,
@@ -177,10 +182,10 @@ public class ScheduleService(
                 .Select(kvp => kvp.Key)
                 .ToList();
 
-            _logger.LogInformation("Cached {Count} upcoming movie IDs for {Duration}",
-                result.Count, UpcomingMovieIdsCacheDuration);
+            _logger.LogInformation("Cached {Count} upcoming movie IDs (timeFrom={TimeFrom}) for {Duration}",
+                result.Count, timeFrom?.ToString() ?? "any", UpcomingMovieIdsCacheDuration);
 
-            _memoryCache.Set(UPCOMING_MOVIE_IDS_CACHE_KEY, result, new MemoryCacheEntryOptions
+            _memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = UpcomingMovieIdsCacheDuration,
                 Size = 1
@@ -195,9 +200,11 @@ public class ScheduleService(
         }
     }
 
-    public async Task<List<int>> GetMovieIdsInDateRangeAsync(DateOnly from, DateOnly to)
+    public async Task<List<int>> GetMovieIdsInDateRangeAsync(DateOnly from, DateOnly to, TimeOnly? timeFrom = null)
     {
-        var cacheKey = $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}";
+        var cacheKey = timeFrom.HasValue
+            ? $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}-from-{timeFrom.Value:HHmm}"
+            : $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}";
 
         if (_memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
         {
@@ -220,6 +227,7 @@ public class ScheduleService(
             var movieShowtimes = schedules
                 .SelectMany(schedule => schedule.Performances
                     .SelectMany(performance => performance.Showtimes
+                        .Where(showtime => !timeFrom.HasValue || showtime.StartAt >= timeFrom.Value)
                         .Select(showtime => new
                         {
                             schedule.MovieId,
@@ -236,8 +244,8 @@ public class ScheduleService(
                 .Select(kvp => kvp.Key)
                 .ToList();
 
-            _logger.LogInformation("Found {Count} movie IDs in date range {From} – {To}",
-                result.Count, from, to);
+            _logger.LogInformation("Found {Count} movie IDs in date range {From} – {To} (timeFrom={TimeFrom})",
+                result.Count, from, to, timeFrom?.ToString() ?? "any");
 
             _memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
             {

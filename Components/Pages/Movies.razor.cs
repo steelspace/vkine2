@@ -24,6 +24,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     // Search state
     private string searchQuery = string.Empty;
     private List<Movie> searchResults = new();
+    private List<Movie> _unfilteredSearchResults = new();
     private bool isSearching = false;
     private CancellationTokenSource? _searchCts;
 
@@ -33,6 +34,10 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private bool _datePickerInitialized;
     private ElementReference _dateRangeInput;
     private bool _isDateFiltering;
+
+    // Time-of-day filter (minutes from midnight; 540 = 9:00 = off / leftmost)
+    private int _timeFromMinutes = 540;
+    private CancellationTokenSource? _timeFilterCts;
 
     // All movie IDs (ordered by earliest showtime) — loaded once, persisted across prerender
     [PersistentState]
@@ -107,16 +112,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     {
         _dateFrom = DateOnly.Parse(from);
         _dateTo = DateOnly.Parse(to);
-        _isDateFiltering = true;
-        StateHasChanged();
-
-        // Fetch movie IDs in the selected date range
-        AllMovieIds = await ScheduleService.GetMovieIdsInDateRangeAsync(_dateFrom.Value, _dateTo.Value);
-
-        // Reset observer so new placeholders get observed
-        _jsInitialized = false;
-        _isDateFiltering = false;
-        StateHasChanged();
+        await ApplyFilters();
     }
 
     private async Task ClearDateRange()
@@ -129,11 +125,107 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             await _jsModule.InvokeVoidAsync("clearDateRange");
         }
 
+        await ApplyFilters();
+    }
+
+    private async Task OnTimeFromInput(ChangeEventArgs e)
+    {
+        _timeFromMinutes = int.Parse(e.Value?.ToString() ?? "0");
+
+        // Cancel any pending time-filter fetch
+        _timeFilterCts?.Cancel();
+        _timeFilterCts?.Dispose();
+        _timeFilterCts = new CancellationTokenSource();
+        var token = _timeFilterCts.Token;
+
+        try
+        {
+            await Task.Delay(400, token);
+            if (!token.IsCancellationRequested)
+            {
+                await ApplyFilters();
+            }
+        }
+        catch (TaskCanceledException) { }
+    }
+
+    private const int TimeSliderMin = 540; // 9:00
+
+    private string TimeFromLabel => _timeFromMinutes <= TimeSliderMin
+        ? "Off"
+        : TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(_timeFromMinutes)).ToString("HH:mm");
+
+    private TimeOnly? TimeFromValue => _timeFromMinutes > TimeSliderMin
+        ? TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(_timeFromMinutes))
+        : null;
+
+    /// <summary>
+    /// Returns the set of movie IDs matching the current date-range + time-from filters,
+    /// or null if no schedule filters are active.
+    /// </summary>
+    private async Task<HashSet<int>?> GetActiveFilteredMovieIdsAsync()
+    {
+        if (!_dateFrom.HasValue && !_dateTo.HasValue && _timeFromMinutes <= TimeSliderMin)
+            return null;
+
+        List<int> ids;
+        if (_dateFrom.HasValue && _dateTo.HasValue)
+        {
+            ids = await ScheduleService.GetMovieIdsInDateRangeAsync(
+                _dateFrom.Value, _dateTo.Value, TimeFromValue);
+        }
+        else
+        {
+            ids = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(
+                0, int.MaxValue, TimeFromValue);
+        }
+
+        return ids.ToHashSet();
+    }
+
+    /// <summary>
+    /// Filters the unfiltered search results by the current schedule filters.
+    /// </summary>
+    private async Task ApplySearchFilters()
+    {
+        var allowedIds = await GetActiveFilteredMovieIdsAsync();
+        if (allowedIds is not null)
+        {
+            searchResults = _unfilteredSearchResults
+                .Where(m => allowedIds.Contains(m.Id))
+                .ToList();
+        }
+        else
+        {
+            searchResults = _unfilteredSearchResults.ToList();
+        }
+    }
+
+    /// <summary>
+    /// Re-fetches movie IDs using the current combination of date-range + time-from filters.
+    /// Also re-filters active text search results.
+    /// </summary>
+    private async Task ApplyFilters()
+    {
         _isDateFiltering = true;
         StateHasChanged();
 
-        // Reload all upcoming movie IDs
-        AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+        if (_dateFrom.HasValue && _dateTo.HasValue)
+        {
+            AllMovieIds = await ScheduleService.GetMovieIdsInDateRangeAsync(
+                _dateFrom.Value, _dateTo.Value, TimeFromValue);
+        }
+        else
+        {
+            AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(
+                0, int.MaxValue, TimeFromValue);
+        }
+
+        // If a text search is active, re-filter its results too
+        if (!string.IsNullOrWhiteSpace(searchQuery) && _unfilteredSearchResults.Count > 0)
+        {
+            await ApplySearchFilters();
+        }
 
         _jsInitialized = false;
         _isDateFiltering = false;
@@ -156,6 +248,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             if (string.IsNullOrWhiteSpace(searchQuery))
             {
                 searchResults.Clear();
+                _unfilteredSearchResults.Clear();
                 _jsInitialized = false; // grid will re-enter the DOM, observer must re-attach
                 StateHasChanged();
                 return;
@@ -168,7 +261,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
             if (!token.IsCancellationRequested)
             {
-                searchResults = results;
+                _unfilteredSearchResults = results;
+                await ApplySearchFilters();
             }
         }
         catch (TaskCanceledException) { }
@@ -195,7 +289,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
                 var results = await MovieService.SearchMoviesAsync(searchQuery, 100);
                 if (!token.IsCancellationRequested)
                 {
-                    searchResults = results;
+                    _unfilteredSearchResults = results;
+                    await ApplySearchFilters();
                 }
             }
             finally
@@ -213,6 +308,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     {
         _searchCts?.Cancel();
         _searchCts?.Dispose();
+        _timeFilterCts?.Cancel();
+        _timeFilterCts?.Dispose();
         _dotnetRef?.Dispose();
     }
 
