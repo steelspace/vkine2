@@ -21,6 +21,12 @@ public class MovieDocument
     [BsonElement("imdb_id")]
     public string? ImdbId { get; set; }
 
+    [BsonElement("imdb_rating")]
+    public double? ImdbRating { get; set; }
+
+    [BsonElement("imdb_rating_count")]
+    public int? ImdbRatingCount { get; set; }
+
     [BsonElement("rating")]
     public string? Rating { get; set; }
 

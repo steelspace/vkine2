@@ -73,8 +73,12 @@
                             }
                             @if (!string.IsNullOrEmpty(movie.ImdbId))
                             {
-                                <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="View on IMDb">
+                                <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
                                     <span class="rating-source">IMDb</span>
+                                    @if (movie.ImdbRating.HasValue)
+                                    {
+                                        <span class="rating-value">@movie.ImdbRating.Value.ToString("0.#")</span>
+                                    }
                                 </a>
                             }
                         </div>
@@ -144,8 +148,12 @@
                                 }
                                 @if (!string.IsNullOrEmpty(movie.ImdbId))
                                 {
-                                    <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="View on IMDb">
+                                    <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
                                         <span class="rating-source">IMDb</span>
+                                        @if (movie.ImdbRating.HasValue)
+                                        {
+                                            <span class="rating-value">@movie.ImdbRating.Value.ToString("0.#")</span>
+                                        }
                                     </a>
                                 }
                             </div>

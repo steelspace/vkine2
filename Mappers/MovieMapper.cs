@@ -19,6 +19,8 @@ public class MovieMapper
             Id = document.CsfdId ?? 0,
             TmdbId = document.TmdbId,
             ImdbId = document.ImdbId,
+            ImdbRating = document.ImdbRating is > 0 ? document.ImdbRating : null,
+            ImdbRatingCount = document.ImdbRatingCount is > 0 ? document.ImdbRatingCount : null,
             Title = ResolveTitle(document),
             Synopsis = document.Description ?? string.Empty,
             CsfdRating = document.Rating,
