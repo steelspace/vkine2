@@ -47,17 +47,26 @@
             }
         </div>
     }
+    else if (isLoading)
+    {
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading movies...</p>
+        </div>
+    }
     else
     {
         <div class="movies-stats">
-            <p>Showing upcoming movies</p>
+            <p>@_allMovieIds.Count upcoming movies</p>
         </div>
 
-        <div class="movies-grid-container">
-            <div class="movies-grid">
-                @foreach (var movie in visibleMovies)
+        <div class="movies-grid" @ref="_gridRef">
+            @foreach (var movieId in _allMovieIds)
+            {
+                var movie = GetLoadedMovie(movieId);
+                @if (movie is not null)
                 {
-                    <div class="movie-card" @onclick="() => OpenModal(movie)">
+                    <div class="movie-card loaded" data-movie-id="@movieId" @onclick="() => OpenModal(movie)">
                         <div class="movie-poster">
                             @if (!string.IsNullOrEmpty(movie.CoverUrl))
                             {
@@ -79,17 +88,18 @@
                         </div>
                     </div>
                 }
-            </div>
-            @if (_hasMore)
-            {
-                <div class="scroll-sentinel" @ref="scrollContainer"></div>
-            }
-            @if (isLoadingMore)
-            {
-                <div class="loading-more">
-                    <div class="loading-spinner-small"></div>
-                    <span>Loading more...</span>
-                </div>
+                else
+                {
+                    <div class="movie-card placeholder" data-movie-id="@movieId">
+                        <div class="movie-poster">
+                            <div class="poster-skeleton"></div>
+                        </div>
+                        <div class="movie-info">
+                            <div class="title-skeleton"></div>
+                            <div class="countries-skeleton"></div>
+                        </div>
+                    </div>
+                }
             }
         </div>
     }

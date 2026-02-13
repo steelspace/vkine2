@@ -17,10 +17,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private const int PageSize = 20;
     private bool isModalOpen = false;
     private Movie? selectedMovie = null;
-    private bool isLoadingMore = false;
+    private bool isLoading = true;
 
     // Search state
     private string searchQuery = string.Empty;
@@ -28,79 +27,60 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private bool isSearching = false;
     private CancellationTokenSource? _searchCts;
 
-    // Infinite scroll state
-    private List<Movie> visibleMovies = new();
-    private int _currentSkip = 0;
-    private bool _hasMore = true;
-    private ElementReference scrollContainer;
-    private IJSObjectReference? _scrollModule;
+    // All movie IDs (ordered by earliest showtime) — loaded once
+    private List<int> _allMovieIds = new();
+    // Loaded movie data, keyed by ID
+    private readonly Dictionary<int, Movie> _loadedMovies = new();
+
+    private ElementReference _gridRef;
+    private IJSObjectReference? _jsModule;
     private DotNetObjectReference<Movies>? _dotnetRef;
+    private bool _jsInitialized;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadMoreMovies();
+        // Load all scheduled movie IDs at once (just integers — lightweight)
+        _allMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+        isLoading = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        // Initialize JS observer once the grid is actually in the DOM
+        if (!_jsInitialized && !isLoading && _allMovieIds.Count > 0)
         {
+            _jsInitialized = true;
             _dotnetRef = DotNetObjectReference.Create(this);
-            _scrollModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Movies.razor.js");
-            await _scrollModule.InvokeVoidAsync("initializeScrollObserver", scrollContainer, _dotnetRef);
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
+                "import", "./Components/Pages/Movies.razor.js");
+            await _jsModule.InvokeVoidAsync("observeCards", _gridRef, _dotnetRef);
         }
     }
 
+    /// <summary>
+    /// Called from JS when cards scroll into view.
+    /// Receives a batch of movie IDs whose data should be fetched.
+    /// </summary>
     [JSInvokable]
-    public async Task OnScrollNearEnd()
+    public async Task OnCardsVisible(int[] movieIds)
     {
-        if (!isLoadingMore && _hasMore && string.IsNullOrWhiteSpace(searchQuery))
+        // Only fetch IDs we haven't loaded yet
+        var toLoad = movieIds.Where(id => !_loadedMovies.ContainsKey(id)).ToList();
+        if (toLoad.Count == 0) return;
+
+        var fetched = await MovieService.GetMoviesByIdsAsync(toLoad);
+        foreach (var kvp in fetched)
         {
-            await LoadMoreMovies();
+            _loadedMovies[kvp.Key] = kvp.Value;
         }
-    }
 
-    private async Task LoadMoreMovies()
-    {
-        if (!_hasMore || isLoadingMore) return;
-
-        try
-        {
-            isLoadingMore = true;
-            StateHasChanged();
-
-            var ids = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(_currentSkip, PageSize);
-            
-            if (ids.Count == 0)
-            {
-                _hasMore = false;
-                return;
-            }
-
-            _currentSkip += ids.Count;
-            if (ids.Count < PageSize) _hasMore = false;
-
-            var moviesById = await MovieService.GetMoviesByIdsAsync(ids);
-            var pageMovies = ids.Where(id => moviesById.ContainsKey(id)).Select(id => moviesById[id]).ToList();
-
-            visibleMovies.AddRange(pageMovies);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error loading more movies: {ex.Message}");
-        }
-        finally
-        {
-            isLoadingMore = false;
-            StateHasChanged();
-        }
+        StateHasChanged();
     }
 
     private async Task OnSearchInput(ChangeEventArgs e)
     {
         searchQuery = e?.Value?.ToString() ?? string.Empty;
 
-        // debounce previous searches
         _searchCts?.Cancel();
         _searchCts?.Dispose();
         _searchCts = new CancellationTokenSource();
@@ -108,7 +88,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
         try
         {
-            // small debounce to emulate google-like instant search
             await Task.Delay(750, token);
 
             if (string.IsNullOrWhiteSpace(searchQuery))
@@ -163,6 +142,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         }
     }
 
+    private Movie? GetLoadedMovie(int movieId) =>
+        _loadedMovies.TryGetValue(movieId, out var movie) ? movie : null;
+
     public void Dispose()
     {
         _searchCts?.Cancel();
@@ -172,12 +154,12 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (_scrollModule != null)
+        if (_jsModule is not null)
         {
             try
             {
-                await _scrollModule.InvokeVoidAsync("dispose");
-                await _scrollModule.DisposeAsync();
+                await _jsModule.InvokeVoidAsync("dispose");
+                await _jsModule.DisposeAsync();
             }
             catch { }
         }
