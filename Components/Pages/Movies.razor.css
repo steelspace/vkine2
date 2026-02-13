@@ -50,7 +50,56 @@
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+/* Sort toolbar */
+.sort-toolbar {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
     margin-bottom: 1rem;
+}
+
+.sort-label {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+
+.sort-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #555;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.sort-btn:hover {
+    border-color: #bbb;
+    background: #f8f8f8;
+}
+
+.sort-btn.active {
+    border-color: #512bd4;
+    background: #f3eeff;
+    color: #512bd4;
+    font-weight: 600;
+}
+
+.sort-arrow {
+    font-size: 0.7rem;
+    line-height: 1;
 }
 
 .date-range-picker {
@@ -319,6 +368,26 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.movie-meta {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+.movie-year {
+    font-weight: 600;
+    color: #555;
+}
+
+.movie-meta .movie-year + .movie-countries::before {
+    content: "·";
+    margin-right: 0.4rem;
+    color: #bbb;
 }
 
 .movie-countries {

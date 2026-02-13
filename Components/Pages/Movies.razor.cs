@@ -39,6 +39,13 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private int _timeFromMinutes = 540;
     private CancellationTokenSource? _timeFilterCts;
 
+    // Sort state
+    private enum SortField { None, Rating, Name, ReleaseDate }
+    private SortField _currentSort = SortField.None;
+    private bool _sortAscending = true;
+    private List<int>? _unsortedMovieIds;
+    private bool _isSortLoading;
+
     // All movie IDs (ordered by earliest showtime) — loaded once, persisted across prerender
     [PersistentState]
     public List<int> AllMovieIds { get => field ??= []; set; }
@@ -199,6 +206,12 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         {
             searchResults = _unfilteredSearchResults.ToList();
         }
+
+        // Re-apply sort if active
+        if (_currentSort != SortField.None)
+        {
+            SortMovieList(searchResults);
+        }
     }
 
     /// <summary>
@@ -225,6 +238,14 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         if (!string.IsNullOrWhiteSpace(searchQuery) && _unfilteredSearchResults.Count > 0)
         {
             await ApplySearchFilters();
+        }
+
+        // Re-apply sort if active
+        if (_currentSort != SortField.None)
+        {
+            _unsortedMovieIds = AllMovieIds.ToList();
+            await EnsureAllMoviesLoadedAsync();
+            SortMovieIds();
         }
 
         _jsInitialized = false;
@@ -303,6 +324,168 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     private Movie? GetLoadedMovie(int movieId) =>
         _loadedMovies.TryGetValue(movieId, out var movie) ? movie : null;
+
+    // ── Sorting ────────────────────────────────────────────────────
+
+    private static bool GetDefaultAscending(SortField field) => field == SortField.Name;
+
+    private async Task ToggleSort(SortField field)
+    {
+        if (_currentSort == field)
+        {
+            // Same button clicked: flip direction → then turn off
+            if (_sortAscending == GetDefaultAscending(field))
+            {
+                _sortAscending = !_sortAscending;
+            }
+            else
+            {
+                // Already flipped once → turn off
+                _currentSort = SortField.None;
+
+                if (_unsortedMovieIds is not null)
+                {
+                    AllMovieIds = _unsortedMovieIds.ToList();
+                    _unsortedMovieIds = null;
+                    _jsInitialized = false;
+                }
+
+                if (!string.IsNullOrWhiteSpace(searchQuery))
+                {
+                    await ApplySearchFilters();
+                }
+
+                StateHasChanged();
+                return;
+            }
+        }
+        else
+        {
+            _currentSort = field;
+            _sortAscending = GetDefaultAscending(field);
+        }
+
+        await ApplySortingAsync();
+    }
+
+    private async Task ApplySortingAsync()
+    {
+        if (_currentSort == SortField.None) return;
+
+        // Sort search results
+        if (!string.IsNullOrWhiteSpace(searchQuery) && searchResults.Count > 0)
+        {
+            SortMovieList(searchResults);
+            StateHasChanged();
+            return;
+        }
+
+        // Save unsorted order
+        _unsortedMovieIds ??= AllMovieIds.ToList();
+
+        _isSortLoading = true;
+        StateHasChanged();
+
+        await EnsureAllMoviesLoadedAsync();
+        SortMovieIds();
+
+        _isSortLoading = false;
+        _jsInitialized = false;
+        StateHasChanged();
+    }
+
+    private void SortMovieIds()
+    {
+        if (_currentSort == SortField.None) return;
+
+        var items = AllMovieIds
+            .Select(id => (Id: id, Movie: GetLoadedMovie(id)))
+            .ToList();
+
+        AllMovieIds = ApplySort(items)
+            .Select(x => x.Id)
+            .ToList();
+    }
+
+    private void SortMovieList(List<Movie> movies)
+    {
+        if (_currentSort == SortField.None) return;
+
+        var items = movies
+            .Select(m => (Id: m.Id, Movie: (Movie?)m))
+            .ToList();
+
+        var sorted = ApplySort(items)
+            .Select(x => x.Movie!)
+            .ToList();
+
+        movies.Clear();
+        movies.AddRange(sorted);
+    }
+
+    private List<(int Id, Movie? Movie)> ApplySort(List<(int Id, Movie? Movie)> items) => (_currentSort switch
+    {
+        SortField.Rating => _sortAscending
+            ? items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
+            : items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
+        SortField.Name => _sortAscending
+            ? items.OrderBy(x => x.Movie?.Title ?? "\uffff", StringComparer.OrdinalIgnoreCase)
+            : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
+        SortField.ReleaseDate => _sortAscending
+            ? items.OrderBy(x => x.Movie?.Year ?? "9999")
+            : items.OrderByDescending(x => x.Movie?.Year ?? "0000"),
+        _ => items.AsEnumerable()
+    }).ToList();
+
+    /// <summary>
+    /// Calculates the average rating across all available rating sources (ČSFD, TMDB, IMDb),
+    /// normalized to a 0–10 scale.
+    /// </summary>
+    private static double CalculateAverageRating(Movie movie)
+    {
+        var count = 0;
+        var sum = 0.0;
+
+        // ČSFD: percentage string like "78%" → 7.8
+        if (!string.IsNullOrEmpty(movie.CsfdRating))
+        {
+            var raw = movie.CsfdRating.TrimEnd('%', ' ');
+            if (double.TryParse(raw, System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture, out var csfd))
+            {
+                sum += csfd / 10.0;
+                count++;
+            }
+        }
+
+        // TMDB: 0–10
+        if (movie.TmdbRating is > 0)
+        {
+            sum += movie.TmdbRating.Value;
+            count++;
+        }
+
+        // IMDb: 0–10
+        if (movie.ImdbRating is > 0)
+        {
+            sum += movie.ImdbRating.Value;
+            count++;
+        }
+
+        return count > 0 ? sum / count : 0;
+    }
+
+    private async Task EnsureAllMoviesLoadedAsync()
+    {
+        var missing = AllMovieIds.Where(id => !_loadedMovies.ContainsKey(id)).ToList();
+        if (missing.Count == 0) return;
+
+        var fetched = await MovieService.GetMoviesByIdsAsync(missing);
+        foreach (var kvp in fetched)
+        {
+            _loadedMovies[kvp.Key] = kvp.Value;
+        }
+    }
 
     public void Dispose()
     {

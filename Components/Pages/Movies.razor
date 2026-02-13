@@ -36,6 +36,38 @@
         }
     </div>
 
+    <div class="sort-toolbar">
+        <span class="sort-label">Sort by</span>
+        <button class="sort-btn @(_currentSort == SortField.Rating ? "active" : "")"
+                @onclick="() => ToggleSort(SortField.Rating)">
+            <span>★ Rating</span>
+            @if (_currentSort == SortField.Rating)
+            {
+                <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
+            }
+        </button>
+        <button class="sort-btn @(_currentSort == SortField.Name ? "active" : "")"
+                @onclick="() => ToggleSort(SortField.Name)">
+            <span>Name</span>
+            @if (_currentSort == SortField.Name)
+            {
+                <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
+            }
+        </button>
+        <button class="sort-btn @(_currentSort == SortField.ReleaseDate ? "active" : "")"
+                @onclick="() => ToggleSort(SortField.ReleaseDate)">
+            <span>Year</span>
+            @if (_currentSort == SortField.ReleaseDate)
+            {
+                <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
+            }
+        </button>
+        @if (_isSortLoading)
+        {
+            <span class="search-loading">Sorting...</span>
+        }
+    </div>
+
     @if (!string.IsNullOrWhiteSpace(searchQuery))
     {
         <div class="movies-stats">
@@ -60,10 +92,16 @@
                     </div>
                     <div class="movie-info">
                         <h3 class="movie-title">@movie.Title</h3>
-                        @if (movie.OriginCountries.Count > 0)
-                        {
-                            <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
-                        }
+                        <div class="movie-meta">
+                            @if (!string.IsNullOrEmpty(movie.Year))
+                            {
+                                <span class="movie-year">@movie.Year</span>
+                            }
+                            @if (movie.OriginCountries.Count > 0)
+                            {
+                                <span class="movie-countries">@string.Join(", ", movie.OriginCountries)</span>
+                            }
+                        </div>
                         <div class="movie-ratings">
                             @if (movie.Id > 0)
                             {
@@ -141,10 +179,16 @@
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">@movie.Title</h3>
-                            @if (movie.OriginCountries.Count > 0)
-                            {
-                                <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
-                            }
+                            <div class="movie-meta">
+                                @if (!string.IsNullOrEmpty(movie.Year))
+                                {
+                                    <span class="movie-year">@movie.Year</span>
+                                }
+                                @if (movie.OriginCountries.Count > 0)
+                                {
+                                    <span class="movie-countries">@string.Join(", ", movie.OriginCountries)</span>
+                                }
+                            </div>
                             <div class="movie-ratings">
                                 @if (movie.Id > 0)
                                 {
