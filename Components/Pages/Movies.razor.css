@@ -3,7 +3,42 @@
 .movies-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 24px 20px 40px;
+    padding: 12px 20px 40px;
+}
+
+/* ── Sticky Toolbar ──────────────────────────────────────────── */
+
+.sticky-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: rgba(242, 242, 247, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--separator);
+    transform: translateY(0);
+    transition: transform var(--duration-default) var(--ease-spring);
+    will-change: transform;
+}
+
+.sticky-toolbar.toolbar-hidden {
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+.sticky-toolbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toolbar-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .movies-title {
@@ -81,18 +116,6 @@
 
 @keyframes spin {
     to { transform: rotate(360deg); }
-}
-
-/* ── Toolbar Card (filters + sort grouped) ───────────────────── */
-
-.toolbar-card {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    padding: 14px 16px;
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
 /* ── Filters Row ─────────────────────────────────────────────── */
@@ -549,12 +572,12 @@
         gap: 1rem;
     }
 
-    .movies-title {
-        font-size: var(--font-size-title1);
+    .sticky-toolbar-inner {
+        padding: 10px 16px;
     }
 
-    .toolbar-card {
-        padding: 12px;
+    .toolbar-controls {
+        gap: 6px;
     }
 
     .filters-row {
@@ -574,7 +597,11 @@
 
 @media (max-width: 480px) {
     .movies-container {
-        padding: 16px;
+        padding: 10px 16px 32px;
+    }
+
+    .sticky-toolbar-inner {
+        padding: 8px 16px;
     }
 
     .movies-grid {

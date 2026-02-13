@@ -53,6 +53,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private readonly Dictionary<int, Movie> _loadedMovies = new();
 
     private ElementReference _gridRef;
+    private ElementReference _toolbarRef;
     private IJSObjectReference? _jsModule;
     private DotNetObjectReference<Movies>? _dotnetRef;
     private bool _jsInitialized;
@@ -78,7 +79,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Initialize the Flatpickr date range picker once, after first render when the input is in the DOM
+        // Initialize JS module early so sticky toolbar + date picker can be set up
         if (!_datePickerInitialized && !isLoading)
         {
             _datePickerInitialized = true;
@@ -86,6 +87,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./Components/Pages/Movies.razor.js");
             await _jsModule.InvokeVoidAsync("initDateRangePicker", _dateRangeInput, _dotnetRef);
+            await _jsModule.InvokeVoidAsync("initStickyToolbar", _toolbarRef);
         }
 
         // (Re-)initialize JS observer whenever the grid is in the DOM but not yet observed

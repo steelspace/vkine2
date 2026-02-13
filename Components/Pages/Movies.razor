@@ -1,86 +1,90 @@
+@page "/"
 @page "/movies"
 @rendermode InteractiveServer
 
 <PageTitle>Movies</PageTitle>
 
-<div class="movies-container">
-    <h1 class="movies-title">Movies</h1>
+<div class="sticky-toolbar" @ref="_toolbarRef">
+    <div class="sticky-toolbar-inner">
+        <div class="search-field">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
+            @if (isSearching)
+            {
+                <div class="search-spinner"></div>
+            }
+        </div>
 
-    <div class="search-field">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
-        @if (isSearching)
-        {
-            <div class="search-spinner"></div>
-        }
-    </div>
-
-    <div class="toolbar-card">
-        <div class="filters-row">
-            <div class="date-range-picker">
-                <svg class="filter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
-                <input @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" readonly />
-                @if (_dateFrom.HasValue)
+        <div class="toolbar-controls">
+            <div class="filters-row">
+                <div class="date-range-picker">
+                    <svg class="filter-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <input @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" readonly />
+                    @if (_dateFrom.HasValue)
+                    {
+                        <button class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">&times;</button>
+                    }
+                </div>
+                <div class="time-filter">
+                    <div class="time-filter-header">
+                        <span class="time-filter-label">After</span>
+                        <span class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
+                    </div>
+                    <input type="range" class="time-slider" min="540" max="1410" step="30"
+                           value="@_timeFromMinutes" @oninput="OnTimeFromInput" />
+                </div>
+                @if (_isDateFiltering)
                 {
-                    <button class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">&times;</button>
+                    <div class="search-spinner"></div>
                 }
             </div>
-            <div class="time-filter">
-                <div class="time-filter-header">
-                    <span class="time-filter-label">After</span>
-                    <span class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
-                </div>
-                <input type="range" class="time-slider" min="540" max="1410" step="30"
-                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" />
-            </div>
-            @if (_isDateFiltering)
-            {
-                <div class="search-spinner"></div>
-            }
-        </div>
 
-        <div class="sort-toolbar">
-            <span class="sort-label">Sort</span>
-            <div class="segmented-control">
-                <button class="segment @(_currentSort == SortField.Rating ? "active" : "")"
-                        @onclick="() => ToggleSort(SortField.Rating)">
-                    <span>★ Rating</span>
-                    @if (_currentSort == SortField.Rating)
-                    {
-                        <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
-                    }
-                </button>
-                <button class="segment @(_currentSort == SortField.Name ? "active" : "")"
-                        @onclick="() => ToggleSort(SortField.Name)">
-                    <span>Name</span>
-                    @if (_currentSort == SortField.Name)
-                    {
-                        <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
-                    }
-                </button>
-                <button class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
-                        @onclick="() => ToggleSort(SortField.ReleaseDate)">
-                    <span>Year</span>
-                    @if (_currentSort == SortField.ReleaseDate)
-                    {
-                        <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
-                    }
-                </button>
+            <div class="sort-toolbar">
+                <span class="sort-label">Sort</span>
+                <div class="segmented-control">
+                    <button class="segment @(_currentSort == SortField.Rating ? "active" : "")"
+                            @onclick="() => ToggleSort(SortField.Rating)">
+                        <span>★ Rating</span>
+                        @if (_currentSort == SortField.Rating)
+                        {
+                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                        }
+                    </button>
+                    <button class="segment @(_currentSort == SortField.Name ? "active" : "")"
+                            @onclick="() => ToggleSort(SortField.Name)">
+                        <span>Name</span>
+                        @if (_currentSort == SortField.Name)
+                        {
+                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                        }
+                    </button>
+                    <button class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
+                            @onclick="() => ToggleSort(SortField.ReleaseDate)">
+                        <span>Year</span>
+                        @if (_currentSort == SortField.ReleaseDate)
+                        {
+                            <span class="sort-arrow">@(_sortAscending ? "↑" : "↓")</span>
+                        }
+                    </button>
+                </div>
+                @if (_isSortLoading)
+                {
+                    <div class="search-spinner"></div>
+                }
             </div>
-            @if (_isSortLoading)
-            {
-                <div class="search-spinner"></div>
-            }
         </div>
     </div>
+</div>
+
+<div class="movies-container">
 
     @if (!string.IsNullOrWhiteSpace(searchQuery))
     {

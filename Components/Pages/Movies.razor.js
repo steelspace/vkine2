@@ -3,6 +3,7 @@ let dotnetRef = null;
 let pendingIds = new Set();
 let debounceTimer = null;
 let flatpickrInstance = null;
+let scrollHandler = null;
 
 export function observeCards(gridElement, dotnetReference) {
     // Disconnect previous observer if re-attaching after search clear
@@ -105,6 +106,40 @@ function flushPending() {
     }, 100);   // 100ms debounce to batch cards that enter viewport together
 }
 
+export function initStickyToolbar(toolbarElement) {
+    if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler, { passive: true });
+    }
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    scrollHandler = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const currentY = window.scrollY;
+            // Only hide/show after scrolling past the toolbar's own height
+            if (currentY > 80) {
+                if (currentY > lastScrollY + 5) {
+                    // Scrolling down — hide
+                    toolbarElement.classList.add('toolbar-hidden');
+                } else if (currentY < lastScrollY - 3) {
+                    // Scrolling up (even slightly) — show
+                    toolbarElement.classList.remove('toolbar-hidden');
+                }
+            } else {
+                // Near top — always show
+                toolbarElement.classList.remove('toolbar-hidden');
+            }
+            lastScrollY = currentY;
+            ticking = false;
+        });
+    };
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+}
+
 export function dispose() {
     clearTimeout(debounceTimer);
     if (observer) {
@@ -114,6 +149,10 @@ export function dispose() {
     if (flatpickrInstance) {
         flatpickrInstance.destroy();
         flatpickrInstance = null;
+    }
+    if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler, { passive: true });
+        scrollHandler = null;
     }
     pendingIds.clear();
     dotnetRef = null;
