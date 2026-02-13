@@ -54,10 +54,14 @@ export function initDateRangePicker(inputElement, dotnetReference) {
         mode: 'range',
         dateFormat: 'Y-m-d',
         altInput: true,
-        altFormat: 'M j, Y',
+        altFormat: 'M j',
         minDate: 'today',
         allowInput: false,
         clickOpens: true,
+        animate: true,
+        monthSelectorType: 'static',
+        prevArrow: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>',
+        nextArrow: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>',
         onChange: (selectedDates) => {
             if (selectedDates.length === 2) {
                 const from = formatDate(selectedDates[0]);
@@ -66,7 +70,6 @@ export function initDateRangePicker(inputElement, dotnetReference) {
             }
         },
         onClose: (selectedDates) => {
-            // If user closes with only 1 date or 0, treat as same-day or clear
             if (selectedDates.length === 1) {
                 const from = formatDate(selectedDates[0]);
                 dotnetRef.invokeMethodAsync('OnDateRangeChanged', from, from);
