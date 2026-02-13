@@ -127,16 +127,46 @@ public class MovieService(
 
         if (tokens.Count == 0) return new List<Movie>();
 
-        // For each token create an OR filter that looks for the token in title, description, cast or crew
+        // For each token create an OR filter that looks for the token in title, description, cast, crew,
+        // and ALL localized title variants (dynamic country-keyed subdocument)
         var filtersPerToken = tokens.Select(token =>
-            Builders<MovieDocument>.Filter.Or(
+        {
+            // Build a filter that checks every value inside localized_titles (dynamic keys)
+            // using $expr + $objectToArray + $filter + $regexMatch
+            var localizedTitlesFilter = new BsonDocumentFilterDefinition<MovieDocument>(
+                new BsonDocument("$expr",
+                    new BsonDocument("$gt", new BsonArray
+                    {
+                        new BsonDocument("$size",
+                            new BsonDocument("$filter", new BsonDocument
+                            {
+                                { "input", new BsonDocument("$ifNull", new BsonArray
+                                    {
+                                        new BsonDocument("$objectToArray", "$localized_titles"),
+                                        new BsonArray()
+                                    })
+                                },
+                                { "as", "t" },
+                                { "cond", new BsonDocument("$regexMatch", new BsonDocument
+                                    {
+                                        { "input", "$$t.v" },
+                                        { "regex", token },
+                                        { "options", "i" }
+                                    })
+                                }
+                            })),
+                        0
+                    })));
+
+            return Builders<MovieDocument>.Filter.Or(
                 Builders<MovieDocument>.Filter.Regex(d => d.Title, new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex(d => d.Description, new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("cast", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("crew", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("directors", new BsonRegularExpression(token, "i")),
-                Builders<MovieDocument>.Filter.Regex("localized_titles.original", new BsonRegularExpression(token, "i"))
-            )).ToList();
+                localizedTitlesFilter
+            );
+        }).ToList();
 
         // Add filter to only include movies with upcoming showtimes
         var textSearchFilter = Builders<MovieDocument>.Filter.And(filtersPerToken);
