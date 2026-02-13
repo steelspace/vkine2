@@ -182,7 +182,11 @@ public class MovieService(
     {
         if (movie.Id > 0)
         {
-            _memoryCache.Set(GetCacheKey(movie.Id), movie, new MemoryCacheEntryOptions { Size = 1 });
+            _memoryCache.Set(GetCacheKey(movie.Id), movie, new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = TimeSpan.FromMinutes(30),
+                Size = 1
+            });
         }
     }
 
