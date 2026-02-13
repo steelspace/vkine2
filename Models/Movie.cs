@@ -6,8 +6,12 @@ namespace vkine.Models;
 public class Movie
 {
     public int Id { get; set; }
+    public int? TmdbId { get; set; }
+    public string? ImdbId { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;
+    public string? CsfdRating { get; set; }
+    public double? TmdbRating { get; set; }
     public string CoverUrl { get; set; } = string.Empty;
     public string BackdropUrl { get; set; } = string.Empty;
     public string Year { get; set; } = string.Empty;

@@ -18,6 +18,15 @@ public class MovieDocument
     [BsonElement("tmdb_id")]
     public int? TmdbId { get; set; }
 
+    [BsonElement("imdb_id")]
+    public string? ImdbId { get; set; }
+
+    [BsonElement("rating")]
+    public string? Rating { get; set; }
+
+    [BsonElement("vote_average")]
+    public double? VoteAverage { get; set; }
+
     [BsonElement("title")]
     public string? Title { get; set; }
 

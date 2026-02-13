@@ -17,8 +17,12 @@ public class MovieMapper
         return new Movie
         {
             Id = document.CsfdId ?? 0,
+            TmdbId = document.TmdbId,
+            ImdbId = document.ImdbId,
             Title = ResolveTitle(document),
             Synopsis = document.Description ?? string.Empty,
+            CsfdRating = document.Rating,
+            TmdbRating = document.VoteAverage is > 0 ? document.VoteAverage : null,
             CoverUrl = document.PosterUrl ?? string.Empty,
             BackdropUrl = document.BackdropUrl ?? string.Empty,
             Year = document.Year ?? string.Empty,

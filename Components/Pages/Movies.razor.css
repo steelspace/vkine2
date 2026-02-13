@@ -245,6 +245,58 @@
     margin: 0;
 }
 
+/* Rating Badges */
+.movie-ratings {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.rating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.2;
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.rating-badge:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+}
+
+.rating-source {
+    opacity: 0.85;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.rating-value {
+    font-weight: 700;
+}
+
+.rating-badge.csfd {
+    background: #ba0305;
+    color: #fff;
+}
+
+.rating-badge.tmdb {
+    background: #032541;
+    color: #01d277;
+}
+
+.rating-badge.imdb {
+    background: #f5c518;
+    color: #000;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .movies-grid {

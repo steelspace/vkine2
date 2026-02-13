@@ -56,6 +56,28 @@
                         {
                             <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
                         }
+                        <div class="movie-ratings">
+                            @if (!string.IsNullOrEmpty(movie.CsfdRating))
+                            {
+                                <a href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
+                                    <span class="rating-source">ČSFD</span>
+                                    <span class="rating-value">@movie.CsfdRating</span>
+                                </a>
+                            }
+                            @if (movie.TmdbRating.HasValue)
+                            {
+                                <a href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
+                                    <span class="rating-source">TMDB</span>
+                                    <span class="rating-value">@movie.TmdbRating.Value.ToString("0.#")</span>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(movie.ImdbId))
+                            {
+                                <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="View on IMDb">
+                                    <span class="rating-source">IMDb</span>
+                                </a>
+                            }
+                        </div>
                     </div>
                 </div>
             }
@@ -105,6 +127,28 @@
                             {
                                 <p class="movie-countries">@string.Join(", ", movie.OriginCountries)</p>
                             }
+                            <div class="movie-ratings">
+                                @if (!string.IsNullOrEmpty(movie.CsfdRating))
+                                {
+                                    <a href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
+                                        <span class="rating-source">ČSFD</span>
+                                        <span class="rating-value">@movie.CsfdRating</span>
+                                    </a>
+                                }
+                                @if (movie.TmdbRating.HasValue)
+                                {
+                                    <a href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
+                                        <span class="rating-source">TMDB</span>
+                                        <span class="rating-value">@movie.TmdbRating.Value.ToString("0.#")</span>
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(movie.ImdbId))
+                                {
+                                    <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="View on IMDb">
+                                        <span class="rating-source">IMDb</span>
+                                    </a>
+                                }
+                            </div>
                         </div>
                     </div>
                 }
