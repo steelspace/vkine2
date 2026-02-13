@@ -128,52 +128,81 @@
 
 .filter-icon {
     position: absolute;
-    left: 10px;
-    color: var(--text-tertiary);
+    left: 12px;
+    width: 15px;
+    height: 15px;
+    color: var(--accent);
     pointer-events: none;
+    z-index: 1;
+    transition: color var(--duration-fast) var(--ease-default);
+}
+
+.date-range-picker:has(.date-range-input:focus) .filter-icon {
+    color: var(--accent-hover);
 }
 
 .date-range-input {
-    padding: 8px 10px 8px 32px;
-    border-radius: var(--radius-sm);
-    border: none;
-    background: var(--fill-tertiary);
+    padding: 7px 34px 7px 34px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--separator);
+    background: var(--bg-secondary);
     font-size: var(--font-size-subheadline);
+    font-weight: 400;
     color: var(--text-primary);
     outline: none;
     cursor: pointer;
     min-width: 200px;
-    transition: box-shadow var(--duration-fast) var(--ease-default);
+    letter-spacing: -0.2px;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                box-shadow var(--duration-fast) var(--ease-default),
+                background var(--duration-fast) var(--ease-default);
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .date-range-input::placeholder {
     color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+.date-range-input:hover {
+    border-color: var(--separator-opaque);
+    background: var(--bg-secondary);
 }
 
 .date-range-input:focus {
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2);
+    background: var(--bg-secondary);
 }
 
 .date-clear-btn {
     position: absolute;
-    right: 6px;
-    width: 22px;
-    height: 22px;
+    right: 7px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: var(--fill-secondary);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    background: var(--fill-tertiary);
+    color: var(--text-tertiary);
+    font-size: 13px;
+    font-weight: 500;
     line-height: 1;
+    z-index: 1;
     transition: background var(--duration-fast) var(--ease-default),
-                color var(--duration-fast) var(--ease-default);
+                color var(--duration-fast) var(--ease-default),
+                transform var(--duration-fast) var(--ease-default);
 }
 
 .date-clear-btn:hover {
-    background: var(--fill-primary);
-    color: var(--text-primary);
+    background: var(--fill-secondary);
+    color: var(--text-secondary);
+}
+
+.date-clear-btn:active {
+    transform: scale(0.85);
 }
 
 /* Time slider */
@@ -571,6 +600,7 @@
 
     .date-range-input {
         min-width: 0;
+        font-size: var(--font-size-footnote);
     }
 
     .movie-info {
