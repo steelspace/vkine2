@@ -343,36 +343,13 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     {
         if (_currentSort == field)
         {
-            // Same button clicked: flip direction → then turn off
-            if (_sortAscending == GetDefaultAscending(field))
-            {
-                _sortAscending = !_sortAscending;
-            }
-            else
-            {
-                // Already flipped once → turn off
-                _currentSort = SortField.None;
-
-                if (_unsortedMovieIds is not null)
-                {
-                    AllMovieIds = _unsortedMovieIds.ToList();
-                    _unsortedMovieIds = null;
-                    _jsInitialized = false;
-                }
-
-                if (!string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    await ApplySearchFilters();
-                }
-
-                StateHasChanged();
-                return;
-            }
+            // Same button clicked: flip direction
+            _sortAscending = !_sortAscending;
         }
         else
         {
+            // Different button: switch field, keep current direction
             _currentSort = field;
-            _sortAscending = GetDefaultAscending(field);
         }
 
         await ApplySortingAsync();
@@ -436,8 +413,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private List<(int Id, Movie? Movie)> ApplySort(List<(int Id, Movie? Movie)> items) => (_currentSort switch
     {
         SortField.Rating => _sortAscending
-            ? items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
-            : items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
+            ? items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
+            : items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
         SortField.Name => _sortAscending
             ? items.OrderBy(x => x.Movie?.Title ?? "\uffff", StringComparer.OrdinalIgnoreCase)
             : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
