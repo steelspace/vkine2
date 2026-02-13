@@ -23,4 +23,5 @@ public class Movie
     public List<string> Cast { get; set; } = new();
     public List<string> Crew { get; set; } = new();
     public List<string> Directors { get; set; } = new();
+    public string Homepage { get; set; } = string.Empty;
 } 

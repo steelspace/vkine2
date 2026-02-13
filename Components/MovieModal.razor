@@ -7,7 +7,16 @@
     <div class="modal-backdrop" @onclick="OnClose">
         <div class="modal-content" @onclick:stopPropagation="true">
             <div class="modal-header">
-                <h2>@Movie.Title</h2>
+                <h2>
+                    @if (!string.IsNullOrEmpty(Movie.Homepage))
+                    {
+                        <a href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
+                    }
+                    else
+                    {
+                        @Movie.Title
+                    }
+                </h2>
                 <button class="modal-close" @onclick="OnClose">&times;</button>
             </div>
             <div class="modal-body">

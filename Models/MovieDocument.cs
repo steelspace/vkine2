@@ -72,4 +72,7 @@ public class MovieDocument
 
     [BsonElement("origin_countries")]
     public List<string>? OriginCountries { get; set; }
+
+    [BsonElement("homepage")]
+    public string? Homepage { get; set; }
 }

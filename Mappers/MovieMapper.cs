@@ -33,7 +33,8 @@ public class MovieMapper
             OriginCountries = ParseOriginCountries(document),
             Cast = document.Cast ?? new List<string>(),
             Crew = document.Crew ?? new List<string>(),
-            Directors = document.Directors ?? new List<string>()
+            Directors = document.Directors ?? new List<string>(),
+            Homepage = document.Homepage ?? string.Empty
         }; 
     }
 
