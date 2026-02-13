@@ -1,6 +1,4 @@
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using vkine.Models;
 
@@ -11,18 +9,14 @@ public class ScheduleService(
     IMemoryCache memoryCache,
     ILogger<ScheduleService> logger) : IScheduleService
 {
-    private const string SCHEDULES_COLLECTION_NAME = "schedule";
-    private const string VENUES_COLLECTION_NAME = "venues";
-    private const string UPCOMING_MOVIE_IDS_CACHE_KEY = "upcoming-movie-ids";
-    private const string VENUES_CACHE_KEY_PREFIX = "venue-";
+    private const string UpcomingMovieIdsCacheKey = "upcoming-movie-ids";
+    private const string VenuesCacheKeyPrefix = "venue-";
 
     private static readonly TimeSpan UpcomingMovieIdsCacheDuration = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan VenueCacheDuration = TimeSpan.FromHours(1);
 
-    private readonly IMongoCollection<ScheduleDto> _schedulesCollection = database.GetCollection<ScheduleDto>(SCHEDULES_COLLECTION_NAME);
-    private readonly IMongoCollection<VenueDto> _venuesCollection = database.GetCollection<VenueDto>(VENUES_COLLECTION_NAME);
-    private readonly IMemoryCache _memoryCache = memoryCache;
-    private readonly ILogger<ScheduleService> _logger = logger;
+    private readonly IMongoCollection<ScheduleDto> _schedulesCollection = database.GetCollection<ScheduleDto>("schedule");
+    private readonly IMongoCollection<VenueDto> _venuesCollection = database.GetCollection<VenueDto>("venues");
 
     public async Task<List<ScheduleDto>> GetUpcomingPerformancesForMovieAsync(int movieId)
     {
@@ -41,27 +35,32 @@ public class ScheduleService(
                 .SortBy(s => s.Date)
                 .ToListAsync();
 
-            // Filter out past showtimes, keeping schedule structure intact
-            foreach (var schedule in schedules)
-            {
-                foreach (var performance in schedule.Performances)
+            return schedules
+                .Select(schedule => new ScheduleDto
                 {
-                    performance.Showtimes = performance.Showtimes
-                        .Where(st => schedule.Date.ToDateTime(st.StartAt) >= now)
-                        .OrderBy(st => st.StartAt)
-                        .ToList();
-                }
-
-                schedule.Performances = schedule.Performances
-                    .Where(p => p.Showtimes.Count > 0)
-                    .ToList();
-            }
-
-            return schedules.Where(s => s.Performances.Count > 0).ToList();
+                    Id = schedule.Id,
+                    Date = schedule.Date,
+                    MovieId = schedule.MovieId,
+                    MovieTitle = schedule.MovieTitle,
+                    StoredAt = schedule.StoredAt,
+                    Performances = schedule.Performances
+                        .Select(p => new PerformanceDto
+                        {
+                            VenueId = p.VenueId,
+                            Showtimes = p.Showtimes
+                                .Where(st => schedule.Date.ToDateTime(st.StartAt) >= now)
+                                .OrderBy(st => st.StartAt)
+                                .ToList()
+                        })
+                        .Where(p => p.Showtimes.Count > 0)
+                        .ToList()
+                })
+                .Where(s => s.Performances.Count > 0)
+                .ToList();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error fetching upcoming performances for movie {MovieId}", movieId);
+            logger.LogError(ex, "Error fetching upcoming performances for movie {MovieId}", movieId);
             return [];
         }
     }
@@ -72,27 +71,19 @@ public class ScheduleService(
         {
             var ids = venueIds.Distinct().ToList();
             if (ids.Count == 0)
-            {
                 return new Dictionary<int, VenueDto>();
-            }
 
             var result = new Dictionary<int, VenueDto>();
             var missing = new List<int>();
 
-            // Check cache first
             foreach (var id in ids)
             {
-                if (_memoryCache.TryGetValue($"{VENUES_CACHE_KEY_PREFIX}{id}", out VenueDto? cached) && cached is not null)
-                {
+                if (memoryCache.TryGetValue($"{VenuesCacheKeyPrefix}{id}", out VenueDto? cached) && cached is not null)
                     result[id] = cached;
-                }
                 else
-                {
                     missing.Add(id);
-                }
             }
 
-            // Fetch missing from database
             if (missing.Count > 0)
             {
                 var filter = Builders<VenueDto>.Filter.In(v => v.VenueId, missing);
@@ -101,14 +92,8 @@ public class ScheduleService(
                 foreach (var venue in venues)
                 {
                     result[venue.VenueId] = venue;
-                    _memoryCache.Set(
-                        $"{VENUES_CACHE_KEY_PREFIX}{venue.VenueId}",
-                        venue,
-                        new MemoryCacheEntryOptions
-                        {
-                            SlidingExpiration = VenueCacheDuration,
-                            Size = 1
-                        });
+                    memoryCache.Set($"{VenuesCacheKeyPrefix}{venue.VenueId}", venue,
+                        new MemoryCacheEntryOptions { SlidingExpiration = VenueCacheDuration, Size = 1 });
                 }
             }
 
@@ -116,138 +101,77 @@ public class ScheduleService(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error fetching venues by IDs");
+            logger.LogError(ex, "Error fetching venues by IDs");
             return new Dictionary<int, VenueDto>();
         }
     }
 
     public async Task<List<int>> GetMovieIdsWithUpcomingPerformancesAsync(int skip, int limit, TimeOnly? timeFrom = null)
     {
-        var orderedIds = await GetCachedUpcomingMovieIdsAsync(timeFrom);
+        var cacheKey = BuildCacheKey(UpcomingMovieIdsCacheKey, timeFrom);
+        var orderedIds = await GetOrCreateCachedAsync(cacheKey, () => FetchMovieIdsAsync(
+            Builders<ScheduleDto>.Filter.Gte(s => s.Date, DateOnly.FromDateTime(DateTime.Now)), timeFrom));
 
-        return orderedIds
-            .Skip(skip)
-            .Take(limit)
-            .ToList();
+        return orderedIds.Skip(skip).Take(limit).ToList();
     }
 
     public async Task<HashSet<int>> GetAllMovieIdsWithUpcomingPerformancesAsync()
     {
-        var orderedIds = await GetCachedUpcomingMovieIdsAsync();
+        var cacheKey = BuildCacheKey(UpcomingMovieIdsCacheKey);
+        var orderedIds = await GetOrCreateCachedAsync(cacheKey, () => FetchMovieIdsAsync(
+            Builders<ScheduleDto>.Filter.Gte(s => s.Date, DateOnly.FromDateTime(DateTime.Now))));
+
         return orderedIds.ToHashSet();
-    }
-
-    /// <summary>
-    /// Core method: fetches all schedules from today, computes movie IDs ordered by earliest showtime,
-    /// and caches the result for 5 minutes.
-    /// </summary>
-    private async Task<List<int>> GetCachedUpcomingMovieIdsAsync(TimeOnly? timeFrom = null)
-    {
-        var cacheKey = timeFrom.HasValue
-            ? $"{UPCOMING_MOVIE_IDS_CACHE_KEY}-from-{timeFrom.Value:HHmm}"
-            : UPCOMING_MOVIE_IDS_CACHE_KEY;
-
-        if (_memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
-        {
-            return cached;
-        }
-
-        try
-        {
-            var now = DateTime.Now;
-            var today = DateOnly.FromDateTime(now);
-
-            var filter = Builders<ScheduleDto>.Filter.Gte(s => s.Date, today);
-            var schedules = await _schedulesCollection
-                .Find(filter)
-                .ToListAsync();
-
-            var movieShowtimes = schedules
-                .SelectMany(schedule => schedule.Performances
-                    .SelectMany(performance => performance.Showtimes
-                        .Where(showtime => !timeFrom.HasValue || showtime.StartAt >= timeFrom.Value)
-                        .Select(showtime => new
-                        {
-                            schedule.MovieId,
-                            ShowtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt)
-                        })))
-                .Where(item => item.ShowtimeDateTime >= now)
-                .GroupBy(item => item.MovieId)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.Min(item => item.ShowtimeDateTime));
-
-            var result = movieShowtimes
-                .OrderBy(kvp => kvp.Value)
-                .Select(kvp => kvp.Key)
-                .ToList();
-
-            _logger.LogInformation("Cached {Count} upcoming movie IDs (timeFrom={TimeFrom}) for {Duration}",
-                result.Count, timeFrom?.ToString() ?? "any", UpcomingMovieIdsCacheDuration);
-
-            _memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = UpcomingMovieIdsCacheDuration,
-                Size = 1
-            });
-
-            return result;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error fetching upcoming movie IDs");
-            return [];
-        }
     }
 
     public async Task<List<int>> GetMovieIdsInDateRangeAsync(DateOnly from, DateOnly to, TimeOnly? timeFrom = null)
     {
-        var cacheKey = timeFrom.HasValue
-            ? $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}-from-{timeFrom.Value:HHmm}"
-            : $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}";
+        var cacheKey = BuildCacheKey($"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}", timeFrom);
 
-        if (_memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
-        {
+        return await GetOrCreateCachedAsync(cacheKey, () => FetchMovieIdsAsync(
+            Builders<ScheduleDto>.Filter.And(
+                Builders<ScheduleDto>.Filter.Gte(s => s.Date, from),
+                Builders<ScheduleDto>.Filter.Lte(s => s.Date, to)),
+            timeFrom));
+    }
+
+    /// <summary>
+    /// Fetches schedules matching <paramref name="filter"/>, computes movie IDs ordered by earliest showtime.
+    /// </summary>
+    private async Task<List<int>> FetchMovieIdsAsync(FilterDefinition<ScheduleDto> filter, TimeOnly? timeFrom = null)
+    {
+        var now = DateTime.Now;
+
+        var schedules = await _schedulesCollection
+            .Find(filter)
+            .ToListAsync();
+
+        return schedules
+            .SelectMany(s => s.Performances
+                .SelectMany(p => p.Showtimes
+                    .Where(st => !timeFrom.HasValue || st.StartAt >= timeFrom.Value)
+                    .Select(st => (s.MovieId, ShowtimeAt: s.Date.ToDateTime(st.StartAt)))))
+            .Where(x => x.ShowtimeAt >= now)
+            .GroupBy(x => x.MovieId)
+            .Select(g => (MovieId: g.Key, Earliest: g.Min(x => x.ShowtimeAt)))
+            .OrderBy(x => x.Earliest)
+            .Select(x => x.MovieId)
+            .ToList();
+    }
+
+    private async Task<List<int>> GetOrCreateCachedAsync(string cacheKey, Func<Task<List<int>>> factory)
+    {
+        if (memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
             return cached;
-        }
 
         try
         {
-            var now = DateTime.Now;
+            var result = await factory();
 
-            var filter = Builders<ScheduleDto>.Filter.And(
-                Builders<ScheduleDto>.Filter.Gte(s => s.Date, from),
-                Builders<ScheduleDto>.Filter.Lte(s => s.Date, to)
-            );
+            logger.LogInformation("Cached {Count} movie IDs for key '{CacheKey}' ({Duration})",
+                result.Count, cacheKey, UpcomingMovieIdsCacheDuration);
 
-            var schedules = await _schedulesCollection
-                .Find(filter)
-                .ToListAsync();
-
-            var movieShowtimes = schedules
-                .SelectMany(schedule => schedule.Performances
-                    .SelectMany(performance => performance.Showtimes
-                        .Where(showtime => !timeFrom.HasValue || showtime.StartAt >= timeFrom.Value)
-                        .Select(showtime => new
-                        {
-                            schedule.MovieId,
-                            ShowtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt)
-                        })))
-                .Where(item => item.ShowtimeDateTime >= now) // still exclude past showtimes
-                .GroupBy(item => item.MovieId)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.Min(item => item.ShowtimeDateTime));
-
-            var result = movieShowtimes
-                .OrderBy(kvp => kvp.Value)
-                .Select(kvp => kvp.Key)
-                .ToList();
-
-            _logger.LogInformation("Found {Count} movie IDs in date range {From} – {To} (timeFrom={TimeFrom})",
-                result.Count, from, to, timeFrom?.ToString() ?? "any");
-
-            _memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
+            memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = UpcomingMovieIdsCacheDuration,
                 Size = 1
@@ -257,8 +181,11 @@ public class ScheduleService(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error fetching movie IDs in date range {From} – {To}", from, to);
+            logger.LogError(ex, "Error fetching movie IDs for key '{CacheKey}'", cacheKey);
             return [];
         }
     }
+
+    private static string BuildCacheKey(string prefix, TimeOnly? timeFrom = null) =>
+        timeFrom.HasValue ? $"{prefix}-from-{timeFrom.Value:HHmm}" : prefix;
 }
