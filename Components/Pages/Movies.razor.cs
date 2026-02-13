@@ -263,6 +263,15 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         StateHasChanged();
     }
 
+    private void ClearSearch()
+    {
+        searchQuery = string.Empty;
+        searchResults.Clear();
+        _unfilteredSearchResults.Clear();
+        _searchCts?.Cancel();
+        _jsInitialized = false;
+    }
+
     private async Task OnSearchInput(ChangeEventArgs e)
     {
         searchQuery = e?.Value?.ToString() ?? string.Empty;
@@ -413,8 +422,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private List<(int Id, Movie? Movie)> ApplySort(List<(int Id, Movie? Movie)> items) => (_currentSort switch
     {
         SortField.Rating => _sortAscending
-            ? items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
-            : items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
+            ? items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
+            : items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
         SortField.Name => _sortAscending
             ? items.OrderBy(x => x.Movie?.Title ?? "\uffff", StringComparer.OrdinalIgnoreCase)
             : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
