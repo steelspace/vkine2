@@ -14,6 +14,20 @@
         }
     </div>
 
+    <div class="filters-row">
+        <div class="date-range-picker">
+            <input @ref="_dateRangeInput" class="date-range-input" placeholder="Filter by date range" readonly />
+            @if (_dateFrom.HasValue)
+            {
+                <button class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">&times;</button>
+            }
+        </div>
+        @if (_isDateFiltering)
+        {
+            <span class="search-loading">Filtering...</span>
+        }
+    </div>
+
     @if (!string.IsNullOrWhiteSpace(searchQuery))
     {
         <div class="movies-stats">
@@ -57,7 +71,13 @@
     else
     {
         <div class="movies-stats">
-            <p>@AllMovieIds.Count upcoming movies</p>
+            <p>
+                @AllMovieIds.Count upcoming movies
+                @if (_dateFrom.HasValue && _dateTo.HasValue)
+                {
+                    <span> — @_dateFrom.Value.ToString("MMM d") – @_dateTo.Value.ToString("MMM d, yyyy")</span>
+                }
+            </p>
         </div>
 
         <div class="movies-grid" @ref="_gridRef">

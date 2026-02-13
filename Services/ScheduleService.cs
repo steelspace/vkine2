@@ -194,4 +194,63 @@ public class ScheduleService(
             return [];
         }
     }
+
+    public async Task<List<int>> GetMovieIdsInDateRangeAsync(DateOnly from, DateOnly to)
+    {
+        var cacheKey = $"movie-ids-range-{from:yyyy-MM-dd}-{to:yyyy-MM-dd}";
+
+        if (_memoryCache.TryGetValue(cacheKey, out List<int>? cached) && cached is not null)
+        {
+            return cached;
+        }
+
+        try
+        {
+            var now = DateTime.Now;
+
+            var filter = Builders<ScheduleDto>.Filter.And(
+                Builders<ScheduleDto>.Filter.Gte(s => s.Date, from),
+                Builders<ScheduleDto>.Filter.Lte(s => s.Date, to)
+            );
+
+            var schedules = await _schedulesCollection
+                .Find(filter)
+                .ToListAsync();
+
+            var movieShowtimes = schedules
+                .SelectMany(schedule => schedule.Performances
+                    .SelectMany(performance => performance.Showtimes
+                        .Select(showtime => new
+                        {
+                            schedule.MovieId,
+                            ShowtimeDateTime = schedule.Date.ToDateTime(showtime.StartAt)
+                        })))
+                .Where(item => item.ShowtimeDateTime >= now) // still exclude past showtimes
+                .GroupBy(item => item.MovieId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Min(item => item.ShowtimeDateTime));
+
+            var result = movieShowtimes
+                .OrderBy(kvp => kvp.Value)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            _logger.LogInformation("Found {Count} movie IDs in date range {From} – {To}",
+                result.Count, from, to);
+
+            _memoryCache.Set(cacheKey, result, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = UpcomingMovieIdsCacheDuration,
+                Size = 1
+            });
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching movie IDs in date range {From} – {To}", from, to);
+            return [];
+        }
+    }
 }

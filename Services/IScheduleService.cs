@@ -13,4 +13,7 @@ public interface IScheduleService
 
     // Returns a set of all movie IDs that have at least one upcoming showtime (today or later).
     Task<HashSet<int>> GetAllMovieIdsWithUpcomingPerformancesAsync();
+
+    // Returns movie IDs with performances in the given date range, ordered by earliest showtime in range.
+    Task<List<int>> GetMovieIdsInDateRangeAsync(DateOnly from, DateOnly to);
 }
