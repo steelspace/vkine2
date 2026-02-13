@@ -252,6 +252,17 @@
     line-height: 1.5;
 }
 
+/* Hidden person links */
+.person-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.person-link:hover {
+    text-decoration: underline;
+    color: #512bd4;
+}
+
 /* Modal Responsive Design */
 @media (max-width: 768px) {
     .modal-content {

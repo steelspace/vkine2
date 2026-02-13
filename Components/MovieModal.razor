@@ -89,7 +89,13 @@
                     {
                         <div class="modal-info-row">
                             <strong>Director:</strong>
-                            <span>@string.Join(", ", Movie.Directors)</span>
+                            <span>
+                                @for (int i = 0; i < Movie.Directors.Count; i++)
+                                {
+                                    @if (i > 0) { <text>, </text> }
+                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Directors[i])" target="_blank" class="person-link">@Movie.Directors[i]</a>
+                                }
+                            </span>
                         </div>
                     }
 
@@ -97,7 +103,13 @@
                     {
                         <div class="modal-people">
                             <strong>Cast:</strong>
-                            <p>@string.Join(", ", Movie.Cast)</p>
+                            <p>
+                                @for (int i = 0; i < Movie.Cast.Count; i++)
+                                {
+                                    @if (i > 0) { <text>, </text> }
+                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Cast[i])" target="_blank" class="person-link">@Movie.Cast[i]</a>
+                                }
+                            </p>
                         </div>
                     }
 
@@ -105,7 +117,13 @@
                     {
                         <div class="modal-people">
                             <strong>Crew:</strong>
-                            <p>@string.Join(", ", Movie.Crew)</p>
+                            <p>
+                                @for (int i = 0; i < Movie.Crew.Count; i++)
+                                {
+                                    @if (i > 0) { <text>, </text> }
+                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Crew[i])" target="_blank" class="person-link">@Movie.Crew[i]</a>
+                                }
+                            </p>
                         </div>
                     }
 
