@@ -38,7 +38,7 @@
 .toolbar-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 14px;
     align-items: center;
 }
 
@@ -53,7 +53,9 @@
 .movies-stats {
     margin-bottom: 1rem;
     color: var(--text-secondary);
-    font-size: var(--font-size-footnote);
+    font-size: var(--font-size-subheadline);
+    font-weight: 500;
+    letter-spacing: -0.01em;
 }
 
 .movies-stats p {
@@ -434,6 +436,7 @@
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
     transition: transform var(--duration-default) var(--ease-default),
                 box-shadow var(--duration-default) var(--ease-default);
     cursor: pointer;
