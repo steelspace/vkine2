@@ -41,6 +41,20 @@
     const stored = get();
     apply(stored);
 
+    // DOM fallback: allow elements with `.toggle-theme` to toggle theme even when Blazor/interop is not connected
+    document.addEventListener('click', function (ev) {
+      try {
+        const el = ev.target && ev.target.closest && ev.target.closest('.toggle-theme');
+        if (el) {
+          ev.preventDefault();
+          window.vkineTheme.toggle();
+          console.debug('[vkine-theme] toggle clicked (DOM fallback)');
+        }
+      } catch (err) {
+        console.warn('[vkine-theme] click-handler error', err);
+      }
+    });
+
     // react to OS preference changes when mode is system
     if (window.matchMedia) {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
