@@ -173,7 +173,9 @@
     color: var(--accent-hover);
 }
 
-.date-range-input {
+/* Ensure Flatpickr's alt/visible input matches the app's pill-style field */
+.date-range-input,
+.date-range-picker .flatpickr-input {
     padding: 7px 34px 7px 34px;
     border-radius: var(--radius-pill);
     border: 1.5px solid var(--separator);
@@ -192,17 +194,21 @@
     appearance: none;
 }
 
-.date-range-input::placeholder {
+.date-range-input::placeholder,
+.date-range-picker .flatpickr-input::placeholder {
     color: var(--text-tertiary);
     font-weight: 400;
 }
 
-.date-range-input:hover {
+.date-range-input:hover,
+.date-range-picker .flatpickr-input:hover {
     border-color: var(--separator-opaque);
     background: var(--bg-secondary);
 }
 
-.date-range-input:focus {
+.date-range-input:focus,
+.date-range-picker .flatpickr-input:focus,
+.date-range-picker .flatpickr-input.active {
     border-color: var(--accent);
     box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2);
     background: var(--bg-secondary);

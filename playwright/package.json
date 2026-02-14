@@ -1,0 +1,14 @@
+{
+  "name": "vkine-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "axe-core": "^4.9.2"
+  }
+}

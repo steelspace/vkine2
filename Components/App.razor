@@ -6,6 +6,10 @@
     <base href="/" />
     <ResourcePreloader />
     <ImportMap />
+
+    <!-- Set initial theme early (defaults to system if no user choice) -->
+    <script>!(function(){try{const k='vkine-theme',s=localStorage.getItem(k);const prefers=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;const applied=(s==='system'||!s)?(prefers?'dark':'light'):s;document.documentElement.setAttribute('data-theme',applied);document.documentElement.dataset.vkineThemeMode=s||'system';}catch(e){/*ignore*/}})()</script>
+
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <link rel="stylesheet" href="css/flatpickr-apple.css" />
@@ -15,6 +19,7 @@
 <body>
     <Routes />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/js/theme.js"></script>
     <script src="_framework/blazor.web.js"></script>
 </body>
 </html>

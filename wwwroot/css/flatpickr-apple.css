@@ -222,7 +222,46 @@ input.flatpickr-input[readonly] {
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
 }
+/* Match the app's pill-style date-range field (applies to the dynamically created altInput) */
+.date-range-input,
+.date-range-picker .flatpickr-input {
+    padding: 7px 34px 7px 34px;
+    border-radius: var(--radius-pill) !important;
+    border: 1.5px solid var(--separator) !important;
+    background: var(--bg-secondary) !important;
+    font-size: var(--font-size-subheadline);
+    font-weight: 400;
+    color: var(--text-primary);
+    outline: none;
+    cursor: pointer;
+    min-width: 200px;
+    letter-spacing: -0.2px;
+    transition: border-color var(--duration-fast) var(--ease-default),
+                box-shadow var(--duration-fast) var(--ease-default),
+                background var(--duration-fast) var(--ease-default);
+    -webkit-appearance: none;
+    appearance: none;
+}
 
+.date-range-input::placeholder,
+.date-range-picker .flatpickr-input::placeholder {
+    color: var(--text-tertiary);
+    font-weight: 400;
+}
+
+.date-range-input:hover,
+.date-range-picker .flatpickr-input:hover {
+    border-color: var(--separator-opaque) !important;
+    background: var(--bg-secondary) !important;
+}
+
+.date-range-input:focus,
+.date-range-picker .flatpickr-input:focus,
+.date-range-picker .flatpickr-input.active {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2) !important;
+    background: var(--bg-secondary) !important;
+}
 /* When calendar is open, keep the field visually active */
 .flatpickr-input.active {
     border-color: #007AFF !important;

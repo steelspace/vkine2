@@ -1,0 +1,5588 @@
+- main [ref=e3]:
+  - generic [ref=e5105]:
+    - generic [ref=e5106]:
+      - img
+      - textbox "Search movies, descriptions, cast and crew" [ref=e5107]
+    - generic [ref=e5108]:
+      - generic [ref=e5109]:
+        - img
+        - textbox "Date range" [ref=e5110] [cursor=pointer]
+      - generic [ref=e5111]:
+        - generic [ref=e5112]:
+          - generic [ref=e5113]: After
+          - generic [ref=e5114]: "Off"
+        - slider [ref=e5115] [cursor=pointer]: "540"
+      - generic [ref=e5116]:
+        - generic [ref=e5117]: Sort
+        - generic [ref=e5118]:
+          - button "★ Rating ▼" [ref=e5119] [cursor=pointer]:
+            - generic [ref=e5120]: ★ Rating
+            - generic [ref=e5121]: ▼
+          - button "Name" [ref=e5122] [cursor=pointer]:
+            - generic [ref=e5123]: Name
+          - button "Year" [ref=e5124] [cursor=pointer]:
+            - generic [ref=e5125]: Year
+  - generic [ref=e5126]:
+    - paragraph [ref=e5128]: 307 movies
+    - generic [ref=e5129]:
+      - generic [ref=e5130] [cursor=pointer]:
+        - img "Má vlast" [ref=e5132]
+        - generic [ref=e5133]:
+          - heading "Má vlast" [level=3] [ref=e5134]
+          - generic [ref=e5135]:
+            - generic [ref=e5136]: "2025"
+            - generic [ref=e5137]: ·Česko
+          - generic [ref=e5138]:
+            - link "ČSFD 95%" [ref=e5139]:
+              - /url: https://www.csfd.cz/film/1719150
+              - generic [ref=e5140]: ČSFD
+              - generic [ref=e5141]: 95%
+            - link "TMDB" [ref=e5142]:
+              - /url: https://www.themoviedb.org/movie/1553735
+              - generic [ref=e5143]: TMDB
+            - link "IMDb" [ref=e5144]:
+              - /url: https://www.imdb.com/title/tt31822838
+              - generic [ref=e5145]: IMDb
+      - generic [ref=e5146] [cursor=pointer]:
+        - img "Dům bez východu" [ref=e5148]
+        - generic [ref=e5149]:
+          - heading "Dům bez východu" [level=3] [ref=e5150]
+          - generic [ref=e5151]:
+            - generic [ref=e5152]: "2024"
+            - generic [ref=e5153]: ·Česko
+          - generic [ref=e5154]:
+            - link "ČSFD 85%" [ref=e5155]:
+              - /url: https://www.csfd.cz/film/1584125
+              - generic [ref=e5156]: ČSFD
+              - generic [ref=e5157]: 85%
+            - link "TMDB 10" [ref=e5158]:
+              - /url: https://www.themoviedb.org/movie/1378593
+              - generic [ref=e5159]: TMDB
+              - generic [ref=e5160]: "10"
+            - link "IMDb 8,6" [ref=e5161]:
+              - /url: https://www.imdb.com/title/tt34869902
+              - generic [ref=e5162]: IMDb
+              - generic [ref=e5163]: 8,6
+      - generic [ref=e5164] [cursor=pointer]:
+        - img "Kmotr" [ref=e5166]
+        - generic [ref=e5167]:
+          - heading "Kmotr" [level=3] [ref=e5168]
+          - generic [ref=e5169]:
+            - generic [ref=e5170]: "1972"
+            - generic [ref=e5171]: ·USA
+          - generic [ref=e5172]:
+            - link "ČSFD 92%" [ref=e5173]:
+              - /url: https://www.csfd.cz/film/1644
+              - generic [ref=e5174]: ČSFD
+              - generic [ref=e5175]: 92%
+            - link "TMDB 8,7" [ref=e5176]:
+              - /url: https://www.themoviedb.org/movie/238
+              - generic [ref=e5177]: TMDB
+              - generic [ref=e5178]: 8,7
+            - link "IMDb 9,2" [ref=e5179]:
+              - /url: https://www.imdb.com/title/tt0068646
+              - generic [ref=e5180]: IMDb
+              - generic [ref=e5181]: 9,2
+      - generic [ref=e5182] [cursor=pointer]:
+        - img "Potopa" [ref=e5184]
+        - generic [ref=e5185]:
+          - heading "Potopa" [level=3] [ref=e5186]
+          - generic [ref=e5187]:
+            - generic [ref=e5188]: "2025"
+            - generic [ref=e5189]: ·Slovensko, Česko, Polsko, Belgie
+          - generic [ref=e5190]:
+            - link "ČSFD 89%" [ref=e5191]:
+              - /url: https://www.csfd.cz/film/1731626
+              - generic [ref=e5192]: ČSFD
+              - generic [ref=e5193]: 89%
+            - link "TMDB 10" [ref=e5194]:
+              - /url: https://www.themoviedb.org/movie/1567441
+              - generic [ref=e5195]: TMDB
+              - generic [ref=e5196]: "10"
+            - link "IMDb 7,9" [ref=e5197]:
+              - /url: https://www.imdb.com/title/tt38629827
+              - generic [ref=e5198]: IMDb
+              - generic [ref=e5199]: 7,9
+      - generic [ref=e5200] [cursor=pointer]:
+        - img "Zabíjejí v noci" [ref=e5202]
+        - generic [ref=e5203]:
+          - heading "Zabíjejí v noci" [level=3] [ref=e5204]
+          - generic [ref=e5205]:
+            - generic [ref=e5206]: "2025"
+            - generic [ref=e5207]: ·Austrálie
+          - generic [ref=e5208]:
+            - link "ČSFD" [ref=e5209]:
+              - /url: https://www.csfd.cz/film/1812557
+              - generic [ref=e5210]: ČSFD
+            - link "TMDB" [ref=e5211]:
+              - /url: https://www.themoviedb.org/movie/1564968
+              - generic [ref=e5212]: TMDB
+            - link "IMDb 8,9" [ref=e5213]:
+              - /url: https://www.imdb.com/title/tt37645396
+              - generic [ref=e5214]: IMDb
+              - generic [ref=e5215]: 8,9
+      - generic [ref=e5216] [cursor=pointer]:
+        - img "Instalatér - pikantní tak akorát" [ref=e5218]
+        - generic [ref=e5219]:
+          - heading "Instalatér - pikantní tak akorát" [level=3] [ref=e5220]
+          - generic [ref=e5221]:
+            - generic [ref=e5222]: "2025"
+            - generic [ref=e5223]: ·USA
+          - generic [ref=e5224]:
+            - link "ČSFD" [ref=e5225]:
+              - /url: https://www.csfd.cz/film/1812524
+              - generic [ref=e5226]: ČSFD
+            - link "IMDb 8,8" [ref=e5227]:
+              - /url: https://www.imdb.com/title/tt38565905
+              - generic [ref=e5228]: IMDb
+              - generic [ref=e5229]: 8,8
+      - generic [ref=e5230] [cursor=pointer]:
+        - 'img "Pulp Fiction: Historky z podsvětí" [ref=e5232]'
+        - generic [ref=e5233]:
+          - 'heading "Pulp Fiction: Historky z podsvětí" [level=3] [ref=e5234]'
+          - generic [ref=e5235]:
+            - generic [ref=e5236]: "1994"
+            - generic [ref=e5237]: ·USA
+          - generic [ref=e5238]:
+            - link "ČSFD 91%" [ref=e5239]:
+              - /url: https://www.csfd.cz/film/8852
+              - generic [ref=e5240]: ČSFD
+              - generic [ref=e5241]: 91%
+            - link "TMDB 8,5" [ref=e5242]:
+              - /url: https://www.themoviedb.org/movie/680
+              - generic [ref=e5243]: TMDB
+              - generic [ref=e5244]: 8,5
+            - link "IMDb 8,8" [ref=e5245]:
+              - /url: https://www.imdb.com/title/tt0110912
+              - generic [ref=e5246]: IMDb
+              - generic [ref=e5247]: 8,8
+      - generic [ref=e5248] [cursor=pointer]:
+        - img "Přelet nad kukaččím hnízdem" [ref=e5250]
+        - generic [ref=e5251]:
+          - heading "Přelet nad kukaččím hnízdem" [level=3] [ref=e5252]
+          - generic [ref=e5253]:
+            - generic [ref=e5254]: "1975"
+            - generic [ref=e5255]: ·USA
+          - generic [ref=e5256]:
+            - link "ČSFD 92%" [ref=e5257]:
+              - /url: https://www.csfd.cz/film/2982
+              - generic [ref=e5258]: ČSFD
+              - generic [ref=e5259]: 92%
+            - link "TMDB 8,4" [ref=e5260]:
+              - /url: https://www.themoviedb.org/movie/510
+              - generic [ref=e5261]: TMDB
+              - generic [ref=e5262]: 8,4
+            - link "IMDb 8,6" [ref=e5263]:
+              - /url: https://www.imdb.com/title/tt0073486
+              - generic [ref=e5264]: IMDb
+              - generic [ref=e5265]: 8,6
+      - generic [ref=e5266] [cursor=pointer]:
+        - img "Sedm" [ref=e5268]
+        - generic [ref=e5269]:
+          - heading "Sedm" [level=3] [ref=e5270]
+          - generic [ref=e5271]:
+            - generic [ref=e5272]: "1995"
+            - generic [ref=e5273]: ·USA
+          - generic [ref=e5274]:
+            - link "ČSFD 92%" [ref=e5275]:
+              - /url: https://www.csfd.cz/film/2671
+              - generic [ref=e5276]: ČSFD
+              - generic [ref=e5277]: 92%
+            - link "TMDB 8,4" [ref=e5278]:
+              - /url: https://www.themoviedb.org/movie/807
+              - generic [ref=e5279]: TMDB
+              - generic [ref=e5280]: 8,4
+            - link "IMDb 8,6" [ref=e5281]:
+              - /url: https://www.imdb.com/title/tt0114369
+              - generic [ref=e5282]: IMDb
+              - generic [ref=e5283]: 8,6
+      - generic [ref=e5284] [cursor=pointer]:
+        - img "Pátý krok" [ref=e5286]
+        - generic [ref=e5287]:
+          - heading "Pátý krok" [level=3] [ref=e5288]
+          - generic [ref=e5289]:
+            - generic [ref=e5290]: "2025"
+            - generic [ref=e5291]: ·Velká Británie
+          - generic [ref=e5292]:
+            - link "ČSFD 91%" [ref=e5293]:
+              - /url: https://www.csfd.cz/film/1756837
+              - generic [ref=e5294]: ČSFD
+              - generic [ref=e5295]: 91%
+            - link "TMDB" [ref=e5296]:
+              - /url: https://www.themoviedb.org/movie/1507573
+              - generic [ref=e5297]: TMDB
+            - link "IMDb 8,3" [ref=e5298]:
+              - /url: https://www.imdb.com/title/tt37511177
+              - generic [ref=e5299]: IMDb
+              - generic [ref=e5300]: 8,3
+      - generic [ref=e5301] [cursor=pointer]:
+        - 'img "Stray Kids: The dominATE Experience" [ref=e5303]'
+        - generic [ref=e5304]:
+          - 'heading "Stray Kids: The dominATE Experience" [level=3] [ref=e5305]'
+          - generic [ref=e5306]:
+            - generic [ref=e5307]: "2026"
+            - generic [ref=e5308]: ·USA
+          - generic [ref=e5309]:
+            - link "ČSFD 95%" [ref=e5310]:
+              - /url: https://www.csfd.cz/film/1792759
+              - generic [ref=e5311]: ČSFD
+              - generic [ref=e5312]: 95%
+            - link "TMDB 8,1" [ref=e5313]:
+              - /url: https://www.themoviedb.org/movie/1600421
+              - generic [ref=e5314]: TMDB
+              - generic [ref=e5315]: 8,1
+            - link "IMDb 8,4" [ref=e5316]:
+              - /url: https://www.imdb.com/title/tt39216314
+              - generic [ref=e5317]: IMDb
+              - generic [ref=e5318]: 8,4
+      - generic [ref=e5319] [cursor=pointer]:
+        - img "Jak důležité je mít Filipa" [ref=e5321]
+        - generic [ref=e5322]:
+          - heading "Jak důležité je mít Filipa" [level=3] [ref=e5323]
+          - generic [ref=e5324]:
+            - generic [ref=e5325]: "2025"
+            - generic [ref=e5326]: ·Velká Británie
+          - generic [ref=e5327]:
+            - link "ČSFD 92%" [ref=e5328]:
+              - /url: https://www.csfd.cz/film/1630646
+              - generic [ref=e5329]: ČSFD
+              - generic [ref=e5330]: 92%
+            - link "TMDB 8" [ref=e5331]:
+              - /url: https://www.themoviedb.org/movie/1352026
+              - generic [ref=e5332]: TMDB
+              - generic [ref=e5333]: "8"
+            - link "IMDb 8,3" [ref=e5334]:
+              - /url: https://www.imdb.com/title/tt35396916
+              - generic [ref=e5335]: IMDb
+              - generic [ref=e5336]: 8,3
+      - generic [ref=e5337] [cursor=pointer]:
+        - img "Hrob světlušek" [ref=e5339]
+        - generic [ref=e5340]:
+          - heading "Hrob světlušek" [level=3] [ref=e5341]
+          - generic [ref=e5342]:
+            - generic [ref=e5343]: "1988"
+            - generic [ref=e5344]: ·Japonsko
+          - generic [ref=e5345]:
+            - link "ČSFD 85%" [ref=e5346]:
+              - /url: https://www.csfd.cz/film/129496
+              - generic [ref=e5347]: ČSFD
+              - generic [ref=e5348]: 85%
+            - link "TMDB 8,4" [ref=e5349]:
+              - /url: https://www.themoviedb.org/movie/12477
+              - generic [ref=e5350]: TMDB
+              - generic [ref=e5351]: 8,4
+            - link "IMDb 8,5" [ref=e5352]:
+              - /url: https://www.imdb.com/title/tt0095327
+              - generic [ref=e5353]: IMDb
+              - generic [ref=e5354]: 8,5
+      - generic [ref=e5355] [cursor=pointer]:
+        - img "Parazit" [ref=e5357]
+        - generic [ref=e5358]:
+          - heading "Parazit" [level=3] [ref=e5359]
+          - generic [ref=e5360]:
+            - generic [ref=e5361]: "2019"
+            - generic [ref=e5362]: ·Jižní Korea
+          - generic [ref=e5363]:
+            - link "ČSFD 84%" [ref=e5364]:
+              - /url: https://www.csfd.cz/film/505790
+              - generic [ref=e5365]: ČSFD
+              - generic [ref=e5366]: 84%
+            - link "TMDB 8,5" [ref=e5367]:
+              - /url: https://www.themoviedb.org/movie/496243
+              - generic [ref=e5368]: TMDB
+              - generic [ref=e5369]: 8,5
+            - link "IMDb" [ref=e5370]:
+              - /url: https://www.imdb.com/title/tt27454535
+              - generic [ref=e5371]: IMDb
+      - generic [ref=e5372] [cursor=pointer]:
+        - img "Velrybí píseň" [ref=e5374]
+        - generic [ref=e5375]:
+          - heading "Velrybí píseň" [level=3] [ref=e5376]
+          - generic [ref=e5377]:
+            - generic [ref=e5378]: "2026"
+            - generic [ref=e5379]: ·Česko, Německo, Kanada
+          - generic [ref=e5380]:
+            - link "ČSFD" [ref=e5381]:
+              - /url: https://www.csfd.cz/film/1737190
+              - generic [ref=e5382]: ČSFD
+            - link "TMDB 8" [ref=e5383]:
+              - /url: https://www.themoviedb.org/movie/677558
+              - generic [ref=e5384]: TMDB
+              - generic [ref=e5385]: "8"
+            - link "IMDb 8,9" [ref=e5386]:
+              - /url: https://www.imdb.com/title/tt13518550
+              - generic [ref=e5387]: IMDb
+              - generic [ref=e5388]: 8,9
+      - generic [ref=e5389] [cursor=pointer]:
+        - img "Amadeus" [ref=e5391]
+        - generic [ref=e5392]:
+          - heading "Amadeus" [level=3] [ref=e5393]
+          - generic [ref=e5394]:
+            - generic [ref=e5395]: "1984"
+            - generic [ref=e5396]: ·USA, Francie
+          - generic [ref=e5397]:
+            - link "ČSFD 89%" [ref=e5398]:
+              - /url: https://www.csfd.cz/film/2971
+              - generic [ref=e5399]: ČSFD
+              - generic [ref=e5400]: 89%
+            - link "TMDB 8" [ref=e5401]:
+              - /url: https://www.themoviedb.org/movie/279
+              - generic [ref=e5402]: TMDB
+              - generic [ref=e5403]: "8"
+            - link "IMDb 8,4" [ref=e5404]:
+              - /url: https://www.imdb.com/title/tt0086879
+              - generic [ref=e5405]: IMDb
+              - generic [ref=e5406]: 8,4
+      - generic [ref=e5407] [cursor=pointer]:
+        - img "Někdo to rád horké" [ref=e5409]
+        - generic [ref=e5410]:
+          - heading "Někdo to rád horké" [level=3] [ref=e5411]
+          - generic [ref=e5412]:
+            - generic [ref=e5413]: "1959"
+            - generic [ref=e5414]: ·USA
+          - generic [ref=e5415]:
+            - link "ČSFD 88%" [ref=e5416]:
+              - /url: https://www.csfd.cz/film/9793
+              - generic [ref=e5417]: ČSFD
+              - generic [ref=e5418]: 88%
+            - link "TMDB 8,1" [ref=e5419]:
+              - /url: https://www.themoviedb.org/movie/239
+              - generic [ref=e5420]: TMDB
+              - generic [ref=e5421]: 8,1
+            - link "IMDb 8,2" [ref=e5422]:
+              - /url: https://www.imdb.com/title/tt0053291
+              - generic [ref=e5423]: IMDb
+              - generic [ref=e5424]: 8,2
+      - generic [ref=e5425] [cursor=pointer]:
+        - img "Zpověď" [ref=e5427]
+        - generic [ref=e5428]:
+          - heading "Zpověď" [level=3] [ref=e5429]
+          - generic [ref=e5430]:
+            - generic [ref=e5431]: "2024"
+            - generic [ref=e5432]: ·Slovensko
+          - generic [ref=e5433]:
+            - link "ČSFD 87%" [ref=e5434]:
+              - /url: https://www.csfd.cz/film/1589231
+              - generic [ref=e5435]: ČSFD
+              - generic [ref=e5436]: 87%
+            - link "TMDB 8" [ref=e5437]:
+              - /url: https://www.themoviedb.org/movie/803101
+              - generic [ref=e5438]: TMDB
+              - generic [ref=e5439]: "8"
+            - link "IMDb" [ref=e5440]:
+              - /url: https://www.imdb.com/title/tt0245472
+              - generic [ref=e5441]: IMDb
+      - generic [ref=e5442] [cursor=pointer]:
+        - img "Casablanca" [ref=e5444]
+        - generic [ref=e5445]:
+          - heading "Casablanca" [level=3] [ref=e5446]
+          - generic [ref=e5447]:
+            - generic [ref=e5448]: "1942"
+            - generic [ref=e5449]: ·USA
+          - generic [ref=e5450]:
+            - link "ČSFD 84%" [ref=e5451]:
+              - /url: https://www.csfd.cz/film/1912
+              - generic [ref=e5452]: ČSFD
+              - generic [ref=e5453]: 84%
+            - link "TMDB 8,1" [ref=e5454]:
+              - /url: https://www.themoviedb.org/movie/289
+              - generic [ref=e5455]: TMDB
+              - generic [ref=e5456]: 8,1
+            - link "IMDb 8,5" [ref=e5457]:
+              - /url: https://www.imdb.com/title/tt0034583
+              - generic [ref=e5458]: IMDb
+              - generic [ref=e5459]: 8,5
+      - generic [ref=e5460] [cursor=pointer]:
+        - img "Statečné srdce" [ref=e5462]
+        - generic [ref=e5463]:
+          - heading "Statečné srdce" [level=3] [ref=e5464]
+          - generic [ref=e5465]:
+            - generic [ref=e5466]: "1995"
+            - generic [ref=e5467]: ·USA
+          - generic [ref=e5468]:
+            - link "ČSFD 88%" [ref=e5469]:
+              - /url: https://www.csfd.cz/film/3297
+              - generic [ref=e5470]: ČSFD
+              - generic [ref=e5471]: 88%
+            - link "TMDB 7,9" [ref=e5472]:
+              - /url: https://www.themoviedb.org/movie/197
+              - generic [ref=e5473]: TMDB
+              - generic [ref=e5474]: 7,9
+            - link "IMDb 8,3" [ref=e5475]:
+              - /url: https://www.imdb.com/title/tt0112573
+              - generic [ref=e5476]: IMDb
+              - generic [ref=e5477]: 8,3
+      - generic [ref=e5478] [cursor=pointer]:
+        - img "Kůže na kůži" [ref=e5480]
+        - generic [ref=e5481]:
+          - heading "Kůže na kůži" [level=3] [ref=e5482]
+          - generic [ref=e5483]:
+            - generic [ref=e5484]: "2025"
+            - generic [ref=e5485]: ·Německo
+          - link "ČSFD 83%" [ref=e5487]:
+            - /url: https://www.csfd.cz/film/1695894
+            - generic [ref=e5488]: ČSFD
+            - generic [ref=e5489]: 83%
+      - generic [ref=e5490] [cursor=pointer]:
+        - img "Můj soused Totoro" [ref=e5492]
+        - generic [ref=e5493]:
+          - heading "Můj soused Totoro" [level=3] [ref=e5494]
+          - generic [ref=e5495]:
+            - generic [ref=e5496]: "1988"
+            - generic [ref=e5497]: ·Japonsko
+          - generic [ref=e5498]:
+            - link "ČSFD 85%" [ref=e5499]:
+              - /url: https://www.csfd.cz/film/42137
+              - generic [ref=e5500]: ČSFD
+              - generic [ref=e5501]: 85%
+            - link "TMDB 8,1" [ref=e5502]:
+              - /url: https://www.themoviedb.org/movie/8392
+              - generic [ref=e5503]: TMDB
+              - generic [ref=e5504]: 8,1
+            - link "IMDb" [ref=e5505]:
+              - /url: https://www.imdb.com/title/tt22517330
+              - generic [ref=e5506]: IMDb
+      - generic [ref=e5507] [cursor=pointer]:
+        - img "Věčný svit neposkvrněné mysli" [ref=e5509]
+        - generic [ref=e5510]:
+          - heading "Věčný svit neposkvrněné mysli" [level=3] [ref=e5511]
+          - generic [ref=e5512]:
+            - generic [ref=e5513]: "2004"
+            - generic [ref=e5514]: ·USA
+          - generic [ref=e5515]:
+            - link "ČSFD 84%" [ref=e5516]:
+              - /url: https://www.csfd.cz/film/70254
+              - generic [ref=e5517]: ČSFD
+              - generic [ref=e5518]: 84%
+            - link "TMDB 8,1" [ref=e5519]:
+              - /url: https://www.themoviedb.org/movie/38
+              - generic [ref=e5520]: TMDB
+              - generic [ref=e5521]: 8,1
+            - link "IMDb 8,3" [ref=e5522]:
+              - /url: https://www.imdb.com/title/tt0338013
+              - generic [ref=e5523]: IMDb
+              - generic [ref=e5524]: 8,3
+      - generic [ref=e5525] [cursor=pointer]:
+        - img "Podfu(c)k" [ref=e5527]
+        - generic [ref=e5528]:
+          - heading "Podfu(c)k" [level=3] [ref=e5529]
+          - generic [ref=e5530]:
+            - generic [ref=e5531]: "2000"
+            - generic [ref=e5532]: ·Velká Británie, USA
+          - generic [ref=e5533]:
+            - link "ČSFD 87%" [ref=e5534]:
+              - /url: https://www.csfd.cz/film/7700
+              - generic [ref=e5535]: ČSFD
+              - generic [ref=e5536]: 87%
+            - link "TMDB 7,8" [ref=e5537]:
+              - /url: https://www.themoviedb.org/movie/107
+              - generic [ref=e5538]: TMDB
+              - generic [ref=e5539]: 7,8
+            - link "IMDb 8,2" [ref=e5540]:
+              - /url: https://www.imdb.com/title/tt0208092
+              - generic [ref=e5541]: IMDb
+              - generic [ref=e5542]: 8,2
+      - generic [ref=e5543] [cursor=pointer]:
+        - img "Amélie z Montmartru" [ref=e5545]
+        - generic [ref=e5546]:
+          - heading "Amélie z Montmartru" [level=3] [ref=e5547]
+          - generic [ref=e5548]:
+            - generic [ref=e5549]: "2001"
+            - generic [ref=e5550]: ·Francie, Německo
+          - generic [ref=e5551]:
+            - link "ČSFD 85%" [ref=e5552]:
+              - /url: https://www.csfd.cz/film/29221
+              - generic [ref=e5553]: ČSFD
+              - generic [ref=e5554]: 85%
+            - link "TMDB 7,9" [ref=e5555]:
+              - /url: https://www.themoviedb.org/movie/194
+              - generic [ref=e5556]: TMDB
+              - generic [ref=e5557]: 7,9
+            - link "IMDb 8,3" [ref=e5558]:
+              - /url: https://www.imdb.com/title/tt0211915
+              - generic [ref=e5559]: IMDb
+              - generic [ref=e5560]: 8,3
+      - generic [ref=e5561] [cursor=pointer]:
+        - img "Všichni dobří rodáci" [ref=e5563]
+        - generic [ref=e5564]:
+          - heading "Všichni dobří rodáci" [level=3] [ref=e5565]
+          - generic [ref=e5566]:
+            - generic [ref=e5567]: "1968"
+            - generic [ref=e5568]: ·Československo
+          - generic [ref=e5569]:
+            - link "ČSFD 86%" [ref=e5570]:
+              - /url: https://www.csfd.cz/film/4786
+              - generic [ref=e5571]: ČSFD
+              - generic [ref=e5572]: 86%
+            - link "TMDB 7,8" [ref=e5573]:
+              - /url: https://www.themoviedb.org/movie/46659
+              - generic [ref=e5574]: TMDB
+              - generic [ref=e5575]: 7,8
+      - generic [ref=e5576] [cursor=pointer]:
+        - 'img "EOS: Caravaggio" [ref=e5578]'
+        - generic [ref=e5579]:
+          - 'heading "EOS: Caravaggio" [level=3] [ref=e5580]'
+          - generic [ref=e5581]:
+            - generic [ref=e5582]: "2025"
+            - generic [ref=e5583]: ·Velká Británie
+          - generic [ref=e5584]:
+            - link "ČSFD 89%" [ref=e5585]:
+              - /url: https://www.csfd.cz/film/1763651
+              - generic [ref=e5586]: ČSFD
+              - generic [ref=e5587]: 89%
+            - link "TMDB 8" [ref=e5588]:
+              - /url: https://www.themoviedb.org/movie/1496903
+              - generic [ref=e5589]: TMDB
+              - generic [ref=e5590]: "8"
+            - link "IMDb 7,6" [ref=e5591]:
+              - /url: https://www.imdb.com/title/tt38351366
+              - generic [ref=e5592]: IMDb
+              - generic [ref=e5593]: 7,6
+      - generic [ref=e5594] [cursor=pointer]:
+        - img "Občan Kane" [ref=e5596]
+        - generic [ref=e5597]:
+          - heading "Občan Kane" [level=3] [ref=e5598]
+          - generic [ref=e5599]:
+            - generic [ref=e5600]: "1941"
+            - generic [ref=e5601]: ·USA
+          - generic [ref=e5602]:
+            - link "ČSFD 83%" [ref=e5603]:
+              - /url: https://www.csfd.cz/film/9611
+              - generic [ref=e5604]: ČSFD
+              - generic [ref=e5605]: 83%
+            - link "TMDB 8" [ref=e5606]:
+              - /url: https://www.themoviedb.org/movie/15
+              - generic [ref=e5607]: TMDB
+              - generic [ref=e5608]: "8"
+            - link "IMDb 8,2" [ref=e5609]:
+              - /url: https://www.imdb.com/title/tt0033467
+              - generic [ref=e5610]: IMDb
+              - generic [ref=e5611]: 8,2
+      - generic [ref=e5612] [cursor=pointer]:
+        - img "Pojďte pane, budeme si hrát" [ref=e5614]
+        - generic [ref=e5615]:
+          - heading "Pojďte pane, budeme si hrát" [level=3] [ref=e5616]
+          - generic [ref=e5617]:
+            - generic [ref=e5618]: (1965–1973)
+            - generic [ref=e5619]: ·Československo
+          - generic [ref=e5620]:
+            - link "ČSFD 85%" [ref=e5621]:
+              - /url: https://www.csfd.cz/film/107026
+              - generic [ref=e5622]: ČSFD
+              - generic [ref=e5623]: 85%
+            - link "TMDB" [ref=e5624]:
+              - /url: https://www.themoviedb.org/movie/562237
+              - generic [ref=e5625]: TMDB
+            - link "IMDb 7,8" [ref=e5626]:
+              - /url: https://www.imdb.com/title/tt2521652
+              - generic [ref=e5627]: IMDb
+              - generic [ref=e5628]: 7,8
+      - generic [ref=e5629] [cursor=pointer]:
+        - img "Neporazitelní" [ref=e5631]
+        - generic [ref=e5632]:
+          - heading "Neporazitelní" [level=3] [ref=e5633]
+          - generic [ref=e5634]:
+            - generic [ref=e5635]: "2025"
+            - generic [ref=e5636]: ·Česko
+          - generic [ref=e5637]:
+            - link "ČSFD 81%" [ref=e5638]:
+              - /url: https://www.csfd.cz/film/1558529
+              - generic [ref=e5639]: ČSFD
+              - generic [ref=e5640]: 81%
+            - link "TMDB" [ref=e5641]:
+              - /url: https://www.themoviedb.org/movie/1318234
+              - generic [ref=e5642]: TMDB
+      - generic [ref=e5643] [cursor=pointer]:
+        - img "Pomoc neviditelných" [ref=e5645]
+        - generic [ref=e5646]:
+          - heading "Pomoc neviditelných" [level=3] [ref=e5647]
+          - generic [ref=e5648]:
+            - generic [ref=e5649]: "2025"
+            - generic [ref=e5650]: ·Česko
+          - generic [ref=e5651]:
+            - link "ČSFD 81%" [ref=e5652]:
+              - /url: https://www.csfd.cz/film/1647437
+              - generic [ref=e5653]: ČSFD
+              - generic [ref=e5654]: 81%
+            - link "TMDB" [ref=e5655]:
+              - /url: https://www.themoviedb.org/movie/1531413
+              - generic [ref=e5656]: TMDB
+      - generic [ref=e5657] [cursor=pointer]:
+        - 'img "EPiC: Elvis Presley in Concert" [ref=e5659]'
+        - generic [ref=e5660]:
+          - 'heading "EPiC: Elvis Presley in Concert" [level=3] [ref=e5661]'
+          - generic [ref=e5662]:
+            - generic [ref=e5663]: "2025"
+            - generic [ref=e5664]: ·USA
+          - generic [ref=e5665]:
+            - link "ČSFD" [ref=e5666]:
+              - /url: https://www.csfd.cz/film/1707523
+              - generic [ref=e5667]: ČSFD
+            - link "TMDB" [ref=e5668]:
+              - /url: https://www.themoviedb.org/movie/1445363
+              - generic [ref=e5669]: TMDB
+            - link "IMDb 8,1" [ref=e5670]:
+              - /url: https://www.imdb.com/title/tt35003538
+              - generic [ref=e5671]: IMDb
+              - generic [ref=e5672]: 8,1
+      - generic [ref=e5673] [cursor=pointer]:
+        - img "Velký Marty" [ref=e5675]
+        - generic [ref=e5676]:
+          - heading "Velký Marty" [level=3] [ref=e5677]
+          - generic [ref=e5678]:
+            - generic [ref=e5679]: "2025"
+            - generic [ref=e5680]: ·USA, Finsko
+          - generic [ref=e5681]:
+            - link "ČSFD 85%" [ref=e5682]:
+              - /url: https://www.csfd.cz/film/1580030
+              - generic [ref=e5683]: ČSFD
+              - generic [ref=e5684]: 85%
+            - link "TMDB 7,7" [ref=e5685]:
+              - /url: https://www.themoviedb.org/movie/1317288
+              - generic [ref=e5686]: TMDB
+              - generic [ref=e5687]: 7,7
+            - link "IMDb 8" [ref=e5688]:
+              - /url: https://www.imdb.com/title/tt32916440
+              - generic [ref=e5689]: IMDb
+              - generic [ref=e5690]: "8"
+      - generic [ref=e5691] [cursor=pointer]:
+        - img "Chungking Express" [ref=e5693]
+        - generic [ref=e5694]:
+          - heading "Chungking Express" [level=3] [ref=e5695]
+          - generic [ref=e5696]:
+            - generic [ref=e5697]: "1994"
+            - generic [ref=e5698]: ·Hongkong
+          - generic [ref=e5699]:
+            - link "ČSFD 81%" [ref=e5700]:
+              - /url: https://www.csfd.cz/film/37590
+              - generic [ref=e5701]: ČSFD
+              - generic [ref=e5702]: 81%
+            - link "TMDB 8" [ref=e5703]:
+              - /url: https://www.themoviedb.org/movie/11104
+              - generic [ref=e5704]: TMDB
+              - generic [ref=e5705]: "8"
+            - link "IMDb" [ref=e5706]:
+              - /url: https://www.imdb.com/title/tt15078440
+              - generic [ref=e5707]: IMDb
+      - generic [ref=e5708] [cursor=pointer]:
+        - img "Cukrkandl" [ref=e5710]
+        - generic [ref=e5711]:
+          - heading "Cukrkandl" [level=3] [ref=e5712]
+          - generic [ref=e5713]:
+            - generic [ref=e5714]: "2025"
+            - generic [ref=e5715]: ·Česko, Slovensko
+          - generic [ref=e5716]:
+            - link "ČSFD 76%" [ref=e5717]:
+              - /url: https://www.csfd.cz/film/1539639
+              - generic [ref=e5718]: ČSFD
+              - generic [ref=e5719]: 76%
+            - link "TMDB" [ref=e5720]:
+              - /url: https://www.themoviedb.org/movie/1355213
+              - generic [ref=e5721]: TMDB
+            - link "IMDb 8,4" [ref=e5722]:
+              - /url: https://www.imdb.com/title/tt38098747
+              - generic [ref=e5723]: IMDb
+              - generic [ref=e5724]: 8,4
+      - generic [ref=e5725] [cursor=pointer]:
+        - img "Rudé boty" [ref=e5727]
+        - generic [ref=e5728]:
+          - heading "Rudé boty" [level=3] [ref=e5729]
+          - generic [ref=e5730]:
+            - generic [ref=e5731]: "2021"
+            - generic [ref=e5732]: ·Česko
+          - generic [ref=e5733]:
+            - link "ČSFD 85%" [ref=e5734]:
+              - /url: https://www.csfd.cz/film/1043433
+              - generic [ref=e5735]: ČSFD
+              - generic [ref=e5736]: 85%
+            - link "TMDB 7,5" [ref=e5737]:
+              - /url: https://www.themoviedb.org/movie/843053
+              - generic [ref=e5738]: TMDB
+              - generic [ref=e5739]: 7,5
+            - link "IMDb 8" [ref=e5740]:
+              - /url: https://www.imdb.com/title/tt14949170
+              - generic [ref=e5741]: IMDb
+              - generic [ref=e5742]: "8"
+      - generic [ref=e5743] [cursor=pointer]:
+        - img "Plevel" [ref=e5745]
+        - generic [ref=e5746]:
+          - heading "Plevel" [level=3] [ref=e5747]
+          - generic [ref=e5748]:
+            - generic [ref=e5749]: "2024"
+            - generic [ref=e5750]: ·Česko
+          - generic [ref=e5751]:
+            - link "ČSFD 80%" [ref=e5752]:
+              - /url: https://www.csfd.cz/film/1518975
+              - generic [ref=e5753]: ČSFD
+              - generic [ref=e5754]: 80%
+            - link "TMDB 8" [ref=e5755]:
+              - /url: https://www.themoviedb.org/movie/1279238
+              - generic [ref=e5756]: TMDB
+              - generic [ref=e5757]: "8"
+            - link "IMDb" [ref=e5758]:
+              - /url: https://www.imdb.com/title/tt32205823
+              - generic [ref=e5759]: IMDb
+      - generic [ref=e5760] [cursor=pointer]:
+        - img "Pes a vlk" [ref=e5762]
+        - generic [ref=e5763]:
+          - heading "Pes a vlk" [level=3] [ref=e5764]
+          - generic [ref=e5765]:
+            - generic [ref=e5766]: "2025"
+            - generic [ref=e5767]: ·Česko
+          - generic [ref=e5768]:
+            - link "ČSFD 78%" [ref=e5769]:
+              - /url: https://www.csfd.cz/film/1651531
+              - generic [ref=e5770]: ČSFD
+              - generic [ref=e5771]: 78%
+            - link "TMDB" [ref=e5772]:
+              - /url: https://www.themoviedb.org/movie/1451383
+              - generic [ref=e5773]: TMDB
+            - link "IMDb 8,2" [ref=e5774]:
+              - /url: https://www.imdb.com/title/tt21154782
+              - generic [ref=e5775]: IMDb
+              - generic [ref=e5776]: 8,2
+      - generic [ref=e5777] [cursor=pointer]:
+        - img "Ruletista" [ref=e5779]
+        - generic [ref=e5780]:
+          - heading "Ruletista" [level=3] [ref=e5781]
+          - generic [ref=e5782]:
+            - generic [ref=e5783]: "2024"
+            - generic [ref=e5784]: ·Rakousko
+          - generic [ref=e5785]:
+            - link "ČSFD" [ref=e5786]:
+              - /url: https://www.csfd.cz/film/1628127
+              - generic [ref=e5787]: ČSFD
+            - link "TMDB 8" [ref=e5788]:
+              - /url: https://www.themoviedb.org/movie/1376047
+              - generic [ref=e5789]: TMDB
+              - generic [ref=e5790]: "8"
+            - link "IMDb" [ref=e5791]:
+              - /url: https://www.imdb.com/title/tt36332595
+              - generic [ref=e5792]: IMDb
+      - generic [ref=e5793] [cursor=pointer]:
+        - img "Durian, Durian" [ref=e5795]
+        - generic [ref=e5796]:
+          - heading "Durian, Durian" [level=3] [ref=e5797]
+          - generic [ref=e5798]:
+            - generic [ref=e5799]: "2025"
+            - generic [ref=e5800]: ·Singapur
+          - generic [ref=e5801]:
+            - link "ČSFD" [ref=e5802]:
+              - /url: https://www.csfd.cz/film/1628201
+              - generic [ref=e5803]: ČSFD
+            - link "TMDB 8" [ref=e5804]:
+              - /url: https://www.themoviedb.org/movie/1417887
+              - generic [ref=e5805]: TMDB
+              - generic [ref=e5806]: "8"
+      - generic [ref=e5807] [cursor=pointer]:
+        - img "Kočičí odysea" [ref=e5809]
+        - generic [ref=e5810]:
+          - heading "Kočičí odysea" [level=3] [ref=e5811]
+          - generic [ref=e5812]:
+            - generic [ref=e5813]: "2024"
+            - generic [ref=e5814]: ·Lotyšsko, Francie, Belgie
+          - generic [ref=e5815]:
+            - link "ČSFD 80%" [ref=e5816]:
+              - /url: https://www.csfd.cz/film/1517793
+              - generic [ref=e5817]: ČSFD
+              - generic [ref=e5818]: 80%
+            - link "TMDB 8,1" [ref=e5819]:
+              - /url: https://www.themoviedb.org/movie/823219
+              - generic [ref=e5820]: TMDB
+              - generic [ref=e5821]: 8,1
+            - link "IMDb 7,9" [ref=e5822]:
+              - /url: https://www.imdb.com/title/tt4772188
+              - generic [ref=e5823]: IMDb
+              - generic [ref=e5824]: 7,9
+      - generic [ref=e5825] [cursor=pointer]:
+        - img "Hamnet" [ref=e5827]
+        - generic [ref=e5828]:
+          - heading "Hamnet" [level=3] [ref=e5829]
+          - generic [ref=e5830]:
+            - generic [ref=e5831]: "2025"
+            - generic [ref=e5832]: ·Velká Británie
+          - generic [ref=e5833]:
+            - link "ČSFD 82%" [ref=e5834]:
+              - /url: https://www.csfd.cz/film/1580027
+              - generic [ref=e5835]: ČSFD
+              - generic [ref=e5836]: 82%
+            - link "TMDB 7,8" [ref=e5837]:
+              - /url: https://www.themoviedb.org/movie/858024
+              - generic [ref=e5838]: TMDB
+              - generic [ref=e5839]: 7,8
+            - link "IMDb 8" [ref=e5840]:
+              - /url: https://www.imdb.com/title/tt14905854
+              - generic [ref=e5841]: IMDb
+              - generic [ref=e5842]: "8"
+      - generic [ref=e5843] [cursor=pointer]:
+        - img "Lásky čas" [ref=e5845]
+        - generic [ref=e5846]:
+          - heading "Lásky čas" [level=3] [ref=e5847]
+          - generic [ref=e5848]:
+            - generic [ref=e5849]: "2013"
+            - generic [ref=e5850]: ·Velká Británie
+          - generic [ref=e5851]:
+            - link "ČSFD 81%" [ref=e5852]:
+              - /url: https://www.csfd.cz/film/312352
+              - generic [ref=e5853]: ČSFD
+              - generic [ref=e5854]: 81%
+            - link "TMDB 7,9" [ref=e5855]:
+              - /url: https://www.themoviedb.org/movie/122906
+              - generic [ref=e5856]: TMDB
+              - generic [ref=e5857]: 7,9
+            - link "IMDb 7,8" [ref=e5858]:
+              - /url: https://www.imdb.com/title/tt2194499
+              - generic [ref=e5859]: IMDb
+              - generic [ref=e5860]: 7,8
+      - generic [ref=e5861] [cursor=pointer]:
+        - img "Černá labuť" [ref=e5863]
+        - generic [ref=e5864]:
+          - heading "Černá labuť" [level=3] [ref=e5865]
+          - generic [ref=e5866]:
+            - generic [ref=e5867]: "2010"
+            - generic [ref=e5868]: ·USA
+          - generic [ref=e5869]:
+            - link "ČSFD 81%" [ref=e5870]:
+              - /url: https://www.csfd.cz/film/229692
+              - generic [ref=e5871]: ČSFD
+              - generic [ref=e5872]: 81%
+            - link "TMDB 7,7" [ref=e5873]:
+              - /url: https://www.themoviedb.org/movie/44214
+              - generic [ref=e5874]: TMDB
+              - generic [ref=e5875]: 7,7
+            - link "IMDb 8" [ref=e5876]:
+              - /url: https://www.imdb.com/title/tt0947798
+              - generic [ref=e5877]: IMDb
+              - generic [ref=e5878]: "8"
+      - generic [ref=e5879] [cursor=pointer]:
+        - img "Osm hrozných" [ref=e5881]
+        - generic [ref=e5882]:
+          - heading "Osm hrozných" [level=3] [ref=e5883]
+          - generic [ref=e5884]:
+            - generic [ref=e5885]: "2015"
+            - generic [ref=e5886]: ·USA
+          - generic [ref=e5887]:
+            - link "ČSFD 82%" [ref=e5888]:
+              - /url: https://www.csfd.cz/film/362228
+              - generic [ref=e5889]: ČSFD
+              - generic [ref=e5890]: 82%
+            - link "TMDB 7,8" [ref=e5891]:
+              - /url: https://www.themoviedb.org/movie/273248
+              - generic [ref=e5892]: TMDB
+              - generic [ref=e5893]: 7,8
+            - link "IMDb 7,8" [ref=e5894]:
+              - /url: https://www.imdb.com/title/tt3460252
+              - generic [ref=e5895]: IMDb
+              - generic [ref=e5896]: 7,8
+      - generic [ref=e5897] [cursor=pointer]:
+        - img "Ivanovo dětství" [ref=e5899]
+        - generic [ref=e5900]:
+          - heading "Ivanovo dětství" [level=3] [ref=e5901]
+          - generic [ref=e5902]:
+            - generic [ref=e5903]: "1962"
+            - generic [ref=e5904]: ·Sovětský svaz
+          - generic [ref=e5905]:
+            - link "ČSFD 80%" [ref=e5906]:
+              - /url: https://www.csfd.cz/film/32346
+              - generic [ref=e5907]: ČSFD
+              - generic [ref=e5908]: 80%
+            - link "TMDB 7,8" [ref=e5909]:
+              - /url: https://www.themoviedb.org/movie/31442
+              - generic [ref=e5910]: TMDB
+              - generic [ref=e5911]: 7,8
+            - link "IMDb" [ref=e5912]:
+              - /url: https://www.imdb.com/title/tt27458630
+              - generic [ref=e5913]: IMDb
+      - generic [ref=e5914] [cursor=pointer]:
+        - img "Vlček" [ref=e5916]
+        - generic [ref=e5917]:
+          - heading "Vlček" [level=3] [ref=e5918]
+          - generic [ref=e5919]:
+            - generic [ref=e5920]: "2025"
+            - generic [ref=e5921]: ·Česko
+          - generic [ref=e5922]:
+            - link "ČSFD 79%" [ref=e5923]:
+              - /url: https://www.csfd.cz/film/1678358
+              - generic [ref=e5924]: ČSFD
+              - generic [ref=e5925]: 79%
+            - link "TMDB" [ref=e5926]:
+              - /url: https://www.themoviedb.org/movie/1450804
+              - generic [ref=e5927]: TMDB
+            - link "IMDb" [ref=e5928]:
+              - /url: https://www.imdb.com/title/tt36376438
+              - generic [ref=e5929]: IMDb
+      - generic [ref=e5930] [cursor=pointer]:
+        - img "Arco" [ref=e5932]
+        - generic [ref=e5933]:
+          - heading "Arco" [level=3] [ref=e5934]
+          - generic [ref=e5935]:
+            - generic [ref=e5936]: "2025"
+            - generic [ref=e5937]: ·Francie
+          - generic [ref=e5938]:
+            - link "ČSFD 84%" [ref=e5939]:
+              - /url: https://www.csfd.cz/film/1675618
+              - generic [ref=e5940]: ČSFD
+              - generic [ref=e5941]: 84%
+            - link "TMDB 7,8" [ref=e5942]:
+              - /url: https://www.themoviedb.org/movie/804370
+              - generic [ref=e5943]: TMDB
+              - generic [ref=e5944]: 7,8
+            - link "IMDb 7,5" [ref=e5945]:
+              - /url: https://www.imdb.com/title/tt14883538
+              - generic [ref=e5946]: IMDb
+              - generic [ref=e5947]: 7,5
+      - generic [ref=e5948] [cursor=pointer]:
+        - img "Frigo, oběť krevní msty" [ref=e5950]
+        - generic [ref=e5951]:
+          - heading "Frigo, oběť krevní msty" [level=3] [ref=e5952]
+          - generic [ref=e5953]:
+            - generic [ref=e5954]: "1923"
+            - generic [ref=e5955]: ·USA
+          - generic [ref=e5956]:
+            - link "ČSFD 84%" [ref=e5957]:
+              - /url: https://www.csfd.cz/film/5122
+              - generic [ref=e5958]: ČSFD
+              - generic [ref=e5959]: 84%
+            - link "TMDB 7,5" [ref=e5960]:
+              - /url: https://www.themoviedb.org/movie/701
+              - generic [ref=e5961]: TMDB
+              - generic [ref=e5962]: 7,5
+            - link "IMDb 7,7" [ref=e5963]:
+              - /url: https://www.imdb.com/title/tt0014341
+              - generic [ref=e5964]: IMDb
+              - generic [ref=e5965]: 7,7
+      - generic [ref=e5966] [cursor=pointer]:
+        - img "Hříšné noci" [ref=e5968]
+        - generic [ref=e5969]:
+          - heading "Hříšné noci" [level=3] [ref=e5970]
+          - generic [ref=e5971]:
+            - generic [ref=e5972]: "1997"
+            - generic [ref=e5973]: ·USA
+          - generic [ref=e5974]:
+            - link "ČSFD 80%" [ref=e5975]:
+              - /url: https://www.csfd.cz/film/155
+              - generic [ref=e5976]: ČSFD
+              - generic [ref=e5977]: 80%
+            - link "TMDB 7,6" [ref=e5978]:
+              - /url: https://www.themoviedb.org/movie/4995
+              - generic [ref=e5979]: TMDB
+              - generic [ref=e5980]: 7,6
+            - link "IMDb 7,9" [ref=e5981]:
+              - /url: https://www.imdb.com/title/tt0118749
+              - generic [ref=e5982]: IMDb
+              - generic [ref=e5983]: 7,9
+      - generic [ref=e5984] [cursor=pointer]:
+        - img "Rodina k pronájmu" [ref=e5986]
+        - generic [ref=e5987]:
+          - heading "Rodina k pronájmu" [level=3] [ref=e5988]
+          - generic [ref=e5989]:
+            - generic [ref=e5990]: "2025"
+            - generic [ref=e5991]: ·Japonsko, USA
+          - generic [ref=e5992]:
+            - link "ČSFD 80%" [ref=e5993]:
+              - /url: https://www.csfd.cz/film/1702701
+              - generic [ref=e5994]: ČSFD
+              - generic [ref=e5995]: 80%
+            - link "TMDB 7,9" [ref=e5996]:
+              - /url: https://www.themoviedb.org/movie/1208348
+              - generic [ref=e5997]: TMDB
+              - generic [ref=e5998]: 7,9
+            - link "IMDb 7,6" [ref=e5999]:
+              - /url: https://www.imdb.com/title/tt14142060
+              - generic [ref=e6000]: IMDb
+              - generic [ref=e6001]: 7,6
+      - generic [ref=e6002] [cursor=pointer]:
+        - img "Frankensteinova nevěsta" [ref=e6004]
+        - generic [ref=e6005]:
+          - heading "Frankensteinova nevěsta" [level=3] [ref=e6006]
+          - generic [ref=e6007]:
+            - generic [ref=e6008]: "1935"
+            - generic [ref=e6009]: ·USA
+          - generic [ref=e6010]:
+            - link "ČSFD 81%" [ref=e6011]:
+              - /url: https://www.csfd.cz/film/9726
+              - generic [ref=e6012]: ČSFD
+              - generic [ref=e6013]: 81%
+            - link "TMDB 7,5" [ref=e6014]:
+              - /url: https://www.themoviedb.org/movie/229
+              - generic [ref=e6015]: TMDB
+              - generic [ref=e6016]: 7,5
+            - link "IMDb 7,8" [ref=e6017]:
+              - /url: https://www.imdb.com/title/tt0026138
+              - generic [ref=e6018]: IMDb
+              - generic [ref=e6019]: 7,8
+      - generic [ref=e6020] [cursor=pointer]:
+        - img "Žít" [ref=e6022]
+        - generic [ref=e6023]:
+          - heading "Žít" [level=3] [ref=e6024]
+          - generic [ref=e6025]:
+            - generic [ref=e6026]: "1952"
+            - generic [ref=e6027]: ·Japonsko
+          - generic [ref=e6028]:
+            - link "ČSFD 84%" [ref=e6029]:
+              - /url: https://www.csfd.cz/film/5427
+              - generic [ref=e6030]: ČSFD
+              - generic [ref=e6031]: 84%
+            - link "TMDB 7,2" [ref=e6032]:
+              - /url: https://www.themoviedb.org/movie/120488
+              - generic [ref=e6033]: TMDB
+              - generic [ref=e6034]: 7,2
+      - generic [ref=e6035] [cursor=pointer]:
+        - img "Dva mrazíci" [ref=e6037]
+        - generic [ref=e6038]:
+          - heading "Dva mrazíci" [level=3] [ref=e6039]
+          - generic [ref=e6040]:
+            - generic [ref=e6041]: "1954"
+            - generic [ref=e6042]: ·Československo
+          - generic [ref=e6043]:
+            - link "ČSFD 91%" [ref=e6044]:
+              - /url: https://www.csfd.cz/film/23449
+              - generic [ref=e6045]: ČSFD
+              - generic [ref=e6046]: 91%
+            - link "TMDB 6,5" [ref=e6047]:
+              - /url: https://www.themoviedb.org/movie/46631
+              - generic [ref=e6048]: TMDB
+              - generic [ref=e6049]: 6,5
+            - link "IMDb" [ref=e6050]:
+              - /url: https://www.imdb.com/title/tt0309540
+              - generic [ref=e6051]: IMDb
+      - generic [ref=e6052] [cursor=pointer]:
+        - 'img "EOS: Vermeer – největší výstava" [ref=e6054]'
+        - generic [ref=e6055]:
+          - 'heading "EOS: Vermeer – největší výstava" [level=3] [ref=e6056]'
+          - generic [ref=e6057]:
+            - generic [ref=e6058]: "2023"
+            - generic [ref=e6059]: ·Velká Británie
+          - generic [ref=e6060]:
+            - link "ČSFD 81%" [ref=e6061]:
+              - /url: https://www.csfd.cz/film/1345511
+              - generic [ref=e6062]: ČSFD
+              - generic [ref=e6063]: 81%
+            - link "TMDB 7,8" [ref=e6064]:
+              - /url: https://www.themoviedb.org/movie/1035090
+              - generic [ref=e6065]: TMDB
+              - generic [ref=e6066]: 7,8
+            - link "IMDb 7,5" [ref=e6067]:
+              - /url: https://www.imdb.com/title/tt27237290
+              - generic [ref=e6068]: IMDb
+              - generic [ref=e6069]: 7,5
+      - generic [ref=e6070] [cursor=pointer]:
+        - img "První hlídka" [ref=e6072]
+        - generic [ref=e6073]:
+          - heading "První hlídka" [level=3] [ref=e6074]
+          - generic [ref=e6075]:
+            - generic [ref=e6076]: "2025"
+            - generic [ref=e6077]: ·Česko
+          - generic [ref=e6078]:
+            - link "ČSFD 78%" [ref=e6079]:
+              - /url: https://www.csfd.cz/film/1665193
+              - generic [ref=e6080]: ČSFD
+              - generic [ref=e6081]: 78%
+            - link "TMDB" [ref=e6082]:
+              - /url: https://www.themoviedb.org/movie/1604592
+              - generic [ref=e6083]: TMDB
+            - link "IMDb" [ref=e6084]:
+              - /url: https://www.imdb.com/title/tt1424495
+              - generic [ref=e6085]: IMDb
+      - generic [ref=e6086] [cursor=pointer]:
+        - img "Ponjo z útesu nad mořem" [ref=e6088]
+        - generic [ref=e6089]:
+          - heading "Ponjo z útesu nad mořem" [level=3] [ref=e6090]
+          - generic [ref=e6091]:
+            - generic [ref=e6092]: "2008"
+            - generic [ref=e6093]: ·Japonsko
+          - generic [ref=e6094]:
+            - link "ČSFD 78%" [ref=e6095]:
+              - /url: https://www.csfd.cz/film/225873
+              - generic [ref=e6096]: ČSFD
+              - generic [ref=e6097]: 78%
+            - link "TMDB 7,8" [ref=e6098]:
+              - /url: https://www.themoviedb.org/movie/12429
+              - generic [ref=e6099]: TMDB
+              - generic [ref=e6100]: 7,8
+      - generic [ref=e6101] [cursor=pointer]:
+        - img "Zodiac" [ref=e6103]
+        - generic [ref=e6104]:
+          - heading "Zodiac" [level=3] [ref=e6105]
+          - generic [ref=e6106]:
+            - generic [ref=e6107]: "2007"
+            - generic [ref=e6108]: ·USA
+          - generic [ref=e6109]:
+            - link "ČSFD 81%" [ref=e6110]:
+              - /url: https://www.csfd.cz/film/221713
+              - generic [ref=e6111]: ČSFD
+              - generic [ref=e6112]: 81%
+            - link "TMDB 7,5" [ref=e6113]:
+              - /url: https://www.themoviedb.org/movie/1949
+              - generic [ref=e6114]: TMDB
+              - generic [ref=e6115]: 7,5
+            - link "IMDb 7,7" [ref=e6116]:
+              - /url: https://www.imdb.com/title/tt0443706
+              - generic [ref=e6117]: IMDb
+              - generic [ref=e6118]: 7,7
+      - generic [ref=e6119] [cursor=pointer]:
+        - img "Ty jsi vesmír" [ref=e6121]
+        - generic [ref=e6122]:
+          - heading "Ty jsi vesmír" [level=3] [ref=e6123]
+          - generic [ref=e6124]:
+            - generic [ref=e6125]: "2024"
+            - generic [ref=e6126]: ·Ukrajina
+          - generic [ref=e6127]:
+            - link "ČSFD 74%" [ref=e6128]:
+              - /url: https://www.csfd.cz/film/1560036
+              - generic [ref=e6129]: ČSFD
+              - generic [ref=e6130]: 74%
+            - link "TMDB 8" [ref=e6131]:
+              - /url: https://www.themoviedb.org/movie/1013052
+              - generic [ref=e6132]: TMDB
+              - generic [ref=e6133]: "8"
+            - link "IMDb 7,9" [ref=e6134]:
+              - /url: https://www.imdb.com/title/tt19783734
+              - generic [ref=e6135]: IMDb
+              - generic [ref=e6136]: 7,9
+      - generic [ref=e6137] [cursor=pointer]:
+        - 'img "28 let poté: Chrám z kostí" [ref=e6139]'
+        - generic [ref=e6140]:
+          - 'heading "28 let poté: Chrám z kostí" [level=3] [ref=e6141]'
+          - generic [ref=e6142]:
+            - generic [ref=e6143]: "2026"
+            - generic [ref=e6144]: ·Velká Británie, USA
+          - generic [ref=e6145]:
+            - link "ČSFD 83%" [ref=e6146]:
+              - /url: https://www.csfd.cz/film/1611153
+              - generic [ref=e6147]: ČSFD
+              - generic [ref=e6148]: 83%
+            - link "TMDB 7,3" [ref=e6149]:
+              - /url: https://www.themoviedb.org/movie/1272837
+              - generic [ref=e6150]: TMDB
+              - generic [ref=e6151]: 7,3
+            - link "IMDb 7,7" [ref=e6152]:
+              - /url: https://www.imdb.com/title/tt32141377
+              - generic [ref=e6153]: IMDb
+              - generic [ref=e6154]: 7,7
+      - generic [ref=e6155] [cursor=pointer]:
+        - img "Na Zlatém jezeře" [ref=e6157]
+        - generic [ref=e6158]:
+          - heading "Na Zlatém jezeře" [level=3] [ref=e6159]
+          - generic [ref=e6160]:
+            - generic [ref=e6161]: "1981"
+            - generic [ref=e6162]: ·USA
+          - generic [ref=e6163]:
+            - link "ČSFD 84%" [ref=e6164]:
+              - /url: https://www.csfd.cz/film/24225
+              - generic [ref=e6165]: ČSFD
+              - generic [ref=e6166]: 84%
+            - link "TMDB 7,3" [ref=e6167]:
+              - /url: https://www.themoviedb.org/movie/11816
+              - generic [ref=e6168]: TMDB
+              - generic [ref=e6169]: 7,3
+            - link "IMDb 7,6" [ref=e6170]:
+              - /url: https://www.imdb.com/title/tt0082846
+              - generic [ref=e6171]: IMDb
+              - generic [ref=e6172]: 7,6
+      - generic [ref=e6173] [cursor=pointer]:
+        - img "Mimo zákon" [ref=e6175]
+        - generic [ref=e6176]:
+          - heading "Mimo zákon" [level=3] [ref=e6177]
+          - generic [ref=e6178]:
+            - generic [ref=e6179]: "1986"
+            - generic [ref=e6180]: ·USA, Západní Německo
+          - generic [ref=e6181]:
+            - link "ČSFD 83%" [ref=e6182]:
+              - /url: https://www.csfd.cz/film/4743
+              - generic [ref=e6183]: ČSFD
+              - generic [ref=e6184]: 83%
+            - link "TMDB 7,3" [ref=e6185]:
+              - /url: https://www.themoviedb.org/movie/1554
+              - generic [ref=e6186]: TMDB
+              - generic [ref=e6187]: 7,3
+            - link "IMDb 7,6" [ref=e6188]:
+              - /url: https://www.imdb.com/title/tt0090967
+              - generic [ref=e6189]: IMDb
+              - generic [ref=e6190]: 7,6
+      - generic [ref=e6191] [cursor=pointer]:
+        - 'img "Zootropolis: Město zvířat 2" [ref=e6193]'
+        - generic [ref=e6194]:
+          - 'heading "Zootropolis: Město zvířat 2" [level=3] [ref=e6195]'
+          - generic [ref=e6196]:
+            - generic [ref=e6197]: "2025"
+            - generic [ref=e6198]: ·USA
+          - generic [ref=e6199]:
+            - link "ČSFD 81%" [ref=e6200]:
+              - /url: https://www.csfd.cz/film/1487258
+              - generic [ref=e6201]: ČSFD
+              - generic [ref=e6202]: 81%
+            - link "TMDB 7,6" [ref=e6203]:
+              - /url: https://www.themoviedb.org/movie/1084242
+              - generic [ref=e6204]: TMDB
+              - generic [ref=e6205]: 7,6
+            - link "IMDb 7,5" [ref=e6206]:
+              - /url: https://www.imdb.com/title/tt26443597
+              - generic [ref=e6207]: IMDb
+              - generic [ref=e6208]: 7,5
+      - generic [ref=e6209] [cursor=pointer]:
+        - img "Mrtvý muž" [ref=e6211]
+        - generic [ref=e6212]:
+          - heading "Mrtvý muž" [level=3] [ref=e6213]
+          - generic [ref=e6214]:
+            - generic [ref=e6215]: "1995"
+            - generic [ref=e6216]: ·USA, Německo, Japonsko
+          - generic [ref=e6217]:
+            - link "ČSFD 84%" [ref=e6218]:
+              - /url: https://www.csfd.cz/film/4742
+              - generic [ref=e6219]: ČSFD
+              - generic [ref=e6220]: 84%
+            - link "TMDB 7,3" [ref=e6221]:
+              - /url: https://www.themoviedb.org/movie/922
+              - generic [ref=e6222]: TMDB
+              - generic [ref=e6223]: 7,3
+            - link "IMDb 7,5" [ref=e6224]:
+              - /url: https://www.imdb.com/title/tt0112817
+              - generic [ref=e6225]: IMDb
+              - generic [ref=e6226]: 7,5
+      - generic [ref=e6227] [cursor=pointer]:
+        - img "Padlí andělé" [ref=e6229]
+        - generic [ref=e6230]:
+          - heading "Padlí andělé" [level=3] [ref=e6231]
+          - generic [ref=e6232]:
+            - generic [ref=e6233]: "1995"
+            - generic [ref=e6234]: ·Hongkong
+          - generic [ref=e6235]:
+            - link "ČSFD 78%" [ref=e6236]:
+              - /url: https://www.csfd.cz/film/43558
+              - generic [ref=e6237]: ČSFD
+              - generic [ref=e6238]: 78%
+            - link "TMDB 7,7" [ref=e6239]:
+              - /url: https://www.themoviedb.org/movie/11220
+              - generic [ref=e6240]: TMDB
+              - generic [ref=e6241]: 7,7
+            - link "IMDb" [ref=e6242]:
+              - /url: https://www.imdb.com/title/tt0105994
+              - generic [ref=e6243]: IMDb
+      - generic [ref=e6244] [cursor=pointer]:
+        - img "Cesta zločinu" [ref=e6246]
+        - generic [ref=e6247]:
+          - heading "Cesta zločinu" [level=3] [ref=e6248]
+          - generic [ref=e6249]:
+            - generic [ref=e6250]: "2026"
+            - generic [ref=e6251]: ·USA
+          - generic [ref=e6252]:
+            - link "ČSFD 71%" [ref=e6253]:
+              - /url: https://www.csfd.cz/film/1580032
+              - generic [ref=e6254]: ČSFD
+              - generic [ref=e6255]: 71%
+            - link "TMDB 9" [ref=e6256]:
+              - /url: https://www.themoviedb.org/movie/1171145
+              - generic [ref=e6257]: TMDB
+              - generic [ref=e6258]: "9"
+            - link "IMDb 7,1" [ref=e6259]:
+              - /url: https://www.imdb.com/title/tt32430579
+              - generic [ref=e6260]: IMDb
+              - generic [ref=e6261]: 7,1
+      - generic [ref=e6262] [cursor=pointer]:
+        - img "Údolí včel" [ref=e6264]
+        - generic [ref=e6265]:
+          - heading "Údolí včel" [level=3] [ref=e6266]
+          - generic [ref=e6267]:
+            - generic [ref=e6268]: "1967"
+            - generic [ref=e6269]: ·Československo
+          - generic [ref=e6270]:
+            - link "ČSFD 85%" [ref=e6271]:
+              - /url: https://www.csfd.cz/film/9353
+              - generic [ref=e6272]: ČSFD
+              - generic [ref=e6273]: 85%
+            - link "TMDB 7" [ref=e6274]:
+              - /url: https://www.themoviedb.org/movie/25908
+              - generic [ref=e6275]: TMDB
+              - generic [ref=e6276]: "7"
+            - link "IMDb 7,7" [ref=e6277]:
+              - /url: https://www.imdb.com/title/tt0122770
+              - generic [ref=e6278]: IMDb
+              - generic [ref=e6279]: 7,7
+      - generic [ref=e6280] [cursor=pointer]:
+        - img "Pan Nikdo proti Putinovi" [ref=e6282]
+        - generic [ref=e6283]:
+          - heading "Pan Nikdo proti Putinovi" [level=3] [ref=e6284]
+          - generic [ref=e6285]:
+            - generic [ref=e6286]: "2025"
+            - generic [ref=e6287]: ·Dánsko, Česko
+          - generic [ref=e6288]:
+            - link "ČSFD 81%" [ref=e6289]:
+              - /url: https://www.csfd.cz/film/1606307
+              - generic [ref=e6290]: ČSFD
+              - generic [ref=e6291]: 81%
+            - link "TMDB 7,6" [ref=e6292]:
+              - /url: https://www.themoviedb.org/movie/1393151
+              - generic [ref=e6293]: TMDB
+              - generic [ref=e6294]: 7,6
+            - link "IMDb 7,5" [ref=e6295]:
+              - /url: https://www.imdb.com/title/tt34965515
+              - generic [ref=e6296]: IMDb
+              - generic [ref=e6297]: 7,5
+      - generic [ref=e6298] [cursor=pointer]:
+        - img "Vlasy" [ref=e6300]
+        - generic [ref=e6301]:
+          - heading "Vlasy" [level=3] [ref=e6302]
+          - generic [ref=e6303]:
+            - generic [ref=e6304]: "1979"
+            - generic [ref=e6305]: ·USA, Západní Německo
+          - generic [ref=e6306]:
+            - link "ČSFD 84%" [ref=e6307]:
+              - /url: https://www.csfd.cz/film/2974
+              - generic [ref=e6308]: ČSFD
+              - generic [ref=e6309]: 84%
+            - link "TMDB 7,3" [ref=e6310]:
+              - /url: https://www.themoviedb.org/movie/10654
+              - generic [ref=e6311]: TMDB
+              - generic [ref=e6312]: 7,3
+            - link "IMDb 7,5" [ref=e6313]:
+              - /url: https://www.imdb.com/title/tt0079261
+              - generic [ref=e6314]: IMDb
+              - generic [ref=e6315]: 7,5
+      - generic [ref=e6316] [cursor=pointer]:
+        - img "Citová hodnota" [ref=e6318]
+        - generic [ref=e6319]:
+          - heading "Citová hodnota" [level=3] [ref=e6320]
+          - generic [ref=e6321]:
+            - generic [ref=e6322]: "2025"
+            - generic [ref=e6323]: ·Norsko, Francie, Dánsko, Německo, Švédsko
+          - generic [ref=e6324]:
+            - link "ČSFD 77%" [ref=e6325]:
+              - /url: https://www.csfd.cz/film/1556980
+              - generic [ref=e6326]: ČSFD
+              - generic [ref=e6327]: 77%
+            - link "TMDB 7,6" [ref=e6328]:
+              - /url: https://www.themoviedb.org/movie/1124566
+              - generic [ref=e6329]: TMDB
+              - generic [ref=e6330]: 7,6
+            - link "IMDb 7,8" [ref=e6331]:
+              - /url: https://www.imdb.com/title/tt27714581
+              - generic [ref=e6332]: IMDb
+              - generic [ref=e6333]: 7,8
+      - generic [ref=e6334] [cursor=pointer]:
+        - img "Když Harry potkal Sally" [ref=e6336]
+        - generic [ref=e6337]:
+          - heading "Když Harry potkal Sally" [level=3] [ref=e6338]
+          - generic [ref=e6339]:
+            - generic [ref=e6340]: "1989"
+            - generic [ref=e6341]: ·USA
+          - generic [ref=e6342]:
+            - link "ČSFD 80%" [ref=e6343]:
+              - /url: https://www.csfd.cz/film/7630
+              - generic [ref=e6344]: ČSFD
+              - generic [ref=e6345]: 80%
+            - link "TMDB 7,4" [ref=e6346]:
+              - /url: https://www.themoviedb.org/movie/639
+              - generic [ref=e6347]: TMDB
+              - generic [ref=e6348]: 7,4
+            - link "IMDb 7,7" [ref=e6349]:
+              - /url: https://www.imdb.com/title/tt0098635
+              - generic [ref=e6350]: IMDb
+              - generic [ref=e6351]: 7,7
+      - generic [ref=e6352] [cursor=pointer]:
+        - img "O Mikešovi" [ref=e6354]
+        - generic [ref=e6355]:
+          - heading "O Mikešovi" [level=3] [ref=e6356]
+          - generic [ref=e6357]:
+            - generic [ref=e6358]: (1971–1976)
+            - generic [ref=e6359]: ·Československo
+          - generic [ref=e6360]:
+            - link "ČSFD 77%" [ref=e6361]:
+              - /url: https://www.csfd.cz/film/220946
+              - generic [ref=e6362]: ČSFD
+              - generic [ref=e6363]: 77%
+            - link "IMDb" [ref=e6364]:
+              - /url: https://www.imdb.com/title/tt16868250
+              - generic [ref=e6365]: IMDb
+      - generic [ref=e6366] [cursor=pointer]:
+        - img "Bludné kořeny" [ref=e6368]
+        - generic [ref=e6369]:
+          - heading "Bludné kořeny" [level=3] [ref=e6370]
+          - generic [ref=e6371]:
+            - generic [ref=e6372]: "2026"
+            - generic [ref=e6373]: ·Česko
+          - generic [ref=e6374]:
+            - link "ČSFD 77%" [ref=e6375]:
+              - /url: https://www.csfd.cz/film/1609355
+              - generic [ref=e6376]: ČSFD
+              - generic [ref=e6377]: 77%
+            - link "IMDb" [ref=e6378]:
+              - /url: https://www.imdb.com/title/tt0221938
+              - generic [ref=e6379]: IMDb
+      - generic [ref=e6380] [cursor=pointer]:
+        - img "Řepa" [ref=e6382]
+        - generic [ref=e6383]:
+          - heading "Řepa" [level=3] [ref=e6384]
+          - generic [ref=e6385]:
+            - generic [ref=e6386]: "2025"
+            - generic [ref=e6387]: ·Česko
+          - generic [ref=e6388]:
+            - link "ČSFD 77%" [ref=e6389]:
+              - /url: https://www.csfd.cz/film/1645832
+              - generic [ref=e6390]: ČSFD
+              - generic [ref=e6391]: 77%
+            - link "TMDB" [ref=e6392]:
+              - /url: https://www.themoviedb.org/movie/1526705
+              - generic [ref=e6393]: TMDB
+            - link "IMDb" [ref=e6394]:
+              - /url: https://www.imdb.com/title/tt31614348
+              - generic [ref=e6395]: IMDb
+      - generic [ref=e6396] [cursor=pointer]:
+        - img "Můj strýček" [ref=e6398]
+        - generic [ref=e6399]:
+          - heading "Můj strýček" [level=3] [ref=e6400]
+          - generic [ref=e6401]:
+            - generic [ref=e6402]: "1958"
+            - generic [ref=e6403]: ·Francie, Itálie
+          - generic [ref=e6404]:
+            - link "ČSFD 81%" [ref=e6405]:
+              - /url: https://www.csfd.cz/film/47475
+              - generic [ref=e6406]: ČSFD
+              - generic [ref=e6407]: 81%
+            - link "TMDB 7,4" [ref=e6408]:
+              - /url: https://www.themoviedb.org/movie/427
+              - generic [ref=e6409]: TMDB
+              - generic [ref=e6410]: 7,4
+            - link "IMDb 7,6" [ref=e6411]:
+              - /url: https://www.imdb.com/title/tt0050706
+              - generic [ref=e6412]: IMDb
+              - generic [ref=e6413]: 7,6
+      - generic [ref=e6414] [cursor=pointer]:
+        - img "Milost" [ref=e6416]
+        - generic [ref=e6417]:
+          - heading "Milost" [level=3] [ref=e6418]
+          - generic [ref=e6419]:
+            - generic [ref=e6420]: "2025"
+            - generic [ref=e6421]: ·Itálie
+          - generic [ref=e6422]:
+            - link "ČSFD 81%" [ref=e6423]:
+              - /url: https://www.csfd.cz/film/1700845
+              - generic [ref=e6424]: ČSFD
+              - generic [ref=e6425]: 81%
+            - link "TMDB 7,5" [ref=e6426]:
+              - /url: https://www.themoviedb.org/movie/1397364
+              - generic [ref=e6427]: TMDB
+              - generic [ref=e6428]: 7,5
+            - link "IMDb 7,4" [ref=e6429]:
+              - /url: https://www.imdb.com/title/tt34886821
+              - generic [ref=e6430]: IMDb
+              - generic [ref=e6431]: 7,4
+      - generic [ref=e6432] [cursor=pointer]:
+        - img "Veřejně prospěšné práce" [ref=e6434]
+        - generic [ref=e6435]:
+          - heading "Veřejně prospěšné práce" [level=3] [ref=e6436]
+          - generic [ref=e6437]:
+            - generic [ref=e6438]: "2025"
+            - generic [ref=e6439]: ·Česko
+          - generic [ref=e6440]:
+            - link "ČSFD 74%" [ref=e6441]:
+              - /url: https://www.csfd.cz/film/1632286
+              - generic [ref=e6442]: ČSFD
+              - generic [ref=e6443]: 74%
+            - link "TMDB" [ref=e6444]:
+              - /url: https://www.themoviedb.org/movie/1452153
+              - generic [ref=e6445]: TMDB
+            - link "IMDb 7,9" [ref=e6446]:
+              - /url: https://www.imdb.com/title/tt37246051
+              - generic [ref=e6447]: IMDb
+              - generic [ref=e6448]: 7,9
+      - generic [ref=e6449] [cursor=pointer]:
+        - img "9 milionů barev" [ref=e6451]
+        - generic [ref=e6452]:
+          - heading "9 milionů barev" [level=3] [ref=e6453]
+          - generic [ref=e6454]:
+            - generic [ref=e6455]: "2025"
+            - generic [ref=e6456]: ·Česko, Norsko, Německo
+          - generic [ref=e6457]:
+            - link "ČSFD 85%" [ref=e6458]:
+              - /url: https://www.csfd.cz/film/1515198
+              - generic [ref=e6459]: ČSFD
+              - generic [ref=e6460]: 85%
+            - link "TMDB" [ref=e6461]:
+              - /url: https://www.themoviedb.org/movie/1464909
+              - generic [ref=e6462]: TMDB
+            - link "IMDb 6,8" [ref=e6463]:
+              - /url: https://www.imdb.com/title/tt35994552
+              - generic [ref=e6464]: IMDb
+              - generic [ref=e6465]: 6,8
+      - generic [ref=e6466] [cursor=pointer]:
+        - 'img "Nejlepší z nejlepších: GOAT" [ref=e6468]'
+        - generic [ref=e6469]:
+          - 'heading "Nejlepší z nejlepších: GOAT" [level=3] [ref=e6470]'
+          - generic [ref=e6471]:
+            - generic [ref=e6472]: "2026"
+            - generic [ref=e6473]: ·USA
+          - generic [ref=e6474]:
+            - link "ČSFD 90%" [ref=e6475]:
+              - /url: https://www.csfd.cz/film/1638669
+              - generic [ref=e6476]: ČSFD
+              - generic [ref=e6477]: 90%
+            - link "TMDB 7,2" [ref=e6478]:
+              - /url: https://www.themoviedb.org/movie/1297842
+              - generic [ref=e6479]: TMDB
+              - generic [ref=e6480]: 7,2
+            - link "IMDb 6,7" [ref=e6481]:
+              - /url: https://www.imdb.com/title/tt27613895
+              - generic [ref=e6482]: IMDb
+              - generic [ref=e6483]: 6,7
+      - generic [ref=e6484] [cursor=pointer]:
+        - img "Kaprálová" [ref=e6486]
+        - generic [ref=e6487]:
+          - heading "Kaprálová" [level=3] [ref=e6488]
+          - generic [ref=e6489]:
+            - generic [ref=e6490]: "2025"
+            - generic [ref=e6491]: ·Česko
+          - generic [ref=e6492]:
+            - link "ČSFD 76%" [ref=e6493]:
+              - /url: https://www.csfd.cz/film/1755579
+              - generic [ref=e6494]: ČSFD
+              - generic [ref=e6495]: 76%
+            - link "TMDB" [ref=e6496]:
+              - /url: https://www.themoviedb.org/movie/1571238
+              - generic [ref=e6497]: TMDB
+      - generic [ref=e6498] [cursor=pointer]:
+        - img "Pero" [ref=e6500]
+        - generic [ref=e6501]:
+          - heading "Pero" [level=3] [ref=e6502]
+          - generic [ref=e6503]:
+            - generic [ref=e6504]: "2024"
+            - generic [ref=e6505]: ·Litva
+          - generic [ref=e6506]:
+            - link "ČSFD" [ref=e6507]:
+              - /url: https://www.csfd.cz/film/1596229
+              - generic [ref=e6508]: ČSFD
+            - link "TMDB" [ref=e6509]:
+              - /url: https://www.themoviedb.org/movie/1320759
+              - generic [ref=e6510]: TMDB
+            - link "IMDb 7,6" [ref=e6511]:
+              - /url: https://www.imdb.com/title/tt29517514
+              - generic [ref=e6512]: IMDb
+              - generic [ref=e6513]: 7,6
+      - generic [ref=e6514] [cursor=pointer]:
+        - img "Na lovu" [ref=e6516]
+        - generic [ref=e6517]:
+          - heading "Na lovu" [level=3] [ref=e6518]
+          - generic [ref=e6519]:
+            - generic [ref=e6520]: "2025"
+            - generic [ref=e6521]: ·Švýcarsko
+          - generic [ref=e6522]:
+            - link "ČSFD" [ref=e6523]:
+              - /url: https://www.csfd.cz/film/1669395
+              - generic [ref=e6524]: ČSFD
+            - link "TMDB" [ref=e6525]:
+              - /url: https://www.themoviedb.org/movie/1462346
+              - generic [ref=e6526]: TMDB
+            - link "IMDb 7,6" [ref=e6527]:
+              - /url: https://www.imdb.com/title/tt37539301
+              - generic [ref=e6528]: IMDb
+              - generic [ref=e6529]: 7,6
+      - generic [ref=e6530] [cursor=pointer]:
+        - img "Bez střechy a bez zákona" [ref=e6532]
+        - generic [ref=e6533]:
+          - heading "Bez střechy a bez zákona" [level=3] [ref=e6534]
+          - generic [ref=e6535]:
+            - generic [ref=e6536]: "1985"
+            - generic [ref=e6537]: ·Francie
+          - generic [ref=e6538]:
+            - link "ČSFD 78%" [ref=e6539]:
+              - /url: https://www.csfd.cz/film/71854
+              - generic [ref=e6540]: ČSFD
+              - generic [ref=e6541]: 78%
+            - link "TMDB 7,3" [ref=e6542]:
+              - /url: https://www.themoviedb.org/movie/44018
+              - generic [ref=e6543]: TMDB
+              - generic [ref=e6544]: 7,3
+            - link "IMDb 7,6" [ref=e6545]:
+              - /url: https://www.imdb.com/title/tt0089960
+              - generic [ref=e6546]: IMDb
+              - generic [ref=e6547]: 7,6
+      - generic [ref=e6548] [cursor=pointer]:
+        - img "Křidýlko nebo stehýnko" [ref=e6550]
+        - generic [ref=e6551]:
+          - heading "Křidýlko nebo stehýnko" [level=3] [ref=e6552]
+          - generic [ref=e6553]:
+            - generic [ref=e6554]: "1976"
+            - generic [ref=e6555]: ·Francie
+          - generic [ref=e6556]:
+            - link "ČSFD 83%" [ref=e6557]:
+              - /url: https://www.csfd.cz/film/32060
+              - generic [ref=e6558]: ČSFD
+              - generic [ref=e6559]: 83%
+            - link "TMDB 7,2" [ref=e6560]:
+              - /url: https://www.themoviedb.org/movie/761
+              - generic [ref=e6561]: TMDB
+              - generic [ref=e6562]: 7,2
+            - link "IMDb 7,2" [ref=e6563]:
+              - /url: https://www.imdb.com/title/tt0074103
+              - generic [ref=e6564]: IMDb
+              - generic [ref=e6565]: 7,2
+      - generic [ref=e6566] [cursor=pointer]:
+        - img "Lásky jedné plavovlásky" [ref=e6568]
+        - generic [ref=e6569]:
+          - heading "Lásky jedné plavovlásky" [level=3] [ref=e6570]
+          - generic [ref=e6571]:
+            - generic [ref=e6572]: "1965"
+            - generic [ref=e6573]: ·Československo
+          - generic [ref=e6574]:
+            - link "ČSFD 83%" [ref=e6575]:
+              - /url: https://www.csfd.cz/film/2980
+              - generic [ref=e6576]: ČSFD
+              - generic [ref=e6577]: 83%
+            - link "TMDB 7" [ref=e6578]:
+              - /url: https://www.themoviedb.org/movie/39387
+              - generic [ref=e6579]: TMDB
+              - generic [ref=e6580]: "7"
+            - link "IMDb 7,4" [ref=e6581]:
+              - /url: https://www.imdb.com/title/tt0059415
+              - generic [ref=e6582]: IMDb
+              - generic [ref=e6583]: 7,4
+      - generic [ref=e6584] [cursor=pointer]:
+        - img "Aftersun" [ref=e6586]
+        - generic [ref=e6587]:
+          - heading "Aftersun" [level=3] [ref=e6588]
+          - generic [ref=e6589]:
+            - generic [ref=e6590]: "2022"
+            - generic [ref=e6591]: ·Velká Británie, USA
+          - generic [ref=e6592]:
+            - link "ČSFD 74%" [ref=e6593]:
+              - /url: https://www.csfd.cz/film/1183879
+              - generic [ref=e6594]: ČSFD
+              - generic [ref=e6595]: 74%
+            - link "TMDB 7,7" [ref=e6596]:
+              - /url: https://www.themoviedb.org/movie/965150
+              - generic [ref=e6597]: TMDB
+              - generic [ref=e6598]: 7,7
+            - link "IMDb 7,6" [ref=e6599]:
+              - /url: https://www.imdb.com/title/tt19770238
+              - generic [ref=e6600]: IMDb
+              - generic [ref=e6601]: 7,6
+      - generic [ref=e6602] [cursor=pointer]:
+        - img "Šťastni spolu" [ref=e6604]
+        - generic [ref=e6605]:
+          - heading "Šťastni spolu" [level=3] [ref=e6606]
+          - generic [ref=e6607]:
+            - generic [ref=e6608]: "1997"
+            - generic [ref=e6609]: ·Hongkong, Japonsko, Jižní Korea
+          - generic [ref=e6610]:
+            - link "ČSFD 75%" [ref=e6611]:
+              - /url: https://www.csfd.cz/film/37589
+              - generic [ref=e6612]: ČSFD
+              - generic [ref=e6613]: 75%
+            - link "TMDB 7,6" [ref=e6614]:
+              - /url: https://www.themoviedb.org/movie/18329
+              - generic [ref=e6615]: TMDB
+              - generic [ref=e6616]: 7,6
+            - link "IMDb" [ref=e6617]:
+              - /url: https://www.imdb.com/title/tt7976568
+              - generic [ref=e6618]: IMDb
+      - generic [ref=e6619] [cursor=pointer]:
+        - 'img "Twin Peaks: Ohni se mnou pojď" [ref=e6621]'
+        - generic [ref=e6622]:
+          - 'heading "Twin Peaks: Ohni se mnou pojď" [level=3] [ref=e6623]'
+          - generic [ref=e6624]:
+            - generic [ref=e6625]: "1992"
+            - generic [ref=e6626]: ·USA, Francie
+          - generic [ref=e6627]:
+            - link "ČSFD 79%" [ref=e6628]:
+              - /url: https://www.csfd.cz/film/6260
+              - generic [ref=e6629]: ČSFD
+              - generic [ref=e6630]: 79%
+            - link "TMDB 7,4" [ref=e6631]:
+              - /url: https://www.themoviedb.org/movie/1923
+              - generic [ref=e6632]: TMDB
+              - generic [ref=e6633]: 7,4
+            - link "IMDb 7,3" [ref=e6634]:
+              - /url: https://www.imdb.com/title/tt0105665
+              - generic [ref=e6635]: IMDb
+              - generic [ref=e6636]: 7,3
+      - generic [ref=e6637] [cursor=pointer]:
+        - img "Skřivánci na niti" [ref=e6639]
+        - generic [ref=e6640]:
+          - heading "Skřivánci na niti" [level=3] [ref=e6641]
+          - generic [ref=e6642]:
+            - generic [ref=e6643]: "1969"
+            - generic [ref=e6644]: ·Československo
+          - generic [ref=e6645]:
+            - link "ČSFD 85%" [ref=e6646]:
+              - /url: https://www.csfd.cz/film/6669
+              - generic [ref=e6647]: ČSFD
+              - generic [ref=e6648]: 85%
+            - link "TMDB 6,8" [ref=e6649]:
+              - /url: https://www.themoviedb.org/movie/12078
+              - generic [ref=e6650]: TMDB
+              - generic [ref=e6651]: 6,8
+            - link "IMDb 7,3" [ref=e6652]:
+              - /url: https://www.imdb.com/title/tt0064994
+              - generic [ref=e6653]: IMDb
+              - generic [ref=e6654]: 7,3
+      - generic [ref=e6655] [cursor=pointer]:
+        - img "Princezna stokrát jinak" [ref=e6657]
+        - generic [ref=e6658]:
+          - heading "Princezna stokrát jinak" [level=3] [ref=e6659]
+          - generic [ref=e6660]:
+            - generic [ref=e6661]: "2026"
+            - generic [ref=e6662]: ·Česko, Slovensko
+          - generic [ref=e6663]:
+            - link "ČSFD 75%" [ref=e6664]:
+              - /url: https://www.csfd.cz/film/1706145
+              - generic [ref=e6665]: ČSFD
+              - generic [ref=e6666]: 75%
+            - link "TMDB" [ref=e6667]:
+              - /url: https://www.themoviedb.org/movie/1510543
+              - generic [ref=e6668]: TMDB
+      - generic [ref=e6669] [cursor=pointer]:
+        - img "Poslední Viking" [ref=e6671]
+        - generic [ref=e6672]:
+          - heading "Poslední Viking" [level=3] [ref=e6673]
+          - generic [ref=e6674]:
+            - generic [ref=e6675]: "2025"
+            - generic [ref=e6676]: ·Dánsko
+          - generic [ref=e6677]:
+            - link "ČSFD 79%" [ref=e6678]:
+              - /url: https://www.csfd.cz/film/1563219
+              - generic [ref=e6679]: ČSFD
+              - generic [ref=e6680]: 79%
+            - link "TMDB 7,1" [ref=e6681]:
+              - /url: https://www.themoviedb.org/movie/1295400
+              - generic [ref=e6682]: TMDB
+              - generic [ref=e6683]: 7,1
+            - link "IMDb" [ref=e6684]:
+              - /url: https://www.imdb.com/title/tt37619047
+              - generic [ref=e6685]: IMDb
+      - generic [ref=e6686] [cursor=pointer]:
+        - img "Stvořeni pro lásku" [ref=e6688]
+        - generic [ref=e6689]:
+          - heading "Stvořeni pro lásku" [level=3] [ref=e6690]
+          - generic [ref=e6691]:
+            - generic [ref=e6692]: "2000"
+            - generic [ref=e6693]: ·Hongkong, Francie
+          - generic [ref=e6694]:
+            - link "ČSFD 80%" [ref=e6695]:
+              - /url: https://www.csfd.cz/film/72032
+              - generic [ref=e6696]: ČSFD
+              - generic [ref=e6697]: 80%
+            - link "TMDB 7" [ref=e6698]:
+              - /url: https://www.themoviedb.org/movie/654086
+              - generic [ref=e6699]: TMDB
+              - generic [ref=e6700]: "7"
+            - link "IMDb" [ref=e6701]:
+              - /url: https://www.imdb.com/title/tt16077670
+              - generic [ref=e6702]: IMDb
+      - generic [ref=e6703] [cursor=pointer]:
+        - 'img "Avatar: Oheň a popel" [ref=e6705]'
+        - generic [ref=e6706]:
+          - 'heading "Avatar: Oheň a popel" [level=3] [ref=e6707]'
+          - generic [ref=e6708]:
+            - generic [ref=e6709]: "2025"
+            - generic [ref=e6710]: ·USA
+          - generic [ref=e6711]:
+            - link "ČSFD 78%" [ref=e6712]:
+              - /url: https://www.csfd.cz/film/286594
+              - generic [ref=e6713]: ČSFD
+              - generic [ref=e6714]: 78%
+            - link "TMDB 7,3" [ref=e6715]:
+              - /url: https://www.themoviedb.org/movie/83533
+              - generic [ref=e6716]: TMDB
+              - generic [ref=e6717]: 7,3
+            - link "IMDb 7,4" [ref=e6718]:
+              - /url: https://www.imdb.com/title/tt1757678
+              - generic [ref=e6719]: IMDb
+              - generic [ref=e6720]: 7,4
+      - generic [ref=e6721] [cursor=pointer]:
+        - img "Norimberk" [ref=e6723]
+        - generic [ref=e6724]:
+          - heading "Norimberk" [level=3] [ref=e6725]
+          - generic [ref=e6726]:
+            - generic [ref=e6727]: "2025"
+            - generic [ref=e6728]: ·USA
+          - generic [ref=e6729]:
+            - link "ČSFD 77%" [ref=e6730]:
+              - /url: https://www.csfd.cz/film/1574711
+              - generic [ref=e6731]: ČSFD
+              - generic [ref=e6732]: 77%
+            - link "TMDB 7,4" [ref=e6733]:
+              - /url: https://www.themoviedb.org/movie/1214931
+              - generic [ref=e6734]: TMDB
+              - generic [ref=e6735]: 7,4
+            - link "IMDb 7,4" [ref=e6736]:
+              - /url: https://www.imdb.com/title/tt29567915
+              - generic [ref=e6737]: IMDb
+              - generic [ref=e6738]: 7,4
+      - generic [ref=e6739] [cursor=pointer]:
+        - img "Pretty Woman" [ref=e6741]
+        - generic [ref=e6742]:
+          - heading "Pretty Woman" [level=3] [ref=e6743]
+          - generic [ref=e6744]:
+            - generic [ref=e6745]: "1990"
+            - generic [ref=e6746]: ·USA
+          - generic [ref=e6747]:
+            - link "ČSFD 79%" [ref=e6748]:
+              - /url: https://www.csfd.cz/film/6486
+              - generic [ref=e6749]: ČSFD
+              - generic [ref=e6750]: 79%
+            - link "TMDB 7,5" [ref=e6751]:
+              - /url: https://www.themoviedb.org/movie/114
+              - generic [ref=e6752]: TMDB
+              - generic [ref=e6753]: 7,5
+            - link "IMDb 7,1" [ref=e6754]:
+              - /url: https://www.imdb.com/title/tt0100405
+              - generic [ref=e6755]: IMDb
+              - generic [ref=e6756]: 7,1
+      - generic [ref=e6757] [cursor=pointer]:
+        - img "Duch" [ref=e6759]
+        - generic [ref=e6760]:
+          - heading "Duch" [level=3] [ref=e6761]
+          - generic [ref=e6762]:
+            - generic [ref=e6763]: "1990"
+            - generic [ref=e6764]: ·USA
+          - generic [ref=e6765]:
+            - link "ČSFD 81%" [ref=e6766]:
+              - /url: https://www.csfd.cz/film/10199
+              - generic [ref=e6767]: ČSFD
+              - generic [ref=e6768]: 81%
+            - link "TMDB 7,2" [ref=e6769]:
+              - /url: https://www.themoviedb.org/movie/251
+              - generic [ref=e6770]: TMDB
+              - generic [ref=e6771]: 7,2
+            - link "IMDb 7,1" [ref=e6772]:
+              - /url: https://www.imdb.com/title/tt0099653
+              - generic [ref=e6773]: IMDb
+              - generic [ref=e6774]: 7,1
+      - generic [ref=e6775] [cursor=pointer]:
+        - img "Svadba" [ref=e6777]
+        - generic [ref=e6778]:
+          - heading "Svadba" [level=3] [ref=e6779]
+          - generic [ref=e6780]:
+            - generic [ref=e6781]: "2026"
+            - generic [ref=e6782]: ·Chorvatsko, Srbsko
+          - generic [ref=e6783]:
+            - link "ČSFD" [ref=e6784]:
+              - /url: https://www.csfd.cz/film/1800158
+              - generic [ref=e6785]: ČSFD
+            - link "TMDB 7,3" [ref=e6786]:
+              - /url: https://www.themoviedb.org/movie/1551507
+              - generic [ref=e6787]: TMDB
+              - generic [ref=e6788]: 7,3
+            - link "IMDb 7,7" [ref=e6789]:
+              - /url: https://www.imdb.com/title/tt37376089
+              - generic [ref=e6790]: IMDb
+              - generic [ref=e6791]: 7,7
+      - generic [ref=e6792] [cursor=pointer]:
+        - img "Jedna bitva za druhou" [ref=e6794]
+        - generic [ref=e6795]:
+          - heading "Jedna bitva za druhou" [level=3] [ref=e6796]
+          - generic [ref=e6797]:
+            - generic [ref=e6798]: "2025"
+            - generic [ref=e6799]: ·USA
+          - generic [ref=e6800]:
+            - link "ČSFD 73%" [ref=e6801]:
+              - /url: https://www.csfd.cz/film/1476388
+              - generic [ref=e6802]: ČSFD
+              - generic [ref=e6803]: 73%
+            - link "TMDB 7,4" [ref=e6804]:
+              - /url: https://www.themoviedb.org/movie/1054867
+              - generic [ref=e6805]: TMDB
+              - generic [ref=e6806]: 7,4
+            - link "IMDb 7,7" [ref=e6807]:
+              - /url: https://www.imdb.com/title/tt30144839
+              - generic [ref=e6808]: IMDb
+              - generic [ref=e6809]: 7,7
+      - generic [ref=e6810] [cursor=pointer]:
+        - img "Sirocco a království vzdušných proudů" [ref=e6812]
+        - generic [ref=e6813]:
+          - heading "Sirocco a království vzdušných proudů" [level=3] [ref=e6814]
+          - generic [ref=e6815]:
+            - generic [ref=e6816]: "2023"
+            - generic [ref=e6817]: ·Belgie, Francie
+          - generic [ref=e6818]:
+            - link "ČSFD 76%" [ref=e6819]:
+              - /url: https://www.csfd.cz/film/1430606
+              - generic [ref=e6820]: ČSFD
+              - generic [ref=e6821]: 76%
+            - link "TMDB 7,7" [ref=e6822]:
+              - /url: https://www.themoviedb.org/movie/676696
+              - generic [ref=e6823]: TMDB
+              - generic [ref=e6824]: 7,7
+            - link "IMDb 7,1" [ref=e6825]:
+              - /url: https://www.imdb.com/title/tt12015692
+              - generic [ref=e6826]: IMDb
+              - generic [ref=e6827]: 7,1
+      - generic [ref=e6828] [cursor=pointer]:
+        - img "Lid versus Larry Flynt" [ref=e6830]
+        - generic [ref=e6831]:
+          - heading "Lid versus Larry Flynt" [level=3] [ref=e6832]
+          - generic [ref=e6833]:
+            - generic [ref=e6834]: "1996"
+            - generic [ref=e6835]: ·USA
+          - generic [ref=e6836]:
+            - link "ČSFD 81%" [ref=e6837]:
+              - /url: https://www.csfd.cz/film/2983
+              - generic [ref=e6838]: ČSFD
+              - generic [ref=e6839]: 81%
+            - link "TMDB 7" [ref=e6840]:
+              - /url: https://www.themoviedb.org/movie/1630
+              - generic [ref=e6841]: TMDB
+              - generic [ref=e6842]: "7"
+            - link "IMDb 7,3" [ref=e6843]:
+              - /url: https://www.imdb.com/title/tt0117318
+              - generic [ref=e6844]: IMDb
+              - generic [ref=e6845]: 7,3
+      - generic [ref=e6846] [cursor=pointer]:
+        - img "Oblíbené vnouče babičky Nai" [ref=e6848]
+        - generic [ref=e6849]:
+          - heading "Oblíbené vnouče babičky Nai" [level=3] [ref=e6850]
+          - generic [ref=e6851]:
+            - generic [ref=e6852]: "2025"
+            - generic [ref=e6853]: ·Kambodža, Francie, USA
+          - generic [ref=e6854]:
+            - link "ČSFD" [ref=e6855]:
+              - /url: https://www.csfd.cz/film/1625033
+              - generic [ref=e6856]: ČSFD
+            - link "TMDB 7,5" [ref=e6857]:
+              - /url: https://www.themoviedb.org/movie/1403490
+              - generic [ref=e6858]: TMDB
+              - generic [ref=e6859]: 7,5
+            - link "IMDb 7,4" [ref=e6860]:
+              - /url: https://www.imdb.com/title/tt35002936
+              - generic [ref=e6861]: IMDb
+              - generic [ref=e6862]: 7,4
+      - generic [ref=e6863] [cursor=pointer]:
+        - img "Raději zešílet v divočině" [ref=e6865]
+        - generic [ref=e6866]:
+          - heading "Raději zešílet v divočině" [level=3] [ref=e6867]
+          - generic [ref=e6868]:
+            - generic [ref=e6869]: "2025"
+            - generic [ref=e6870]: ·Česko, Slovensko
+          - generic [ref=e6871]:
+            - link "ČSFD 76%" [ref=e6872]:
+              - /url: https://www.csfd.cz/film/1687605
+              - generic [ref=e6873]: ČSFD
+              - generic [ref=e6874]: 76%
+            - link "TMDB" [ref=e6875]:
+              - /url: https://www.themoviedb.org/movie/1491966
+              - generic [ref=e6876]: TMDB
+            - link "IMDb 7,3" [ref=e6877]:
+              - /url: https://www.imdb.com/title/tt37438800
+              - generic [ref=e6878]: IMDb
+              - generic [ref=e6879]: 7,3
+      - generic [ref=e6880] [cursor=pointer]:
+        - img "Fotograf Ernest Cole" [ref=e6882]
+        - generic [ref=e6883]:
+          - heading "Fotograf Ernest Cole" [level=3] [ref=e6884]
+          - generic [ref=e6885]:
+            - generic [ref=e6886]: "2024"
+            - generic [ref=e6887]: ·Francie
+          - generic [ref=e6888]:
+            - link "ČSFD" [ref=e6889]:
+              - /url: https://www.csfd.cz/film/1518883
+              - generic [ref=e6890]: ČSFD
+            - link "TMDB 7,6" [ref=e6891]:
+              - /url: https://www.themoviedb.org/movie/1127632
+              - generic [ref=e6892]: TMDB
+              - generic [ref=e6893]: 7,6
+            - link "IMDb 7,3" [ref=e6894]:
+              - /url: https://www.imdb.com/title/tt27760132
+              - generic [ref=e6895]: IMDb
+              - generic [ref=e6896]: 7,3
+      - generic [ref=e6897] [cursor=pointer]:
+        - img "Podivnější než ráj" [ref=e6899]
+        - generic [ref=e6900]:
+          - heading "Podivnější než ráj" [level=3] [ref=e6901]
+          - generic [ref=e6902]:
+            - generic [ref=e6903]: "1984"
+            - generic [ref=e6904]: ·USA, Západní Německo
+          - generic [ref=e6905]:
+            - link "ČSFD 78%" [ref=e6906]:
+              - /url: https://www.csfd.cz/film/4749
+              - generic [ref=e6907]: ČSFD
+              - generic [ref=e6908]: 78%
+            - link "TMDB 7,1" [ref=e6909]:
+              - /url: https://www.themoviedb.org/movie/469
+              - generic [ref=e6910]: TMDB
+              - generic [ref=e6911]: 7,1
+            - link "IMDb 7,4" [ref=e6912]:
+              - /url: https://www.imdb.com/title/tt0088184
+              - generic [ref=e6913]: IMDb
+              - generic [ref=e6914]: 7,4
+      - generic [ref=e6915] [cursor=pointer]:
+        - img "Páni kluci" [ref=e6917]
+        - generic [ref=e6918]:
+          - heading "Páni kluci" [level=3] [ref=e6919]
+          - generic [ref=e6920]:
+            - generic [ref=e6921]: "1975"
+            - generic [ref=e6922]: ·Československo
+          - generic [ref=e6923]:
+            - link "ČSFD 85%" [ref=e6924]:
+              - /url: https://www.csfd.cz/film/7275
+              - generic [ref=e6925]: ČSFD
+              - generic [ref=e6926]: 85%
+            - link "TMDB 6,4" [ref=e6927]:
+              - /url: https://www.themoviedb.org/movie/67957
+              - generic [ref=e6928]: TMDB
+              - generic [ref=e6929]: 6,4
+            - link "IMDb 7,4" [ref=e6930]:
+              - /url: https://www.imdb.com/title/tt0138690
+              - generic [ref=e6931]: IMDb
+              - generic [ref=e6932]: 7,4
+      - generic [ref=e6933] [cursor=pointer]:
+        - img "Zaječení" [ref=e6935]
+        - generic [ref=e6936]:
+          - heading "Zaječení" [level=3] [ref=e6937]
+          - generic [ref=e6938]:
+            - generic [ref=e6939]: "2024"
+            - generic [ref=e6940]: ·Velká Británie
+          - generic [ref=e6941]:
+            - link "ČSFD 81%" [ref=e6942]:
+              - /url: https://www.csfd.cz/film/1518956
+              - generic [ref=e6943]: ČSFD
+              - generic [ref=e6944]: 81%
+            - link "TMDB 7,2" [ref=e6945]:
+              - /url: https://www.themoviedb.org/movie/1244933
+              - generic [ref=e6946]: TMDB
+              - generic [ref=e6947]: 7,2
+            - link "IMDb 7" [ref=e6948]:
+              - /url: https://www.imdb.com/title/tt31548153
+              - generic [ref=e6949]: IMDb
+              - generic [ref=e6950]: "7"
+      - generic [ref=e6951] [cursor=pointer]:
+        - img "Bugonia" [ref=e6953]
+        - generic [ref=e6954]:
+          - heading "Bugonia" [level=3] [ref=e6955]
+          - generic [ref=e6956]:
+            - generic [ref=e6957]: "2025"
+            - generic [ref=e6958]: ·Irsko, Velká Británie, Kanada, USA, Jižní Korea
+          - generic [ref=e6959]:
+            - link "ČSFD 75%" [ref=e6960]:
+              - /url: https://www.csfd.cz/film/1499806
+              - generic [ref=e6961]: ČSFD
+              - generic [ref=e6962]: 75%
+            - link "TMDB 7,4" [ref=e6963]:
+              - /url: https://www.themoviedb.org/movie/701387
+              - generic [ref=e6964]: TMDB
+              - generic [ref=e6965]: 7,4
+            - link "IMDb 7,4" [ref=e6966]:
+              - /url: https://www.imdb.com/title/tt12300742
+              - generic [ref=e6967]: IMDb
+              - generic [ref=e6968]: 7,4
+      - generic [ref=e6969] [cursor=pointer]:
+        - img "Barvy času" [ref=e6971]
+        - generic [ref=e6972]:
+          - heading "Barvy času" [level=3] [ref=e6973]
+          - generic [ref=e6974]:
+            - generic [ref=e6975]: "2025"
+            - generic [ref=e6976]: ·Francie
+          - generic [ref=e6977]:
+            - link "ČSFD 75%" [ref=e6978]:
+              - /url: https://www.csfd.cz/film/1630448
+              - generic [ref=e6979]: ČSFD
+              - generic [ref=e6980]: 75%
+            - link "TMDB 7,5" [ref=e6981]:
+              - /url: https://www.themoviedb.org/movie/1235304
+              - generic [ref=e6982]: TMDB
+              - generic [ref=e6983]: 7,5
+            - link "IMDb 7,2" [ref=e6984]:
+              - /url: https://www.imdb.com/title/tt31411349
+              - generic [ref=e6985]: IMDb
+              - generic [ref=e6986]: 7,2
+      - generic [ref=e6987] [cursor=pointer]:
+        - img "Dream Team" [ref=e6989]
+        - generic [ref=e6990]:
+          - heading "Dream Team" [level=3] [ref=e6991]
+          - generic [ref=e6992]:
+            - generic [ref=e6993]: "2025"
+            - generic [ref=e6994]: ·Česko, Slovensko
+          - generic [ref=e6995]:
+            - link "ČSFD 78%" [ref=e6996]:
+              - /url: https://www.csfd.cz/film/1675070
+              - generic [ref=e6997]: ČSFD
+              - generic [ref=e6998]: 78%
+            - link "TMDB 7" [ref=e6999]:
+              - /url: https://www.themoviedb.org/movie/1535552
+              - generic [ref=e7000]: TMDB
+              - generic [ref=e7001]: "7"
+            - link "IMDb" [ref=e7002]:
+              - /url: https://www.imdb.com/title/tt0169438
+              - generic [ref=e7003]: IMDb
+      - generic [ref=e7004] [cursor=pointer]:
+        - img "Broučci" [ref=e7006]
+        - generic [ref=e7007]:
+          - heading "Broučci" [level=3] [ref=e7008]
+          - generic [ref=e7009]:
+            - generic [ref=e7010]: (1995–2000)
+            - generic [ref=e7011]: ·Česko
+          - generic [ref=e7012]:
+            - link "ČSFD 74%" [ref=e7013]:
+              - /url: https://www.csfd.cz/film/185281
+              - generic [ref=e7014]: ČSFD
+              - generic [ref=e7015]: 74%
+            - link "IMDb" [ref=e7016]:
+              - /url: https://www.imdb.com/title/tt0939789
+              - generic [ref=e7017]: IMDb
+      - generic [ref=e7018] [cursor=pointer]:
+        - img "Drobná nehoda" [ref=e7020]
+        - generic [ref=e7021]:
+          - heading "Drobná nehoda" [level=3] [ref=e7022]
+          - generic [ref=e7023]:
+            - generic [ref=e7024]: "2025"
+            - generic [ref=e7025]: ·Írán, Francie, Lucembursko
+          - generic [ref=e7026]:
+            - link "ČSFD 76%" [ref=e7027]:
+              - /url: https://www.csfd.cz/film/1664535
+              - generic [ref=e7028]: ČSFD
+              - generic [ref=e7029]: 76%
+            - link "TMDB 7,2" [ref=e7030]:
+              - /url: https://www.themoviedb.org/movie/1456349
+              - generic [ref=e7031]: TMDB
+              - generic [ref=e7032]: 7,2
+            - link "IMDb" [ref=e7033]:
+              - /url: https://www.imdb.com/title/tt39814663
+              - generic [ref=e7034]: IMDb
+      - generic [ref=e7035] [cursor=pointer]:
+        - img "Humanity" [ref=e7037]
+        - generic [ref=e7038]:
+          - heading "Humanity" [level=3] [ref=e7039]
+          - generic [ref=e7040]:
+            - generic [ref=e7041]: "2024"
+            - generic [ref=e7042]: ·Česko
+          - generic [ref=e7043]:
+            - link "ČSFD 74%" [ref=e7044]:
+              - /url: https://www.csfd.cz/film/1492555
+              - generic [ref=e7045]: ČSFD
+              - generic [ref=e7046]: 74%
+            - link "TMDB" [ref=e7047]:
+              - /url: https://www.themoviedb.org/movie/1599957
+              - generic [ref=e7048]: TMDB
+            - link "IMDb" [ref=e7049]:
+              - /url: https://www.imdb.com/title/tt7660850
+              - generic [ref=e7050]: IMDb
+      - generic [ref=e7051] [cursor=pointer]:
+        - img "Amiřiny děti" [ref=e7053]
+        - generic [ref=e7054]:
+          - heading "Amiřiny děti" [level=3] [ref=e7055]
+          - generic [ref=e7056]:
+            - generic [ref=e7057]: "2025"
+            - generic [ref=e7058]: ·Česko
+          - generic [ref=e7059]:
+            - link "ČSFD 74%" [ref=e7060]:
+              - /url: https://www.csfd.cz/film/1741250
+              - generic [ref=e7061]: ČSFD
+              - generic [ref=e7062]: 74%
+            - link "TMDB" [ref=e7063]:
+              - /url: https://www.themoviedb.org/movie/1571214
+              - generic [ref=e7064]: TMDB
+      - generic [ref=e7065] [cursor=pointer]:
+        - img "Pátrání po Ester" [ref=e7067]
+        - generic [ref=e7068]:
+          - heading "Pátrání po Ester" [level=3] [ref=e7069]
+          - generic [ref=e7070]:
+            - generic [ref=e7071]: "2005"
+            - generic [ref=e7072]: ·Česko
+          - generic [ref=e7073]:
+            - link "ČSFD 74%" [ref=e7074]:
+              - /url: https://www.csfd.cz/film/203664
+              - generic [ref=e7075]: ČSFD
+              - generic [ref=e7076]: 74%
+            - link "TMDB" [ref=e7077]:
+              - /url: https://www.themoviedb.org/movie/513830
+              - generic [ref=e7078]: TMDB
+            - link "IMDb 7,4" [ref=e7079]:
+              - /url: https://www.imdb.com/title/tt0462711
+              - generic [ref=e7080]: IMDb
+              - generic [ref=e7081]: 7,4
+      - generic [ref=e7082] [cursor=pointer]:
+        - img "Sny" [ref=e7084]
+        - generic [ref=e7085]:
+          - heading "Sny" [level=3] [ref=e7086]
+          - generic [ref=e7087]:
+            - generic [ref=e7088]: "2024"
+            - generic [ref=e7089]: ·Norsko
+          - generic [ref=e7090]:
+            - link "ČSFD 79%" [ref=e7091]:
+              - /url: https://www.csfd.cz/film/1548187
+              - generic [ref=e7092]: ČSFD
+              - generic [ref=e7093]: 79%
+            - link "TMDB 7" [ref=e7094]:
+              - /url: https://www.themoviedb.org/movie/1228682
+              - generic [ref=e7095]: TMDB
+              - generic [ref=e7096]: "7"
+            - link "IMDb 7,3" [ref=e7097]:
+              - /url: https://www.imdb.com/title/tt30810787
+              - generic [ref=e7098]: IMDb
+              - generic [ref=e7099]: 7,3
+      - generic [ref=e7100] [cursor=pointer]:
+        - img "Hříšníci" [ref=e7102]
+        - generic [ref=e7103]:
+          - heading "Hříšníci" [level=3] [ref=e7104]
+          - generic [ref=e7105]:
+            - generic [ref=e7106]: "2025"
+            - generic [ref=e7107]: ·USA
+          - generic [ref=e7108]:
+            - link "ČSFD 72%" [ref=e7109]:
+              - /url: https://www.csfd.cz/film/1504570
+              - generic [ref=e7110]: ČSFD
+              - generic [ref=e7111]: 72%
+            - link "TMDB 7,5" [ref=e7112]:
+              - /url: https://www.themoviedb.org/movie/1233413
+              - generic [ref=e7113]: TMDB
+              - generic [ref=e7114]: 7,5
+            - link "IMDb 7,5" [ref=e7115]:
+              - /url: https://www.imdb.com/title/tt31193180
+              - generic [ref=e7116]: IMDb
+              - generic [ref=e7117]: 7,5
+      - generic [ref=e7118] [cursor=pointer]:
+        - img "Hříšný tanec" [ref=e7120]
+        - generic [ref=e7121]:
+          - heading "Hříšný tanec" [level=3] [ref=e7122]
+          - generic [ref=e7123]:
+            - generic [ref=e7124]: "1987"
+            - generic [ref=e7125]: ·USA
+          - generic [ref=e7126]:
+            - link "ČSFD 77%" [ref=e7127]:
+              - /url: https://www.csfd.cz/film/16366
+              - generic [ref=e7128]: ČSFD
+              - generic [ref=e7129]: 77%
+            - link "TMDB 7,3" [ref=e7130]:
+              - /url: https://www.themoviedb.org/movie/88
+              - generic [ref=e7131]: TMDB
+              - generic [ref=e7132]: 7,3
+            - link "IMDb 7,1" [ref=e7133]:
+              - /url: https://www.imdb.com/title/tt0092890
+              - generic [ref=e7134]: IMDb
+              - generic [ref=e7135]: 7,1
+      - generic [ref=e7136] [cursor=pointer]:
+        - img "Pohádky tisíce a jedné noci" [ref=e7138]
+        - generic [ref=e7139]:
+          - heading "Pohádky tisíce a jedné noci" [level=3] [ref=e7140]
+          - generic [ref=e7141]:
+            - generic [ref=e7142]: "1974"
+            - generic [ref=e7143]: ·Československo
+          - generic [ref=e7144]:
+            - link "ČSFD 85%" [ref=e7145]:
+              - /url: https://www.csfd.cz/film/10121
+              - generic [ref=e7146]: ČSFD
+              - generic [ref=e7147]: 85%
+            - link "TMDB 6,1" [ref=e7148]:
+              - /url: https://www.themoviedb.org/movie/46657
+              - generic [ref=e7149]: TMDB
+              - generic [ref=e7150]: 6,1
+            - link "IMDb 7,5" [ref=e7151]:
+              - /url: https://www.imdb.com/title/tt0072004
+              - generic [ref=e7152]: IMDb
+              - generic [ref=e7153]: 7,5
+      - generic [ref=e7154] [cursor=pointer]:
+        - img "Architekt" [ref=e7156]
+        - generic [ref=e7157]:
+          - heading "Architekt" [level=3] [ref=e7158]
+          - generic [ref=e7159]:
+            - generic [ref=e7160]: "2025"
+            - generic [ref=e7161]: ·Francie, Dánsko
+          - generic [ref=e7162]:
+            - link "ČSFD 78%" [ref=e7163]:
+              - /url: https://www.csfd.cz/film/1664549
+              - generic [ref=e7164]: ČSFD
+              - generic [ref=e7165]: 78%
+            - link "TMDB 7,3" [ref=e7166]:
+              - /url: https://www.themoviedb.org/movie/1290424
+              - generic [ref=e7167]: TMDB
+              - generic [ref=e7168]: 7,3
+            - link "IMDb 7" [ref=e7169]:
+              - /url: https://www.imdb.com/title/tt32398150
+              - generic [ref=e7170]: IMDb
+              - generic [ref=e7171]: "7"
+      - generic [ref=e7172] [cursor=pointer]:
+        - img "Hory Paola Cognettiho" [ref=e7174]
+        - generic [ref=e7175]:
+          - heading "Hory Paola Cognettiho" [level=3] [ref=e7176]
+          - generic [ref=e7177]:
+            - generic [ref=e7178]: "2024"
+            - generic [ref=e7179]: ·Itálie, Belgie
+          - generic [ref=e7180]:
+            - link "ČSFD 75%" [ref=e7181]:
+              - /url: https://www.csfd.cz/film/1540732
+              - generic [ref=e7182]: ČSFD
+              - generic [ref=e7183]: 75%
+            - link "TMDB 7,9" [ref=e7184]:
+              - /url: https://www.themoviedb.org/movie/1315134
+              - generic [ref=e7185]: TMDB
+              - generic [ref=e7186]: 7,9
+            - link "IMDb 6,7" [ref=e7187]:
+              - /url: https://www.imdb.com/title/tt29283637
+              - generic [ref=e7188]: IMDb
+              - generic [ref=e7189]: 6,7
+      - generic [ref=e7190] [cursor=pointer]:
+        - img "Speed Dating" [ref=e7192]
+        - generic [ref=e7193]:
+          - heading "Speed Dating" [level=3] [ref=e7194]
+          - generic [ref=e7195]:
+            - generic [ref=e7196]: "2014"
+            - generic [ref=e7197]: ·USA
+          - generic [ref=e7198]:
+            - link "ČSFD 67%" [ref=e7199]:
+              - /url: https://www.csfd.cz/film/135043
+              - generic [ref=e7200]: ČSFD
+              - generic [ref=e7201]: 67%
+            - link "TMDB 8" [ref=e7202]:
+              - /url: https://www.themoviedb.org/movie/1061534
+              - generic [ref=e7203]: TMDB
+              - generic [ref=e7204]: "8"
+            - link "IMDb" [ref=e7205]:
+              - /url: https://www.imdb.com/title/tt17319902
+              - generic [ref=e7206]: IMDb
+      - generic [ref=e7207] [cursor=pointer]:
+        - img "Zmizení Josefa Mengeleho" [ref=e7209]
+        - generic [ref=e7210]:
+          - heading "Zmizení Josefa Mengeleho" [level=3] [ref=e7211]
+          - generic [ref=e7212]:
+            - generic [ref=e7213]: "2025"
+            - generic [ref=e7214]: ·Francie, Německo, Mexiko, Velká Británie, USA
+          - generic [ref=e7215]:
+            - link "ČSFD 81%" [ref=e7216]:
+              - /url: https://www.csfd.cz/film/1664569
+              - generic [ref=e7217]: ČSFD
+              - generic [ref=e7218]: 81%
+            - link "TMDB 6,7" [ref=e7219]:
+              - /url: https://www.themoviedb.org/movie/1037264
+              - generic [ref=e7220]: TMDB
+              - generic [ref=e7221]: 6,7
+            - link "IMDb 7,2" [ref=e7222]:
+              - /url: https://www.imdb.com/title/tt22852560
+              - generic [ref=e7223]: IMDb
+              - generic [ref=e7224]: 7,2
+      - generic [ref=e7225] [cursor=pointer]:
+        - img "Riefenstahl" [ref=e7227]
+        - generic [ref=e7228]:
+          - heading "Riefenstahl" [level=3] [ref=e7229]
+          - generic [ref=e7230]:
+            - generic [ref=e7231]: "2024"
+            - generic [ref=e7232]: ·Německo
+          - generic [ref=e7233]:
+            - link "ČSFD 75%" [ref=e7234]:
+              - /url: https://www.csfd.cz/film/1543764
+              - generic [ref=e7235]: ČSFD
+              - generic [ref=e7236]: 75%
+            - link "TMDB 7,3" [ref=e7237]:
+              - /url: https://www.themoviedb.org/movie/1081077
+              - generic [ref=e7238]: TMDB
+              - generic [ref=e7239]: 7,3
+            - link "IMDb 7,2" [ref=e7240]:
+              - /url: https://www.imdb.com/title/tt32249940
+              - generic [ref=e7241]: IMDb
+              - generic [ref=e7242]: 7,2
+      - generic [ref=e7243] [cursor=pointer]:
+        - img "Electra" [ref=e7245]
+        - generic [ref=e7246]:
+          - heading "Electra" [level=3] [ref=e7247]
+          - generic [ref=e7248]:
+            - generic [ref=e7249]: "2023"
+            - generic [ref=e7250]: ·Česko, Francie, Slovensko
+          - generic [ref=e7251]:
+            - link "ČSFD 77%" [ref=e7252]:
+              - /url: https://www.csfd.cz/film/1364077
+              - generic [ref=e7253]: ČSFD
+              - generic [ref=e7254]: 77%
+            - link "TMDB 6,9" [ref=e7255]:
+              - /url: https://www.themoviedb.org/movie/1121059
+              - generic [ref=e7256]: TMDB
+              - generic [ref=e7257]: 6,9
+      - generic [ref=e7258] [cursor=pointer]:
+        - img "Pohádky po babičce" [ref=e7260]
+        - generic [ref=e7261]:
+          - heading "Pohádky po babičce" [level=3] [ref=e7262]
+          - generic [ref=e7263]:
+            - generic [ref=e7264]: "2025"
+            - generic [ref=e7265]: ·Česko, Slovensko, Slovinsko, Francie
+          - generic [ref=e7266]:
+            - link "ČSFD 73%" [ref=e7267]:
+              - /url: https://www.csfd.cz/film/713487
+              - generic [ref=e7268]: ČSFD
+              - generic [ref=e7269]: 73%
+            - link "TMDB" [ref=e7270]:
+              - /url: https://www.themoviedb.org/movie/587370
+              - generic [ref=e7271]: TMDB
+      - generic [ref=e7272] [cursor=pointer]:
+        - img "Pod nimiž řeky tečou" [ref=e7274]
+        - generic [ref=e7275]:
+          - heading "Pod nimiž řeky tečou" [level=3] [ref=e7276]
+          - generic [ref=e7277]:
+            - generic [ref=e7278]: "2025"
+            - generic [ref=e7279]: ·Irák
+          - generic [ref=e7280]:
+            - link "ČSFD" [ref=e7281]:
+              - /url: https://www.csfd.cz/film/1636739
+              - generic [ref=e7282]: ČSFD
+            - link "TMDB" [ref=e7283]:
+              - /url: https://www.themoviedb.org/movie/1405329
+              - generic [ref=e7284]: TMDB
+            - link "IMDb 7,3" [ref=e7285]:
+              - /url: https://www.imdb.com/title/tt35050803
+              - generic [ref=e7286]: IMDb
+              - generic [ref=e7287]: 7,3
+      - generic [ref=e7288] [cursor=pointer]:
+        - img "Loynes" [ref=e7290]
+        - generic [ref=e7291]:
+          - heading "Loynes" [level=3] [ref=e7292]
+          - generic [ref=e7293]:
+            - generic [ref=e7294]: "2025"
+            - generic [ref=e7295]: ·Belgie, Francie, Severní Makedonie, Velká Británie
+          - generic [ref=e7296]:
+            - link "ČSFD" [ref=e7297]:
+              - /url: https://www.csfd.cz/film/1677001
+              - generic [ref=e7298]: ČSFD
+            - link "TMDB 7" [ref=e7299]:
+              - /url: https://www.themoviedb.org/movie/1464342
+              - generic [ref=e7300]: TMDB
+              - generic [ref=e7301]: "7"
+            - link "IMDb 7,6" [ref=e7302]:
+              - /url: https://www.imdb.com/title/tt36582074
+              - generic [ref=e7303]: IMDb
+              - generic [ref=e7304]: 7,6
+      - generic [ref=e7305] [cursor=pointer]:
+        - img "Peníze" [ref=e7307]
+        - generic [ref=e7308]:
+          - heading "Peníze" [level=3] [ref=e7309]
+          - generic [ref=e7310]:
+            - generic [ref=e7311]: "1983"
+            - generic [ref=e7312]: ·Francie, Švýcarsko
+          - generic [ref=e7313]:
+            - link "ČSFD 74%" [ref=e7314]:
+              - /url: https://www.csfd.cz/film/35290
+              - generic [ref=e7315]: ČSFD
+              - generic [ref=e7316]: 74%
+            - link "TMDB 7" [ref=e7317]:
+              - /url: https://www.themoviedb.org/movie/42112
+              - generic [ref=e7318]: TMDB
+              - generic [ref=e7319]: "7"
+            - link "IMDb 7,4" [ref=e7320]:
+              - /url: https://www.imdb.com/title/tt0085180
+              - generic [ref=e7321]: IMDb
+              - generic [ref=e7322]: 7,4
+      - generic [ref=e7323] [cursor=pointer]:
+        - img "Mistr a Markétka" [ref=e7325]
+        - generic [ref=e7326]:
+          - heading "Mistr a Markétka" [level=3] [ref=e7327]
+          - generic [ref=e7328]:
+            - generic [ref=e7329]: "2023"
+            - generic [ref=e7330]: ·Rusko
+          - generic [ref=e7331]:
+            - link "ČSFD 79%" [ref=e7332]:
+              - /url: https://www.csfd.cz/film/1450809
+              - generic [ref=e7333]: ČSFD
+              - generic [ref=e7334]: 79%
+            - link "TMDB 6,8" [ref=e7335]:
+              - /url: https://www.themoviedb.org/movie/586353
+              - generic [ref=e7336]: TMDB
+              - generic [ref=e7337]: 6,8
+            - link "IMDb 7,1" [ref=e7338]:
+              - /url: https://www.imdb.com/title/tt14536120
+              - generic [ref=e7339]: IMDb
+              - generic [ref=e7340]: 7,1
+      - generic [ref=e7341] [cursor=pointer]:
+        - img "Faust" [ref=e7343]
+        - generic [ref=e7344]:
+          - heading "Faust" [level=3] [ref=e7345]
+          - generic [ref=e7346]:
+            - generic [ref=e7347]: "1926"
+            - generic [ref=e7348]: ·Německá říše
+          - generic [ref=e7349]:
+            - link "ČSFD 85%" [ref=e7350]:
+              - /url: https://www.csfd.cz/film/6851
+              - generic [ref=e7351]: ČSFD
+              - generic [ref=e7352]: 85%
+            - link "TMDB 6" [ref=e7353]:
+              - /url: https://www.themoviedb.org/movie/392732
+              - generic [ref=e7354]: TMDB
+              - generic [ref=e7355]: "6"
+            - link "IMDb" [ref=e7356]:
+              - /url: https://www.imdb.com/title/tt2087757
+              - generic [ref=e7357]: IMDb
+      - generic [ref=e7358] [cursor=pointer]:
+        - img "Věčné jaro" [ref=e7360]
+        - generic [ref=e7361]:
+          - heading "Věčné jaro" [level=3] [ref=e7362]
+          - generic [ref=e7363]:
+            - generic [ref=e7364]: "2022"
+            - generic [ref=e7365]: ·Kanada
+          - generic [ref=e7366]:
+            - link "ČSFD 68%" [ref=e7367]:
+              - /url: https://www.csfd.cz/film/1158980
+              - generic [ref=e7368]: ČSFD
+              - generic [ref=e7369]: 68%
+            - link "TMDB 7,9" [ref=e7370]:
+              - /url: https://www.themoviedb.org/movie/949000
+              - generic [ref=e7371]: TMDB
+              - generic [ref=e7372]: 7,9
+            - link "IMDb 7" [ref=e7373]:
+              - /url: https://www.imdb.com/title/tt20199286
+              - generic [ref=e7374]: IMDb
+              - generic [ref=e7375]: "7"
+      - generic [ref=e7376] [cursor=pointer]:
+        - 'img "Mikulášovy patálie: Jak to celé začalo" [ref=e7378]'
+        - generic [ref=e7379]:
+          - 'heading "Mikulášovy patálie: Jak to celé začalo" [level=3] [ref=e7380]'
+          - generic [ref=e7381]:
+            - generic [ref=e7382]: "2022"
+            - generic [ref=e7383]: ·Francie, Lucembursko
+          - generic [ref=e7384]:
+            - link "ČSFD 78%" [ref=e7385]:
+              - /url: https://www.csfd.cz/film/1184885
+              - generic [ref=e7386]: ČSFD
+              - generic [ref=e7387]: 78%
+            - link "TMDB 6,8" [ref=e7388]:
+              - /url: https://www.themoviedb.org/movie/893366
+              - generic [ref=e7389]: TMDB
+              - generic [ref=e7390]: 6,8
+            - link "IMDb 7,1" [ref=e7391]:
+              - /url: https://www.imdb.com/title/tt10290244
+              - generic [ref=e7392]: IMDb
+              - generic [ref=e7393]: 7,1
+      - generic [ref=e7394] [cursor=pointer]:
+        - img "Cesta" [ref=e7396]
+        - generic [ref=e7397]:
+          - heading "Cesta" [level=3] [ref=e7398]
+          - generic [ref=e7399]:
+            - generic [ref=e7400]: "2024"
+            - generic [ref=e7401]: ·Česko
+          - generic [ref=e7402]:
+            - link "ČSFD" [ref=e7403]:
+              - /url: https://www.csfd.cz/film/1532576
+              - generic [ref=e7404]: ČSFD
+            - link "TMDB 7,2" [ref=e7405]:
+              - /url: https://www.themoviedb.org/movie/8779
+              - generic [ref=e7406]: TMDB
+              - generic [ref=e7407]: 7,2
+      - generic [ref=e7408] [cursor=pointer]:
+        - img "Já, píseň" [ref=e7410]
+        - generic [ref=e7411]:
+          - heading "Já, píseň" [level=3] [ref=e7412]
+          - generic [ref=e7413]:
+            - generic [ref=e7414]: "2024"
+            - generic [ref=e7415]: ·Bhútán, Norsko, Itálie, Francie
+          - generic [ref=e7416]:
+            - link "ČSFD" [ref=e7417]:
+              - /url: https://www.csfd.cz/film/1595810
+              - generic [ref=e7418]: ČSFD
+            - link "TMDB" [ref=e7419]:
+              - /url: https://www.themoviedb.org/movie/1374715
+              - generic [ref=e7420]: TMDB
+            - link "IMDb 7,2" [ref=e7421]:
+              - /url: https://www.imdb.com/title/tt11243032
+              - generic [ref=e7422]: IMDb
+              - generic [ref=e7423]: 7,2
+      - generic [ref=e7424] [cursor=pointer]:
+        - img "Samba Infinito" [ref=e7426]
+        - generic [ref=e7427]:
+          - heading "Samba Infinito" [level=3] [ref=e7428]
+          - generic [ref=e7429]:
+            - generic [ref=e7430]: "2025"
+            - generic [ref=e7431]: ·Brazílie, Francie
+          - generic [ref=e7432]:
+            - link "ČSFD" [ref=e7433]:
+              - /url: https://www.csfd.cz/film/1677394
+              - generic [ref=e7434]: ČSFD
+            - link "TMDB 7" [ref=e7435]:
+              - /url: https://www.themoviedb.org/movie/1461116
+              - generic [ref=e7436]: TMDB
+              - generic [ref=e7437]: "7"
+            - link "IMDb 7,4" [ref=e7438]:
+              - /url: https://www.imdb.com/title/tt36844384
+              - generic [ref=e7439]: IMDb
+              - generic [ref=e7440]: 7,4
+      - generic [ref=e7441] [cursor=pointer]:
+        - img "Lepší člověk" [ref=e7443]
+        - generic [ref=e7444]:
+          - heading "Lepší člověk" [level=3] [ref=e7445]
+          - generic [ref=e7446]:
+            - generic [ref=e7447]: "2025"
+            - generic [ref=e7448]: ·Česko
+          - generic [ref=e7449]:
+            - link "ČSFD 72%" [ref=e7450]:
+              - /url: https://www.csfd.cz/film/1676690
+              - generic [ref=e7451]: ČSFD
+              - generic [ref=e7452]: 72%
+            - link "TMDB" [ref=e7453]:
+              - /url: https://www.themoviedb.org/movie/1451392
+              - generic [ref=e7454]: TMDB
+            - link "IMDb" [ref=e7455]:
+              - /url: https://www.imdb.com/title/tt2381048
+              - generic [ref=e7456]: IMDb
+      - generic [ref=e7457] [cursor=pointer]:
+        - img "Nevinní čarodějové" [ref=e7459]
+        - generic [ref=e7460]:
+          - heading "Nevinní čarodějové" [level=3] [ref=e7461]
+          - generic [ref=e7462]:
+            - generic [ref=e7463]: "1960"
+            - generic [ref=e7464]: ·Polsko
+          - generic [ref=e7465]:
+            - link "ČSFD 73%" [ref=e7466]:
+              - /url: https://www.csfd.cz/film/32259
+              - generic [ref=e7467]: ČSFD
+              - generic [ref=e7468]: 73%
+            - link "TMDB 7" [ref=e7469]:
+              - /url: https://www.themoviedb.org/movie/80324
+              - generic [ref=e7470]: TMDB
+              - generic [ref=e7471]: "7"
+            - link "IMDb 7,3" [ref=e7472]:
+              - /url: https://www.imdb.com/title/tt0054119
+              - generic [ref=e7473]: IMDb
+              - generic [ref=e7474]: 7,3
+      - generic [ref=e7475] [cursor=pointer]:
+        - img "SOS" [ref=e7477]
+        - generic [ref=e7478]:
+          - heading "SOS" [level=3] [ref=e7479]
+          - generic [ref=e7480]:
+            - generic [ref=e7481]: "2026"
+            - generic [ref=e7482]: ·USA
+          - generic [ref=e7483]:
+            - link "ČSFD 73%" [ref=e7484]:
+              - /url: https://www.csfd.cz/film/1579476
+              - generic [ref=e7485]: ČSFD
+              - generic [ref=e7486]: 73%
+            - link "TMDB 7" [ref=e7487]:
+              - /url: https://www.themoviedb.org/movie/1198994
+              - generic [ref=e7488]: TMDB
+              - generic [ref=e7489]: "7"
+            - link "IMDb 7,2" [ref=e7490]:
+              - /url: https://www.imdb.com/title/tt8036976
+              - generic [ref=e7491]: IMDb
+              - generic [ref=e7492]: 7,2
+      - generic [ref=e7493] [cursor=pointer]:
+        - img "Kafe a cigára" [ref=e7495]
+        - generic [ref=e7496]:
+          - heading "Kafe a cigára" [level=3] [ref=e7497]
+          - generic [ref=e7498]:
+            - generic [ref=e7499]: "2003"
+            - generic [ref=e7500]: ·USA
+          - generic [ref=e7501]:
+            - link "ČSFD 76%" [ref=e7502]:
+              - /url: https://www.csfd.cz/film/162853
+              - generic [ref=e7503]: ČSFD
+              - generic [ref=e7504]: 76%
+            - link "TMDB 6,9" [ref=e7505]:
+              - /url: https://www.themoviedb.org/movie/883
+              - generic [ref=e7506]: TMDB
+              - generic [ref=e7507]: 6,9
+            - link "IMDb 7" [ref=e7508]:
+              - /url: https://www.imdb.com/title/tt0379217
+              - generic [ref=e7509]: IMDb
+              - generic [ref=e7510]: "7"
+      - generic [ref=e7511] [cursor=pointer]:
+        - img "Hurikán" [ref=e7513]
+        - generic [ref=e7514]:
+          - heading "Hurikán" [level=3] [ref=e7515]
+          - generic [ref=e7516]:
+            - generic [ref=e7517]: "2024"
+            - generic [ref=e7518]: ·Česko, Francie, Slovensko, Bosna a Hercegovina
+          - generic [ref=e7519]:
+            - link "ČSFD 86%" [ref=e7520]:
+              - /url: https://www.csfd.cz/film/1530042
+              - generic [ref=e7521]: ČSFD
+              - generic [ref=e7522]: 86%
+            - link "TMDB 6" [ref=e7523]:
+              - /url: https://www.themoviedb.org/movie/1282837
+              - generic [ref=e7524]: TMDB
+              - generic [ref=e7525]: "6"
+            - link "IMDb 6,9" [ref=e7526]:
+              - /url: https://www.imdb.com/title/tt32559910
+              - generic [ref=e7527]: IMDb
+              - generic [ref=e7528]: 6,9
+      - generic [ref=e7529] [cursor=pointer]:
+        - img "Mrchožrouti" [ref=e7531]
+        - generic [ref=e7532]:
+          - heading "Mrchožrouti" [level=3] [ref=e7533]
+          - generic [ref=e7534]:
+            - generic [ref=e7535]: "2025"
+            - generic [ref=e7536]: ·Francie, Jihoafrická republika
+          - generic [ref=e7537]:
+            - link "ČSFD" [ref=e7538]:
+              - /url: https://www.csfd.cz/film/1676355
+              - generic [ref=e7539]: ČSFD
+            - link "TMDB 7" [ref=e7540]:
+              - /url: https://www.themoviedb.org/movie/1469188
+              - generic [ref=e7541]: TMDB
+              - generic [ref=e7542]: "7"
+            - link "IMDb 7,3" [ref=e7543]:
+              - /url: https://www.imdb.com/title/tt36678607
+              - generic [ref=e7544]: IMDb
+              - generic [ref=e7545]: 7,3
+      - generic [ref=e7546] [cursor=pointer]:
+        - img "Válka světů - příští století" [ref=e7548]
+        - generic [ref=e7549]:
+          - heading "Válka světů - příští století" [level=3] [ref=e7550]
+          - generic [ref=e7551]:
+            - generic [ref=e7552]: "1981"
+            - generic [ref=e7553]: ·Polsko
+          - generic [ref=e7554]:
+            - link "ČSFD 75%" [ref=e7555]:
+              - /url: https://www.csfd.cz/film/40731
+              - generic [ref=e7556]: ČSFD
+              - generic [ref=e7557]: 75%
+            - link "TMDB 6,8" [ref=e7558]:
+              - /url: https://www.themoviedb.org/movie/185354
+              - generic [ref=e7559]: TMDB
+              - generic [ref=e7560]: 6,8
+      - generic [ref=e7561] [cursor=pointer]:
+        - img "Valerie a týden divů" [ref=e7563]
+        - generic [ref=e7564]:
+          - heading "Valerie a týden divů" [level=3] [ref=e7565]
+          - generic [ref=e7566]:
+            - generic [ref=e7567]: "1970"
+            - generic [ref=e7568]: ·Československo
+          - generic [ref=e7569]:
+            - link "ČSFD 74%" [ref=e7570]:
+              - /url: https://www.csfd.cz/film/4853
+              - generic [ref=e7571]: ČSFD
+              - generic [ref=e7572]: 74%
+            - link "TMDB 7" [ref=e7573]:
+              - /url: https://www.themoviedb.org/movie/46315
+              - generic [ref=e7574]: TMDB
+              - generic [ref=e7575]: "7"
+            - link "IMDb 7" [ref=e7576]:
+              - /url: https://www.imdb.com/title/tt0066516
+              - generic [ref=e7577]: IMDb
+              - generic [ref=e7578]: "7"
+      - generic [ref=e7579] [cursor=pointer]:
+        - img "Příběh rytíře" [ref=e7581]
+        - generic [ref=e7582]:
+          - heading "Příběh rytíře" [level=3] [ref=e7583]
+          - generic [ref=e7584]:
+            - generic [ref=e7585]: "2001"
+            - generic [ref=e7586]: ·USA
+          - generic [ref=e7587]:
+            - link "ČSFD 75%" [ref=e7588]:
+              - /url: https://www.csfd.cz/film/24164
+              - generic [ref=e7589]: ČSFD
+              - generic [ref=e7590]: 75%
+            - link "TMDB 6,9" [ref=e7591]:
+              - /url: https://www.themoviedb.org/movie/9476
+              - generic [ref=e7592]: TMDB
+              - generic [ref=e7593]: 6,9
+            - link "IMDb 7" [ref=e7594]:
+              - /url: https://www.imdb.com/title/tt0183790
+              - generic [ref=e7595]: IMDb
+              - generic [ref=e7596]: "7"
+      - generic [ref=e7597] [cursor=pointer]:
+        - img "Den nezávislosti" [ref=e7599]
+        - generic [ref=e7600]:
+          - heading "Den nezávislosti" [level=3] [ref=e7601]
+          - generic [ref=e7602]:
+            - generic [ref=e7603]: "1996"
+            - generic [ref=e7604]: ·USA
+          - generic [ref=e7605]:
+            - link "ČSFD 75%" [ref=e7606]:
+              - /url: https://www.csfd.cz/film/2572
+              - generic [ref=e7607]: ČSFD
+              - generic [ref=e7608]: 75%
+            - link "TMDB 6,9" [ref=e7609]:
+              - /url: https://www.themoviedb.org/movie/602
+              - generic [ref=e7610]: TMDB
+              - generic [ref=e7611]: 6,9
+            - link "IMDb 7" [ref=e7612]:
+              - /url: https://www.imdb.com/title/tt0116629
+              - generic [ref=e7613]: IMDb
+              - generic [ref=e7614]: "7"
+      - generic [ref=e7615] [cursor=pointer]:
+        - img "Ošklivá sestra" [ref=e7617]
+        - generic [ref=e7618]:
+          - heading "Ošklivá sestra" [level=3] [ref=e7619]
+          - generic [ref=e7620]:
+            - generic [ref=e7621]: "2025"
+            - generic [ref=e7622]: ·Norsko, Polsko, Švédsko, Dánsko
+          - generic [ref=e7623]:
+            - link "ČSFD 70%" [ref=e7624]:
+              - /url: https://www.csfd.cz/film/1584404
+              - generic [ref=e7625]: ČSFD
+              - generic [ref=e7626]: 70%
+            - link "TMDB 7,3" [ref=e7627]:
+              - /url: https://www.themoviedb.org/movie/1284120
+              - generic [ref=e7628]: TMDB
+              - generic [ref=e7629]: 7,3
+            - link "IMDb 7" [ref=e7630]:
+              - /url: https://www.imdb.com/title/tt29344903
+              - generic [ref=e7631]: IMDb
+              - generic [ref=e7632]: "7"
+      - generic [ref=e7633] [cursor=pointer]:
+        - img "Velký vlastenecký výlet" [ref=e7635]
+        - generic [ref=e7636]:
+          - heading "Velký vlastenecký výlet" [level=3] [ref=e7637]
+          - generic [ref=e7638]:
+            - generic [ref=e7639]: "2025"
+            - generic [ref=e7640]: ·Česko, Slovensko, Ukrajina
+          - generic [ref=e7641]:
+            - link "ČSFD 73%" [ref=e7642]:
+              - /url: https://www.csfd.cz/film/1703386
+              - generic [ref=e7643]: ČSFD
+              - generic [ref=e7644]: 73%
+            - link "TMDB 6,4" [ref=e7645]:
+              - /url: https://www.themoviedb.org/movie/1517176
+              - generic [ref=e7646]: TMDB
+              - generic [ref=e7647]: 6,4
+            - link "IMDb 7,6" [ref=e7648]:
+              - /url: https://www.imdb.com/title/tt37998031
+              - generic [ref=e7649]: IMDb
+              - generic [ref=e7650]: 7,6
+      - generic [ref=e7651] [cursor=pointer]:
+        - img "Iron Lung" [ref=e7653]
+        - generic [ref=e7654]:
+          - heading "Iron Lung" [level=3] [ref=e7655]
+          - generic [ref=e7656]:
+            - generic [ref=e7657]: "2026"
+            - generic [ref=e7658]: ·USA
+          - generic [ref=e7659]:
+            - link "ČSFD 74%" [ref=e7660]:
+              - /url: https://www.csfd.cz/film/1433157
+              - generic [ref=e7661]: ČSFD
+              - generic [ref=e7662]: 74%
+            - link "TMDB 7,4" [ref=e7663]:
+              - /url: https://www.themoviedb.org/movie/1116201
+              - generic [ref=e7664]: TMDB
+              - generic [ref=e7665]: 7,4
+            - link "IMDb 6,5" [ref=e7666]:
+              - /url: https://www.imdb.com/title/tt27564844
+              - generic [ref=e7667]: IMDb
+              - generic [ref=e7668]: 6,5
+      - generic [ref=e7669] [cursor=pointer]:
+        - img "Divia" [ref=e7671]
+        - generic [ref=e7672]:
+          - heading "Divia" [level=3] [ref=e7673]
+          - generic [ref=e7674]:
+            - generic [ref=e7675]: "2025"
+            - generic [ref=e7676]: ·Polsko, Ukrajina, Nizozemsko
+          - generic [ref=e7677]:
+            - link "ČSFD 59%" [ref=e7678]:
+              - /url: https://www.csfd.cz/film/1569266
+              - generic [ref=e7679]: ČSFD
+              - generic [ref=e7680]: 59%
+            - link "TMDB" [ref=e7681]:
+              - /url: https://www.themoviedb.org/movie/1137201
+              - generic [ref=e7682]: TMDB
+            - link "IMDb 8,3" [ref=e7683]:
+              - /url: https://www.imdb.com/title/tt32186584
+              - generic [ref=e7684]: IMDb
+              - generic [ref=e7685]: 8,3
+      - generic [ref=e7686] [cursor=pointer]:
+        - img "Lizzie" [ref=e7688]
+        - generic [ref=e7689]:
+          - heading "Lizzie" [level=3] [ref=e7690]
+          - generic [ref=e7691]:
+            - generic [ref=e7692]: "1957"
+            - generic [ref=e7693]: ·USA
+          - generic [ref=e7694]:
+            - link "ČSFD 73%" [ref=e7695]:
+              - /url: https://www.csfd.cz/film/4047
+              - generic [ref=e7696]: ČSFD
+              - generic [ref=e7697]: 73%
+            - link "TMDB 6,9" [ref=e7698]:
+              - /url: https://www.themoviedb.org/movie/116780
+              - generic [ref=e7699]: TMDB
+              - generic [ref=e7700]: 6,9
+      - generic [ref=e7701] [cursor=pointer]:
+        - img "Dovolíme si nesouhlasit" [ref=e7703]
+        - generic [ref=e7704]:
+          - heading "Dovolíme si nesouhlasit" [level=3] [ref=e7705]
+          - generic [ref=e7706]:
+            - generic [ref=e7707]: "2024"
+            - generic [ref=e7708]: ·Irsko, Velká Británie
+          - generic [ref=e7709]:
+            - link "ČSFD 60%" [ref=e7710]:
+              - /url: https://www.csfd.cz/film/1637836
+              - generic [ref=e7711]: ČSFD
+              - generic [ref=e7712]: 60%
+            - link "TMDB" [ref=e7713]:
+              - /url: https://www.themoviedb.org/movie/1313611
+              - generic [ref=e7714]: TMDB
+            - link "IMDb 8,2" [ref=e7715]:
+              - /url: https://www.imdb.com/title/tt32851976
+              - generic [ref=e7716]: IMDb
+              - generic [ref=e7717]: 8,2
+      - generic [ref=e7718] [cursor=pointer]:
+        - img "Pomocnice" [ref=e7720]
+        - generic [ref=e7721]:
+          - heading "Pomocnice" [level=3] [ref=e7722]
+          - generic [ref=e7723]:
+            - generic [ref=e7724]: "2025"
+            - generic [ref=e7725]: ·USA
+          - generic [ref=e7726]:
+            - link "ČSFD 73%" [ref=e7727]:
+              - /url: https://www.csfd.cz/film/1615728
+              - generic [ref=e7728]: ČSFD
+              - generic [ref=e7729]: 73%
+            - link "TMDB 7,2" [ref=e7730]:
+              - /url: https://www.themoviedb.org/movie/1368166
+              - generic [ref=e7731]: TMDB
+              - generic [ref=e7732]: 7,2
+            - link "IMDb 6,8" [ref=e7733]:
+              - /url: https://www.imdb.com/title/tt27543632
+              - generic [ref=e7734]: IMDb
+              - generic [ref=e7735]: 6,8
+      - generic [ref=e7736] [cursor=pointer]:
+        - img "Sirat" [ref=e7738]
+        - generic [ref=e7739]:
+          - heading "Sirat" [level=3] [ref=e7740]
+          - generic [ref=e7741]:
+            - generic [ref=e7742]: "2025"
+            - generic [ref=e7743]: ·Španělsko, Francie
+          - generic [ref=e7744]:
+            - link "ČSFD 75%" [ref=e7745]:
+              - /url: https://www.csfd.cz/film/1664445
+              - generic [ref=e7746]: ČSFD
+              - generic [ref=e7747]: 75%
+            - link "TMDB 6,8" [ref=e7748]:
+              - /url: https://www.themoviedb.org/movie/1151272
+              - generic [ref=e7749]: TMDB
+              - generic [ref=e7750]: 6,8
+            - link "IMDb 7" [ref=e7751]:
+              - /url: https://www.imdb.com/title/tt32298285
+              - generic [ref=e7752]: IMDb
+              - generic [ref=e7753]: "7"
+      - generic [ref=e7754] [cursor=pointer]:
+        - img "Dcera" [ref=e7756]
+        - generic [ref=e7757]:
+          - heading "Dcera" [level=3] [ref=e7758]
+          - generic [ref=e7759]:
+            - generic [ref=e7760]: "2019"
+            - generic [ref=e7761]: ·Česko
+          - generic [ref=e7762]:
+            - link "ČSFD 85%" [ref=e7763]:
+              - /url: https://www.csfd.cz/film/737777
+              - generic [ref=e7764]: ČSFD
+              - generic [ref=e7765]: 85%
+            - link "TMDB 6,2" [ref=e7766]:
+              - /url: https://www.themoviedb.org/movie/613221
+              - generic [ref=e7767]: TMDB
+              - generic [ref=e7768]: 6,2
+            - link "IMDb 6,5" [ref=e7769]:
+              - /url: https://www.imdb.com/title/tt10923134
+              - generic [ref=e7770]: IMDb
+              - generic [ref=e7771]: 6,5
+      - generic [ref=e7772] [cursor=pointer]:
+        - img "Ne, nechci tančit!" [ref=e7774]
+        - generic [ref=e7775]:
+          - heading "Ne, nechci tančit!" [level=3] [ref=e7776]
+          - generic [ref=e7777]:
+            - generic [ref=e7778]: "2019"
+            - generic [ref=e7779]: ·Velká Británie
+          - generic [ref=e7780]:
+            - link "ČSFD 91%" [ref=e7781]:
+              - /url: https://www.csfd.cz/film/810467
+              - generic [ref=e7782]: ČSFD
+              - generic [ref=e7783]: 91%
+            - link "TMDB 5,3" [ref=e7784]:
+              - /url: https://www.themoviedb.org/movie/656325
+              - generic [ref=e7785]: TMDB
+              - generic [ref=e7786]: 5,3
+            - link "IMDb 6,8" [ref=e7787]:
+              - /url: https://www.imdb.com/title/tt11624490
+              - generic [ref=e7788]: IMDb
+              - generic [ref=e7789]: 6,8
+      - generic [ref=e7790] [cursor=pointer]:
+        - img "Christy" [ref=e7792]
+        - generic [ref=e7793]:
+          - heading "Christy" [level=3] [ref=e7794]
+          - generic [ref=e7795]:
+            - generic [ref=e7796]: "2025"
+            - generic [ref=e7797]: ·USA
+          - generic [ref=e7798]:
+            - link "ČSFD 74%" [ref=e7799]:
+              - /url: https://www.csfd.cz/film/1582463
+              - generic [ref=e7800]: ČSFD
+              - generic [ref=e7801]: 74%
+            - link "TMDB 7,4" [ref=e7802]:
+              - /url: https://www.themoviedb.org/movie/1287322
+              - generic [ref=e7803]: TMDB
+              - generic [ref=e7804]: 7,4
+            - link "IMDb 6,4" [ref=e7805]:
+              - /url: https://www.imdb.com/title/tt32323252
+              - generic [ref=e7806]: IMDb
+              - generic [ref=e7807]: 6,4
+      - generic [ref=e7808] [cursor=pointer]:
+        - img "Bratři Anderssonovi" [ref=e7810]
+        - generic [ref=e7811]:
+          - heading "Bratři Anderssonovi" [level=3] [ref=e7812]
+          - generic [ref=e7813]:
+            - generic [ref=e7814]: "2024"
+            - generic [ref=e7815]: ·Švédsko, Finsko
+          - generic [ref=e7816]:
+            - link "ČSFD 73%" [ref=e7817]:
+              - /url: https://www.csfd.cz/film/1492987
+              - generic [ref=e7818]: ČSFD
+              - generic [ref=e7819]: 73%
+            - link "TMDB 6,7" [ref=e7820]:
+              - /url: https://www.themoviedb.org/movie/1231233
+              - generic [ref=e7821]: TMDB
+              - generic [ref=e7822]: 6,7
+            - link "IMDb 7,2" [ref=e7823]:
+              - /url: https://www.imdb.com/title/tt31076385
+              - generic [ref=e7824]: IMDb
+              - generic [ref=e7825]: 7,2
+      - generic [ref=e7826] [cursor=pointer]:
+        - img "Rodinná neděle" [ref=e7828]
+        - generic [ref=e7829]:
+          - heading "Rodinná neděle" [level=3] [ref=e7830]
+          - generic [ref=e7831]:
+            - generic [ref=e7832]: "2025"
+            - generic [ref=e7833]: ·Mexiko
+          - generic [ref=e7834]:
+            - link "ČSFD" [ref=e7835]:
+              - /url: https://www.csfd.cz/film/1637846
+              - generic [ref=e7836]: ČSFD
+            - link "TMDB 7" [ref=e7837]:
+              - /url: https://www.themoviedb.org/movie/1339778
+              - generic [ref=e7838]: TMDB
+              - generic [ref=e7839]: "7"
+            - link "IMDb 7,1" [ref=e7840]:
+              - /url: https://www.imdb.com/title/tt33333856
+              - generic [ref=e7841]: IMDb
+              - generic [ref=e7842]: 7,1
+      - generic [ref=e7843] [cursor=pointer]:
+        - img "Zakletý v čase" [ref=e7845]
+        - generic [ref=e7846]:
+          - heading "Zakletý v čase" [level=3] [ref=e7847]
+          - generic [ref=e7848]:
+            - generic [ref=e7849]: "2009"
+            - generic [ref=e7850]: ·USA
+          - generic [ref=e7851]:
+            - link "ČSFD 71%" [ref=e7852]:
+              - /url: https://www.csfd.cz/film/243151
+              - generic [ref=e7853]: ČSFD
+              - generic [ref=e7854]: 71%
+            - link "TMDB 6,9" [ref=e7855]:
+              - /url: https://www.themoviedb.org/movie/24420
+              - generic [ref=e7856]: TMDB
+              - generic [ref=e7857]: 6,9
+            - link "IMDb 7,1" [ref=e7858]:
+              - /url: https://www.imdb.com/title/tt0452694
+              - generic [ref=e7859]: IMDb
+              - generic [ref=e7860]: 7,1
+      - generic [ref=e7861] [cursor=pointer]:
+        - img "Modrou stezkou" [ref=e7863]
+        - generic [ref=e7864]:
+          - heading "Modrou stezkou" [level=3] [ref=e7865]
+          - generic [ref=e7866]:
+            - generic [ref=e7867]: "2025"
+            - generic [ref=e7868]: ·Brazílie, Mexiko, Nizozemsko, Chile
+          - generic [ref=e7869]:
+            - link "ČSFD 69%" [ref=e7870]:
+              - /url: https://www.csfd.cz/film/1625310
+              - generic [ref=e7871]: ČSFD
+              - generic [ref=e7872]: 69%
+            - link "TMDB 7,1" [ref=e7873]:
+              - /url: https://www.themoviedb.org/movie/1172265
+              - generic [ref=e7874]: TMDB
+              - generic [ref=e7875]: 7,1
+            - link "IMDb 7,1" [ref=e7876]:
+              - /url: https://www.imdb.com/title/tt35340614
+              - generic [ref=e7877]: IMDb
+              - generic [ref=e7878]: 7,1
+      - generic [ref=e7879] [cursor=pointer]:
+        - img "Navždy s tebou?" [ref=e7881]
+        - generic [ref=e7882]:
+          - heading "Navždy s tebou?" [level=3] [ref=e7883]
+          - generic [ref=e7884]:
+            - generic [ref=e7885]: "2025"
+            - generic [ref=e7886]: ·USA
+          - generic [ref=e7887]:
+            - link "ČSFD 72%" [ref=e7888]:
+              - /url: https://www.csfd.cz/film/1711056
+              - generic [ref=e7889]: ČSFD
+              - generic [ref=e7890]: 72%
+            - link "TMDB 7" [ref=e7891]:
+              - /url: https://www.themoviedb.org/movie/1259102
+              - generic [ref=e7892]: TMDB
+              - generic [ref=e7893]: "7"
+            - link "IMDb 6,9" [ref=e7894]:
+              - /url: https://www.imdb.com/title/tt24950660
+              - generic [ref=e7895]: IMDb
+              - generic [ref=e7896]: 6,9
+      - generic [ref=e7897] [cursor=pointer]:
+        - img "Hunger Games" [ref=e7899]
+        - generic [ref=e7900]:
+          - heading "Hunger Games" [level=3] [ref=e7901]
+          - generic [ref=e7902]:
+            - generic [ref=e7903]: "2012"
+            - generic [ref=e7904]: ·USA
+          - generic [ref=e7905]:
+            - link "ČSFD 67%" [ref=e7906]:
+              - /url: https://www.csfd.cz/film/291670
+              - generic [ref=e7907]: ČSFD
+              - generic [ref=e7908]: 67%
+            - link "TMDB 7,2" [ref=e7909]:
+              - /url: https://www.themoviedb.org/movie/70160
+              - generic [ref=e7910]: TMDB
+              - generic [ref=e7911]: 7,2
+            - link "IMDb 7,2" [ref=e7912]:
+              - /url: https://www.imdb.com/title/tt1392170
+              - generic [ref=e7913]: IMDb
+              - generic [ref=e7914]: 7,2
+      - generic [ref=e7915] [cursor=pointer]:
+        - img "Čtyři matky" [ref=e7917]
+        - generic [ref=e7918]:
+          - heading "Čtyři matky" [level=3] [ref=e7919]
+          - generic [ref=e7920]:
+            - generic [ref=e7921]: "2024"
+            - generic [ref=e7922]: ·Irsko
+          - generic [ref=e7923]:
+            - link "ČSFD 76%" [ref=e7924]:
+              - /url: https://www.csfd.cz/film/1565316
+              - generic [ref=e7925]: ČSFD
+              - generic [ref=e7926]: 76%
+            - link "TMDB 6,8" [ref=e7927]:
+              - /url: https://www.themoviedb.org/movie/1081196
+              - generic [ref=e7928]: TMDB
+              - generic [ref=e7929]: 6,8
+            - link "IMDb 6,7" [ref=e7930]:
+              - /url: https://www.imdb.com/title/tt19391518
+              - generic [ref=e7931]: IMDb
+              - generic [ref=e7932]: 6,7
+      - generic [ref=e7933] [cursor=pointer]:
+        - img "Bouřlivé výšiny" [ref=e7935]
+        - generic [ref=e7936]:
+          - heading "Bouřlivé výšiny" [level=3] [ref=e7937]
+          - generic [ref=e7938]:
+            - generic [ref=e7939]: "2026"
+            - generic [ref=e7940]: ·USA
+          - generic [ref=e7941]:
+            - link "ČSFD 72%" [ref=e7942]:
+              - /url: https://www.csfd.cz/film/1596124
+              - generic [ref=e7943]: ČSFD
+              - generic [ref=e7944]: 72%
+            - link "TMDB 7,5" [ref=e7945]:
+              - /url: https://www.themoviedb.org/movie/1316092
+              - generic [ref=e7946]: TMDB
+              - generic [ref=e7947]: 7,5
+            - link "IMDb 6,3" [ref=e7948]:
+              - /url: https://www.imdb.com/title/tt32897959
+              - generic [ref=e7949]: IMDb
+              - generic [ref=e7950]: 6,3
+      - generic [ref=e7951] [cursor=pointer]:
+        - img "V úkrytu" [ref=e7953]
+        - generic [ref=e7954]:
+          - heading "V úkrytu" [level=3] [ref=e7955]
+          - generic [ref=e7956]:
+            - generic [ref=e7957]: "2026"
+            - generic [ref=e7958]: ·USA, Velká Británie
+          - generic [ref=e7959]:
+            - link "ČSFD 69%" [ref=e7960]:
+              - /url: https://www.csfd.cz/film/1692040
+              - generic [ref=e7961]: ČSFD
+              - generic [ref=e7962]: 69%
+            - link "TMDB 7,6" [ref=e7963]:
+              - /url: https://www.themoviedb.org/movie/1290821
+              - generic [ref=e7964]: TMDB
+              - generic [ref=e7965]: 7,6
+            - link "IMDb 6,5" [ref=e7966]:
+              - /url: https://www.imdb.com/title/tt32357218
+              - generic [ref=e7967]: IMDb
+              - generic [ref=e7968]: 6,5
+      - generic [ref=e7969] [cursor=pointer]:
+        - img "Důl" [ref=e7971]
+        - generic [ref=e7972]:
+          - heading "Důl" [level=3] [ref=e7973]
+          - generic [ref=e7974]:
+            - generic [ref=e7975]: "2025"
+            - generic [ref=e7976]: ·Maroko, Francie, Itálie, Katar
+          - generic [ref=e7977]:
+            - link "ČSFD 70%" [ref=e7978]:
+              - /url: https://www.csfd.cz/film/1677388
+              - generic [ref=e7979]: ČSFD
+              - generic [ref=e7980]: 70%
+            - link "TMDB" [ref=e7981]:
+              - /url: https://www.themoviedb.org/movie/1470482
+              - generic [ref=e7982]: TMDB
+            - link "IMDb" [ref=e7983]:
+              - /url: https://www.imdb.com/title/tt28493053
+              - generic [ref=e7984]: IMDb
+      - generic [ref=e7985] [cursor=pointer]:
+        - img "Co když kamínky dojdou?" [ref=e7987]
+        - generic [ref=e7988]:
+          - heading "Co když kamínky dojdou?" [level=3] [ref=e7989]
+          - generic [ref=e7990]:
+            - generic [ref=e7991]: "2025"
+            - generic [ref=e7992]: ·Česko
+          - generic [ref=e7993]:
+            - link "ČSFD 70%" [ref=e7994]:
+              - /url: https://www.csfd.cz/film/1651530
+              - generic [ref=e7995]: ČSFD
+              - generic [ref=e7996]: 70%
+            - link "TMDB" [ref=e7997]:
+              - /url: https://www.themoviedb.org/movie/1452129
+              - generic [ref=e7998]: TMDB
+      - generic [ref=e7999] [cursor=pointer]:
+        - img "Green Grey Black Brown" [ref=e8001]
+        - generic [ref=e8002]:
+          - heading "Green Grey Black Brown" [level=3] [ref=e8003]
+          - generic [ref=e8004]:
+            - generic [ref=e8005]: "2025"
+            - generic [ref=e8006]: ·Jižní Korea, Francie, Čína
+          - generic [ref=e8007]:
+            - link "ČSFD" [ref=e8008]:
+              - /url: https://www.csfd.cz/film/1674228
+              - generic [ref=e8009]: ČSFD
+            - link "TMDB" [ref=e8010]:
+              - /url: https://www.themoviedb.org/movie/1361186
+              - generic [ref=e8011]: TMDB
+            - link "IMDb 7" [ref=e8012]:
+              - /url: https://www.imdb.com/title/tt35932600
+              - generic [ref=e8013]: IMDb
+              - generic [ref=e8014]: "7"
+      - generic [ref=e8015] [cursor=pointer]:
+        - img "Ploo" [ref=e8017]
+        - generic [ref=e8018]:
+          - heading "Ploo" [level=3] [ref=e8019]
+          - generic [ref=e8020]:
+            - generic [ref=e8021]: "2025"
+            - generic [ref=e8022]: ·Německo
+          - generic [ref=e8023]:
+            - link "ČSFD" [ref=e8024]:
+              - /url: https://www.csfd.cz/film/1812781
+              - generic [ref=e8025]: ČSFD
+            - link "TMDB 7" [ref=e8026]:
+              - /url: https://www.themoviedb.org/movie/1559697
+              - generic [ref=e8027]: TMDB
+              - generic [ref=e8028]: "7"
+            - link "IMDb" [ref=e8029]:
+              - /url: https://www.imdb.com/title/tt38935652
+              - generic [ref=e8030]: IMDb
+      - generic [ref=e8031] [cursor=pointer]:
+        - img "Sen o Létě" [ref=e8033]
+        - generic [ref=e8034]:
+          - heading "Sen o Létě" [level=3] [ref=e8035]
+          - generic [ref=e8036]:
+            - generic [ref=e8037]: "2025"
+            - generic [ref=e8038]: ·Česko
+          - generic [ref=e8039]:
+            - link "ČSFD 70%" [ref=e8040]:
+              - /url: https://www.csfd.cz/film/1683382
+              - generic [ref=e8041]: ČSFD
+              - generic [ref=e8042]: 70%
+            - link "TMDB" [ref=e8043]:
+              - /url: https://www.themoviedb.org/movie/1485544
+              - generic [ref=e8044]: TMDB
+            - link "IMDb" [ref=e8045]:
+              - /url: https://www.imdb.com/title/tt35887011
+              - generic [ref=e8046]: IMDb
+      - generic [ref=e8047] [cursor=pointer]:
+        - img "Rozložitelný Sammi" [ref=e8049]
+        - generic [ref=e8050]:
+          - heading "Rozložitelný Sammi" [level=3] [ref=e8051]
+          - generic [ref=e8052]:
+            - generic [ref=e8053]: "2025"
+            - generic [ref=e8054]: ·Indonésie
+          - generic [ref=e8055]:
+            - link "ČSFD" [ref=e8056]:
+              - /url: https://www.csfd.cz/film/1636394
+              - generic [ref=e8057]: ČSFD
+            - link "TMDB" [ref=e8058]:
+              - /url: https://www.themoviedb.org/movie/1416925
+              - generic [ref=e8059]: TMDB
+            - link "IMDb 7" [ref=e8060]:
+              - /url: https://www.imdb.com/title/tt35407591
+              - generic [ref=e8061]: IMDb
+              - generic [ref=e8062]: "7"
+      - generic [ref=e8063] [cursor=pointer]:
+        - img "Erotikon" [ref=e8065]
+        - generic [ref=e8066]:
+          - heading "Erotikon" [level=3] [ref=e8067]
+          - generic [ref=e8068]:
+            - generic [ref=e8069]: "1929"
+            - generic [ref=e8070]: ·Československo
+          - generic [ref=e8071]:
+            - link "ČSFD 77%" [ref=e8072]:
+              - /url: https://www.csfd.cz/film/6307
+              - generic [ref=e8073]: ČSFD
+              - generic [ref=e8074]: 77%
+            - link "TMDB 6,2" [ref=e8075]:
+              - /url: https://www.themoviedb.org/movie/190091
+              - generic [ref=e8076]: TMDB
+              - generic [ref=e8077]: 6,2
+            - link "IMDb 7,1" [ref=e8078]:
+              - /url: https://www.imdb.com/title/tt0019850
+              - generic [ref=e8079]: IMDb
+              - generic [ref=e8080]: 7,1
+      - generic [ref=e8081] [cursor=pointer]:
+        - img "Od základu" [ref=e8083]
+        - generic [ref=e8084]:
+          - heading "Od základu" [level=3] [ref=e8085]
+          - generic [ref=e8086]:
+            - generic [ref=e8087]: "2025"
+            - generic [ref=e8088]: ·USA
+          - generic [ref=e8089]:
+            - link "ČSFD 71%" [ref=e8090]:
+              - /url: https://www.csfd.cz/film/1618405
+              - generic [ref=e8091]: ČSFD
+              - generic [ref=e8092]: 71%
+            - link "TMDB 6,9" [ref=e8093]:
+              - /url: https://www.themoviedb.org/movie/1211442
+              - generic [ref=e8094]: TMDB
+              - generic [ref=e8095]: 6,9
+            - link "IMDb 6,8" [ref=e8096]:
+              - /url: https://www.imdb.com/title/tt29361963
+              - generic [ref=e8097]: IMDb
+              - generic [ref=e8098]: 6,8
+      - generic [ref=e8099] [cursor=pointer]:
+        - img "Medvědí princ" [ref=e8101]
+        - generic [ref=e8102]:
+          - heading "Medvědí princ" [level=3] [ref=e8103]
+          - generic [ref=e8104]:
+            - generic [ref=e8105]: "2024"
+            - generic [ref=e8106]: ·Norsko
+          - generic [ref=e8107]:
+            - link "ČSFD 73%" [ref=e8108]:
+              - /url: https://www.csfd.cz/film/1514842
+              - generic [ref=e8109]: ČSFD
+              - generic [ref=e8110]: 73%
+            - link "TMDB 7,4" [ref=e8111]:
+              - /url: https://www.themoviedb.org/movie/947674
+              - generic [ref=e8112]: TMDB
+              - generic [ref=e8113]: 7,4
+            - link "IMDb 6,1" [ref=e8114]:
+              - /url: https://www.imdb.com/title/tt31863738
+              - generic [ref=e8115]: IMDb
+              - generic [ref=e8116]: 6,1
+      - generic [ref=e8117] [cursor=pointer]:
+        - img "Goyovy přízraky" [ref=e8119]
+        - generic [ref=e8120]:
+          - heading "Goyovy přízraky" [level=3] [ref=e8121]
+          - generic [ref=e8122]:
+            - generic [ref=e8123]: "2006"
+            - generic [ref=e8124]: ·USA, Španělsko
+          - generic [ref=e8125]:
+            - link "ČSFD 72%" [ref=e8126]:
+              - /url: https://www.csfd.cz/film/220918
+              - generic [ref=e8127]: ČSFD
+              - generic [ref=e8128]: 72%
+            - link "TMDB 6,6" [ref=e8129]:
+              - /url: https://www.themoviedb.org/movie/11515
+              - generic [ref=e8130]: TMDB
+              - generic [ref=e8131]: 6,6
+            - link "IMDb 6,9" [ref=e8132]:
+              - /url: https://www.imdb.com/title/tt0455957
+              - generic [ref=e8133]: IMDb
+              - generic [ref=e8134]: 6,9
+      - generic [ref=e8135] [cursor=pointer]:
+        - img "Na horách" [ref=e8137]
+        - generic [ref=e8138]:
+          - heading "Na horách" [level=3] [ref=e8139]
+          - generic [ref=e8140]:
+            - generic [ref=e8141]: "2025"
+            - generic [ref=e8142]: ·Česko
+          - generic [ref=e8143]:
+            - link "ČSFD 69%" [ref=e8144]:
+              - /url: https://www.csfd.cz/film/1591965
+              - generic [ref=e8145]: ČSFD
+              - generic [ref=e8146]: 69%
+            - link "TMDB" [ref=e8147]:
+              - /url: https://www.themoviedb.org/movie/1556011
+              - generic [ref=e8148]: TMDB
+            - link "IMDb" [ref=e8149]:
+              - /url: https://www.imdb.com/title/tt34581148
+              - generic [ref=e8150]: IMDb
+      - generic [ref=e8151] [cursor=pointer]:
+        - img [ref=e8154]
+        - generic [ref=e8156]:
+          - heading "Žlutou žábou až do Mongolska" [level=3] [ref=e8157]
+          - generic [ref=e8158]:
+            - generic [ref=e8159]: "2026"
+            - generic [ref=e8160]: ·Česko
+          - generic [ref=e8161]:
+            - link "ČSFD" [ref=e8162]:
+              - /url: https://www.csfd.cz/film/1786126
+              - generic [ref=e8163]: ČSFD
+            - link "IMDb 6,9" [ref=e8164]:
+              - /url: https://www.imdb.com/title/tt36745038
+              - generic [ref=e8165]: IMDb
+              - generic [ref=e8166]: 6,9
+      - generic [ref=e8167] [cursor=pointer]:
+        - img "Zabil jsem Antoina Doinela" [ref=e8169]
+        - generic [ref=e8170]:
+          - heading "Zabil jsem Antoina Doinela" [level=3] [ref=e8171]
+          - generic [ref=e8172]:
+            - generic [ref=e8173]: "2019"
+            - generic [ref=e8174]: ·Argentina
+          - generic [ref=e8175]:
+            - link "ČSFD" [ref=e8176]:
+              - /url: https://www.csfd.cz/film/836062
+              - generic [ref=e8177]: ČSFD
+            - link "TMDB" [ref=e8178]:
+              - /url: https://www.themoviedb.org/movie/593747
+              - generic [ref=e8179]: TMDB
+            - link "IMDb 6,9" [ref=e8180]:
+              - /url: https://www.imdb.com/title/tt10260994
+              - generic [ref=e8181]: IMDb
+              - generic [ref=e8182]: 6,9
+      - generic [ref=e8183] [cursor=pointer]:
+        - img "Velký Waldo Pepper" [ref=e8185]
+        - generic [ref=e8186]:
+          - heading "Velký Waldo Pepper" [level=3] [ref=e8187]
+          - generic [ref=e8188]:
+            - generic [ref=e8189]: "1975"
+            - generic [ref=e8190]: ·USA
+          - generic [ref=e8191]:
+            - link "ČSFD 74%" [ref=e8192]:
+              - /url: https://www.csfd.cz/film/17882
+              - generic [ref=e8193]: ČSFD
+              - generic [ref=e8194]: 74%
+            - link "TMDB 6,5" [ref=e8195]:
+              - /url: https://www.themoviedb.org/movie/19740
+              - generic [ref=e8196]: TMDB
+              - generic [ref=e8197]: 6,5
+            - link "IMDb 6,8" [ref=e8198]:
+              - /url: https://www.imdb.com/title/tt0073075
+              - generic [ref=e8199]: IMDb
+              - generic [ref=e8200]: 6,8
+      - generic [ref=e8201] [cursor=pointer]:
+        - img "Otec Matka Sestra Bratr" [ref=e8203]
+        - generic [ref=e8204]:
+          - heading "Otec Matka Sestra Bratr" [level=3] [ref=e8205]
+          - generic [ref=e8206]:
+            - generic [ref=e8207]: "2025"
+            - generic [ref=e8208]: ·USA
+          - generic [ref=e8209]:
+            - link "ČSFD 73%" [ref=e8210]:
+              - /url: https://www.csfd.cz/film/1513998
+              - generic [ref=e8211]: ČSFD
+              - generic [ref=e8212]: 73%
+            - link "TMDB 6,6" [ref=e8213]:
+              - /url: https://www.themoviedb.org/movie/1159206
+              - generic [ref=e8214]: TMDB
+              - generic [ref=e8215]: 6,6
+            - link "IMDb 6,7" [ref=e8216]:
+              - /url: https://www.imdb.com/title/tt31189315
+              - generic [ref=e8217]: IMDb
+              - generic [ref=e8218]: 6,7
+      - generic [ref=e8219] [cursor=pointer]:
+        - img "Noc 12." [ref=e8221]
+        - generic [ref=e8222]:
+          - heading "Noc 12." [level=3] [ref=e8223]
+          - generic [ref=e8224]:
+            - generic [ref=e8225]: "2022"
+            - generic [ref=e8226]: ·Francie
+          - generic [ref=e8227]:
+            - link "ČSFD 65%" [ref=e8228]:
+              - /url: https://www.csfd.cz/film/1176450
+              - generic [ref=e8229]: ČSFD
+              - generic [ref=e8230]: 65%
+            - link "TMDB 6,9" [ref=e8231]:
+              - /url: https://www.themoviedb.org/movie/925102
+              - generic [ref=e8232]: TMDB
+              - generic [ref=e8233]: 6,9
+            - link "IMDb 7" [ref=e8234]:
+              - /url: https://www.imdb.com/title/tt16953666
+              - generic [ref=e8235]: IMDb
+              - generic [ref=e8236]: "7"
+      - generic [ref=e8237] [cursor=pointer]:
+        - img "Nezvaní hosté" [ref=e8239]
+        - generic [ref=e8240]:
+          - heading "Nezvaní hosté" [level=3] [ref=e8241]
+          - generic [ref=e8242]:
+            - generic [ref=e8243]: "1955"
+            - generic [ref=e8244]: ·Polsko
+          - generic [ref=e8245]:
+            - link "ČSFD 64%" [ref=e8246]:
+              - /url: https://www.csfd.cz/film/32260
+              - generic [ref=e8247]: ČSFD
+              - generic [ref=e8248]: 64%
+            - link "TMDB 6,9" [ref=e8249]:
+              - /url: https://www.themoviedb.org/movie/43322
+              - generic [ref=e8250]: TMDB
+              - generic [ref=e8251]: 6,9
+            - link "IMDb 7,1" [ref=e8252]:
+              - /url: https://www.imdb.com/title/tt0048500
+              - generic [ref=e8253]: IMDb
+              - generic [ref=e8254]: 7,1
+      - generic [ref=e8255] [cursor=pointer]:
+        - img "Ranhojič II" [ref=e8257]
+        - generic [ref=e8258]:
+          - heading "Ranhojič II" [level=3] [ref=e8259]
+          - generic [ref=e8260]:
+            - generic [ref=e8261]: "2025"
+            - generic [ref=e8262]: ·Německo
+          - generic [ref=e8263]:
+            - link "ČSFD 74%" [ref=e8264]:
+              - /url: https://www.csfd.cz/film/1539581
+              - generic [ref=e8265]: ČSFD
+              - generic [ref=e8266]: 74%
+            - link "TMDB 6,7" [ref=e8267]:
+              - /url: https://www.themoviedb.org/movie/1219548
+              - generic [ref=e8268]: TMDB
+              - generic [ref=e8269]: 6,7
+            - link "IMDb 6,3" [ref=e8270]:
+              - /url: https://www.imdb.com/title/tt32793488
+              - generic [ref=e8271]: IMDb
+              - generic [ref=e8272]: 6,3
+      - generic [ref=e8273] [cursor=pointer]:
+        - img "Království mýdlových bublin" [ref=e8275]
+        - generic [ref=e8276]:
+          - heading "Království mýdlových bublin" [level=3] [ref=e8277]
+          - generic [ref=e8278]:
+            - generic [ref=e8279]: "2025"
+            - generic [ref=e8280]: ·Česko
+          - generic [ref=e8281]:
+            - link "ČSFD 68%" [ref=e8282]:
+              - /url: https://www.csfd.cz/film/1747001
+              - generic [ref=e8283]: ČSFD
+              - generic [ref=e8284]: 68%
+            - link "TMDB" [ref=e8285]:
+              - /url: https://www.themoviedb.org/movie/1571242
+              - generic [ref=e8286]: TMDB
+      - generic [ref=e8287] [cursor=pointer]:
+        - img "Smraďoch – Život v Paříži" [ref=e8289]
+        - generic [ref=e8290]:
+          - heading "Smraďoch – Život v Paříži" [level=3] [ref=e8291]
+          - generic [ref=e8292]:
+            - generic [ref=e8293]: "2020"
+            - generic [ref=e8294]: ·Belgie, Francie, Finsko, Island
+          - generic [ref=e8295]:
+            - link "ČSFD" [ref=e8296]:
+              - /url: https://www.csfd.cz/film/922196
+              - generic [ref=e8297]: ČSFD
+            - link "TMDB 6,8" [ref=e8298]:
+              - /url: https://www.themoviedb.org/movie/700066
+              - generic [ref=e8299]: TMDB
+              - generic [ref=e8300]: 6,8
+            - link "IMDb 6,8" [ref=e8301]:
+              - /url: https://www.imdb.com/title/tt11225360
+              - generic [ref=e8302]: IMDb
+              - generic [ref=e8303]: 6,8
+      - generic [ref=e8304] [cursor=pointer]:
+        - img "Dívka Momo a zloději času" [ref=e8306]
+        - generic [ref=e8307]:
+          - heading "Dívka Momo a zloději času" [level=3] [ref=e8308]
+          - generic [ref=e8309]:
+            - generic [ref=e8310]: "2025"
+            - generic [ref=e8311]: ·Německo
+          - generic [ref=e8312]:
+            - link "ČSFD 60%" [ref=e8313]:
+              - /url: https://www.csfd.cz/film/1631189
+              - generic [ref=e8314]: ČSFD
+              - generic [ref=e8315]: 60%
+            - link "TMDB 8,1" [ref=e8316]:
+              - /url: https://www.themoviedb.org/movie/1175842
+              - generic [ref=e8317]: TMDB
+              - generic [ref=e8318]: 8,1
+            - link "IMDb 6,1" [ref=e8319]:
+              - /url: https://www.imdb.com/title/tt26325131
+              - generic [ref=e8320]: IMDb
+              - generic [ref=e8321]: 6,1
+      - generic [ref=e8322] [cursor=pointer]:
+        - img "Čaroděj z Kremlu" [ref=e8324]
+        - generic [ref=e8325]:
+          - heading "Čaroděj z Kremlu" [level=3] [ref=e8326]
+          - generic [ref=e8327]:
+            - generic [ref=e8328]: "2025"
+            - generic [ref=e8329]: ·Francie, USA
+          - generic [ref=e8330]:
+            - link "ČSFD" [ref=e8331]:
+              - /url: https://www.csfd.cz/film/1700848
+              - generic [ref=e8332]: ČSFD
+            - link "TMDB 6,7" [ref=e8333]:
+              - /url: https://www.themoviedb.org/movie/1291659
+              - generic [ref=e8334]: TMDB
+              - generic [ref=e8335]: 6,7
+            - link "IMDb" [ref=e8336]:
+              - /url: https://www.imdb.com/title/tt32933868
+              - generic [ref=e8337]: IMDb
+      - generic [ref=e8338] [cursor=pointer]:
+        - img "Květy noci" [ref=e8340]
+        - generic [ref=e8341]:
+          - heading "Květy noci" [level=3] [ref=e8342]
+          - generic [ref=e8343]:
+            - generic [ref=e8344]: "2025"
+            - generic [ref=e8345]: ·Francie, Írán, Velká Británie
+          - generic [ref=e8346]:
+            - link "ČSFD" [ref=e8347]:
+              - /url: https://www.csfd.cz/film/1740464
+              - generic [ref=e8348]: ČSFD
+            - link "TMDB" [ref=e8349]:
+              - /url: https://www.themoviedb.org/movie/1495128
+              - generic [ref=e8350]: TMDB
+            - link "IMDb 6,7" [ref=e8351]:
+              - /url: https://www.imdb.com/title/tt37848729
+              - generic [ref=e8352]: IMDb
+              - generic [ref=e8353]: 6,7
+      - generic [ref=e8354] [cursor=pointer]:
+        - img "Platanero" [ref=e8356]
+        - generic [ref=e8357]:
+          - heading "Platanero" [level=3] [ref=e8358]
+          - generic [ref=e8359]:
+            - generic [ref=e8360]: "2025"
+            - generic [ref=e8361]: ·Kanada, Dominikánská republika
+          - generic [ref=e8362]:
+            - link "ČSFD" [ref=e8363]:
+              - /url: https://www.csfd.cz/film/1625029
+              - generic [ref=e8364]: ČSFD
+            - link "TMDB" [ref=e8365]:
+              - /url: https://www.themoviedb.org/movie/1403362
+              - generic [ref=e8366]: TMDB
+            - link "IMDb 6,7" [ref=e8367]:
+              - /url: https://www.imdb.com/title/tt35051387
+              - generic [ref=e8368]: IMDb
+              - generic [ref=e8369]: 6,7
+      - generic [ref=e8370] [cursor=pointer]:
+        - img "No Skate!" [ref=e8372]
+        - generic [ref=e8373]:
+          - heading "No Skate!" [level=3] [ref=e8374]
+          - generic [ref=e8375]:
+            - generic [ref=e8376]: "2025"
+            - generic [ref=e8377]: ·Francie
+          - generic [ref=e8378]:
+            - link "ČSFD" [ref=e8379]:
+              - /url: https://www.csfd.cz/film/1677464
+              - generic [ref=e8380]: ČSFD
+            - link "TMDB 6" [ref=e8381]:
+              - /url: https://www.themoviedb.org/movie/1470487
+              - generic [ref=e8382]: TMDB
+              - generic [ref=e8383]: "6"
+            - link "IMDb 7,4" [ref=e8384]:
+              - /url: https://www.imdb.com/title/tt37502600
+              - generic [ref=e8385]: IMDb
+              - generic [ref=e8386]: 7,4
+      - generic [ref=e8387] [cursor=pointer]:
+        - img "Mazlíčci v průšvihu" [ref=e8389]
+        - generic [ref=e8390]:
+          - heading "Mazlíčci v průšvihu" [level=3] [ref=e8391]
+          - generic [ref=e8392]:
+            - generic [ref=e8393]: "2025"
+            - generic [ref=e8394]: ·Francie
+          - generic [ref=e8395]:
+            - link "ČSFD 69%" [ref=e8396]:
+              - /url: https://www.csfd.cz/film/1669709
+              - generic [ref=e8397]: ČSFD
+              - generic [ref=e8398]: 69%
+            - link "TMDB 6,9" [ref=e8399]:
+              - /url: https://www.themoviedb.org/movie/1107216
+              - generic [ref=e8400]: TMDB
+              - generic [ref=e8401]: 6,9
+            - link "IMDb 6,2" [ref=e8402]:
+              - /url: https://www.imdb.com/title/tt36424914
+              - generic [ref=e8403]: IMDb
+              - generic [ref=e8404]: 6,2
+      - generic [ref=e8405] [cursor=pointer]:
+        - img "Země" [ref=e8407]
+        - generic [ref=e8408]:
+          - heading "Země" [level=3] [ref=e8409]
+          - generic [ref=e8410]:
+            - generic [ref=e8411]: "1930"
+            - generic [ref=e8412]: ·Sovětský svaz
+          - generic [ref=e8413]:
+            - link "ČSFD 66%" [ref=e8414]:
+              - /url: https://www.csfd.cz/film/158442
+              - generic [ref=e8415]: ČSFD
+              - generic [ref=e8416]: 66%
+            - link "TMDB 6,7" [ref=e8417]:
+              - /url: https://www.themoviedb.org/movie/46594
+              - generic [ref=e8418]: TMDB
+              - generic [ref=e8419]: 6,7
+      - generic [ref=e8420] [cursor=pointer]:
+        - img "Co nám zbylo z lásky" [ref=e8422]
+        - generic [ref=e8423]:
+          - heading "Co nám zbylo z lásky" [level=3] [ref=e8424]
+          - generic [ref=e8425]:
+            - generic [ref=e8426]: "2025"
+            - generic [ref=e8427]: ·Island, Dánsko, Švédsko, Francie
+          - generic [ref=e8428]:
+            - link "ČSFD 65%" [ref=e8429]:
+              - /url: https://www.csfd.cz/film/1675429
+              - generic [ref=e8430]: ČSFD
+              - generic [ref=e8431]: 65%
+            - link "TMDB 6,5" [ref=e8432]:
+              - /url: https://www.themoviedb.org/movie/1258509
+              - generic [ref=e8433]: TMDB
+              - generic [ref=e8434]: 6,5
+            - link "IMDb 6,9" [ref=e8435]:
+              - /url: https://www.imdb.com/title/tt33381401
+              - generic [ref=e8436]: IMDb
+              - generic [ref=e8437]: 6,9
+      - generic [ref=e8438] [cursor=pointer]:
+        - img "Svět je v sázce" [ref=e8440]
+        - generic [ref=e8441]:
+          - heading "Svět je v sázce" [level=3] [ref=e8442]
+          - generic [ref=e8443]:
+            - generic [ref=e8444]: "2025"
+            - generic [ref=e8445]: ·Rakousko
+          - generic [ref=e8446]:
+            - link "ČSFD" [ref=e8447]:
+              - /url: https://www.csfd.cz/film/1630023
+              - generic [ref=e8448]: ČSFD
+            - link "TMDB" [ref=e8449]:
+              - /url: https://www.themoviedb.org/movie/1410229
+              - generic [ref=e8450]: TMDB
+            - link "IMDb 6,6" [ref=e8451]:
+              - /url: https://www.imdb.com/title/tt36350335
+              - generic [ref=e8452]: IMDb
+              - generic [ref=e8453]: 6,6
+      - generic [ref=e8454] [cursor=pointer]:
+        - img "U rybníka" [ref=e8456]
+        - generic [ref=e8457]:
+          - heading "U rybníka" [level=3] [ref=e8458]
+          - generic [ref=e8459]:
+            - generic [ref=e8460]: "2025"
+            - generic [ref=e8461]: ·Francie
+          - generic [ref=e8462]:
+            - link "ČSFD" [ref=e8463]:
+              - /url: https://www.csfd.cz/film/1675655
+              - generic [ref=e8464]: ČSFD
+            - link "TMDB" [ref=e8465]:
+              - /url: https://www.themoviedb.org/movie/1471276
+              - generic [ref=e8466]: TMDB
+            - link "IMDb 6,6" [ref=e8467]:
+              - /url: https://www.imdb.com/title/tt36724196
+              - generic [ref=e8468]: IMDb
+              - generic [ref=e8469]: 6,6
+      - generic [ref=e8470] [cursor=pointer]:
+        - img "Důkaz viny" [ref=e8472]
+        - generic [ref=e8473]:
+          - heading "Důkaz viny" [level=3] [ref=e8474]
+          - generic [ref=e8475]:
+            - generic [ref=e8476]: "2026"
+            - generic [ref=e8477]: ·USA
+          - generic [ref=e8478]:
+            - link "ČSFD 68%" [ref=e8479]:
+              - /url: https://www.csfd.cz/film/1513456
+              - generic [ref=e8480]: ČSFD
+              - generic [ref=e8481]: 68%
+            - link "TMDB 6,7" [ref=e8482]:
+              - /url: https://www.themoviedb.org/movie/1236153
+              - generic [ref=e8483]: TMDB
+              - generic [ref=e8484]: 6,7
+            - link "IMDb 6,2" [ref=e8485]:
+              - /url: https://www.imdb.com/title/tt31050594
+              - generic [ref=e8486]: IMDb
+              - generic [ref=e8487]: 6,2
+      - generic [ref=e8488] [cursor=pointer]:
+        - img "Bláznivý Marsupilami" [ref=e8490]
+        - generic [ref=e8491]:
+          - heading "Bláznivý Marsupilami" [level=3] [ref=e8492]
+          - generic [ref=e8493]:
+            - generic [ref=e8494]: "2026"
+            - generic [ref=e8495]: ·Francie
+          - generic [ref=e8496]:
+            - link "ČSFD" [ref=e8497]:
+              - /url: https://www.csfd.cz/film/1551219
+              - generic [ref=e8498]: ČSFD
+            - link "TMDB 6,9" [ref=e8499]:
+              - /url: https://www.themoviedb.org/movie/1145899
+              - generic [ref=e8500]: TMDB
+              - generic [ref=e8501]: 6,9
+            - link "IMDb 6,1" [ref=e8502]:
+              - /url: https://www.imdb.com/title/tt33029380
+              - generic [ref=e8503]: IMDb
+              - generic [ref=e8504]: 6,1
+      - generic [ref=e8505] [cursor=pointer]:
+        - img "Vnitřní neklid" [ref=e8507]
+        - generic [ref=e8508]:
+          - heading "Vnitřní neklid" [level=3] [ref=e8509]
+          - generic [ref=e8510]:
+            - generic [ref=e8511]: "2025"
+            - generic [ref=e8512]: ·USA
+          - generic [ref=e8513]:
+            - link "ČSFD" [ref=e8514]:
+              - /url: https://www.csfd.cz/film/1641916
+              - generic [ref=e8515]: ČSFD
+            - link "TMDB 6" [ref=e8516]:
+              - /url: https://www.themoviedb.org/movie/1416914
+              - generic [ref=e8517]: TMDB
+              - generic [ref=e8518]: "6"
+            - link "IMDb 7" [ref=e8519]:
+              - /url: https://www.imdb.com/title/tt35381163
+              - generic [ref=e8520]: IMDb
+              - generic [ref=e8521]: "7"
+      - generic [ref=e8522] [cursor=pointer]:
+        - img "Amnion" [ref=e8524]
+        - generic [ref=e8525]:
+          - heading "Amnion" [level=3] [ref=e8526]
+          - generic [ref=e8527]:
+            - generic [ref=e8528]: "2025"
+            - generic [ref=e8529]: ·Česko
+          - generic [ref=e8530]:
+            - link "ČSFD 65%" [ref=e8531]:
+              - /url: https://www.csfd.cz/film/1756564
+              - generic [ref=e8532]: ČSFD
+              - generic [ref=e8533]: 65%
+            - link "TMDB" [ref=e8534]:
+              - /url: https://www.themoviedb.org/movie/1575238
+              - generic [ref=e8535]: TMDB
+      - generic [ref=e8536] [cursor=pointer]:
+        - img "Putney Swope" [ref=e8538]
+        - generic [ref=e8539]:
+          - heading "Putney Swope" [level=3] [ref=e8540]
+          - generic [ref=e8541]:
+            - generic [ref=e8542]: "1969"
+            - generic [ref=e8543]: ·USA
+          - generic [ref=e8544]:
+            - link "ČSFD 64%" [ref=e8545]:
+              - /url: https://www.csfd.cz/film/155368
+              - generic [ref=e8546]: ČSFD
+              - generic [ref=e8547]: 64%
+            - link "TMDB 6,3" [ref=e8548]:
+              - /url: https://www.themoviedb.org/movie/32575
+              - generic [ref=e8549]: TMDB
+              - generic [ref=e8550]: 6,3
+            - link "IMDb 6,7" [ref=e8551]:
+              - /url: https://www.imdb.com/title/tt0064855
+              - generic [ref=e8552]: IMDb
+              - generic [ref=e8553]: 6,7
+      - generic [ref=e8554] [cursor=pointer]:
+        - img "Nepela" [ref=e8556]
+        - generic [ref=e8557]:
+          - heading "Nepela" [level=3] [ref=e8558]
+          - generic [ref=e8559]:
+            - generic [ref=e8560]: "2025"
+            - generic [ref=e8561]: ·Slovensko, Česko
+          - generic [ref=e8562]:
+            - link "ČSFD 70%" [ref=e8563]:
+              - /url: https://www.csfd.cz/film/1622190
+              - generic [ref=e8564]: ČSFD
+              - generic [ref=e8565]: 70%
+            - link "TMDB 5" [ref=e8566]:
+              - /url: https://www.themoviedb.org/movie/1541444
+              - generic [ref=e8567]: TMDB
+              - generic [ref=e8568]: "5"
+            - link "IMDb 7,4" [ref=e8569]:
+              - /url: https://www.imdb.com/title/tt35380406
+              - generic [ref=e8570]: IMDb
+              - generic [ref=e8571]: 7,4
+      - generic [ref=e8572] [cursor=pointer]:
+        - img "Pillion" [ref=e8574]
+        - generic [ref=e8575]:
+          - heading "Pillion" [level=3] [ref=e8576]
+          - generic [ref=e8577]:
+            - generic [ref=e8578]: "2025"
+            - generic [ref=e8579]: ·USA, Velká Británie
+          - generic [ref=e8580]:
+            - link "ČSFD 66%" [ref=e8581]:
+              - /url: https://www.csfd.cz/film/1664553
+              - generic [ref=e8582]: ČSFD
+              - generic [ref=e8583]: 66%
+            - link "TMDB 6" [ref=e8584]:
+              - /url: https://www.themoviedb.org/movie/1287141
+              - generic [ref=e8585]: TMDB
+              - generic [ref=e8586]: "6"
+            - link "IMDb 6,8" [ref=e8587]:
+              - /url: https://www.imdb.com/title/tt32321317
+              - generic [ref=e8588]: IMDb
+              - generic [ref=e8589]: 6,8
+      - generic [ref=e8590] [cursor=pointer]:
+        - img "Vražda ing. Čerta" [ref=e8592]
+        - generic [ref=e8593]:
+          - heading "Vražda ing. Čerta" [level=3] [ref=e8594]
+          - generic [ref=e8595]:
+            - generic [ref=e8596]: "1970"
+            - generic [ref=e8597]: ·Československo
+          - generic [ref=e8598]:
+            - link "ČSFD 71%" [ref=e8599]:
+              - /url: https://www.csfd.cz/film/5385
+              - generic [ref=e8600]: ČSFD
+              - generic [ref=e8601]: 71%
+            - link "TMDB 5,6" [ref=e8602]:
+              - /url: https://www.themoviedb.org/movie/266429
+              - generic [ref=e8603]: TMDB
+              - generic [ref=e8604]: 5,6
+            - link "IMDb 6,7" [ref=e8605]:
+              - /url: https://www.imdb.com/title/tt0066537
+              - generic [ref=e8606]: IMDb
+              - generic [ref=e8607]: 6,7
+      - generic [ref=e8608] [cursor=pointer]:
+        - img "Ahoj a díky!" [ref=e8610]
+        - generic [ref=e8611]:
+          - heading "Ahoj a díky!" [level=3] [ref=e8612]
+          - generic [ref=e8613]:
+            - generic [ref=e8614]: "2025"
+            - generic [ref=e8615]: ·Francie
+          - generic [ref=e8616]:
+            - link "ČSFD 65%" [ref=e8617]:
+              - /url: https://www.csfd.cz/film/1664437
+              - generic [ref=e8618]: ČSFD
+              - generic [ref=e8619]: 65%
+            - link "TMDB 6,4" [ref=e8620]:
+              - /url: https://www.themoviedb.org/movie/1277884
+              - generic [ref=e8621]: TMDB
+              - generic [ref=e8622]: 6,4
+            - link "IMDb" [ref=e8623]:
+              - /url: https://www.imdb.com/title/tt1373969
+              - generic [ref=e8624]: IMDb
+      - generic [ref=e8625] [cursor=pointer]:
+        - img "Svědkové Putinovi" [ref=e8627]
+        - generic [ref=e8628]:
+          - heading "Svědkové Putinovi" [level=3] [ref=e8629]
+          - generic [ref=e8630]:
+            - generic [ref=e8631]: "2018"
+            - generic [ref=e8632]: ·Lotyšsko, Švýcarsko, Česko
+          - generic [ref=e8633]:
+            - link "ČSFD 66%" [ref=e8634]:
+              - /url: https://www.csfd.cz/film/628876
+              - generic [ref=e8635]: ČSFD
+              - generic [ref=e8636]: 66%
+            - link "TMDB 6,3" [ref=e8637]:
+              - /url: https://www.themoviedb.org/movie/527251
+              - generic [ref=e8638]: TMDB
+              - generic [ref=e8639]: 6,3
+      - generic [ref=e8640] [cursor=pointer]:
+        - img "Křídla smutku" [ref=e8642]
+        - generic [ref=e8643]:
+          - heading "Křídla smutku" [level=3] [ref=e8644]
+          - generic [ref=e8645]:
+            - generic [ref=e8646]: "2025"
+            - generic [ref=e8647]: ·Velká Británie
+          - generic [ref=e8648]:
+            - link "ČSFD 68%" [ref=e8649]:
+              - /url: https://www.csfd.cz/film/1617290
+              - generic [ref=e8650]: ČSFD
+              - generic [ref=e8651]: 68%
+            - link "TMDB 6,8" [ref=e8652]:
+              - /url: https://www.themoviedb.org/movie/1127628
+              - generic [ref=e8653]: TMDB
+              - generic [ref=e8654]: 6,8
+            - link "IMDb 5,7" [ref=e8655]:
+              - /url: https://www.imdb.com/title/tt27773954
+              - generic [ref=e8656]: IMDb
+              - generic [ref=e8657]: 5,7
+      - generic [ref=e8658] [cursor=pointer]:
+        - 'img "Čarodějka: Druhá část" [ref=e8660]'
+        - generic [ref=e8661]:
+          - 'heading "Čarodějka: Druhá část" [level=3] [ref=e8662]'
+          - generic [ref=e8663]:
+            - generic [ref=e8664]: "2025"
+            - generic [ref=e8665]: ·USA
+          - generic [ref=e8666]:
+            - link "ČSFD 57%" [ref=e8667]:
+              - /url: https://www.csfd.cz/film/1184631
+              - generic [ref=e8668]: ČSFD
+              - generic [ref=e8669]: 57%
+            - link "TMDB 6,7" [ref=e8670]:
+              - /url: https://www.themoviedb.org/movie/967941
+              - generic [ref=e8671]: TMDB
+              - generic [ref=e8672]: 6,7
+            - link "IMDb 6,7" [ref=e8673]:
+              - /url: https://www.imdb.com/title/tt19847976
+              - generic [ref=e8674]: IMDb
+              - generic [ref=e8675]: 6,7
+      - generic [ref=e8676] [cursor=pointer]:
+        - img "Mladý Ahmed" [ref=e8678]
+        - generic [ref=e8679]:
+          - heading "Mladý Ahmed" [level=3] [ref=e8680]
+          - generic [ref=e8681]:
+            - generic [ref=e8682]: "2019"
+            - generic [ref=e8683]: ·Belgie, Francie
+          - generic [ref=e8684]:
+            - link "ČSFD 61%" [ref=e8685]:
+              - /url: https://www.csfd.cz/film/717869
+              - generic [ref=e8686]: ČSFD
+              - generic [ref=e8687]: 61%
+            - link "TMDB 6,3" [ref=e8688]:
+              - /url: https://www.themoviedb.org/movie/522373
+              - generic [ref=e8689]: TMDB
+              - generic [ref=e8690]: 6,3
+            - link "IMDb 6,6" [ref=e8691]:
+              - /url: https://www.imdb.com/title/tt8359822
+              - generic [ref=e8692]: IMDb
+              - generic [ref=e8693]: 6,6
+      - generic [ref=e8694] [cursor=pointer]:
+        - img "Trvalá dovolená" [ref=e8696]
+        - generic [ref=e8697]:
+          - heading "Trvalá dovolená" [level=3] [ref=e8698]
+          - generic [ref=e8699]:
+            - generic [ref=e8700]: "1980"
+            - generic [ref=e8701]: ·USA
+          - generic [ref=e8702]:
+            - link "ČSFD 67%" [ref=e8703]:
+              - /url: https://www.csfd.cz/film/4748
+              - generic [ref=e8704]: ČSFD
+              - generic [ref=e8705]: 67%
+            - link "TMDB 5,9" [ref=e8706]:
+              - /url: https://www.themoviedb.org/movie/37997
+              - generic [ref=e8707]: TMDB
+              - generic [ref=e8708]: 5,9
+      - generic [ref=e8709] [cursor=pointer]:
+        - 'img "Rufus: Mořský dráček, který neuměl plavat" [ref=e8711]'
+        - generic [ref=e8712]:
+          - 'heading "Rufus: Mořský dráček, který neuměl plavat" [level=3] [ref=e8713]'
+          - generic [ref=e8714]:
+            - generic [ref=e8715]: "2025"
+            - generic [ref=e8716]: ·Norsko, Belgie, Německo
+          - generic [ref=e8717]:
+            - link "ČSFD 61%" [ref=e8718]:
+              - /url: https://www.csfd.cz/film/1613963
+              - generic [ref=e8719]: ČSFD
+              - generic [ref=e8720]: 61%
+            - link "TMDB 6" [ref=e8721]:
+              - /url: https://www.themoviedb.org/movie/1512207
+              - generic [ref=e8722]: TMDB
+              - generic [ref=e8723]: "6"
+            - link "IMDb 6,8" [ref=e8724]:
+              - /url: https://www.imdb.com/title/tt32267711
+              - generic [ref=e8725]: IMDb
+              - generic [ref=e8726]: 6,8
+      - generic [ref=e8727] [cursor=pointer]:
+        - img "Čas do zásahu" [ref=e8729]
+        - generic [ref=e8730]:
+          - heading "Čas do zásahu" [level=3] [ref=e8731]
+          - generic [ref=e8732]:
+            - generic [ref=e8733]: "2025"
+            - generic [ref=e8734]: ·Lotyšsko, Česko, Ukrajina
+          - generic [ref=e8735]:
+            - link "ČSFD 76%" [ref=e8736]:
+              - /url: https://www.csfd.cz/film/1635651
+              - generic [ref=e8737]: ČSFD
+              - generic [ref=e8738]: 76%
+            - link "TMDB 5" [ref=e8739]:
+              - /url: https://www.themoviedb.org/movie/1418544
+              - generic [ref=e8740]: TMDB
+              - generic [ref=e8741]: "5"
+      - generic [ref=e8742] [cursor=pointer]:
+        - img "Susana" [ref=e8744]
+        - generic [ref=e8745]:
+          - heading "Susana" [level=3] [ref=e8746]
+          - generic [ref=e8747]:
+            - generic [ref=e8748]: "2025"
+            - generic [ref=e8749]: ·Mexiko, USA
+          - generic [ref=e8750]:
+            - link "ČSFD" [ref=e8751]:
+              - /url: https://www.csfd.cz/film/1625039
+              - generic [ref=e8752]: ČSFD
+            - link "TMDB" [ref=e8753]:
+              - /url: https://www.themoviedb.org/movie/1403483
+              - generic [ref=e8754]: TMDB
+            - link "IMDb 6,3" [ref=e8755]:
+              - /url: https://www.imdb.com/title/tt30816249
+              - generic [ref=e8756]: IMDb
+              - generic [ref=e8757]: 6,3
+      - generic [ref=e8758] [cursor=pointer]:
+        - img "Prudká citová vzplanutí" [ref=e8760]
+        - generic [ref=e8761]:
+          - heading "Prudká citová vzplanutí" [level=3] [ref=e8762]
+          - generic [ref=e8763]:
+            - generic [ref=e8764]: "2025"
+            - generic [ref=e8765]: ·Finsko
+          - generic [ref=e8766]:
+            - link "ČSFD 67%" [ref=e8767]:
+              - /url: https://www.csfd.cz/film/1621724
+              - generic [ref=e8768]: ČSFD
+              - generic [ref=e8769]: 67%
+            - link "TMDB 6,5" [ref=e8770]:
+              - /url: https://www.themoviedb.org/movie/1377676
+              - generic [ref=e8771]: TMDB
+              - generic [ref=e8772]: 6,5
+            - link "IMDb 5,5" [ref=e8773]:
+              - /url: https://www.imdb.com/title/tt33503901
+              - generic [ref=e8774]: IMDb
+              - generic [ref=e8775]: 5,5
+      - generic [ref=e8776] [cursor=pointer]:
+        - img /Haaw/ [ref=e8778]
+        - generic [ref=e8779]:
+          - heading /Haaw/ [level=3] [ref=e8780]
+          - generic [ref=e8781]:
+            - generic [ref=e8782]: "2024"
+            - generic [ref=e8783]: ·USA
+          - generic [ref=e8784]:
+            - link "ČSFD" [ref=e8785]:
+              - /url: https://www.csfd.cz/film/1558024
+              - generic [ref=e8786]: ČSFD
+            - link "TMDB 5,5" [ref=e8787]:
+              - /url: https://www.themoviedb.org/movie/1328542
+              - generic [ref=e8788]: TMDB
+              - generic [ref=e8789]: 5,5
+            - link "IMDb 6,9" [ref=e8790]:
+              - /url: https://www.imdb.com/title/tt33007883
+              - generic [ref=e8791]: IMDb
+              - generic [ref=e8792]: 6,9
+      - generic [ref=e8793] [cursor=pointer]:
+        - img "Podfukáři 3" [ref=e8795]
+        - generic [ref=e8796]:
+          - heading "Podfukáři 3" [level=3] [ref=e8797]
+          - generic [ref=e8798]:
+            - generic [ref=e8799]: "2025"
+            - generic [ref=e8800]: ·USA
+          - generic [ref=e8801]:
+            - link "ČSFD 61%" [ref=e8802]:
+              - /url: https://www.csfd.cz/film/460431
+              - generic [ref=e8803]: ČSFD
+              - generic [ref=e8804]: 61%
+            - link "TMDB 6,5" [ref=e8805]:
+              - /url: https://www.themoviedb.org/movie/425274
+              - generic [ref=e8806]: TMDB
+              - generic [ref=e8807]: 6,5
+            - link "IMDb 5,9" [ref=e8808]:
+              - /url: https://www.imdb.com/title/tt4712810
+              - generic [ref=e8809]: IMDb
+              - generic [ref=e8810]: 5,9
+      - generic [ref=e8811] [cursor=pointer]:
+        - img "Primát" [ref=e8813]
+        - generic [ref=e8814]:
+          - heading "Primát" [level=3] [ref=e8815]
+          - generic [ref=e8816]:
+            - generic [ref=e8817]: "2025"
+            - generic [ref=e8818]: ·USA
+          - generic [ref=e8819]:
+            - link "ČSFD 59%" [ref=e8820]:
+              - /url: https://www.csfd.cz/film/1651654
+              - generic [ref=e8821]: ČSFD
+              - generic [ref=e8822]: 59%
+            - link "TMDB 6,6" [ref=e8823]:
+              - /url: https://www.themoviedb.org/movie/1315303
+              - generic [ref=e8824]: TMDB
+              - generic [ref=e8825]: 6,6
+            - link "IMDb 6" [ref=e8826]:
+              - /url: https://www.imdb.com/title/tt33028778
+              - generic [ref=e8827]: IMDb
+              - generic [ref=e8828]: "6"
+      - generic [ref=e8829] [cursor=pointer]:
+        - 'img "SpongeBob: Pirátské dobrodružství" [ref=e8831]'
+        - generic [ref=e8832]:
+          - 'heading "SpongeBob: Pirátské dobrodružství" [level=3] [ref=e8833]'
+          - generic [ref=e8834]:
+            - generic [ref=e8835]: "2025"
+            - generic [ref=e8836]: ·USA
+          - generic [ref=e8837]:
+            - link "ČSFD 60%" [ref=e8838]:
+              - /url: https://www.csfd.cz/film/1399440
+              - generic [ref=e8839]: ČSFD
+              - generic [ref=e8840]: 60%
+            - link "TMDB 6,7" [ref=e8841]:
+              - /url: https://www.themoviedb.org/movie/991494
+              - generic [ref=e8842]: TMDB
+              - generic [ref=e8843]: 6,7
+            - link "IMDb 5,7" [ref=e8844]:
+              - /url: https://www.imdb.com/title/tt23572848
+              - generic [ref=e8845]: IMDb
+              - generic [ref=e8846]: 5,7
+      - generic [ref=e8847] [cursor=pointer]:
+        - img "Když se zhasne" [ref=e8849]
+        - generic [ref=e8850]:
+          - heading "Když se zhasne" [level=3] [ref=e8851]
+          - generic [ref=e8852]:
+            - generic [ref=e8853]: "2026"
+            - generic [ref=e8854]: ·Česko, Slovensko
+          - generic [ref=e8855]:
+            - link "ČSFD 61%" [ref=e8856]:
+              - /url: https://www.csfd.cz/film/1636787
+              - generic [ref=e8857]: ČSFD
+              - generic [ref=e8858]: 61%
+            - link "TMDB" [ref=e8859]:
+              - /url: https://www.themoviedb.org/movie/1588586
+              - generic [ref=e8860]: TMDB
+            - link "IMDb" [ref=e8861]:
+              - /url: https://www.imdb.com/title/tt37879342
+              - generic [ref=e8862]: IMDb
+      - generic [ref=e8863] [cursor=pointer]:
+        - img "To poslední, co viděla" [ref=e8865]
+        - generic [ref=e8866]:
+          - heading "To poslední, co viděla" [level=3] [ref=e8867]
+          - generic [ref=e8868]:
+            - generic [ref=e8869]: "2024"
+            - generic [ref=e8870]: ·USA
+          - generic [ref=e8871]:
+            - link "ČSFD" [ref=e8872]:
+              - /url: https://www.csfd.cz/film/1572067
+              - generic [ref=e8873]: ČSFD
+            - link "TMDB" [ref=e8874]:
+              - /url: https://www.themoviedb.org/movie/1353776
+              - generic [ref=e8875]: TMDB
+            - link "IMDb 6,1" [ref=e8876]:
+              - /url: https://www.imdb.com/title/tt33383299
+              - generic [ref=e8877]: IMDb
+              - generic [ref=e8878]: 6,1
+      - generic [ref=e8879] [cursor=pointer]:
+        - img "Die My Love" [ref=e8881]
+        - generic [ref=e8882]:
+          - heading "Die My Love" [level=3] [ref=e8883]
+          - generic [ref=e8884]:
+            - generic [ref=e8885]: "2025"
+            - generic [ref=e8886]: ·Velká Británie, USA
+          - generic [ref=e8887]:
+            - link "ČSFD 60%" [ref=e8888]:
+              - /url: https://www.csfd.cz/film/1546283
+              - generic [ref=e8889]: ČSFD
+              - generic [ref=e8890]: 60%
+            - link "TMDB 6,2" [ref=e8891]:
+              - /url: https://www.themoviedb.org/movie/1033148
+              - generic [ref=e8892]: TMDB
+              - generic [ref=e8893]: 6,2
+            - link "IMDb 6,1" [ref=e8894]:
+              - /url: https://www.imdb.com/title/tt9362736
+              - generic [ref=e8895]: IMDb
+              - generic [ref=e8896]: 6,1
+      - generic [ref=e8897] [cursor=pointer]:
+        - img "Franz" [ref=e8899]
+        - generic [ref=e8900]:
+          - heading "Franz" [level=3] [ref=e8901]
+          - generic [ref=e8902]:
+            - generic [ref=e8903]: "2025"
+            - generic [ref=e8904]: ·Česko, Německo, Polsko
+          - generic [ref=e8905]:
+            - link "ČSFD 61%" [ref=e8906]:
+              - /url: https://www.csfd.cz/film/1133173
+              - generic [ref=e8907]: ČSFD
+              - generic [ref=e8908]: 61%
+            - link "TMDB 5,9" [ref=e8909]:
+              - /url: https://www.themoviedb.org/movie/1157322
+              - generic [ref=e8910]: TMDB
+              - generic [ref=e8911]: 5,9
+            - link "IMDb 6,2" [ref=e8912]:
+              - /url: https://www.imdb.com/title/tt17070412
+              - generic [ref=e8913]: IMDb
+              - generic [ref=e8914]: 6,2
+      - generic [ref=e8915] [cursor=pointer]:
+        - img "Promiňte, bije se tady?" [ref=e8917]
+        - generic [ref=e8918]:
+          - heading "Promiňte, bije se tady?" [level=3] [ref=e8919]
+          - generic [ref=e8920]:
+            - generic [ref=e8921]: "1977"
+            - generic [ref=e8922]: ·Polsko
+          - generic [ref=e8923]:
+            - link "ČSFD 56%" [ref=e8924]:
+              - /url: https://www.csfd.cz/film/140323
+              - generic [ref=e8925]: ČSFD
+              - generic [ref=e8926]: 56%
+            - link "TMDB 6" [ref=e8927]:
+              - /url: https://www.themoviedb.org/movie/318545
+              - generic [ref=e8928]: TMDB
+              - generic [ref=e8929]: "6"
+            - link "IMDb 6,6" [ref=e8930]:
+              - /url: https://www.imdb.com/title/tt0076575
+              - generic [ref=e8931]: IMDb
+              - generic [ref=e8932]: 6,6
+      - generic [ref=e8933] [cursor=pointer]:
+        - img "Obyčejný život" [ref=e8935]
+        - generic [ref=e8936]:
+          - heading "Obyčejný život" [level=3] [ref=e8937]
+          - generic [ref=e8938]:
+            - generic [ref=e8939]: "2025"
+            - generic [ref=e8940]: ·Japonsko, Francie
+          - generic [ref=e8941]:
+            - link "ČSFD" [ref=e8942]:
+              - /url: https://www.csfd.cz/film/1636352
+              - generic [ref=e8943]: ČSFD
+            - link "TMDB 6,1" [ref=e8944]:
+              - /url: https://www.themoviedb.org/movie/1416915
+              - generic [ref=e8945]: TMDB
+              - generic [ref=e8946]: 6,1
+            - link "IMDb 6" [ref=e8947]:
+              - /url: https://www.imdb.com/title/tt35405817
+              - generic [ref=e8948]: IMDb
+              - generic [ref=e8949]: "6"
+      - generic [ref=e8950] [cursor=pointer]:
+        - img "Yonne" [ref=e8952]
+        - generic [ref=e8953]:
+          - heading "Yonne" [level=3] [ref=e8954]
+          - generic [ref=e8955]:
+            - generic [ref=e8956]: "2025"
+            - generic [ref=e8957]: ·Švýcarsko, Francie
+          - generic [ref=e8958]:
+            - link "ČSFD" [ref=e8959]:
+              - /url: https://www.csfd.cz/film/1717138
+              - generic [ref=e8960]: ČSFD
+            - link "TMDB" [ref=e8961]:
+              - /url: https://www.themoviedb.org/movie/1510904
+              - generic [ref=e8962]: TMDB
+            - link "IMDb 6" [ref=e8963]:
+              - /url: https://www.imdb.com/title/tt35667587
+              - generic [ref=e8964]: IMDb
+              - generic [ref=e8965]: "6"
+      - generic [ref=e8966] [cursor=pointer]:
+        - img "Úporný sen" [ref=e8968]
+        - generic [ref=e8969]:
+          - heading "Úporný sen" [level=3] [ref=e8970]
+          - generic [ref=e8971]:
+            - generic [ref=e8972]: "2013"
+            - generic [ref=e8973]: ·Argentina
+          - generic [ref=e8974]:
+            - link "ČSFD" [ref=e8975]:
+              - /url: https://www.csfd.cz/film/1614078
+              - generic [ref=e8976]: ČSFD
+            - link "TMDB 6" [ref=e8977]:
+              - /url: https://www.themoviedb.org/movie/359739
+              - generic [ref=e8978]: TMDB
+              - generic [ref=e8979]: "6"
+            - link "IMDb" [ref=e8980]:
+              - /url: https://www.imdb.com/title/tt2825982
+              - generic [ref=e8981]: IMDb
+      - generic [ref=e8982] [cursor=pointer]:
+        - img "Offline Dating" [ref=e8984]
+        - generic [ref=e8985]:
+          - heading "Offline Dating" [level=3] [ref=e8986]
+          - generic [ref=e8987]:
+            - generic [ref=e8988]: "2015"
+            - generic [ref=e8989]: ·Velká Británie
+          - generic [ref=e8990]:
+            - link "ČSFD 51%" [ref=e8991]:
+              - /url: https://www.csfd.cz/film/56049
+              - generic [ref=e8992]: ČSFD
+              - generic [ref=e8993]: 51%
+            - link "TMDB 6,9" [ref=e8994]:
+              - /url: https://www.themoviedb.org/movie/348889
+              - generic [ref=e8995]: TMDB
+              - generic [ref=e8996]: 6,9
+            - link "IMDb 5,9" [ref=e8997]:
+              - /url: https://www.imdb.com/title/tt4849720
+              - generic [ref=e8998]: IMDb
+              - generic [ref=e8999]: 5,9
+      - generic [ref=e9000] [cursor=pointer]:
+        - img "Štúr" [ref=e9002]
+        - generic [ref=e9003]:
+          - heading "Štúr" [level=3] [ref=e9004]
+          - generic [ref=e9005]:
+            - generic [ref=e9006]: "2026"
+            - generic [ref=e9007]: ·Slovensko
+          - generic [ref=e9008]:
+            - link "ČSFD 59%" [ref=e9009]:
+              - /url: https://www.csfd.cz/film/1767223
+              - generic [ref=e9010]: ČSFD
+              - generic [ref=e9011]: 59%
+            - link "TMDB 6" [ref=e9012]:
+              - /url: https://www.themoviedb.org/movie/1588316
+              - generic [ref=e9013]: TMDB
+              - generic [ref=e9014]: "6"
+      - generic [ref=e9015] [cursor=pointer]:
+        - img "Gábinin kouzelný domek ve filmu" [ref=e9017]
+        - generic [ref=e9018]:
+          - heading "Gábinin kouzelný domek ve filmu" [level=3] [ref=e9019]
+          - generic [ref=e9020]:
+            - generic [ref=e9021]: "2025"
+            - generic [ref=e9022]: ·USA
+          - generic [ref=e9023]:
+            - link "ČSFD 54%" [ref=e9024]:
+              - /url: https://www.csfd.cz/film/1516298
+              - generic [ref=e9025]: ČSFD
+              - generic [ref=e9026]: 54%
+            - link "TMDB 6,7" [ref=e9027]:
+              - /url: https://www.themoviedb.org/movie/1280282
+              - generic [ref=e9028]: TMDB
+              - generic [ref=e9029]: 6,7
+            - link "IMDb 5,5" [ref=e9030]:
+              - /url: https://www.imdb.com/title/tt32214143
+              - generic [ref=e9031]: IMDb
+              - generic [ref=e9032]: 5,5
+      - generic [ref=e9033] [cursor=pointer]:
+        - img "Parazit z chlaďáku" [ref=e9035]
+        - generic [ref=e9036]:
+          - heading "Parazit z chlaďáku" [level=3] [ref=e9037]
+          - generic [ref=e9038]:
+            - generic [ref=e9039]: "2026"
+            - generic [ref=e9040]: ·USA, Francie
+          - generic [ref=e9041]:
+            - link "ČSFD" [ref=e9042]:
+              - /url: https://www.csfd.cz/film/1395444
+              - generic [ref=e9043]: ČSFD
+            - link "TMDB 5,5" [ref=e9044]:
+              - /url: https://www.themoviedb.org/movie/696393
+              - generic [ref=e9045]: TMDB
+              - generic [ref=e9046]: 5,5
+            - link "IMDb 6,2" [ref=e9047]:
+              - /url: https://www.imdb.com/title/tt8879928
+              - generic [ref=e9048]: IMDb
+              - generic [ref=e9049]: 6,2
+      - generic [ref=e9050] [cursor=pointer]:
+        - 'img "Vejce na ledu: Polární záchrana" [ref=e9052]'
+        - generic [ref=e9053]:
+          - 'heading "Vejce na ledu: Polární záchrana" [level=3] [ref=e9054]'
+          - generic [ref=e9055]:
+            - generic [ref=e9056]: "2022"
+            - generic [ref=e9057]: ·Mexiko
+          - generic [ref=e9058]:
+            - link "ČSFD 39%" [ref=e9059]:
+              - /url: https://www.csfd.cz/film/1282210
+              - generic [ref=e9060]: ČSFD
+              - generic [ref=e9061]: 39%
+            - link "TMDB 7,7" [ref=e9062]:
+              - /url: https://www.themoviedb.org/movie/573171
+              - generic [ref=e9063]: TMDB
+              - generic [ref=e9064]: 7,7
+      - generic [ref=e9065] [cursor=pointer]:
+        - img "Její tělo" [ref=e9067]
+        - generic [ref=e9068]:
+          - heading "Její tělo" [level=3] [ref=e9069]
+          - generic [ref=e9070]:
+            - generic [ref=e9071]: "2023"
+            - generic [ref=e9072]: ·Česko, Slovensko
+          - generic [ref=e9073]:
+            - link "ČSFD 57%" [ref=e9074]:
+              - /url: https://www.csfd.cz/film/1231789
+              - generic [ref=e9075]: ČSFD
+              - generic [ref=e9076]: 57%
+            - link "TMDB 6" [ref=e9077]:
+              - /url: https://www.themoviedb.org/movie/1109402
+              - generic [ref=e9078]: TMDB
+              - generic [ref=e9079]: "6"
+            - link "IMDb 5,7" [ref=e9080]:
+              - /url: https://www.imdb.com/title/tt21997328
+              - generic [ref=e9081]: IMDb
+              - generic [ref=e9082]: 5,7
+      - generic [ref=e9083] [cursor=pointer]:
+        - img "Bez Kelly" [ref=e9085]
+        - generic [ref=e9086]:
+          - heading "Bez Kelly" [level=3] [ref=e9087]
+          - generic [ref=e9088]:
+            - generic [ref=e9089]: "2025"
+            - generic [ref=e9090]: ·Švédsko
+          - generic [ref=e9091]:
+            - link "ČSFD" [ref=e9092]:
+              - /url: https://www.csfd.cz/film/1723192
+              - generic [ref=e9093]: ČSFD
+            - link "TMDB" [ref=e9094]:
+              - /url: https://www.themoviedb.org/movie/1516312
+              - generic [ref=e9095]: TMDB
+            - link "IMDb 5,8" [ref=e9096]:
+              - /url: https://www.imdb.com/title/tt37673380
+              - generic [ref=e9097]: IMDb
+              - generic [ref=e9098]: 5,8
+      - generic [ref=e9099] [cursor=pointer]:
+        - img "Duchoň" [ref=e9101]
+        - generic [ref=e9102]:
+          - heading "Duchoň" [level=3] [ref=e9103]
+          - generic [ref=e9104]:
+            - generic [ref=e9105]: "2025"
+            - generic [ref=e9106]: ·Slovensko
+          - generic [ref=e9107]:
+            - link "ČSFD 66%" [ref=e9108]:
+              - /url: https://www.csfd.cz/film/1620025
+              - generic [ref=e9109]: ČSFD
+              - generic [ref=e9110]: 66%
+            - link "TMDB 4" [ref=e9111]:
+              - /url: https://www.themoviedb.org/movie/1406788
+              - generic [ref=e9112]: TMDB
+              - generic [ref=e9113]: "4"
+            - link "IMDb 6,7" [ref=e9114]:
+              - /url: https://www.imdb.com/title/tt32662435
+              - generic [ref=e9115]: IMDb
+              - generic [ref=e9116]: 6,7
+      - generic [ref=e9117] [cursor=pointer]:
+        - img "Volný hráč" [ref=e9119]
+        - generic [ref=e9120]:
+          - heading "Volný hráč" [level=3] [ref=e9121]
+          - generic [ref=e9122]:
+            - generic [ref=e9123]: "2024"
+            - generic [ref=e9124]: ·Francie
+          - generic [ref=e9125]:
+            - link "ČSFD" [ref=e9126]:
+              - /url: https://www.csfd.cz/film/1622554
+              - generic [ref=e9127]: ČSFD
+            - link "TMDB 5,8" [ref=e9128]:
+              - /url: https://www.themoviedb.org/movie/1001374
+              - generic [ref=e9129]: TMDB
+              - generic [ref=e9130]: 5,8
+            - link "IMDb 5,7" [ref=e9131]:
+              - /url: https://www.imdb.com/title/tt29942429
+              - generic [ref=e9132]: IMDb
+              - generic [ref=e9133]: 5,7
+      - generic [ref=e9134] [cursor=pointer]:
+        - img "Ozvěna" [ref=e9136]
+        - generic [ref=e9137]:
+          - heading "Ozvěna" [level=3] [ref=e9138]
+          - generic [ref=e9139]:
+            - generic [ref=e9140]: "2025"
+            - generic [ref=e9141]: ·Kanada, Irsko
+          - generic [ref=e9142]:
+            - link "ČSFD 53%" [ref=e9143]:
+              - /url: https://www.csfd.cz/film/1681106
+              - generic [ref=e9144]: ČSFD
+              - generic [ref=e9145]: 53%
+            - link "TMDB 6" [ref=e9146]:
+              - /url: https://www.themoviedb.org/movie/1193501
+              - generic [ref=e9147]: TMDB
+              - generic [ref=e9148]: "6"
+            - link "IMDb 5,7" [ref=e9149]:
+              - /url: https://www.imdb.com/title/tt29550683
+              - generic [ref=e9150]: IMDb
+              - generic [ref=e9151]: 5,7
+      - generic [ref=e9152] [cursor=pointer]:
+        - img "Pět nocí u Freddyho 2" [ref=e9154]
+        - generic [ref=e9155]:
+          - heading "Pět nocí u Freddyho 2" [level=3] [ref=e9156]
+          - generic [ref=e9157]:
+            - generic [ref=e9158]: "2025"
+            - generic [ref=e9159]: ·USA
+          - generic [ref=e9160]:
+            - link "ČSFD 49%" [ref=e9161]:
+              - /url: https://www.csfd.cz/film/1508539
+              - generic [ref=e9162]: ČSFD
+              - generic [ref=e9163]: 49%
+            - link "TMDB 6,7" [ref=e9164]:
+              - /url: https://www.themoviedb.org/movie/1228246
+              - generic [ref=e9165]: TMDB
+              - generic [ref=e9166]: 6,7
+            - link "IMDb 5,2" [ref=e9167]:
+              - /url: https://www.imdb.com/title/tt30274401
+              - generic [ref=e9168]: IMDb
+              - generic [ref=e9169]: 5,2
+      - generic [ref=e9170] [cursor=pointer]:
+        - img "Obchoďák smrti" [ref=e9172]
+        - generic [ref=e9173]:
+          - heading "Obchoďák smrti" [level=3] [ref=e9174]
+          - generic [ref=e9175]:
+            - generic [ref=e9176]: "1986"
+            - generic [ref=e9177]: ·USA
+          - generic [ref=e9178]:
+            - link "ČSFD 53%" [ref=e9179]:
+              - /url: https://www.csfd.cz/film/9949
+              - generic [ref=e9180]: ČSFD
+              - generic [ref=e9181]: 53%
+            - link "TMDB 5,8" [ref=e9182]:
+              - /url: https://www.themoviedb.org/movie/28941
+              - generic [ref=e9183]: TMDB
+              - generic [ref=e9184]: 5,8
+            - link "IMDb 5,6" [ref=e9185]:
+              - /url: https://www.imdb.com/title/tt0090837
+              - generic [ref=e9186]: IMDb
+              - generic [ref=e9187]: 5,6
+      - generic [ref=e9188] [cursor=pointer]:
+        - img "Akce Milion" [ref=e9190]
+        - generic [ref=e9191]:
+          - heading "Akce Milion" [level=3] [ref=e9192]
+          - generic [ref=e9193]:
+            - generic [ref=e9194]: "2025"
+            - generic [ref=e9195]: ·Francie, Belgie
+          - generic [ref=e9196]:
+            - link "ČSFD 64%" [ref=e9197]:
+              - /url: https://www.csfd.cz/film/1715147
+              - generic [ref=e9198]: ČSFD
+              - generic [ref=e9199]: 64%
+            - link "TMDB 5,2" [ref=e9200]:
+              - /url: https://www.themoviedb.org/movie/1274837
+              - generic [ref=e9201]: TMDB
+              - generic [ref=e9202]: 5,2
+            - link "IMDb 5,1" [ref=e9203]:
+              - /url: https://www.imdb.com/title/tt32250381
+              - generic [ref=e9204]: IMDb
+              - generic [ref=e9205]: 5,1
+      - generic [ref=e9206] [cursor=pointer]:
+        - img "Anakonda" [ref=e9208]
+        - generic [ref=e9209]:
+          - heading "Anakonda" [level=3] [ref=e9210]
+          - generic [ref=e9211]:
+            - generic [ref=e9212]: "2025"
+            - generic [ref=e9213]: ·USA
+          - generic [ref=e9214]:
+            - link "ČSFD 52%" [ref=e9215]:
+              - /url: https://www.csfd.cz/film/1559919
+              - generic [ref=e9216]: ČSFD
+              - generic [ref=e9217]: 52%
+            - link "TMDB 5,8" [ref=e9218]:
+              - /url: https://www.themoviedb.org/movie/1234731
+              - generic [ref=e9219]: TMDB
+              - generic [ref=e9220]: 5,8
+            - link "IMDb 5,6" [ref=e9221]:
+              - /url: https://www.imdb.com/title/tt33244668
+              - generic [ref=e9222]: IMDb
+              - generic [ref=e9223]: 5,6
+      - generic [ref=e9224] [cursor=pointer]:
+        - img "Superpes Karlík" [ref=e9226]
+        - generic [ref=e9227]:
+          - heading "Superpes Karlík" [level=3] [ref=e9228]
+          - generic [ref=e9229]:
+            - generic [ref=e9230]: "2025"
+            - generic [ref=e9231]: ·Kanada
+          - generic [ref=e9232]:
+            - link "ČSFD" [ref=e9233]:
+              - /url: https://www.csfd.cz/film/1598948
+              - generic [ref=e9234]: ČSFD
+            - link "TMDB" [ref=e9235]:
+              - /url: https://www.themoviedb.org/movie/1276521
+              - generic [ref=e9236]: TMDB
+            - link "IMDb 5,4" [ref=e9237]:
+              - /url: https://www.imdb.com/title/tt29612071
+              - generic [ref=e9238]: IMDb
+              - generic [ref=e9239]: 5,4
+      - generic [ref=e9240] [cursor=pointer]:
+        - img "Alpacalypse" [ref=e9242]
+        - generic [ref=e9243]:
+          - heading "Alpacalypse" [level=3] [ref=e9244]
+          - generic [ref=e9245]:
+            - generic [ref=e9246]: "2024"
+            - generic [ref=e9247]: ·USA
+          - generic [ref=e9248]:
+            - link "ČSFD" [ref=e9249]:
+              - /url: https://www.csfd.cz/film/1613684
+              - generic [ref=e9250]: ČSFD
+            - link "TMDB 5" [ref=e9251]:
+              - /url: https://www.themoviedb.org/movie/1170145
+              - generic [ref=e9252]: TMDB
+              - generic [ref=e9253]: "5"
+            - link "IMDb 5,7" [ref=e9254]:
+              - /url: https://www.imdb.com/title/tt34813106
+              - generic [ref=e9255]: IMDb
+              - generic [ref=e9256]: 5,7
+      - generic [ref=e9257] [cursor=pointer]:
+        - img "The VelociPastor" [ref=e9259]
+        - generic [ref=e9260]:
+          - heading "The VelociPastor" [level=3] [ref=e9261]
+          - generic [ref=e9262]:
+            - generic [ref=e9263]: "2017"
+            - generic [ref=e9264]: ·USA, Čína
+          - generic [ref=e9265]:
+            - link "ČSFD 53%" [ref=e9266]:
+              - /url: https://www.csfd.cz/film/568033
+              - generic [ref=e9267]: ČSFD
+              - generic [ref=e9268]: 53%
+            - link "TMDB 5,2" [ref=e9269]:
+              - /url: https://www.themoviedb.org/movie/457712
+              - generic [ref=e9270]: TMDB
+              - generic [ref=e9271]: 5,2
+            - link "IMDb" [ref=e9272]:
+              - /url: https://www.imdb.com/title/tt36069641
+              - generic [ref=e9273]: IMDb
+      - generic [ref=e9274] [cursor=pointer]:
+        - img "Tundra ve mně" [ref=e9276]
+        - generic [ref=e9277]:
+          - heading "Tundra ve mně" [level=3] [ref=e9278]
+          - generic [ref=e9279]:
+            - generic [ref=e9280]: "2023"
+            - generic [ref=e9281]: ·Norsko
+          - generic [ref=e9282]:
+            - link "ČSFD 65%" [ref=e9283]:
+              - /url: https://www.csfd.cz/film/1414202
+              - generic [ref=e9284]: ČSFD
+              - generic [ref=e9285]: 65%
+            - link "TMDB 4" [ref=e9286]:
+              - /url: https://www.themoviedb.org/movie/523213
+              - generic [ref=e9287]: TMDB
+              - generic [ref=e9288]: "4"
+      - generic [ref=e9289] [cursor=pointer]:
+        - img "Video Dead" [ref=e9291]
+        - generic [ref=e9292]:
+          - heading "Video Dead" [level=3] [ref=e9293]
+          - generic [ref=e9294]:
+            - generic [ref=e9295]: "1987"
+            - generic [ref=e9296]: ·USA
+          - generic [ref=e9297]:
+            - link "ČSFD 53%" [ref=e9298]:
+              - /url: https://www.csfd.cz/film/249317
+              - generic [ref=e9299]: ČSFD
+              - generic [ref=e9300]: 53%
+            - link "TMDB 5,1" [ref=e9301]:
+              - /url: https://www.themoviedb.org/movie/26677
+              - generic [ref=e9302]: TMDB
+              - generic [ref=e9303]: 5,1
+      - generic [ref=e9304] [cursor=pointer]:
+        - img "Šviháci" [ref=e9306]
+        - generic [ref=e9307]:
+          - heading "Šviháci" [level=3] [ref=e9308]
+          - generic [ref=e9309]:
+            - generic [ref=e9310]: "2026"
+            - generic [ref=e9311]: ·Česko, Slovensko
+          - generic [ref=e9312]:
+            - link "ČSFD 52%" [ref=e9313]:
+              - /url: https://www.csfd.cz/film/1684812
+              - generic [ref=e9314]: ČSFD
+              - generic [ref=e9315]: 52%
+            - link "TMDB" [ref=e9316]:
+              - /url: https://www.themoviedb.org/movie/1524915
+              - generic [ref=e9317]: TMDB
+            - link "IMDb" [ref=e9318]:
+              - /url: https://www.imdb.com/title/tt39388926
+              - generic [ref=e9319]: IMDb
+      - generic [ref=e9320] [cursor=pointer]:
+        - img "Březnová zima" [ref=e9322]
+        - generic [ref=e9323]:
+          - heading "Březnová zima" [level=3] [ref=e9324]
+          - generic [ref=e9325]:
+            - generic [ref=e9326]: "2025"
+            - generic [ref=e9327]: ·Estonsko, Arménie, Francie
+          - generic [ref=e9328]:
+            - link "ČSFD" [ref=e9329]:
+              - /url: https://www.csfd.cz/film/1676714
+              - generic [ref=e9330]: ČSFD
+            - link "TMDB 5" [ref=e9331]:
+              - /url: https://www.themoviedb.org/movie/1471399
+              - generic [ref=e9332]: TMDB
+              - generic [ref=e9333]: "5"
+            - link "IMDb" [ref=e9334]:
+              - /url: https://www.imdb.com/title/tt36724209
+              - generic [ref=e9335]: IMDb
+      - generic [ref=e9336] [cursor=pointer]:
+        - img "Sleep Dreams" [ref=e9338]
+        - generic [ref=e9339]:
+          - heading "Sleep Dreams" [level=3] [ref=e9340]
+          - generic [ref=e9341]:
+            - generic [ref=e9342]: "2025"
+            - generic [ref=e9343]: ·Česko
+          - generic [ref=e9344]:
+            - link "ČSFD 49%" [ref=e9345]:
+              - /url: https://www.csfd.cz/film/1695560
+              - generic [ref=e9346]: ČSFD
+              - generic [ref=e9347]: 49%
+            - link "TMDB" [ref=e9348]:
+              - /url: https://www.themoviedb.org/movie/1508118
+              - generic [ref=e9349]: TMDB
+      - generic [ref=e9350] [cursor=pointer]:
+        - img [ref=e9353]
+        - generic [ref=e9355]:
+          - heading "N3G" [level=3] [ref=e9356]
+          - generic [ref=e9357]:
+            - generic [ref=e9358]: "2025"
+            - generic [ref=e9359]: ·Česko, Řecko, Velká Británie
+          - generic [ref=e9360]:
+            - link "ČSFD 46%" [ref=e9361]:
+              - /url: https://www.csfd.cz/film/1695546
+              - generic [ref=e9362]: ČSFD
+              - generic [ref=e9363]: 46%
+            - link "TMDB" [ref=e9364]:
+              - /url: https://www.themoviedb.org/movie/1508116
+              - generic [ref=e9365]: TMDB
+            - link "IMDb" [ref=e9366]:
+              - /url: https://www.imdb.com/title/tt35089718
+              - generic [ref=e9367]: IMDb
+      - generic [ref=e9368] [cursor=pointer]:
+        - 'img "Silent Hill: Noční můry" [ref=e9370]'
+        - generic [ref=e9371]:
+          - 'heading "Silent Hill: Noční můry" [level=3] [ref=e9372]'
+          - generic [ref=e9373]:
+            - generic [ref=e9374]: "2026"
+            - generic [ref=e9375]: ·USA, Velká Británie, Francie, Německo, Srbsko
+          - generic [ref=e9376]:
+            - link "ČSFD 42%" [ref=e9377]:
+              - /url: https://www.csfd.cz/film/1390510
+              - generic [ref=e9378]: ČSFD
+              - generic [ref=e9379]: 42%
+            - link "TMDB 5,2" [ref=e9380]:
+              - /url: https://www.themoviedb.org/movie/680493
+              - generic [ref=e9381]: TMDB
+              - generic [ref=e9382]: 5,2
+            - link "IMDb 4,1" [ref=e9383]:
+              - /url: https://www.imdb.com/title/tt22868010
+              - generic [ref=e9384]: IMDb
+              - generic [ref=e9385]: 4,1
+      - generic [ref=e9386] [cursor=pointer]:
+        - img "Ďáblova sbírka" [ref=e9388]
+        - generic [ref=e9389]:
+          - heading "Ďáblova sbírka" [level=3] [ref=e9390]
+          - generic [ref=e9391]:
+            - generic [ref=e9392]: "2024"
+            - generic [ref=e9393]: ·Česko
+          - generic [ref=e9394]:
+            - link "ČSFD 45%" [ref=e9395]:
+              - /url: https://www.csfd.cz/film/1343708
+              - generic [ref=e9396]: ČSFD
+              - generic [ref=e9397]: 45%
+            - link "TMDB" [ref=e9398]:
+              - /url: https://www.themoviedb.org/movie/1371052
+              - generic [ref=e9399]: TMDB
+            - link "IMDb" [ref=e9400]:
+              - /url: https://www.imdb.com/title/tt27621606
+              - generic [ref=e9401]: IMDb
+      - generic [ref=e9402] [cursor=pointer]:
+        - 'img "Afričtí Kung-fu nacisté 2: Ninja-Man" [ref=e9404]'
+        - generic [ref=e9405]:
+          - 'heading "Afričtí Kung-fu nacisté 2: Ninja-Man" [level=3] [ref=e9406]'
+          - generic [ref=e9407]:
+            - generic [ref=e9408]: "2024"
+            - generic [ref=e9409]: ·Ghana, Japonsko
+          - generic [ref=e9410]:
+            - link "ČSFD 44%" [ref=e9411]:
+              - /url: https://www.csfd.cz/film/1681542
+              - generic [ref=e9412]: ČSFD
+              - generic [ref=e9413]: 44%
+            - link "IMDb" [ref=e9414]:
+              - /url: https://www.imdb.com/title/tt39294645
+              - generic [ref=e9415]: IMDb
+      - generic [ref=e9416] [cursor=pointer]:
+        - img "Pac a pusu" [ref=e9418]
+        - generic [ref=e9419]:
+          - heading "Pac a pusu" [level=3] [ref=e9420]
+          - generic [ref=e9421]:
+            - generic [ref=e9422]: "1967"
+            - generic [ref=e9423]: ·Švédsko
+          - generic [ref=e9424]:
+            - link "ČSFD" [ref=e9425]:
+              - /url: https://www.csfd.cz/film/193257
+              - generic [ref=e9426]: ČSFD
+            - link "TMDB 4" [ref=e9427]:
+              - /url: https://www.themoviedb.org/movie/420418
+              - generic [ref=e9428]: TMDB
+              - generic [ref=e9429]: "4"
+            - link "IMDb 4,3" [ref=e9430]:
+              - /url: https://www.imdb.com/title/tt0062163
+              - generic [ref=e9431]: IMDb
+              - generic [ref=e9432]: 4,3
+      - generic [ref=e9433] [cursor=pointer]:
+        - img "Láskyplné hádky" [ref=e9435]
+        - generic [ref=e9436]:
+          - heading "Láskyplné hádky" [level=3] [ref=e9437]
+          - generic [ref=e9438]:
+            - generic [ref=e9439]: "2025"
+            - generic [ref=e9440]: ·Portugalsko
+          - generic [ref=e9441]:
+            - link "ČSFD" [ref=e9442]:
+              - /url: https://www.csfd.cz/film/1675649
+              - generic [ref=e9443]: ČSFD
+            - link "TMDB 4" [ref=e9444]:
+              - /url: https://www.themoviedb.org/movie/1471247
+              - generic [ref=e9445]: TMDB
+              - generic [ref=e9446]: "4"
+            - link "IMDb" [ref=e9447]:
+              - /url: https://www.imdb.com/title/tt36693324
+              - generic [ref=e9448]: IMDb
+      - generic [ref=e9449] [cursor=pointer]:
+        - img "Domácí příšerky 2" [ref=e9451]
+        - generic [ref=e9452]:
+          - heading "Domácí příšerky 2" [level=3] [ref=e9453]
+          - generic [ref=e9454]:
+            - generic [ref=e9455]: "2025"
+            - generic [ref=e9456]: ·Rusko, Spojené arabské emiráty
+          - generic [ref=e9457]:
+            - link "ČSFD 30%" [ref=e9458]:
+              - /url: https://www.csfd.cz/film/1754298
+              - generic [ref=e9459]: ČSFD
+              - generic [ref=e9460]: 30%
+            - link "TMDB 4" [ref=e9461]:
+              - /url: https://www.themoviedb.org/movie/1255369
+              - generic [ref=e9462]: TMDB
+              - generic [ref=e9463]: "4"
+      - generic [ref=e9464] [cursor=pointer]:
+        - img "Melania" [ref=e9466]
+        - generic [ref=e9467]:
+          - heading "Melania" [level=3] [ref=e9468]
+          - generic [ref=e9469]:
+            - generic [ref=e9470]: "2026"
+            - generic [ref=e9471]: ·USA
+          - generic [ref=e9472]:
+            - link "ČSFD 11%" [ref=e9473]:
+              - /url: https://www.csfd.cz/film/1781877
+              - generic [ref=e9474]: ČSFD
+              - generic [ref=e9475]: 11%
+            - link "TMDB 3" [ref=e9476]:
+              - /url: https://www.themoviedb.org/movie/1413097
+              - generic [ref=e9477]: TMDB
+              - generic [ref=e9478]: "3"
+            - link "IMDb 1,4" [ref=e9479]:
+              - /url: https://www.imdb.com/title/tt35291758
+              - generic [ref=e9480]: IMDb
+              - generic [ref=e9481]: 1,4
+      - generic [ref=e9482] [cursor=pointer]:
+        - img "O'Romeo" [ref=e9484]
+        - generic [ref=e9485]:
+          - heading "O'Romeo" [level=3] [ref=e9486]
+          - generic [ref=e9487]:
+            - generic [ref=e9488]: "2026"
+            - generic [ref=e9489]: ·Indie
+          - generic [ref=e9490]:
+            - link "ČSFD" [ref=e9491]:
+              - /url: https://www.csfd.cz/film/1808214
+              - generic [ref=e9492]: ČSFD
+            - link "TMDB" [ref=e9493]:
+              - /url: https://www.themoviedb.org/movie/1275574
+              - generic [ref=e9494]: TMDB
+            - link "IMDb" [ref=e9495]:
+              - /url: https://www.imdb.com/title/tt31969779
+              - generic [ref=e9496]: IMDb
+      - generic [ref=e9497] [cursor=pointer]:
+        - img "Svět Okiku" [ref=e9499]
+        - generic [ref=e9500]:
+          - heading "Svět Okiku" [level=3] [ref=e9501]
+          - generic [ref=e9502]:
+            - generic [ref=e9503]: "2023"
+            - generic [ref=e9504]: ·Japonsko
+          - generic [ref=e9505]:
+            - link "ČSFD" [ref=e9506]:
+              - /url: https://www.csfd.cz/film/1302109
+              - generic [ref=e9507]: ČSFD
+            - link "IMDb" [ref=e9508]:
+              - /url: https://www.imdb.com/title/tt38898613
+              - generic [ref=e9509]: IMDb
+      - generic [ref=e9510] [cursor=pointer]:
+        - img "Kinošpunt" [ref=e9512]
+        - generic [ref=e9513]:
+          - heading "Kinošpunt" [level=3] [ref=e9514]
+          - generic [ref=e9515]:
+            - generic [ref=e9516]: "2025"
+            - generic [ref=e9517]: ·Česko
+          - link "ČSFD" [ref=e9519]:
+            - /url: https://www.csfd.cz/film/1674215
+            - generic [ref=e9520]: ČSFD
+      - generic [ref=e9521] [cursor=pointer]:
+        - img "Kanasandó" [ref=e9523]
+        - generic [ref=e9524]:
+          - heading "Kanasandó" [level=3] [ref=e9525]
+          - generic [ref=e9526]:
+            - generic [ref=e9527]: "2024"
+            - generic [ref=e9528]: ·Japonsko
+          - generic [ref=e9529]:
+            - link "ČSFD" [ref=e9530]:
+              - /url: https://www.csfd.cz/film/1639629
+              - generic [ref=e9531]: ČSFD
+            - link "TMDB" [ref=e9532]:
+              - /url: https://www.themoviedb.org/movie/1292572
+              - generic [ref=e9533]: TMDB
+            - link "IMDb" [ref=e9534]:
+              - /url: https://www.imdb.com/title/tt15964848
+              - generic [ref=e9535]: IMDb
+      - generic [ref=e9536] [cursor=pointer]:
+        - img "Nečekané léto" [ref=e9538]
+        - generic [ref=e9539]:
+          - heading "Nečekané léto" [level=3] [ref=e9540]
+          - generic [ref=e9541]:
+            - generic [ref=e9542]: "2026"
+            - generic [ref=e9543]: ·Česko
+          - generic [ref=e9544]:
+            - link "ČSFD" [ref=e9545]:
+              - /url: https://www.csfd.cz/film/1786381
+              - generic [ref=e9546]: ČSFD
+            - link "IMDb" [ref=e9547]:
+              - /url: https://www.imdb.com/title/tt39334849
+              - generic [ref=e9548]: IMDb
+      - generic [ref=e9549] [cursor=pointer]:
+        - img "Já, Poběda a Berlín" [ref=e9551]
+        - generic [ref=e9552]:
+          - heading "Já, Poběda a Berlín" [level=3] [ref=e9553]
+          - generic [ref=e9554]:
+            - generic [ref=e9555]: "2022"
+            - generic [ref=e9556]: ·Ukrajina
+          - link "ČSFD" [ref=e9558]:
+            - /url: https://www.csfd.cz/film/1159761
+            - generic [ref=e9559]: ČSFD
+      - generic [ref=e9560] [cursor=pointer]:
+        - img "Česká srdce Banátu" [ref=e9562]
+        - generic [ref=e9563]:
+          - heading "Česká srdce Banátu" [level=3] [ref=e9564]
+          - generic [ref=e9565]:
+            - generic [ref=e9566]: "2025"
+            - generic [ref=e9567]: ·Česko
+          - link "ČSFD" [ref=e9569]:
+            - /url: https://www.csfd.cz/film/1768056
+            - generic [ref=e9570]: ČSFD
+      - generic [ref=e9571] [cursor=pointer]:
+        - img "Člověk lavina" [ref=e9573]
+        - generic [ref=e9574]:
+          - heading "Člověk lavina" [level=3] [ref=e9575]
+          - generic [ref=e9576]:
+            - generic [ref=e9577]: "2025"
+            - generic [ref=e9578]: ·Černá Hora
+          - generic [ref=e9579]:
+            - link "ČSFD" [ref=e9580]:
+              - /url: https://www.csfd.cz/film/1726812
+              - generic [ref=e9581]: ČSFD
+            - link "TMDB" [ref=e9582]:
+              - /url: https://www.themoviedb.org/movie/1447137
+              - generic [ref=e9583]: TMDB
+            - link "IMDb" [ref=e9584]:
+              - /url: https://www.imdb.com/title/tt32848295
+              - generic [ref=e9585]: IMDb
+      - generic [ref=e9586] [cursor=pointer]:
+        - img "Karma" [ref=e9588]
+        - generic [ref=e9589]:
+          - heading "Karma" [level=3] [ref=e9590]
+          - generic [ref=e9591]:
+            - generic [ref=e9592]: "2006"
+            - generic [ref=e9593]: ·Nepál
+          - generic [ref=e9594]:
+            - link "ČSFD" [ref=e9595]:
+              - /url: https://www.csfd.cz/film/379481
+              - generic [ref=e9596]: ČSFD
+            - link "TMDB" [ref=e9597]:
+              - /url: https://www.themoviedb.org/movie/545157
+              - generic [ref=e9598]: TMDB
+            - link "IMDb" [ref=e9599]:
+              - /url: https://www.imdb.com/title/tt29921070
+              - generic [ref=e9600]: IMDb
+      - generic [ref=e9601] [cursor=pointer]:
+        - img "Sladké rekviem" [ref=e9603]
+        - generic [ref=e9604]:
+          - heading "Sladké rekviem" [level=3] [ref=e9605]
+          - generic [ref=e9606]:
+            - generic [ref=e9607]: "2018"
+            - generic [ref=e9608]: ·Indie, USA
+          - generic [ref=e9609]:
+            - link "ČSFD" [ref=e9610]:
+              - /url: https://www.csfd.cz/film/652195
+              - generic [ref=e9611]: ČSFD
+            - link "IMDb" [ref=e9612]:
+              - /url: https://www.imdb.com/title/tt36371240
+              - generic [ref=e9613]: IMDb
+      - generic [ref=e9614] [cursor=pointer]:
+        - img "Lamův syn" [ref=e9616]
+        - generic [ref=e9617]:
+          - heading "Lamův syn" [level=3] [ref=e9618]
+          - generic [ref=e9619]:
+            - generic [ref=e9620]: "2025"
+            - generic [ref=e9621]: ·USA
+          - generic [ref=e9622]:
+            - link "ČSFD" [ref=e9623]:
+              - /url: https://www.csfd.cz/film/1767837
+              - generic [ref=e9624]: ČSFD
+            - link "TMDB" [ref=e9625]:
+              - /url: https://www.themoviedb.org/movie/1567506
+              - generic [ref=e9626]: TMDB
+            - link "IMDb" [ref=e9627]:
+              - /url: https://www.imdb.com/title/tt38640165
+              - generic [ref=e9628]: IMDb
+      - generic [ref=e9629] [cursor=pointer]:
+        - img "Slyšíš mě?" [ref=e9631]
+        - generic [ref=e9632]:
+          - heading "Slyšíš mě?" [level=3] [ref=e9633]
+          - generic [ref=e9634]:
+            - generic [ref=e9635]: "2025"
+            - generic [ref=e9636]: ·Polsko
+          - generic [ref=e9637]:
+            - link "ČSFD" [ref=e9638]:
+              - /url: https://www.csfd.cz/film/1700799
+              - generic [ref=e9639]: ČSFD
+            - link "IMDb" [ref=e9640]:
+              - /url: https://www.imdb.com/title/tt3461148
+              - generic [ref=e9641]: IMDb
+      - generic [ref=e9642] [cursor=pointer]:
+        - img [ref=e9645]
+        - generic [ref=e9647]:
+          - heading "Jsme tak trochu jiní" [level=3] [ref=e9648]
+          - generic [ref=e9649]:
+            - generic [ref=e9650]: "2025"
+            - generic [ref=e9651]: ·Kanada
+          - link "ČSFD" [ref=e9653]:
+            - /url: https://www.csfd.cz/film/1796405
+            - generic [ref=e9654]: ČSFD
+      - generic [ref=e9655] [cursor=pointer]:
+        - 'img "Twenty One Pilots: More Than We Ever Imagined" [ref=e9657]'
+        - generic [ref=e9658]:
+          - 'heading "Twenty One Pilots: More Than We Ever Imagined" [level=3] [ref=e9659]'
+          - generic [ref=e9660]:
+            - generic [ref=e9661]: "2026"
+            - generic [ref=e9662]: ·USA
+          - generic [ref=e9663]:
+            - link "ČSFD" [ref=e9664]:
+              - /url: https://www.csfd.cz/film/1795752
+              - generic [ref=e9665]: ČSFD
+            - link "TMDB" [ref=e9666]:
+              - /url: https://www.themoviedb.org/movie/1612063
+              - generic [ref=e9667]: TMDB
+            - link "IMDb" [ref=e9668]:
+              - /url: https://www.imdb.com/title/tt39315536
+              - generic [ref=e9669]: IMDb
+      - generic [ref=e9670] [cursor=pointer]:
+        - img "Byl jsem cizincem" [ref=e9672]
+        - generic [ref=e9673]:
+          - heading "Byl jsem cizincem" [level=3] [ref=e9674]
+          - generic [ref=e9675]:
+            - generic [ref=e9676]: "2024"
+            - generic [ref=e9677]: ·Jordánsko, Palestina, USA
+          - generic [ref=e9678]:
+            - link "ČSFD" [ref=e9679]:
+              - /url: https://www.csfd.cz/film/1486569
+              - generic [ref=e9680]: ČSFD
+            - link "TMDB" [ref=e9681]:
+              - /url: https://www.themoviedb.org/movie/1399712
+              - generic [ref=e9682]: TMDB
+            - link "IMDb" [ref=e9683]:
+              - /url: https://www.imdb.com/title/tt10611980
+              - generic [ref=e9684]: IMDb
+      - generic [ref=e9685] [cursor=pointer]:
+        - img "Orla" [ref=e9687]
+        - generic [ref=e9688]:
+          - heading "Orla" [level=3] [ref=e9689]
+          - generic [ref=e9690]:
+            - generic [ref=e9691]: "2026"
+            - generic [ref=e9692]: ·Česko, Slovensko
+          - generic [ref=e9693]:
+            - link "ČSFD" [ref=e9694]:
+              - /url: https://www.csfd.cz/film/1784193
+              - generic [ref=e9695]: ČSFD
+            - link "TMDB" [ref=e9696]:
+              - /url: https://www.themoviedb.org/movie/1599643
+              - generic [ref=e9697]: TMDB
+      - generic [ref=e9698] [cursor=pointer]:
+        - img [ref=e9701]
+        - generic [ref=e9703]:
+          - heading "En, ten, týky!" [level=3] [ref=e9704]
+          - generic [ref=e9705]:
+            - generic [ref=e9706]: "2026"
+            - generic [ref=e9707]: ·Česko, Slovensko
+          - generic [ref=e9708]:
+            - link "ČSFD" [ref=e9709]:
+              - /url: https://www.csfd.cz/film/1812675
+              - generic [ref=e9710]: ČSFD
+            - link "TMDB" [ref=e9711]:
+              - /url: https://www.themoviedb.org/movie/1616186
+              - generic [ref=e9712]: TMDB
+            - link "IMDb" [ref=e9713]:
+              - /url: https://www.imdb.com/title/tt39371349
+              - generic [ref=e9714]: IMDb
+      - generic [ref=e9715] [cursor=pointer]:
+        - img "S kým budeš na koni" [ref=e9717]
+        - generic [ref=e9718]:
+          - heading "S kým budeš na koni" [level=3] [ref=e9719]
+          - generic [ref=e9720]:
+            - generic [ref=e9721]: "2025"
+            - generic [ref=e9722]: ·USA, Itálie
+          - generic [ref=e9723]:
+            - link "ČSFD" [ref=e9724]:
+              - /url: https://www.csfd.cz/film/1812784
+              - generic [ref=e9725]: ČSFD
+            - link "TMDB" [ref=e9726]:
+              - /url: https://www.themoviedb.org/movie/1477446
+              - generic [ref=e9727]: TMDB
+            - link "IMDb" [ref=e9728]:
+              - /url: https://www.imdb.com/title/tt38628163
+              - generic [ref=e9729]: IMDb
+      - generic [ref=e9730] [cursor=pointer]:
+        - img "Mluv mě" [ref=e9732]
+        - generic [ref=e9733]:
+          - heading "Mluv mě" [level=3] [ref=e9734]
+          - generic [ref=e9735]:
+            - generic [ref=e9736]: "2025"
+            - generic [ref=e9737]: ·USA
+          - generic [ref=e9738]:
+            - link "ČSFD" [ref=e9739]:
+              - /url: https://www.csfd.cz/film/1676709
+              - generic [ref=e9740]: ČSFD
+            - link "TMDB" [ref=e9741]:
+              - /url: https://www.themoviedb.org/movie/1470477
+              - generic [ref=e9742]: TMDB
+            - link "IMDb" [ref=e9743]:
+              - /url: https://www.imdb.com/title/tt38781834
+              - generic [ref=e9744]: IMDb
+      - generic [ref=e9745] [cursor=pointer]:
+        - img "Hyena" [ref=e9747]
+        - generic [ref=e9748]:
+          - heading "Hyena" [level=3] [ref=e9749]
+          - generic [ref=e9750]:
+            - generic [ref=e9751]: "2025"
+            - generic [ref=e9752]: ·USA
+          - generic [ref=e9753]:
+            - link "ČSFD" [ref=e9754]:
+              - /url: https://www.csfd.cz/film/1716992
+              - generic [ref=e9755]: ČSFD
+            - link "TMDB" [ref=e9756]:
+              - /url: https://www.themoviedb.org/movie/1521049
+              - generic [ref=e9757]: TMDB
+            - link "IMDb" [ref=e9758]:
+              - /url: https://www.imdb.com/title/tt11534164
+              - generic [ref=e9759]: IMDb
+      - generic [ref=e9760] [cursor=pointer]:
+        - img "The Pørnøgraphər" [ref=e9762]
+        - generic [ref=e9763]:
+          - heading "The Pørnøgraphər" [level=3] [ref=e9764]
+          - generic [ref=e9765]:
+            - generic [ref=e9766]: "2025"
+            - generic [ref=e9767]: ·Itálie
+          - generic [ref=e9768]:
+            - link "ČSFD" [ref=e9769]:
+              - /url: https://www.csfd.cz/film/1726926
+              - generic [ref=e9770]: ČSFD
+            - link "TMDB" [ref=e9771]:
+              - /url: https://www.themoviedb.org/movie/1516801
+              - generic [ref=e9772]: TMDB
+            - link "IMDb" [ref=e9773]:
+              - /url: https://www.imdb.com/title/tt37647333
+              - generic [ref=e9774]: IMDb
+      - generic [ref=e9775] [cursor=pointer]:
+        - img [ref=e9778]
+        - generic [ref=e9780]:
+          - heading "Kolosální síla" [level=3] [ref=e9781]
+          - generic [ref=e9782]:
+            - generic [ref=e9783]: "2026"
+            - generic [ref=e9784]: ·Německo
+          - link "ČSFD" [ref=e9786]:
+            - /url: https://www.csfd.cz/film/1804118
+            - generic [ref=e9787]: ČSFD
+      - generic [ref=e9788] [cursor=pointer]:
+        - img [ref=e9791]
+        - generic [ref=e9793]:
+          - heading "Pozdravy z Rhodosu" [level=3] [ref=e9794]
+          - generic [ref=e9795]:
+            - generic [ref=e9796]: "2026"
+            - generic [ref=e9797]: ·Slovensko, Česko
+          - generic [ref=e9798]:
+            - link "ČSFD" [ref=e9799]:
+              - /url: https://www.csfd.cz/film/1804101
+              - generic [ref=e9800]: ČSFD
+            - link "IMDb" [ref=e9801]:
+              - /url: https://www.imdb.com/title/tt38095645
+              - generic [ref=e9802]: IMDb
+      - generic [ref=e9803] [cursor=pointer]:
+        - img "Kudlanka nábožná" [ref=e9805]
+        - generic [ref=e9806]:
+          - heading "Kudlanka nábožná" [level=3] [ref=e9807]
+          - generic [ref=e9808]:
+            - generic [ref=e9809]: "2025"
+            - generic [ref=e9810]: ·Tchaj-wan, Hongkong
+          - generic [ref=e9811]:
+            - link "ČSFD" [ref=e9812]:
+              - /url: https://www.csfd.cz/film/1722646
+              - generic [ref=e9813]: ČSFD
+            - link "TMDB" [ref=e9814]:
+              - /url: https://www.themoviedb.org/movie/1514691
+              - generic [ref=e9815]: TMDB
+            - link "IMDb" [ref=e9816]:
+              - /url: https://www.imdb.com/title/tt37673263
+              - generic [ref=e9817]: IMDb
+      - generic [ref=e9818] [cursor=pointer]:
+        - img [ref=e9821]
+        - generic [ref=e9823]:
+          - heading "Smrtiběh" [level=3] [ref=e9824]
+          - generic [ref=e9825]:
+            - generic [ref=e9826]: "2016"
+            - generic [ref=e9827]: ·USA
+          - generic [ref=e9828]:
+            - link "ČSFD" [ref=e9829]:
+              - /url: https://www.csfd.cz/film/1812530
+              - generic [ref=e9830]: ČSFD
+            - link "IMDb" [ref=e9831]:
+              - /url: https://www.imdb.com/title/tt13454426
+              - generic [ref=e9832]: IMDb
+      - generic [ref=e9833] [cursor=pointer]:
+        - img "Zrcadlozrcadlo" [ref=e9835]
+        - generic [ref=e9836]:
+          - heading "Zrcadlozrcadlo" [level=3] [ref=e9837]
+          - generic [ref=e9838]:
+            - generic [ref=e9839]: "2022"
+            - generic [ref=e9840]: ·Velká Británie
+          - generic [ref=e9841]:
+            - link "ČSFD" [ref=e9842]:
+              - /url: https://www.csfd.cz/film/1812531
+              - generic [ref=e9843]: ČSFD
+            - link "TMDB" [ref=e9844]:
+              - /url: https://www.themoviedb.org/movie/1218893
+              - generic [ref=e9845]: TMDB
+            - link "IMDb" [ref=e9846]:
+              - /url: https://www.imdb.com/title/tt0112073
+              - generic [ref=e9847]: IMDb
+      - generic [ref=e9848] [cursor=pointer]:
+        - img "Mimoškolní aktivita" [ref=e9850]
+        - generic [ref=e9851]:
+          - heading "Mimoškolní aktivita" [level=3] [ref=e9852]
+          - generic [ref=e9853]:
+            - generic [ref=e9854]: "2024"
+            - generic [ref=e9855]: ·Čína
+          - generic [ref=e9856]:
+            - link "ČSFD" [ref=e9857]:
+              - /url: https://www.csfd.cz/film/1635773
+              - generic [ref=e9858]: ČSFD
+            - link "IMDb" [ref=e9859]:
+              - /url: https://www.imdb.com/title/tt29142245
+              - generic [ref=e9860]: IMDb
+      - generic [ref=e9861] [cursor=pointer]:
+        - img "Zkouška" [ref=e9863]
+        - generic [ref=e9864]:
+          - heading "Zkouška" [level=3] [ref=e9865]
+          - generic [ref=e9866]:
+            - generic [ref=e9867]: "2025"
+            - generic [ref=e9868]: ·Polsko, Francie
+          - generic [ref=e9869]:
+            - link "ČSFD" [ref=e9870]:
+              - /url: https://www.csfd.cz/film/1768942
+              - generic [ref=e9871]: ČSFD
+            - link "TMDB" [ref=e9872]:
+              - /url: https://www.themoviedb.org/movie/1557932
+              - generic [ref=e9873]: TMDB
+            - link "IMDb" [ref=e9874]:
+              - /url: https://www.imdb.com/title/tt38568315
+              - generic [ref=e9875]: IMDb
+      - generic [ref=e9876] [cursor=pointer]:
+        - img [ref=e9879]
+        - generic [ref=e9881]:
+          - heading "Snowblind" [level=3] [ref=e9882]
+          - generic [ref=e9883]:
+            - generic [ref=e9884]: "2025"
+            - generic [ref=e9885]: ·Česko
+          - generic [ref=e9886]:
+            - link "ČSFD" [ref=e9887]:
+              - /url: https://www.csfd.cz/film/1756320
+              - generic [ref=e9888]: ČSFD
+            - link "TMDB" [ref=e9889]:
+              - /url: https://www.themoviedb.org/movie/1577484
+              - generic [ref=e9890]: TMDB
+            - link "IMDb" [ref=e9891]:
+              - /url: https://www.imdb.com/title/tt7562182
+              - generic [ref=e9892]: IMDb
+      - generic [ref=e9893] [cursor=pointer]:
+        - img [ref=e9896]
+        - generic [ref=e9898]:
+          - heading "Labyrint v mysli" [level=3] [ref=e9899]
+          - generic [ref=e9900]:
+            - generic [ref=e9901]: "2025"
+            - generic [ref=e9902]: ·Česko
+          - link "ČSFD" [ref=e9904]:
+            - /url: https://www.csfd.cz/film/1748846
+            - generic [ref=e9905]: ČSFD
+      - generic [ref=e9906] [cursor=pointer]:
+        - img [ref=e9909]
+        - generic [ref=e9911]:
+          - heading "Koberec" [level=3] [ref=e9912]
+          - generic [ref=e9913]:
+            - generic [ref=e9914]: "2023"
+            - generic [ref=e9915]: ·Česko
+          - generic [ref=e9916]:
+            - link "ČSFD" [ref=e9917]:
+              - /url: https://www.csfd.cz/film/1753086
+              - generic [ref=e9918]: ČSFD
+            - link "TMDB" [ref=e9919]:
+              - /url: https://www.themoviedb.org/movie/1552267
+              - generic [ref=e9920]: TMDB
+            - link "IMDb" [ref=e9921]:
+              - /url: https://www.imdb.com/title/tt34577244
+              - generic [ref=e9922]: IMDb
+      - generic [ref=e9923] [cursor=pointer]:
+        - img [ref=e9926]
+        - generic [ref=e9928]:
+          - heading "Potměšilý host" [level=3] [ref=e9929]
+          - generic [ref=e9930]:
+            - generic [ref=e9931]: "2024"
+            - generic [ref=e9932]: ·Česko
+          - generic [ref=e9933]:
+            - link "ČSFD" [ref=e9934]:
+              - /url: https://www.csfd.cz/film/1753089
+              - generic [ref=e9935]: ČSFD
+            - link "IMDb" [ref=e9936]:
+              - /url: https://www.imdb.com/title/tt38677845
+              - generic [ref=e9937]: IMDb
+      - generic [ref=e9938] [cursor=pointer]:
+        - img [ref=e9941]
+        - generic [ref=e9943]:
+          - 'heading "Sherlock Holmes: Tah na dámu" [level=3] [ref=e9944]'
+          - generic [ref=e9945]:
+            - generic [ref=e9946]: "2025"
+            - generic [ref=e9947]: ·Česko
+          - generic [ref=e9948]:
+            - link "ČSFD" [ref=e9949]:
+              - /url: https://www.csfd.cz/film/1692647
+              - generic [ref=e9950]: ČSFD
+            - link "IMDb" [ref=e9951]:
+              - /url: https://www.imdb.com/title/tt34765023
+              - generic [ref=e9952]: IMDb
+      - generic [ref=e9953] [cursor=pointer]:
+        - img [ref=e9956]
+        - generic [ref=e9958]:
+          - heading "Smysl je v detailu" [level=3] [ref=e9959]
+          - generic [ref=e9960]:
+            - generic [ref=e9961]: "2025"
+            - generic [ref=e9962]: ·Česko
+          - link "ČSFD" [ref=e9964]:
+            - /url: https://www.csfd.cz/film/1637456
+            - generic [ref=e9965]: ČSFD
+      - generic [ref=e9966] [cursor=pointer]:
+        - img "Oznámení" [ref=e9968]
+        - generic [ref=e9969]:
+          - heading "Oznámení" [level=3] [ref=e9970]
+          - generic [ref=e9971]:
+            - generic [ref=e9972]: "2024"
+            - generic [ref=e9973]: ·Česko
+          - link "ČSFD" [ref=e9975]:
+            - /url: https://www.csfd.cz/film/1670633
+            - generic [ref=e9976]: ČSFD
+      - generic [ref=e9977] [cursor=pointer]:
+        - img [ref=e9980]
+        - generic [ref=e9982]:
+          - heading "Profesor Slavoj Žižek o problematice online seznamek" [level=3] [ref=e9983]
+          - generic [ref=e9984]:
+            - generic [ref=e9985]: "2024"
+            - generic [ref=e9986]: ·Nový Zéland
+          - link "ČSFD" [ref=e9988]:
+            - /url: https://www.csfd.cz/film/1812888
+            - generic [ref=e9989]: ČSFD
+      - generic [ref=e9990] [cursor=pointer]:
+        - img "Výlet - táta - Anežka" [ref=e9992]
+        - generic [ref=e9993]:
+          - heading "Výlet - táta - Anežka" [level=3] [ref=e9994]
+          - generic [ref=e9995]:
+            - generic [ref=e9996]: "2025"
+            - generic [ref=e9997]: ·Česko
+          - link "ČSFD" [ref=e9999]:
+            - /url: https://www.csfd.cz/film/1642173
+            - generic [ref=e10000]: ČSFD
+      - generic [ref=e10001] [cursor=pointer]:
+        - img "Do prdele! Ty vole..." [ref=e10003]
+        - generic [ref=e10004]:
+          - heading "Do prdele! Ty vole..." [level=3] [ref=e10005]
+          - generic [ref=e10006]:
+            - generic [ref=e10007]: "2025"
+            - generic [ref=e10008]: ·Česko
+          - link "ČSFD" [ref=e10010]:
+            - /url: https://www.csfd.cz/film/1753800
+            - generic [ref=e10011]: ČSFD
+      - generic [ref=e10012] [cursor=pointer]:
+        - 'img "Sladké nevědomí: A Star Trek Fan Production" [ref=e10014]'
+        - generic [ref=e10015]:
+          - 'heading "Sladké nevědomí: A Star Trek Fan Production" [level=3] [ref=e10016]'
+          - generic [ref=e10017]:
+            - generic [ref=e10018]: "2024"
+            - generic [ref=e10019]: ·Česko
+          - link "ČSFD" [ref=e10021]:
+            - /url: https://www.csfd.cz/film/1756537
+            - generic [ref=e10022]: ČSFD
+      - generic [ref=e10023] [cursor=pointer]:
+        - img [ref=e10026]
+        - generic [ref=e10028]:
+          - heading "Město, jehož sláva hvězd se dotýká" [level=3] [ref=e10029]
+          - generic [ref=e10030]:
+            - generic [ref=e10031]: "2025"
+            - generic [ref=e10032]: ·Česko
+          - link "ČSFD" [ref=e10034]:
+            - /url: https://www.csfd.cz/film/1772622
+            - generic [ref=e10035]: ČSFD
+      - generic [ref=e10036] [cursor=pointer]:
+        - img "Nedokonalý dárek" [ref=e10038]
+        - generic [ref=e10039]:
+          - heading "Nedokonalý dárek" [level=3] [ref=e10040]
+          - generic [ref=e10041]:
+            - generic [ref=e10042]: "2015"
+            - generic [ref=e10043]: ·Argentina
+          - generic [ref=e10044]:
+            - link "ČSFD" [ref=e10045]:
+              - /url: https://www.csfd.cz/film/31678
+              - generic [ref=e10046]: ČSFD
+            - link "TMDB" [ref=e10047]:
+              - /url: https://www.themoviedb.org/movie/616476
+              - generic [ref=e10048]: TMDB
+            - link "IMDb" [ref=e10049]:
+              - /url: https://www.imdb.com/title/tt4596826
+              - generic [ref=e10050]: IMDb
+      - generic [ref=e10051] [cursor=pointer]:
+        - img "Shakti" [ref=e10053]
+        - generic [ref=e10054]:
+          - heading "Shakti" [level=3] [ref=e10055]
+          - generic [ref=e10056]:
+            - generic [ref=e10057]: "2019"
+            - generic [ref=e10058]: ·Argentina, Chile
+          - generic [ref=e10059]:
+            - link "ČSFD" [ref=e10060]:
+              - /url: https://www.csfd.cz/film/693404
+              - generic [ref=e10061]: ČSFD
+            - link "TMDB" [ref=e10062]:
+              - /url: https://www.themoviedb.org/movie/1548223
+              - generic [ref=e10063]: TMDB
+            - link "IMDb" [ref=e10064]:
+              - /url: https://www.imdb.com/title/tt26598972
+              - generic [ref=e10065]: IMDb
+      - generic [ref=e10066] [cursor=pointer]:
+        - img "Odyseova kánoe" [ref=e10068]
+        - generic [ref=e10069]:
+          - heading "Odyseova kánoe" [level=3] [ref=e10070]
+          - generic [ref=e10071]:
+            - generic [ref=e10072]: "2016"
+            - generic [ref=e10073]: ·Argentina
+          - generic [ref=e10074]:
+            - link "ČSFD" [ref=e10075]:
+              - /url: https://www.csfd.cz/film/1812878
+              - generic [ref=e10076]: ČSFD
+            - link "TMDB" [ref=e10077]:
+              - /url: https://www.themoviedb.org/movie/1283720
+              - generic [ref=e10078]: TMDB
+            - link "IMDb" [ref=e10079]:
+              - /url: https://www.imdb.com/title/tt5645598
+              - generic [ref=e10080]: IMDb
+      - generic [ref=e10081] [cursor=pointer]:
+        - img [ref=e10084]
+        - generic [ref=e10086]:
+          - heading "Tři věty o Argentině" [level=3] [ref=e10087]
+          - generic [ref=e10088]:
+            - generic [ref=e10089]: "2016"
+            - generic [ref=e10090]: ·Argentina
+          - generic [ref=e10091]:
+            - link "ČSFD" [ref=e10092]:
+              - /url: https://www.csfd.cz/film/1812880
+              - generic [ref=e10093]: ČSFD
+            - link "IMDb" [ref=e10094]:
+              - /url: https://www.imdb.com/title/tt24785218
+              - generic [ref=e10095]: IMDb
+      - generic [ref=e10096] [cursor=pointer]:
+        - img "Na skok do divočiny" [ref=e10098]
+        - generic [ref=e10099]:
+          - heading "Na skok do divočiny" [level=3] [ref=e10100]
+          - generic [ref=e10101]:
+            - generic [ref=e10102]: "2026"
+            - generic [ref=e10103]: ·USA
+          - generic [ref=e10104]:
+            - link "ČSFD" [ref=e10105]:
+              - /url: https://www.csfd.cz/film/1558319
+              - generic [ref=e10106]: ČSFD
+            - link "TMDB" [ref=e10107]:
+              - /url: https://www.themoviedb.org/movie/1327819
+              - generic [ref=e10108]: TMDB
+            - link "IMDb" [ref=e10109]:
+              - /url: https://www.imdb.com/title/tt26443616
+              - generic [ref=e10110]: IMDb
+      - generic [ref=e10111] [cursor=pointer]:
+        - img "Nevěsta!" [ref=e10113]
+        - generic [ref=e10114]:
+          - heading "Nevěsta!" [level=3] [ref=e10115]
+          - generic [ref=e10116]:
+            - generic [ref=e10117]: "2026"
+            - generic [ref=e10118]: ·USA
+          - generic [ref=e10119]:
+            - link "ČSFD" [ref=e10120]:
+              - /url: https://www.csfd.cz/film/1481329
+              - generic [ref=e10121]: ČSFD
+            - link "TMDB" [ref=e10122]:
+              - /url: https://www.themoviedb.org/movie/1159831
+              - generic [ref=e10123]: TMDB
+            - link "IMDb" [ref=e10124]:
+              - /url: https://www.imdb.com/title/tt30851137
+              - generic [ref=e10125]: IMDb
+      - generic [ref=e10126] [cursor=pointer]:
+        - 'img "Přání k narozeninám: Křtiny" [ref=e10128]'
+        - generic [ref=e10129]:
+          - 'heading "Přání k narozeninám: Křtiny" [level=3] [ref=e10130]'
+          - generic [ref=e10131]:
+            - generic [ref=e10132]: "2026"
+            - generic [ref=e10133]: ·Česko
+          - link "ČSFD" [ref=e10135]:
+            - /url: https://www.csfd.cz/film/1717489
+            - generic [ref=e10136]: ČSFD
+      - generic [ref=e10137] [cursor=pointer]:
+        - img "Bring Me the Horizon - L.I.V.E. in São Paulo" [ref=e10139]
+        - generic [ref=e10140]:
+          - heading "Bring Me the Horizon - L.I.V.E. in São Paulo" [level=3] [ref=e10141]
+          - generic [ref=e10142]:
+            - generic [ref=e10143]: "2026"
+            - generic [ref=e10144]: ·Velká Británie
+          - generic [ref=e10145]:
+            - link "ČSFD" [ref=e10146]:
+              - /url: https://www.csfd.cz/film/1808307
+              - generic [ref=e10147]: ČSFD
+            - link "TMDB" [ref=e10148]:
+              - /url: https://www.themoviedb.org/movie/1621113
+              - generic [ref=e10149]: TMDB
+            - link "IMDb" [ref=e10150]:
+              - /url: https://www.imdb.com/title/tt39634490
+              - generic [ref=e10151]: IMDb
+      - generic [ref=e10152] [cursor=pointer]:
+        - img "Zdeněk Svěrák 90" [ref=e10154]
+        - generic [ref=e10155]:
+          - heading "Zdeněk Svěrák 90" [level=3] [ref=e10156]
+          - generic [ref=e10157]:
+            - generic [ref=e10158]: "2026"
+            - generic [ref=e10159]: ·Česko
+          - link "ČSFD" [ref=e10161]:
+            - /url: https://www.csfd.cz/film/1809208
+            - generic [ref=e10162]: ČSFD
+      - generic [ref=e10163] [cursor=pointer]:
+        - img "Drama" [ref=e10165]
+        - generic [ref=e10166]:
+          - heading "Drama" [level=3] [ref=e10167]
+          - generic [ref=e10168]:
+            - generic [ref=e10169]: "2026"
+            - generic [ref=e10170]: ·USA
+          - generic [ref=e10171]:
+            - link "ČSFD" [ref=e10172]:
+              - /url: https://www.csfd.cz/film/1556355
+              - generic [ref=e10173]: ČSFD
+            - link "TMDB" [ref=e10174]:
+              - /url: https://www.themoviedb.org/movie/1325734
+              - generic [ref=e10175]: TMDB
+            - link "IMDb" [ref=e10176]:
+              - /url: https://www.imdb.com/title/tt33071426
+              - generic [ref=e10177]: IMDb
+      - generic [ref=e10178] [cursor=pointer]:
+        - img "Ucpanej systém" [ref=e10180]
+        - generic [ref=e10181]:
+          - heading "Ucpanej systém" [level=3] [ref=e10182]
+          - generic [ref=e10183]:
+            - generic [ref=e10184]: "2023"
+            - generic [ref=e10185]: ·Česko
+          - link "ČSFD" [ref=e10187]:
+            - /url: https://www.csfd.cz/film/1785065
+            - generic [ref=e10188]: ČSFD
+      - generic [ref=e10189] [cursor=pointer]:
+        - img "Odyssea" [ref=e10191]
+        - generic [ref=e10192]:
+          - heading "Odyssea" [level=3] [ref=e10193]
+          - generic [ref=e10194]:
+            - generic [ref=e10195]: "2026"
+            - generic [ref=e10196]: ·USA
+          - generic [ref=e10197]:
+            - link "ČSFD" [ref=e10198]:
+              - /url: https://www.csfd.cz/film/1580037
+              - generic [ref=e10199]: ČSFD
+            - link "TMDB" [ref=e10200]:
+              - /url: https://www.themoviedb.org/movie/1368337
+              - generic [ref=e10201]: TMDB
+            - link "IMDb" [ref=e10202]:
+              - /url: https://www.imdb.com/title/tt33764258
+              - generic [ref=e10203]: IMDb

@@ -6,15 +6,15 @@
 
 <div class="sticky-toolbar" @ref="_toolbarRef">
     <div class="sticky-toolbar-inner">
-        <div class="search-field">
+        <div data-testid="toolbar-search" class="search-field">
             <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"/>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            <input class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
+            <input data-testid="search-input" class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
             @if (!string.IsNullOrEmpty(searchQuery) && !isSearching)
             {
-                <button class="search-clear-btn" @onclick="ClearSearch" title="Clear search">
+                <button data-testid="search-clear" class="search-clear-btn" @onclick="ClearSearch" title="Clear search">
                     <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                         <line x1="1" y1="1" x2="11" y2="11"/>
                         <line x1="11" y1="1" x2="1" y2="11"/>
@@ -23,7 +23,7 @@
             }
             @if (isSearching)
             {
-                <div class="search-spinner"></div>
+                <div data-testid="search-spinner" class="search-spinner"></div>
             }
         </div>
 
@@ -35,10 +35,10 @@
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                <input @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" readonly />
+                <input data-testid="date-range-input" @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" readonly />
                 @if (_dateFrom.HasValue)
                 {
-                    <button class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">
+                    <button data-testid="date-clear" class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">
                         <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                             <line x1="1" y1="1" x2="11" y2="11"/>
                             <line x1="11" y1="1" x2="1" y2="11"/>
@@ -47,12 +47,12 @@
                 }
             </div>
 
-            <div class="time-filter">
+<div data-testid="time-filter" class="time-filter">
                 <div class="time-filter-header">
                     <span class="time-filter-label">After</span>
                     <span class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
                 </div>
-                <input type="range" class="time-slider" min="540" max="1410" step="30"
+                <input data-testid="time-slider" type="range" class="time-slider" min="540" max="1410" step="30"
                        value="@_timeFromMinutes" @oninput="OnTimeFromInput" />
             </div>
 
@@ -61,10 +61,10 @@
                 <div class="search-spinner"></div>
             }
 
-            <div class="sort-group">
+            <div data-testid="sort-group" class="sort-group">
                 <span class="sort-label">Sort</span>
                 <div class="segmented-control">
-                    <button class="segment @(_currentSort == SortField.Rating ? "active" : "")"
+                    <button data-testid="sort-rating" class="segment @(_currentSort == SortField.Rating ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.Rating)">
                         <span>★ Rating</span>
                         @if (_currentSort == SortField.Rating)
@@ -72,7 +72,7 @@
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
                         }
                     </button>
-                    <button class="segment @(_currentSort == SortField.Name ? "active" : "")"
+                    <button data-testid="sort-name" class="segment @(_currentSort == SortField.Name ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.Name)">
                         <span>Name</span>
                         @if (_currentSort == SortField.Name)
@@ -80,7 +80,7 @@
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
                         }
                     </button>
-                    <button class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
+                    <button data-testid="sort-year" class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.ReleaseDate)">
                         <span>Year</span>
                         @if (_currentSort == SortField.ReleaseDate)
@@ -91,29 +91,29 @@
                 </div>
                 @if (_isSortLoading)
                 {
-                    <div class="search-spinner"></div>
+                    <div data-testid="sort-spinner" class="search-spinner"></div>
                 }
             </div>
         </div>
     </div>
 </div>
 
-<div class="movies-container">
+<div data-testid="movies-container" class="movies-container">
 
     @if (!string.IsNullOrWhiteSpace(searchQuery))
     {
-        <div class="movies-stats">
-            <p>@searchResults.Count results</p>
+        <div data-testid="movies-stats" class="movies-stats">
+            <p data-testid="results-count">@searchResults.Count results</p>
         </div>
 
-        <div class="movies-grid">
+        <div data-testid="movies-grid" class="movies-grid">
             @foreach (var movie in searchResults)
             {
-                <div class="movie-card" @onclick="() => OpenModal(movie)">
+                <div data-testid="movie-card" class="movie-card" @onclick="() => OpenModal(movie)">
                     <div class="movie-poster">
                         @if (!string.IsNullOrEmpty(movie.CoverUrl))
                         {
-                            <img src="@movie.CoverUrl" alt="@movie.Title" />
+                            <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" />
                         }
                         else
                         {
@@ -128,11 +128,11 @@
                         }
                     </div>
                     <div class="movie-info">
-                        <h3 class="movie-title">@movie.Title</h3>
+                        <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
                         <div class="movie-meta">
                             @if (!string.IsNullOrEmpty(movie.Year))
                             {
-                                <span class="movie-year">@movie.Year</span>
+                                <span data-testid="movie-year" class="movie-year">@movie.Year</span>
                             }
                             @if (movie.OriginCountries.Count > 0)
                             {
@@ -142,7 +142,7 @@
                         <div class="movie-ratings">
                             @if (movie.Id > 0)
                             {
-                                <a href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
+                                <a data-testid="rating-csfd" href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
                                     <span class="rating-source">ČSFD</span>
                                     @if (!string.IsNullOrEmpty(movie.CsfdRating))
                                     {
@@ -152,7 +152,7 @@
                             }
                             @if (movie.TmdbId.HasValue)
                             {
-                                <a href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
+                                <a data-testid="rating-tmdb" href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
                                     <span class="rating-source">TMDB</span>
                                     @if (movie.TmdbRating.HasValue)
                                     {
@@ -162,7 +162,7 @@
                             }
                             @if (!string.IsNullOrEmpty(movie.ImdbId))
                             {
-                                <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
+                                <a data-testid="rating-imdb" href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
                                     <span class="rating-source">IMDb</span>
                                     @if (movie.ImdbRating.HasValue)
                                     {
@@ -178,7 +178,7 @@
     }
     else if (isLoading)
     {
-        <div class="loading-container">
+        <div data-testid="loading-container" class="loading-container">
             <div class="loading-dots">
                 <span></span>
                 <span></span>
@@ -189,8 +189,8 @@
     }
     else
     {
-        <div class="movies-stats">
-            <p>
+        <div data-testid="movies-stats" class="movies-stats">
+            <p data-testid="all-movies-count">
                 @AllMovieIds.Count movies
                 @if (_dateFrom.HasValue && _dateTo.HasValue)
                 {
@@ -199,21 +199,21 @@
             </p>
         </div>
 
-        <div class="movies-grid" @ref="_gridRef">
+        <div data-testid="movies-grid" class="movies-grid" @ref="_gridRef">
             @foreach (var movieId in AllMovieIds)
             {
                 var movie = GetLoadedMovie(movieId);
                 @if (movie is not null)
                 {
-                    <div class="movie-card loaded" data-movie-id="@movieId" @onclick="() => OpenModal(movie)">
+                    <div data-testid="movie-card" class="movie-card loaded" data-movie-id="@movieId" @onclick="() => OpenModal(movie)">
                         <div class="movie-poster">
                             @if (!string.IsNullOrEmpty(movie.CoverUrl))
                             {
-                                <img src="@movie.CoverUrl" alt="@movie.Title" loading="lazy" />
+                                <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" loading="lazy" />
                             }
                             else
                             {
-                                <div class="no-poster">
+                                <div data-testid="movie-poster-noposter" class="no-poster">
                                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
                                         <line x1="7" y1="2" x2="7" y2="22"/>
@@ -224,11 +224,11 @@
                             }
                         </div>
                         <div class="movie-info">
-                            <h3 class="movie-title">@movie.Title</h3>
+                            <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
                             <div class="movie-meta">
                                 @if (!string.IsNullOrEmpty(movie.Year))
                                 {
-                                    <span class="movie-year">@movie.Year</span>
+                                    <span data-testid="movie-year" class="movie-year">@movie.Year</span>
                                 }
                                 @if (movie.OriginCountries.Count > 0)
                                 {
@@ -238,7 +238,7 @@
                             <div class="movie-ratings">
                                 @if (movie.Id > 0)
                                 {
-                                    <a href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
+                                    <a data-testid="rating-csfd" href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
                                         <span class="rating-source">ČSFD</span>
                                         @if (!string.IsNullOrEmpty(movie.CsfdRating))
                                         {
@@ -248,7 +248,7 @@
                                 }
                                 @if (movie.TmdbId.HasValue)
                                 {
-                                    <a href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
+                                    <a data-testid="rating-tmdb" href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
                                         <span class="rating-source">TMDB</span>
                                         @if (movie.TmdbRating.HasValue)
                                         {
@@ -258,7 +258,7 @@
                                 }
                                 @if (!string.IsNullOrEmpty(movie.ImdbId))
                                 {
-                                    <a href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
+                                    <a data-testid="rating-imdb" href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
                                         <span class="rating-source">IMDb</span>
                                         @if (movie.ImdbRating.HasValue)
                                         {
@@ -272,7 +272,7 @@
                 }
                 else
                 {
-                    <div class="movie-card placeholder" data-movie-id="@movieId">
+                    <div data-testid="movie-card-placeholder" class="movie-card placeholder" data-movie-id="@movieId">
                         <div class="movie-poster">
                             <div class="poster-skeleton"></div>
                         </div>

@@ -4,21 +4,21 @@
 
 @if (IsOpen && Movie != null)
 {
-    <div class="modal-backdrop" @onclick="OnClose">
-        <div class="modal-content" @onclick:stopPropagation="true">
+    <div data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose">
+        <div data-testid="movie-modal-content" class="modal-content" @onclick:stopPropagation="true">
             <div class="modal-grabber"></div>
             <div class="modal-header">
-                <h2>
+                <h2 data-testid="modal-title">
                     @if (!string.IsNullOrEmpty(Movie.Homepage))
                     {
-                        <a href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
+                        <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
                     }
                     else
                     {
                         @Movie.Title
                     }
                 </h2>
-                <button class="modal-close" @onclick="OnClose">
+                <button data-testid="modal-close" class="modal-close" @onclick="OnClose">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"/>
                         <line x1="6" y1="6" x2="18" y2="18"/>
@@ -29,13 +29,13 @@
                 @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
                 {
                     <div class="modal-backdrop-image">
-                        <img src="@Movie.BackdropUrl" alt="@Movie.Title backdrop" />
+                        <img data-testid="modal-backdrop-img" src="@Movie.BackdropUrl" alt="@Movie.Title backdrop" />
                     </div>
                 }
                 else if (!string.IsNullOrEmpty(Movie.CoverUrl))
                 {
                     <div class="modal-poster-image">
-                        <img src="@Movie.CoverUrl" alt="@Movie.Title" />
+                        <img data-testid="modal-poster-img" src="@Movie.CoverUrl" alt="@Movie.Title" />
                     </div>
                 }
 
@@ -43,15 +43,15 @@
                     <div class="modal-meta">
                         @if (!string.IsNullOrEmpty(Movie.Year))
                         {
-                            <span class="meta-item">@Movie.Year</span>
+                            <span data-testid="modal-year" class="meta-item">@Movie.Year</span>
                         }
                         @if (!string.IsNullOrEmpty(Movie.Duration))
                         {
-                            <span class="meta-item">@Movie.Duration</span>
+                            <span data-testid="modal-duration" class="meta-item">@Movie.Duration</span>
                         }
                         @if (Movie.OriginCountries.Count > 0)
                         {
-                            <span class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
+                            <span data-testid="modal-countries" class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
                         }
                     </div>
 
@@ -100,7 +100,7 @@
 
                     @if (!string.IsNullOrEmpty(Movie.Synopsis))
                     {
-                        <div class="modal-synopsis">
+                        <div data-testid="modal-synopsis" class="modal-synopsis">
                             <span class="section-label">Synopsis</span>
                             <p>@Movie.Synopsis</p>
                         </div>
@@ -150,13 +150,13 @@
 
                     @if (isLoadingSchedules)
                     {
-                        <div class="modal-loading">
+                        <div data-testid="modal-loading" class="modal-loading">
                             <p>Loading showtimes...</p>
                         </div>
                     }
                     else if (schedules != null && schedules.Count > 0)
                     {
-                        <div class="modal-schedules">
+                        <div data-testid="modal-schedules" class="modal-schedules">
                             <h3>Upcoming Showtimes</h3>
                             @if (HasActiveFilters)
                             {
@@ -168,10 +168,10 @@
                             @foreach (var schedule in schedules)
                             {
                                 <div class="schedule-date">
-                                    <h4>@schedule.Date.ToString("dddd, MMMM dd, yyyy")</h4>
+                                    <h4 data-testid="schedule-date">@schedule.Date.ToString("dddd, MMMM dd, yyyy")</h4>
                                     @foreach (var performance in schedule.Performances)
                                     {
-                                        <div class="performance">
+                                        <div data-testid="performance" class="performance">
                                             @if (venues.TryGetValue(performance.VenueId, out var venue))
                                             {
                                                 <div class="venue-info">
@@ -191,7 +191,7 @@
                                             <div class="showtimes">
                                                 @foreach (var showtime in performance.Showtimes)
                                                 {
-                                                    <div class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
+                                                    <div data-testid="showtime" class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
                                                         <span class="time">
                                                             @showtime.StartAt.ToString("HH:mm")
                                                         </span>
@@ -206,7 +206,7 @@
                                                         }
                                                         @if (!string.IsNullOrEmpty(showtime.TicketUrl) && showtime.TicketsAvailable)
                                                         {
-                                                            <a href="@showtime.TicketUrl" target="_blank" class="ticket-link">Buy Tickets</a>
+                                                            <a data-testid="ticket-link" href="@showtime.TicketUrl" target="_blank" class="ticket-link">Buy Tickets</a>
                                                         }
                                                     </div>
                                                 }
@@ -219,7 +219,7 @@
                     }
                     else if (!isLoadingSchedules)
                     {
-                        <div class="no-schedules">
+                        <div data-testid="modal-no-schedules" class="no-schedules">
                             <p>No upcoming showtimes available.</p>
                         </div>
                     }
