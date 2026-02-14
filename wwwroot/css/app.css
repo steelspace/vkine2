@@ -2,14 +2,14 @@
 
 :root {
     /* Accent colors */
-    --accent: #007AFF;
-    --accent-hover: #0066D6;
+    --accent: #0066D6; /* darkened slightly to meet contrast for small text on white */
+    --accent-hover: #0052B8;
     --accent-active: #004EAD;
 
     /* Text colors */
     --text-primary: #1D1D1F;
     --text-secondary: #6E6E73; /* raised for better contrast */
-    --text-tertiary: #9A9A9F; /* darkened slightly for improved contrast */
+    --text-tertiary: #6E6E73; /* adjusted to meet WCAG AA on light backgrounds */
     --text-on-dark: #ffffff;
     --text-on-light: #000000;
 
@@ -175,6 +175,7 @@ html[data-theme="dark"] {
 
     --text-primary: var(--dark-text-primary);
     --text-secondary: var(--dark-text-secondary);
+    --text-tertiary: var(--dark-text-secondary);
 
     --bg-primary: var(--dark-bg-primary);
     --bg-secondary: var(--dark-bg-secondary);
@@ -198,6 +199,7 @@ html[data-theme="dark"] {
 
         --text-primary: var(--dark-text-primary);
         --text-secondary: var(--dark-text-secondary);
+        --text-tertiary: var(--dark-text-secondary);
 
         --bg-primary: var(--dark-bg-primary);
         --bg-secondary: var(--dark-bg-secondary);
