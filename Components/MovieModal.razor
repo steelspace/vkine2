@@ -1,10 +1,11 @@
 @using vkine.Models
 @using vkine.Services
+@using Microsoft.AspNetCore.Components.Web
 @inject IScheduleService ScheduleService
 
 @if (IsOpen && Movie != null)
 {
-    <div data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose">
+    <div data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown:window="HandleKeyDown">
         <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(Movie?.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
             <div class="modal-grabber"></div>
             <div class="modal-header">
@@ -343,6 +344,15 @@
         finally
         {
             isLoadingSchedules = false;
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        // close modal on Escape (window-level key handler registered only while modal is rendered)
+        if (e is not null && (e.Key == "Escape" || e.Key == "Esc"))
+        {
+            await OnClose.InvokeAsync();
         }
     }
 }

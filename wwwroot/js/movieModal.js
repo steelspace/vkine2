@@ -62,8 +62,35 @@
     } catch (e) { /* ignore */ }
   }
 
-  window.vkineMovie = {
+  // Escape-to-close: install a single global listener that clicks the modal close button when Escape is pressed
+  let _escapeInstalled = false;
+  function _escapeHandler(e) {
+    if (!e) return;
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      const modal = document.querySelector('[data-testid="movie-modal"]');
+      if (!modal) return;
+      const close = modal.querySelector('[data-testid="modal-close"]');
+      if (close) close.click();
+    }
+  }
+  function installEscapeHandler() {
+    if (_escapeInstalled) return;
+    window.addEventListener('keydown', _escapeHandler, true);
+    _escapeInstalled = true;
+  }
+  function removeEscapeHandler() {
+    if (!_escapeInstalled) return;
+    window.removeEventListener('keydown', _escapeHandler, true);
+    _escapeInstalled = false;
+  }
+
+  // auto-install (safe/idempotent)
+  installEscapeHandler();
+
+  window.vkineMovie = Object.assign(window.vkineMovie || {}, {
     analyzeBackdrop,
-    clearBackdropClass
-  };
+    clearBackdropClass,
+    installEscapeHandler,
+    removeEscapeHandler
+  });
 })();
