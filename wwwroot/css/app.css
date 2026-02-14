@@ -193,6 +193,30 @@ html[data-theme="dark"] {
     --separator-opaque: rgba(255,255,255,0.06);
 }
 
+/* Ensure explicit light theme overrides OS dark preference when user chooses "light" */
+html[data-theme="light"] {
+    --accent: #0066D6;
+
+    --text-primary: #1D1D1F;
+    --text-secondary: #6E6E73;
+    --text-tertiary: #6E6E73;
+
+    --bg-primary: #F2F2F7;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #E5E5EA;
+
+    --fill-primary: rgba(120, 120, 128, 0.2);
+    --fill-secondary: rgba(120, 120, 128, 0.16);
+    --fill-tertiary: rgba(120, 120, 128, 0.12);
+
+    --toolbar-bg: rgba(242, 242, 247, 0.78);
+    --accent-focus: rgba(0, 122, 255, 0.25);
+    --overlay: rgba(0, 0, 0, 0.4);
+
+    --separator: rgba(60, 60, 67, 0.12);
+    --separator-opaque: #C6C6C8;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --accent: #0A84FF;
