@@ -66,7 +66,7 @@
                 <div class="segmented-control">
                     <button data-testid="sort-rating" class="segment @(_currentSort == SortField.Rating ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.Rating)">
-                        <span>★ Rating</span>
+                        <span>Rating</span>
                         @if (_currentSort == SortField.Rating)
                         {
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>

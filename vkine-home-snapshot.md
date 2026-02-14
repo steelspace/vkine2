@@ -15,8 +15,8 @@
       - generic [ref=e5116]:
         - generic [ref=e5117]: Sort
         - generic [ref=e5118]:
-          - button "★ Rating ▼" [ref=e5119] [cursor=pointer]:
-            - generic [ref=e5120]: ★ Rating
+          - button "Rating ▼" [ref=e5119] [cursor=pointer]:
+            - generic [ref=e5120]: Rating
             - generic [ref=e5121]: ▼
           - button "Name" [ref=e5122] [cursor=pointer]:
             - generic [ref=e5123]: Name

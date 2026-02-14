@@ -37,12 +37,11 @@
 .theme-toggle .icon { display: none; }
 /* show a dedicated "system" icon when the user explicitly chose 'system' mode */
 html[data-vkine-theme-mode="system"] .theme-toggle .icon-system { display: inline-block; }
-/* hide sun/moon when mode == system so only the system icon shows */
-html[data-vkine-theme-mode="system"] .theme-toggle .icon-sun,
-html[data-vkine-theme-mode="system"] .theme-toggle .icon-moon { display: none; }
-/* preserve existing behaviour for explicit light/dark */
-html[data-theme="light"] .theme-toggle .icon-sun { display: inline-block; }
-html[data-theme="dark"]  .theme-toggle .icon-moon { display: inline-block; }
+
+/* When mode == system, ensure sun/moon are not shown by tying the light/dark rules
+   to elements where the mode is NOT 'system' (avoids specificity/order conflicts). */
+html:not([data-vkine-theme-mode="system"])[data-theme="light"] .theme-toggle .icon-sun { display: inline-block; }
+html:not([data-vkine-theme-mode="system"])[data-theme="dark"]  .theme-toggle .icon-moon { display: inline-block; }
 
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
