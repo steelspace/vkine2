@@ -133,7 +133,7 @@ span.flatpickr-weekday {
 }
 
 .flatpickr-day.today:hover {
-    background: rgba(10, 132, 255, 0.1);
+    background: var(--accent-bg);
     color: var(--accent);
 } 
 
@@ -142,18 +142,18 @@ span.flatpickr-weekday {
 .flatpickr-day.startRange,
 .flatpickr-day.endRange {
     background: var(--accent);
-    color: #fff;
+    color: var(--text-on-dark);
     border-color: var(--accent);
     font-weight: 600;
-}
+} 
 
 .flatpickr-day.selected:hover,
 .flatpickr-day.startRange:hover,
 .flatpickr-day.endRange:hover {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
-    color: #fff;
-} 
+    color: var(--text-on-dark);
+}  
 
 .flatpickr-day.selected.startRange,
 .flatpickr-day.selected.endRange {
@@ -162,17 +162,17 @@ span.flatpickr-weekday {
 
 /* Range between */
 .flatpickr-day.inRange {
-    background: rgba(10,132,255,0.12);
+    background: var(--accent-bg);
     border-color: transparent;
-    box-shadow: -4px 0 0 rgba(10,132,255,0.12), 4px 0 0 rgba(10,132,255,0.12);
+    box-shadow: -4px 0 0 var(--accent-bg), 4px 0 0 var(--accent-bg);
     color: var(--text-primary);
     font-weight: 500;
-}
+} 
 
 .flatpickr-day.inRange:hover {
-    background: rgba(10,132,255,0.2);
+    background: var(--accent-focus);
     border-color: transparent;
-} 
+}  
 
 /* Disabled / other month */
 .flatpickr-day.flatpickr-disabled,
@@ -259,11 +259,11 @@ input.flatpickr-input[readonly] {
 .date-range-picker .flatpickr-input:focus,
 .date-range-picker .flatpickr-input.active {
     border-color: var(--accent) !important;
-    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2) !important;
+    box-shadow: 0 0 0 3.5px var(--accent-focus) !important;
     background: var(--bg-secondary) !important;
-}
+} 
 /* When calendar is open, keep the field visually active */
 .flatpickr-input.active {
-    border-color: #007AFF !important;
-    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3.5px var(--accent-focus) !important;
 }

@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--overlay);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: flex;
@@ -31,7 +31,7 @@
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-lg);
     animation: slideUp 0.35s var(--ease-spring);
 }
 
@@ -222,7 +222,7 @@
 
 .rating-badge.csfd {
     background: var(--rating-csfd);
-    color: #fff;
+    color: var(--text-on-dark);
 }
 
 .rating-badge.tmdb {
@@ -232,8 +232,8 @@
 
 .rating-badge.imdb {
     background: var(--rating-imdb);
-    color: #000;
-}
+    color: var(--text-on-light);
+} 
 
 /* ── Meta Row ────────────────────────────────────────────────── */
 
@@ -266,7 +266,7 @@
 
 .genre-tag {
     padding: 4px 12px;
-    background: rgba(0, 122, 255, 0.1);
+    background: var(--accent-bg);
     color: var(--accent);
     border-radius: 14px;
     font-size: var(--font-size-footnote);
@@ -372,13 +372,13 @@
 }
 
 .showtime.available {
-    border-color: #34C759;
-    background: rgba(52, 199, 89, 0.08);
+    border-color: var(--success);
+    background: var(--success-bg);
 }
 
 .showtime.unavailable {
-    border-color: #FF3B30;
-    background: rgba(255, 59, 48, 0.05);
+    border-color: var(--danger);
+    background: var(--danger-bg);
     opacity: 0.65;
 }
 
@@ -388,7 +388,7 @@
 }
 
 .showtime .time .showtime-date-mismatch {
-    color: #FF3B30;
+    color: var(--danger);
     font-weight: 700;
 }
 
@@ -400,7 +400,7 @@
 .showtime .badge {
     padding: 2px 6px;
     background: var(--accent);
-    color: white;
+    color: var(--text-on-dark);
     border-radius: 5px;
     font-size: var(--font-size-caption2);
     font-weight: 600;
@@ -409,13 +409,13 @@
 .showtime .ticket-link {
     padding: 4px 10px;
     background: var(--accent);
-    color: white;
+    color: var(--text-on-dark);
     text-decoration: none;
     border-radius: 6px;
     font-size: var(--font-size-footnote);
     font-weight: 600;
     transition: background var(--duration-fast) var(--ease-default);
-}
+} 
 
 .showtime .ticket-link:hover {
     background: var(--accent-hover);
@@ -440,10 +440,10 @@
     gap: 8px;
     padding: 10px 14px;
     margin-bottom: 1rem;
-    background: rgba(255, 204, 0, 0.12);
-    border: 1px solid rgba(255, 204, 0, 0.3);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
     border-radius: var(--radius-sm);
-    color: #946800;
+    color: var(--warning);
     font-size: var(--font-size-footnote);
     line-height: 1.4;
 }

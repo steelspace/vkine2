@@ -12,7 +12,7 @@
     position: sticky;
     top: 0;
     z-index: 90;
-    background: rgba(242, 242, 247, 0.78);
+    background: var(--toolbar-bg);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--separator);
@@ -23,7 +23,7 @@
 
 /* Dark theme: use a dark translucent toolbar to match theme variables */
 html[data-theme="dark"] .sticky-toolbar {
-    background: rgba(15, 15, 17, 0.6);
+    background: var(--toolbar-bg);
     border-bottom-color: var(--separator);
 }
 
@@ -108,7 +108,7 @@ html[data-theme="dark"] .sticky-toolbar {
 }
 
 .search-input:focus {
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25);
+    box-shadow: 0 0 0 3px var(--accent-focus);
 }
 
 .search-clear-btn {
@@ -216,7 +216,7 @@ html[data-theme="dark"] .sticky-toolbar {
 .date-range-picker .flatpickr-input:focus,
 .date-range-picker .flatpickr-input.active {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.2);
+    box-shadow: 0 0 0 3.5px var(--accent-focus);
     background: var(--bg-secondary);
 }
 
@@ -298,9 +298,9 @@ html[data-theme="dark"] .sticky-toolbar {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: #fff;
+    background: var(--bg-secondary);
     border: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-thumb);
     cursor: pointer;
     transition: transform var(--duration-fast) var(--ease-default),
                 box-shadow var(--duration-fast) var(--ease-default);
@@ -308,16 +308,16 @@ html[data-theme="dark"] .sticky-toolbar {
 
 .time-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-lg);
 }
 
 .time-slider::-moz-range-thumb {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: #fff;
+    background: var(--bg-secondary);
     border: none;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-thumb);
     cursor: pointer;
 }
 
@@ -372,7 +372,7 @@ html[data-theme="dark"] .sticky-toolbar {
     background: var(--bg-secondary);
     color: var(--text-primary);
     font-weight: 600;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
 }
 
 .sort-arrow {
@@ -448,7 +448,7 @@ html[data-theme="dark"] .sticky-toolbar {
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
     transition: transform var(--duration-default) var(--ease-default),
                 box-shadow var(--duration-default) var(--ease-default);
     cursor: pointer;
@@ -618,7 +618,7 @@ html[data-theme="dark"] .sticky-toolbar {
 
 .rating-badge.csfd {
     background: var(--rating-csfd);
-    color: #fff;
+    color: var(--text-on-dark);
 }
 
 .rating-badge.tmdb {
@@ -628,7 +628,7 @@ html[data-theme="dark"] .sticky-toolbar {
 
 .rating-badge.imdb {
     background: var(--rating-imdb);
-    color: #000;
+    color: var(--text-on-light);
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
