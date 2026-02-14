@@ -21,6 +21,12 @@
     will-change: transform;
 }
 
+/* Dark theme: use a dark translucent toolbar to match theme variables */
+html[data-theme="dark"] .sticky-toolbar {
+    background: rgba(15, 15, 17, 0.6);
+    border-bottom-color: var(--separator);
+}
+
 .sticky-toolbar.toolbar-hidden {
     transform: translateY(-100%);
     pointer-events: none;
