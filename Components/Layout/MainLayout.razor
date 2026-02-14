@@ -1,20 +1,6 @@
 @inherits LayoutComponentBase
 
 <div class="app-shell">
-    <header class="nav-bar">
-        <div class="nav-bar-content">
-            <a class="nav-brand" href="/" data-testid="app-brand">
-                <svg class="nav-brand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg>
-                vkine
-            </a>
-
-            <div class="nav-links">
-                <div class="nav-actions">
-                    <button data-testid="theme-toggle" class="theme-toggle" @onclick="ToggleTheme" title="Toggle theme">🌗 <span class="visually-hidden">Toggle theme</span></button>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <main class="main-content">
         @Body
