@@ -11,7 +11,7 @@
                 <circle cx="11" cy="11" r="8"/>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            <input data-testid="search-input" class="search-input" placeholder="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
+            <input data-testid="search-input" class="search-input" placeholder="Search movies, descriptions, cast and crew" aria-label="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
             @if (!string.IsNullOrEmpty(searchQuery) && !isSearching)
             {
                 <button data-testid="search-clear" class="search-clear-btn" @onclick="ClearSearch" title="Clear search">
@@ -35,7 +35,7 @@
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                <input data-testid="date-range-input" @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" readonly />
+                <input data-testid="date-range-input" @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" aria-label="Date range" readonly />
                 @if (_dateFrom.HasValue)
                 {
                     <button data-testid="date-clear" class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">
@@ -49,11 +49,11 @@
 
 <div data-testid="time-filter" class="time-filter">
                 <div class="time-filter-header">
-                    <span class="time-filter-label">After</span>
-                    <span class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
+                    <span id="time-filter-label" class="time-filter-label">After</span>
+                    <span id="time-filter-value" class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
                 </div>
                 <input data-testid="time-slider" type="range" class="time-slider" min="540" max="1410" step="30"
-                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" />
+                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" aria-labelledby="time-filter-label" aria-describedby="time-filter-value" />
             </div>
 
             @if (_isDateFiltering)

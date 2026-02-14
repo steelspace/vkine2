@@ -76,6 +76,19 @@ export function initDateRangePicker(inputElement, dotnetReference) {
             }
         }
     });
+
+    // copy accessible name to the altInput that flatpickr creates
+    try {
+        if (flatpickrInstance && flatpickrInstance.altInput) {
+            const alt = flatpickrInstance.altInput;
+            const aria = inputElement.getAttribute('aria-label') || inputElement.getAttribute('placeholder') || 'Date range';
+            if (!alt.getAttribute('aria-label')) alt.setAttribute('aria-label', aria);
+            if (!alt.getAttribute('role')) alt.setAttribute('role', 'textbox');
+        }
+    } catch (err) {
+        // best-effort
+        console.warn('flatpickr aria copy failed', err);
+    }
 }
 
 export function clearDateRange() {
@@ -112,6 +125,31 @@ function flushPending() {
 export function initStickyToolbar(toolbarElement) {
     if (scrollHandler) {
         window.removeEventListener('scroll', scrollHandler, { passive: true });
+    }
+
+    // Ensure accessible names/ids are present at runtime (helps axe/pa11y)
+    try {
+        const searchInput = toolbarElement.querySelector('.search-input');
+        if (searchInput && !searchInput.getAttribute('aria-label')) {
+            const placeholder = searchInput.getAttribute('placeholder') || 'Search';
+            searchInput.setAttribute('aria-label', placeholder);
+        }
+
+        const dateInput = toolbarElement.querySelector('.date-range-input');
+        if (dateInput && !dateInput.getAttribute('aria-label')) {
+            dateInput.setAttribute('aria-label', 'Date range');
+        }
+
+        const label = toolbarElement.querySelector('.time-filter-label');
+        const value = toolbarElement.querySelector('.time-filter-value');
+        const slider = toolbarElement.querySelector('.time-slider');
+        if (label && !label.id) label.id = 'time-filter-label';
+        if (value && !value.id) value.id = 'time-filter-value';
+        if (slider && !slider.getAttribute('aria-labelledby')) slider.setAttribute('aria-labelledby', 'time-filter-label');
+        if (slider && !slider.getAttribute('aria-describedby')) slider.setAttribute('aria-describedby', 'time-filter-value');
+    } catch (err) {
+        // defensive — accessibility augmentations are best-effort
+        console.warn('initStickyToolbar accessibility init failed', err);
     }
 
     let lastScrollY = window.scrollY;
