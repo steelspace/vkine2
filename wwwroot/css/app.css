@@ -217,6 +217,13 @@ html[data-theme="light"] {
     --separator-opaque: #C6C6C8;
 }
 
+/* ── Theme Toggle Icon Visibility ─────────────────────────────── */
+
+.theme-toggle .icon { display: none; }
+html[data-vkine-theme-mode="system"] .theme-toggle .icon-system { display: inline-block; }
+html:not([data-vkine-theme-mode="system"])[data-theme="light"] .theme-toggle .icon-sun { display: inline-block; }
+html:not([data-vkine-theme-mode="system"])[data-theme="dark"]  .theme-toggle .icon-moon { display: inline-block; }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --accent: #0A84FF;
