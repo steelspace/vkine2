@@ -36,28 +36,51 @@
     animation: slideUp 0.35s var(--ease-spring);
 }
 
-/* when a backdrop image is present, reserve space and expose layout hooks */
-.modal-content.has-backdrop {
-    --modal-backdrop-height: clamp(160px, 28vw, 260px);
+/* ── Hero section (backdrop + overlay content) ───────────────── */
+
+.modal-hero {
+    position: relative;
 }
 
-.modal-content.has-backdrop .modal-body {
-    /* leave room for the absolutely-positioned backdrop image */
-    padding-top: calc(var(--modal-backdrop-height) + 1rem);
+.modal-content.has-backdrop .modal-hero {
+    overflow: hidden;
 }
 
-.modal-content.has-backdrop .modal-grabber { display: none; }
+/* dark gradient overlay for text readability on backdrop */
+.modal-content.has-backdrop .modal-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.25) 35%,
+        rgba(0,0,0,0.55) 70%,
+        rgba(0,0,0,0.78) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Hero content sits above the backdrop and gradient */
+.modal-content.has-backdrop .modal-header,
+.modal-content.has-backdrop .modal-hero-details {
+    position: relative;
+    z-index: 2;
+}
 
 .modal-content.has-backdrop .modal-header {
-    position: absolute;
-    top: 0.75rem;
-    left: 1.5rem;
-    right: 1.5rem;
-    z-index: 3;
     color: var(--text-on-dark);
-    background: transparent;
-    align-items: center;
-    transition: color .18s ease, background .18s ease, backdrop-filter .18s ease;
+    padding-top: 1rem;
+}
+
+.modal-content.has-backdrop .modal-header h2 {
+    color: var(--text-on-dark);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+.modal-content.has-backdrop .movie-title-link {
+    color: var(--text-on-dark);
 }
 
 .modal-content.has-backdrop .modal-close {
@@ -66,35 +89,56 @@
     transition: background .18s ease, color .18s ease;
 }
 
-/* Bright/backdrop-light: keep header transparent (container only) */
-.modal-content.has-backdrop.backdrop-light .modal-header {
-    color: var(--text-primary);
-    background: transparent; /* invisible container */
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    padding: 0.35rem 0.75rem;
-    border-radius: 0;
+.modal-hero-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 1.5rem 1.5rem;
 }
 
+/* Text colors when overlaid on the backdrop image */
+.modal-content.has-backdrop .modal-hero-details .meta-item {
+    color: rgba(255,255,255,0.85);
+}
+
+.modal-content.has-backdrop .modal-hero-details .meta-item + .meta-item::before {
+    color: rgba(255,255,255,0.5);
+}
+
+.modal-content.has-backdrop .modal-hero-details .section-label {
+    color: rgba(255,255,255,0.7);
+}
+
+.modal-content.has-backdrop .modal-hero-details .genre-tag {
+    background: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content.has-backdrop .modal-hero-details .rating-badge {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Bright-backdrop refinements */
 .modal-content.has-backdrop.backdrop-light .modal-header h2 {
-    color: var(--text-primary);
-    text-shadow: none;
+    color: var(--text-on-dark);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
 .modal-content.has-backdrop.backdrop-light .modal-close {
-    background: rgba(255,255,255,0.92);
-    color: var(--text-primary);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.35);
+    color: var(--text-on-dark);
 }
 
-/* Dark/backdrop-dark: keep light header copy with stronger shadow for legibility */
+/* Dark-backdrop: stronger shadow for legibility */
 .modal-content.has-backdrop.backdrop-dark .modal-header h2 {
     color: var(--text-on-dark);
-    text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+    text-shadow: 0 4px 16px rgba(0,0,0,0.6);
 }
 
 .modal-content.has-backdrop.backdrop-dark .modal-close {
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.45);
     color: var(--text-on-dark);
 }
 
@@ -175,24 +219,12 @@
     padding: 0 1.5rem 1.5rem;
 }
 
-/* backdrop image sits at the very top of the modal and fills horizontally; header overlays it */
+/* backdrop image fills the hero section; modal container clips corners */
 .modal-backdrop-image {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--modal-backdrop-height);
-    overflow: hidden;
-    border-radius: 0; /* modal container will clip corners */
-}
-
-.modal-backdrop-image::after {
-    /* subtle gradient for text contrast */
-    content: "";
-    position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.0) 55%);
-    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
 }
 
 .modal-backdrop-image img {
@@ -568,6 +600,10 @@
         padding: 0 1rem 1rem;
     }
 
+    .modal-hero-details {
+        padding: 0 1rem 1rem;
+    }
+
     .modal-poster-image img {
         max-width: 200px;
     }
@@ -583,6 +619,10 @@
     }
 
     .modal-body {
+        padding: 0 0.75rem 0.75rem;
+    }
+
+    .modal-hero-details {
         padding: 0 0.75rem 0.75rem;
     }
 

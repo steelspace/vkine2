@@ -8,26 +8,7 @@
 {
     <div @ref="backdropRef" data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown="HandleKeyDown" tabindex="-1">
         <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(Movie?.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
-            <div class="modal-grabber"></div>
-            <div class="modal-header">
-                <h2 data-testid="modal-title">
-                    @if (!string.IsNullOrEmpty(Movie.Homepage))
-                    {
-                        <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
-                    }
-                    else
-                    {
-                        @Movie.Title
-                    }
-                </h2>
-                <button data-testid="modal-close" class="modal-close" @onclick="OnClose">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/>
-                        <line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body">
+            <div class="modal-hero">
                 @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
                 {
                     var backdropSrc = Movie.BackdropUrl;
@@ -36,7 +17,6 @@
                         var uri = new Uri(backdropSrc);
                         if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
                         {
-                            // route TMDB images through the local proxy so canvas sampling is allowed
                             backdropSrc = $"/proxy/tmdb{uri.AbsolutePath}";
                         }
                     }
@@ -46,8 +26,29 @@
                         <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]')" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
                     </div>
                 }
-
-                <div class="modal-details">
+                else
+                {
+                    <div class="modal-grabber"></div>
+                }
+                <div class="modal-header">
+                    <h2 data-testid="modal-title">
+                        @if (!string.IsNullOrEmpty(Movie.Homepage))
+                        {
+                            <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
+                        }
+                        else
+                        {
+                            @Movie.Title
+                        }
+                    </h2>
+                    <button data-testid="modal-close" class="modal-close" @onclick="OnClose">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-hero-details">
                     <div class="modal-meta">
                         @if (!string.IsNullOrEmpty(Movie.Year))
                         {
@@ -106,6 +107,10 @@
                         </div>
                     }
 
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-details">
                     @if (!string.IsNullOrEmpty(Movie.Synopsis))
                     {
                         <div data-testid="modal-synopsis" class="modal-synopsis">
