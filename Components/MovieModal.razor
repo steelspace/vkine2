@@ -2,10 +2,11 @@
 @using vkine.Services
 @using Microsoft.AspNetCore.Components.Web
 @inject IScheduleService ScheduleService
+@inject IJSRuntime JS
 
 @if (IsOpen && Movie != null)
 {
-    <div data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown:window="HandleKeyDown">
+    <div @ref="backdropRef" data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown="HandleKeyDown" tabindex="-1">
         <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(Movie?.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
             <div class="modal-grabber"></div>
             <div class="modal-header">
@@ -270,9 +271,18 @@
         }
     }
 
+    private ElementReference backdropRef;
     private List<ScheduleDto>? schedules;
     private Dictionary<int, VenueDto> venues = new();
     private bool isLoadingSchedules = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (IsOpen && Movie != null)
+        {
+            try { await backdropRef.FocusAsync(); } catch { }
+        }
+    }
 
     protected override async Task OnParametersSetAsync()
     {
