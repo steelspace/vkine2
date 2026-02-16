@@ -98,15 +98,18 @@
 
 /* Text colors when overlaid on the backdrop image */
 .modal-content.has-backdrop .modal-hero-details .meta-item {
-    color: rgba(255,255,255,0.85);
+    color: var(--text-on-dark);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
 .modal-content.has-backdrop .modal-hero-details .meta-item + .meta-item::before {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.6);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
 .modal-content.has-backdrop .modal-hero-details .section-label {
     color: rgba(255,255,255,0.7);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
 .modal-content.has-backdrop .modal-hero-details .genre-tag {
