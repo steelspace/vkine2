@@ -34,6 +34,12 @@
     overflow-y: auto;
     box-shadow: var(--shadow-lg);
     animation: slideUp 0.35s var(--ease-spring);
+
+    /* Hide scrollbar completely */
+    scrollbar-width: none;                /* Firefox */
+}
+.modal-content::-webkit-scrollbar {
+    display: none;                        /* Chrome/Edge/Safari */
 }
 
 /* ── Hero section (backdrop + overlay content) ───────────────── */
