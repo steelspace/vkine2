@@ -128,6 +128,10 @@
                         {
                             <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" />
                         }
+                        else if (!string.IsNullOrEmpty(movie.BackdropUrl))
+                        {
+                            <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@movie.BackdropUrl" alt="@movie.Title" />
+                        }
                         else
                         {
                             <div class="no-poster">
@@ -223,6 +227,10 @@
                             @if (!string.IsNullOrEmpty(movie.CoverUrl))
                             {
                                 <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" loading="lazy" />
+                            }
+                            else if (!string.IsNullOrEmpty(movie.BackdropUrl))
+                            {
+                                <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@movie.BackdropUrl" alt="@movie.Title" loading="lazy" />
                             }
                             else
                             {
