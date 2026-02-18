@@ -281,11 +281,23 @@
     private Dictionary<int, VenueDto> venues = new();
     private bool isLoadingSchedules = false;
 
+    private bool _wasOpen;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (IsOpen && Movie != null)
         {
             try { await backdropRef.FocusAsync(); } catch { }
+            if (!_wasOpen)
+            {
+                _wasOpen = true;
+                await JS.InvokeVoidAsync("vkineMovie.lockScroll");
+            }
+        }
+        else if (_wasOpen)
+        {
+            _wasOpen = false;
+            await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
         }
     }
 
