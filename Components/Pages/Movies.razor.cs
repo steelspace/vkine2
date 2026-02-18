@@ -451,10 +451,22 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             ? items.OrderBy(x => x.Movie?.Title ?? "\uffff", StringComparer.OrdinalIgnoreCase)
             : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
         SortField.ReleaseDate => _sortAscending
-            ? items.OrderBy(x => x.Movie?.Year ?? "9999")
-            : items.OrderByDescending(x => x.Movie?.Year ?? "0000"),
+            ? items.OrderBy(x => ParseFirstYear(x.Movie?.Year, 9999))
+            : items.OrderByDescending(x => ParseFirstYear(x.Movie?.Year, 0)),
         _ => items.AsEnumerable()
     }).ToList();
+
+    /// <summary>
+    /// Extracts the first 4-digit year from a year string (e.g. "2023", "2023–2025", "2023-2025").
+    /// Returns <paramref name="fallback"/> when no year can be parsed.
+    /// </summary>
+    private static int ParseFirstYear(string? year, int fallback)
+    {
+        if (string.IsNullOrEmpty(year)) return fallback;
+
+        var match = System.Text.RegularExpressions.Regex.Match(year, @"\d{4}");
+        return match.Success && int.TryParse(match.Value, out var y) ? y : fallback;
+    }
 
     /// <summary>
     /// Calculates the average rating across all available rating sources (ČSFD, TMDB, IMDb),
