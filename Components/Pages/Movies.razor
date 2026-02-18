@@ -64,12 +64,9 @@
             </div>
 
 <div data-testid="time-filter" class="time-filter">
-                <div class="time-filter-header">
-                    <span id="time-filter-label" class="time-filter-label"></span>
-                    <span id="time-filter-value" class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
-                </div>
+                <span id="time-filter-value" class="time-filter-value @(_timeFromMinutes > 0 ? "active" : "")">@TimeFromLabel</span>
                 <input data-testid="time-slider" type="range" class="time-slider" min="540" max="1410" step="30"
-                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" aria-labelledby="time-filter-label" aria-describedby="time-filter-value" />
+                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" aria-describedby="time-filter-value" />
             </div>
 
             @if (_isDateFiltering)

@@ -282,27 +282,17 @@ html[data-theme="dark"] .sticky-toolbar {
 /* Time slider */
 .time-filter {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 160px;
-}
-
-.time-filter-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-size: var(--font-size-footnote);
-    color: var(--text-secondary);
-    padding: 0 2px;
-}
-
-.time-filter-label {
-    font-weight: 500;
+    gap: 8px;
+    min-width: 160px;
 }
 
 .time-filter-value {
     font-variant-numeric: tabular-nums;
+    font-size: var(--font-size-footnote);
     color: var(--text-tertiary);
+    white-space: nowrap;
+    min-width: 2.5em;
     transition: color var(--duration-fast) var(--ease-default);
 }
 
