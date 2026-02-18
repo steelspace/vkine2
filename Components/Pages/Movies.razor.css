@@ -535,6 +535,12 @@ html[data-theme="dark"] .sticky-toolbar {
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.movie-poster img.loaded {
+    opacity: 1;
 }
 
 .no-poster {

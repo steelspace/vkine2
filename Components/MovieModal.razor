@@ -30,7 +30,7 @@
                     catch { /* if parse fails, just use original */ }
 
                     <div class="modal-backdrop-image">
-                        <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]')" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
+                        <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="requestAnimationFrame(() => { this.classList.add('loaded'); vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]'); })" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
                     </div>
                 }
                 else

@@ -1,4 +1,5 @@
 let observer = null;
+let imgObserver = null;
 let dotnetRef = null;
 let pendingIds = new Set();
 let debounceTimer = null;
@@ -39,8 +40,33 @@ export function observeCards(gridElement, dotnetReference) {
     observePlaceholders(gridElement);
 
     // Use MutationObserver to pick up cards Blazor re-renders (placeholder → loaded → placeholder again on re-render)
-    const mutationObs = new MutationObserver(() => observePlaceholders(gridElement));
+    const mutationObs = new MutationObserver(() => {
+        observePlaceholders(gridElement);
+        observePosterImages(gridElement);
+    });
     mutationObs.observe(gridElement, { childList: true, subtree: true });
+
+    // Set up IntersectionObserver for poster image fade-in
+    if (imgObserver) {
+        imgObserver.disconnect();
+    }
+    imgObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                imgObserver.unobserve(img);
+                if (img.complete && img.naturalHeight > 0) {
+                    requestAnimationFrame(() => img.classList.add('loaded'));
+                } else {
+                    img.addEventListener('load', () => {
+                        requestAnimationFrame(() => img.classList.add('loaded'));
+                    }, { once: true });
+                }
+            }
+        }
+    }, { rootMargin: '50px', threshold: 0 });
+
+    observePosterImages(gridElement);
 }
 
 export function initDateRangePicker(inputElement, dotnetReference) {
@@ -109,6 +135,14 @@ function observePlaceholders(gridElement) {
     const cards = gridElement.querySelectorAll('.movie-card.placeholder');
     for (const card of cards) {
         observer.observe(card);
+    }
+}
+
+function observePosterImages(gridElement) {
+    if (!imgObserver || !gridElement) return;
+    const imgs = gridElement.querySelectorAll('.movie-poster img:not(.loaded)');
+    for (const img of imgs) {
+        imgObserver.observe(img);
     }
 }
 
@@ -186,6 +220,10 @@ export function dispose() {
     if (observer) {
         observer.disconnect();
         observer = null;
+    }
+    if (imgObserver) {
+        imgObserver.disconnect();
+        imgObserver = null;
     }
     if (flatpickrInstance) {
         flatpickrInstance.destroy();

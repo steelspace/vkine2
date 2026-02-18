@@ -254,6 +254,12 @@
     object-fit: cover;
     /* align image to the top so any cropping removes the bottom portion */
     object-position: top center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.modal-backdrop-image img.loaded {
+    opacity: 1;
 }
 
 .modal-poster-image {
