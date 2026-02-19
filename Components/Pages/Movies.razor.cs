@@ -412,7 +412,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
         SortField.ReleaseDate => _sortAscending
             ? items.OrderBy(x => ParseFirstYear(x.Movie?.Year, 9999))
-            : items.OrderByDescending(x => ParseFirstYear(x.Movie?.Year, 0)),
+                   .ThenByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
+            : items.OrderByDescending(x => ParseFirstYear(x.Movie?.Year, 0))
+                   .ThenByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
         _ => items.AsEnumerable()
     }).ToList();
 
