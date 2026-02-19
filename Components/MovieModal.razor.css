@@ -141,7 +141,7 @@
     -webkit-backdrop-filter: blur(8px);
 }
 
-.modal-content.has-backdrop .modal-hero-details .rating-badge {
+.modal-content.has-backdrop .modal-hero-details ::deep .rating-badge {
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
@@ -372,52 +372,6 @@
     gap: 0.5rem;
     flex-wrap: wrap;
 }
-
-.rating-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: var(--font-size-footnote);
-    font-weight: 600;
-    text-decoration: none;
-    line-height: 1.3;
-    transition: opacity var(--duration-fast) var(--ease-default),
-                transform var(--duration-fast) var(--ease-default);
-}
-
-.rating-badge:hover {
-    opacity: 0.85;
-    transform: scale(1.05);
-    text-decoration: none;
-}
-
-.rating-source {
-    opacity: 0.85;
-    font-size: var(--font-size-caption1);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-}
-
-.rating-value {
-    font-weight: 700;
-}
-
-.rating-badge.csfd {
-    background: var(--rating-csfd);
-    color: var(--text-on-dark);
-}
-
-.rating-badge.tmdb {
-    background: var(--rating-tmdb-bg);
-    color: var(--rating-tmdb-text);
-}
-
-.rating-badge.imdb {
-    background: var(--rating-imdb);
-    color: var(--text-on-light);
-} 
 
 /* ── Meta Row ────────────────────────────────────────────────── */
 

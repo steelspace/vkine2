@@ -28,19 +28,7 @@
             }
         </div>
 
-        <button type="button" class="theme-toggle" @onclick="ToggleTheme" aria-label="Toggle color scheme" aria-pressed="@_appliedIsDark" title="Toggle color scheme">
-            <svg class="icon icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-            </svg>
-            <svg class="icon icon-system" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 3v18" />
-            </svg>
-            <svg class="icon icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-            </svg>
-        </button>
+        <ThemeToggle />
         </div>
 
         <div class="toolbar-row">
@@ -122,74 +110,7 @@
         <div data-testid="movies-grid" class="movies-grid">
             @foreach (var movie in searchResults)
             {
-                <div data-testid="movie-card" class="movie-card" @onclick="() => OpenModal(movie)">
-                    <div class="movie-poster">
-                        @if (!string.IsNullOrEmpty(movie.CoverUrl))
-                        {
-                            <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" />
-                        }
-                        else if (!string.IsNullOrEmpty(movie.BackdropUrl))
-                        {
-                            <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@movie.BackdropUrl" alt="@movie.Title" />
-                        }
-                        else
-                        {
-                            <div class="no-poster">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                                    <line x1="7" y1="2" x2="7" y2="22"/>
-                                    <line x1="17" y1="2" x2="17" y2="22"/>
-                                    <line x1="2" y1="12" x2="22" y2="12"/>
-                                </svg>
-                            </div>
-                        }
-                    </div>
-                    <div class="movie-info">
-                        <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
-                        <div class="movie-meta @(movie.OriginCountries.Count > 1 ? "multi-country" : "")">
-                            @if (!string.IsNullOrEmpty(movie.Year))
-                            {
-                                <span data-testid="movie-year" class="movie-year">@movie.Year</span>
-                            }
-                            @if (movie.OriginCountries.Count > 0)
-                            {
-                                <span class="movie-countries">@string.Join(", ", movie.OriginCountries)</span>
-                            }
-                        </div>
-                        <div class="movie-ratings">
-                            @if (movie.Id > 0)
-                            {
-                                <a data-testid="rating-csfd" href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
-                                    <span class="rating-source">ČSFD</span>
-                                    @if (!string.IsNullOrEmpty(movie.CsfdRating))
-                                    {
-                                        <span class="rating-value">@movie.CsfdRating</span>
-                                    }
-                                </a>
-                            }
-                            @if (movie.TmdbId.HasValue)
-                            {
-                                <a data-testid="rating-tmdb" href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
-                                    <span class="rating-source">TMDB</span>
-                                    @if (movie.TmdbRating.HasValue)
-                                    {
-                                        <span class="rating-value">@movie.TmdbRating.Value.ToString("0.#")</span>
-                                    }
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(movie.ImdbId))
-                            {
-                                <a data-testid="rating-imdb" href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
-                                    <span class="rating-source">IMDb</span>
-                                    @if (movie.ImdbRating.HasValue)
-                                    {
-                                        <span class="rating-value">@movie.ImdbRating.Value.ToString("0.#")</span>
-                                    }
-                                </a>
-                            }
-                        </div>
-                    </div>
-                </div>
+                <MovieCard Movie="@movie" OnClick="() => OpenModal(movie)" />
             }
         </div>
     }
@@ -222,82 +143,15 @@
                 var movie = GetLoadedMovie(movieId);
                 @if (movie is not null)
                 {
-                    <div data-testid="movie-card" class="movie-card loaded" data-movie-id="@movieId" @onclick="() => OpenModal(movie)">
-                        <div class="movie-poster">
-                            @if (!string.IsNullOrEmpty(movie.CoverUrl))
-                            {
-                                <img data-testid="movie-poster-img" src="@movie.CoverUrl" alt="@movie.Title" loading="lazy" />
-                            }
-                            else if (!string.IsNullOrEmpty(movie.BackdropUrl))
-                            {
-                                <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@movie.BackdropUrl" alt="@movie.Title" loading="lazy" />
-                            }
-                            else
-                            {
-                                <div data-testid="movie-poster-noposter" class="no-poster">
-                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                                        <line x1="7" y1="2" x2="7" y2="22"/>
-                                        <line x1="17" y1="2" x2="17" y2="22"/>
-                                        <line x1="2" y1="12" x2="22" y2="12"/>
-                                    </svg>
-                                </div>
-                            }
-                        </div>
-                        <div class="movie-info">
-                            <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
-                            <div class="movie-meta @(movie.OriginCountries.Count > 1 ? "multi-country" : "")">
-                                @if (!string.IsNullOrEmpty(movie.Year))
-                                {
-                                    <span data-testid="movie-year" class="movie-year">@movie.Year</span>
-                                }
-                                @if (movie.OriginCountries.Count > 0)
-                                {
-                                    <span class="movie-countries">@string.Join(", ", movie.OriginCountries)</span>
-                                }
-                            </div>
-                            <div class="movie-ratings">
-                                @if (movie.Id > 0)
-                                {
-                                    <a data-testid="rating-csfd" href="https://www.csfd.cz/film/@movie.Id" target="_blank" class="rating-badge csfd" @onclick:stopPropagation title="CSFD rating">
-                                        <span class="rating-source">ČSFD</span>
-                                        @if (!string.IsNullOrEmpty(movie.CsfdRating))
-                                        {
-                                            <span class="rating-value">@movie.CsfdRating</span>
-                                        }
-                                    </a>
-                                }
-                                @if (movie.TmdbId.HasValue)
-                                {
-                                    <a data-testid="rating-tmdb" href="https://www.themoviedb.org/movie/@movie.TmdbId" target="_blank" class="rating-badge tmdb" @onclick:stopPropagation title="TMDB rating">
-                                        <span class="rating-source">TMDB</span>
-                                        @if (movie.TmdbRating.HasValue)
-                                        {
-                                            <span class="rating-value">@movie.TmdbRating.Value.ToString("0.#")</span>
-                                        }
-                                    </a>
-                                }
-                                @if (!string.IsNullOrEmpty(movie.ImdbId))
-                                {
-                                    <a data-testid="rating-imdb" href="https://www.imdb.com/title/@movie.ImdbId" target="_blank" class="rating-badge imdb" @onclick:stopPropagation title="@(movie.ImdbRatingCount.HasValue ? $"IMDb rating ({movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
-                                        <span class="rating-source">IMDb</span>
-                                        @if (movie.ImdbRating.HasValue)
-                                        {
-                                            <span class="rating-value">@movie.ImdbRating.Value.ToString("0.#")</span>
-                                        }
-                                    </a>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <MovieCard Movie="@movie" LazyLoad="true" OnClick="() => OpenModal(movie)" />
                 }
                 else
                 {
-                    <div data-testid="movie-card-placeholder" class="movie-card placeholder" data-movie-id="@movieId">
-                        <div class="movie-poster">
+                    <div data-testid="movie-card-placeholder" class="movie-placeholder" data-movie-id="@movieId">
+                        <div class="placeholder-poster">
                             <div class="poster-skeleton"></div>
                         </div>
-                        <div class="movie-info">
+                        <div class="placeholder-info">
                             <div class="title-skeleton"></div>
                             <div class="countries-skeleton"></div>
                         </div>

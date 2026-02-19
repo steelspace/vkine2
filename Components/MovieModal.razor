@@ -66,36 +66,7 @@
                     </div>
 
                     <div class="modal-ratings">
-                        @if (Movie.Id > 0)
-                        {
-                            <a href="https://www.csfd.cz/film/@Movie.Id" target="_blank" class="rating-badge csfd" title="CSFD rating">
-                                <span class="rating-source">ČSFD</span>
-                                @if (!string.IsNullOrEmpty(Movie.CsfdRating))
-                                {
-                                    <span class="rating-value">@Movie.CsfdRating</span>
-                                }
-                            </a>
-                        }
-                        @if (Movie.TmdbId.HasValue)
-                        {
-                            <a href="https://www.themoviedb.org/movie/@Movie.TmdbId" target="_blank" class="rating-badge tmdb" title="TMDB rating">
-                                <span class="rating-source">TMDB</span>
-                                @if (Movie.TmdbRating.HasValue)
-                                {
-                                    <span class="rating-value">@Movie.TmdbRating.Value.ToString("0.#")</span>
-                                }
-                            </a>
-                        }
-                        @if (!string.IsNullOrEmpty(Movie.ImdbId))
-                        {
-                            <a href="https://www.imdb.com/title/@Movie.ImdbId" target="_blank" class="rating-badge imdb" title="@(Movie.ImdbRatingCount.HasValue ? $"IMDb rating ({Movie.ImdbRatingCount.Value:N0} votes)" : "View on IMDb")">
-                                <span class="rating-source">IMDb</span>
-                                @if (Movie.ImdbRating.HasValue)
-                                {
-                                    <span class="rating-value">@Movie.ImdbRating.Value.ToString("0.#")</span>
-                                }
-                            </a>
-                        }
+                        <RatingBadges Movie="@Movie" />
                     </div>
 
                 </div>

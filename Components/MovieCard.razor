@@ -1,0 +1,50 @@
+<div data-testid="movie-card" class="movie-card @(LazyLoad ? "loaded" : "")" data-movie-id="@Movie.Id" @onclick="OnClick">
+    <div class="movie-poster">
+        @if (!string.IsNullOrEmpty(Movie.CoverUrl))
+        {
+            <img data-testid="movie-poster-img" src="@Movie.CoverUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : null)" />
+        }
+        else if (!string.IsNullOrEmpty(Movie.BackdropUrl))
+        {
+            <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@Movie.BackdropUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : null)" />
+        }
+        else
+        {
+            <div class="no-poster">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                    <line x1="7" y1="2" x2="7" y2="22"/>
+                    <line x1="17" y1="2" x2="17" y2="22"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+            </div>
+        }
+    </div>
+    <div class="movie-info">
+        <h3 data-testid="movie-title" class="movie-title">@Movie.Title</h3>
+        <div class="movie-meta @(Movie.OriginCountries.Count > 1 ? "multi-country" : "")">
+            @if (!string.IsNullOrEmpty(Movie.Year))
+            {
+                <span data-testid="movie-year" class="movie-year">@Movie.Year</span>
+            }
+            @if (Movie.OriginCountries.Count > 0)
+            {
+                <span class="movie-countries">@string.Join(", ", Movie.OriginCountries)</span>
+            }
+        </div>
+        <div class="movie-ratings">
+            <RatingBadges Movie="@Movie" Compact="true" />
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Movie Movie { get; set; } = default!;
+
+    [Parameter]
+    public bool LazyLoad { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

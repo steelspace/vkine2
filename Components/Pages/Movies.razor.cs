@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using Microsoft.Extensions.Logging;
 using vkine.Models;
 using vkine.Services;
 
@@ -17,12 +16,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
-
-    [Inject]
-    private ILogger<Movies> Logger { get; set; } = default!;
-
-    // Theme state
-    private bool _appliedIsDark;
 
     private bool isModalOpen = false;
     private Movie? selectedMovie = null;
@@ -96,8 +89,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             await _jsModule.InvokeVoidAsync("initStickyToolbar", _toolbarRef);
             await _jsModule.InvokeVoidAsync("initTimeSlider");
         }
-
-        // (Re-)initialize JS observer whenever the grid is in the DOM but not yet observed
         if (!_jsInitialized && !isLoading && AllMovieIds.Count > 0 && string.IsNullOrWhiteSpace(searchQuery))
         {
             _jsInitialized = true;
@@ -105,22 +96,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./Components/Pages/Movies.razor.js");
             await _jsModule.InvokeVoidAsync("observeCards", _gridRef, _dotnetRef);
-        }
-
-        // Initialize theme state on first render
-        if (firstRender)
-        {
-            try
-            {
-                var applied = await JSRuntime.InvokeAsync<string>("eval",
-                    "document.documentElement.getAttribute('data-theme') || 'light'");
-                _appliedIsDark = string.Equals(applied, "dark", StringComparison.OrdinalIgnoreCase);
-                StateHasChanged();
-            }
-            catch (Exception ex)
-            {
-                Logger.LogWarning(ex, "Failed to read theme state.");
-            }
         }
     }
 
@@ -522,34 +497,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             catch { }
         }
         _dotnetRef?.Dispose();
-    }
-
-    private async Task ToggleTheme()
-    {
-        try
-        {
-            await JSRuntime.InvokeAsync<string>("vkineTheme.toggle");
-        }
-        catch (Exception ex)
-        {
-            Logger.LogWarning(ex, "Theme toggle failed, using DOM fallback.");
-            try
-            {
-                await JSRuntime.InvokeVoidAsync("eval",
-                    @"(function(){var el=document.documentElement; el.setAttribute('data-theme', el.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');})();");
-            }
-            catch { }
-        }
-        finally
-        {
-            try
-            {
-                var applied = await JSRuntime.InvokeAsync<string>("eval",
-                    "document.documentElement.getAttribute('data-theme') || 'light'");
-                _appliedIsDark = string.Equals(applied, "dark", StringComparison.OrdinalIgnoreCase);
-            }
-            catch { }
-        }
     }
 
     private void OpenModal(Movie movie)
