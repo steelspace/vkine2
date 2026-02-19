@@ -74,6 +74,13 @@
     );
     z-index: 1;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Show gradient only after the backdrop image has loaded */
+.modal-content.has-backdrop .modal-hero:has(img.loaded)::after {
+    opacity: 1;
 }
 
 /* Hero content sits above the backdrop and gradient */
@@ -245,6 +252,33 @@
     inset: 0;
     overflow: hidden;
     z-index: 0;
+    background: linear-gradient(135deg,
+        hsl(220, 45%, 10%) 0%,
+        hsl(260, 40%, 12%) 35%,
+        hsl(300, 30%, 10%) 60%,
+        hsl(340, 35%, 9%) 85%,
+        hsl(220, 40%, 8%) 100%
+    );
+}
+
+.modal-backdrop-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        110deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.04) 37%,
+        transparent 50%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .modal-backdrop-image img {
@@ -256,10 +290,18 @@
     object-position: top center;
     opacity: 0;
     transition: opacity 0.5s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .modal-backdrop-image img.loaded {
     opacity: 1;
+}
+
+.modal-backdrop-image img.loaded + *,
+.modal-backdrop-image:has(img.loaded)::before {
+    animation: none;
+    opacity: 0;
 }
 
 .modal-poster-image {
