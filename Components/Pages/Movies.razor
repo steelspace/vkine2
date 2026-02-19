@@ -146,7 +146,7 @@
                     </div>
                     <div class="movie-info">
                         <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
-                        <div class="movie-meta">
+                        <div class="movie-meta @(movie.OriginCountries.Count > 1 ? "multi-country" : "")">
                             @if (!string.IsNullOrEmpty(movie.Year))
                             {
                                 <span data-testid="movie-year" class="movie-year">@movie.Year</span>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="movie-info">
                             <h3 data-testid="movie-title" class="movie-title">@movie.Title</h3>
-                            <div class="movie-meta">
+                            <div class="movie-meta @(movie.OriginCountries.Count > 1 ? "multi-country" : "")">
                                 @if (!string.IsNullOrEmpty(movie.Year))
                                 {
                                     <span data-testid="movie-year" class="movie-year">@movie.Year</span>

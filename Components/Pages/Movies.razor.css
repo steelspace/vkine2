@@ -596,6 +596,16 @@ html[data-theme="dark"] .sticky-toolbar {
     color: var(--text-tertiary);
 }
 
+.movie-meta.multi-country {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.movie-meta.multi-country .movie-year + .movie-countries::before {
+    content: none;
+}
+
 .movie-countries {
     font-size: var(--font-size-footnote);
     color: var(--text-secondary);
@@ -636,6 +646,10 @@ html[data-theme="dark"] .sticky-toolbar {
     font-size: var(--font-size-caption2);
     text-transform: uppercase;
     letter-spacing: 0.02em;
+}
+
+.rating-badge:has(.rating-value) .rating-source {
+    display: none;
 }
 
 .rating-value {
