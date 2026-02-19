@@ -44,7 +44,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     // Time-of-day filter (minutes from midnight; 540 = 9:00 = off / leftmost)
     private int _timeFromMinutes = 540;
-    private CancellationTokenSource? _timeFilterCts;
 
     // Sort state
     private enum SortField { None, Rating, Name, ReleaseDate }
@@ -95,6 +94,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
                 "import", "./Components/Pages/Movies.razor.js");
             await _jsModule.InvokeVoidAsync("initDateRangePicker", _dateRangeInput, _dotnetRef);
             await _jsModule.InvokeVoidAsync("initStickyToolbar", _toolbarRef);
+            await _jsModule.InvokeVoidAsync("initTimeSlider");
         }
 
         // (Re-)initialize JS observer whenever the grid is in the DOM but not yet observed
@@ -168,28 +168,13 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         await ApplyFilters();
     }
 
-    private async Task OnTimeFromInput(ChangeEventArgs e)
+    private async Task OnTimeFromChanged(ChangeEventArgs e)
     {
         _timeFromMinutes = int.Parse(e.Value?.ToString() ?? "0");
-
-        // Cancel any pending time-filter fetch
-        _timeFilterCts?.Cancel();
-        _timeFilterCts?.Dispose();
-        _timeFilterCts = new CancellationTokenSource();
-        var token = _timeFilterCts.Token;
-
-        try
-        {
-            await Task.Delay(400, token);
-            if (!token.IsCancellationRequested)
-            {
-                await ApplyFilters();
-            }
-        }
-        catch (TaskCanceledException) { }
+        await ApplyFilters();
     }
 
-    private const int TimeSliderMin = 540; // 9:00
+    internal const int TimeSliderMin = 540; // 9:00
 
     private string TimeFromLabel => _timeFromMinutes <= TimeSliderMin
         ? "Off"
@@ -522,8 +507,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     {
         _searchCts?.Cancel();
         _searchCts?.Dispose();
-        _timeFilterCts?.Cancel();
-        _timeFilterCts?.Dispose();
         _dotnetRef?.Dispose();
     }
 

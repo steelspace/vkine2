@@ -156,6 +156,31 @@ function flushPending() {
     }, 100);   // 100ms debounce to batch cards that enter viewport together
 }
 
+export function initTimeSlider() {
+    const slider = document.querySelector('.time-slider');
+    const label = document.getElementById('time-filter-value');
+    if (!slider || !label) return;
+
+    const MIN = 540; // must match TimeSliderMin
+
+    function formatTime(minutes) {
+        if (minutes <= MIN) return 'Off';
+        const h = String(Math.floor(minutes / 60)).padStart(2, '0');
+        const m = String(minutes % 60).padStart(2, '0');
+        return `${h}:${m}`;
+    }
+
+    slider.addEventListener('input', () => {
+        const val = parseInt(slider.value, 10);
+        label.textContent = formatTime(val);
+        if (val > MIN) {
+            label.classList.add('active');
+        } else {
+            label.classList.remove('active');
+        }
+    });
+}
+
 export function initStickyToolbar(toolbarElement) {
     if (scrollHandler) {
         window.removeEventListener('scroll', scrollHandler, { passive: true });
