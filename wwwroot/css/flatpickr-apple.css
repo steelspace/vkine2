@@ -226,16 +226,18 @@ input.flatpickr-input[readonly] {
 .date-range-input,
 .date-range-picker .flatpickr-input {
     padding: 7px 34px 7px 34px;
-    border-radius: var(--radius-pill) !important;
-    border: 1.5px solid var(--separator) !important;
-    background: var(--bg-secondary) !important;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--separator);
+    background: var(--bg-secondary);
     font-size: var(--font-size-subheadline);
     font-weight: 400;
     color: var(--text-primary);
     outline: none;
     cursor: pointer;
-    min-width: 200px;
+    width: 100%;
+    min-width: min(200px, 100%);
     letter-spacing: -0.2px;
+    flex: 1 1 auto;
     transition: border-color var(--duration-fast) var(--ease-default),
                 box-shadow var(--duration-fast) var(--ease-default),
                 background var(--duration-fast) var(--ease-default);
@@ -251,19 +253,19 @@ input.flatpickr-input[readonly] {
 
 .date-range-input:hover,
 .date-range-picker .flatpickr-input:hover {
-    border-color: var(--separator-opaque) !important;
-    background: var(--bg-secondary) !important;
+    border-color: var(--separator-opaque);
+    background: var(--bg-secondary);
 }
 
 .date-range-input:focus,
 .date-range-picker .flatpickr-input:focus,
 .date-range-picker .flatpickr-input.active {
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 3.5px var(--accent-focus) !important;
-    background: var(--bg-secondary) !important;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3.5px var(--accent-focus);
+    background: var(--bg-secondary);
 } 
 /* When calendar is open, keep the field visually active */
 .flatpickr-input.active {
-    border-color: var(--accent) !important;
-    box-shadow: 0 0 0 3.5px var(--accent-focus) !important;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3.5px var(--accent-focus);
 }

@@ -150,19 +150,7 @@ html[data-theme="dark"] .sticky-toolbar {
 
 /* ── Inline Spinner ──────────────────────────────────────────── */
 
-.search-spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--separator-opaque);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    flex-shrink: 0;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+/* spinner removed */
 
 /* ── Filters ──────────────────────────────────────────────────── */
 .date-range-picker {
@@ -532,5 +520,57 @@ html[data-theme="dark"] .sticky-toolbar {
 
     .segmented-control {
         flex-wrap: wrap;
+    }
+
+    /* Stretch filter controls (except sort) to full width when stacked on small screens */
+    .toolbar-row > :not(.sort-group),
+    .toolbar-search-row > :not(.sort-group) {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 820px) {
+    .toolbar-row .date-range-picker,
+    .toolbar-search-row .date-range-picker {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 0;
+        padding-inline: 0;
+        border: 1.5px solid var(--separator);
+        border-radius: var(--radius-pill);
+        background: var(--bg-secondary);
+        gap: 0;
+        transition:
+            border-color var(--duration-fast) var(--ease-default),
+            box-shadow var(--duration-fast) var(--ease-default);
+    }
+
+    .toolbar-row .date-range-picker:focus-within,
+    .toolbar-search-row .date-range-picker:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3.5px var(--accent-focus);
+    }
+
+    .toolbar-row .date-range-picker :is(.date-range-input, .flatpickr-input),
+    .toolbar-search-row .date-range-picker :is(.date-range-input, .flatpickr-input) {
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+        padding: 7px 34px;
+        border: none;
+        background: transparent;
+        color: var(--text-primary);
+        box-shadow: none;
+        outline: none;
+        appearance: none;
+    }
+
+    .date-range-picker .filter-icon {
+        left: 12px;
+    }
+
+    .date-clear-btn {
+        right: 12px;
     }
 }

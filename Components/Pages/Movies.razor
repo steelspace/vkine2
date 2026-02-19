@@ -22,10 +22,7 @@
                     </svg>
                 </button>
             }
-            @if (isSearching)
-            {
-                <div data-testid="search-spinner" class="search-spinner"></div>
-            }
+            
         </div>
 
         <ThemeToggle />
@@ -57,10 +54,7 @@
                        value="@_timeFromMinutes" @onchange="OnTimeFromChanged" aria-describedby="time-filter-value" />
             </div>
 
-            @if (_isDateFiltering)
-            {
-                <div class="search-spinner"></div>
-            }
+            
 
             <div data-testid="sort-group" class="sort-group">
                 <span class="sort-label">Sort</span>
@@ -90,10 +84,7 @@
                         }
                     </button>
                 </div>
-                @if (_isSortLoading)
-                {
-                    <div data-testid="sort-spinner" class="search-spinner"></div>
-                }
+                
             </div>
         </div>
     </div>
