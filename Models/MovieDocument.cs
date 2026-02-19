@@ -75,4 +75,7 @@ public class MovieDocument
 
     [BsonElement("homepage")]
     public string? Homepage { get; set; }
+
+    [BsonElement("trailer_url")]
+    public string? TrailerUrl { get; set; }
 }

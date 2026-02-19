@@ -34,7 +34,8 @@ public class MovieMapper
             Cast = document.Cast ?? new List<string>(),
             Crew = document.Crew ?? new List<string>(),
             Directors = document.Directors ?? new List<string>(),
-            Homepage = document.Homepage ?? string.Empty
+            Homepage = document.Homepage ?? string.Empty,
+            TrailerUrl = document.TrailerUrl
         }; 
     }
 

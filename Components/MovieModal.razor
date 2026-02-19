@@ -162,6 +162,21 @@
                         </div>
                     }
 
+                    @if (YouTubeVideoId is not null)
+                    {
+                        <div class="trailer-section">
+                            <span class="section-label">Trailer</span>
+                            <div class="trailer-player">
+                                <iframe src="https://www.youtube.com/embed/@YouTubeVideoId?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white"
+                                        title="Trailer"
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    }
+
                     @if (isLoadingSchedules)
                     {
                         <div data-testid="modal-loading" class="modal-loading">
@@ -264,6 +279,17 @@
     public TimeOnly? TimeFrom { get; set; }
 
     private bool HasActiveFilters => DateFrom.HasValue || DateTo.HasValue || TimeFrom.HasValue;
+
+    private string? YouTubeVideoId => ExtractYouTubeVideoId(Movie?.TrailerUrl);
+
+    private static string? ExtractYouTubeVideoId(string? url)
+    {
+        if (string.IsNullOrWhiteSpace(url)) return null;
+        // Handles youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID
+        var match = System.Text.RegularExpressions.Regex.Match(url,
+            @"(?:youtube\.com/(?:watch\?.*v=|embed/)|youtu\.be/)([\w-]{11})");
+        return match.Success ? match.Groups[1].Value : null;
+    }
 
     private string FilterSummary
     {
