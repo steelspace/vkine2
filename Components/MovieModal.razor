@@ -164,8 +164,12 @@
                                         <div data-testid="performance" class="performance">
                                             @if (venues.TryGetValue(performance.VenueId, out var venue))
                                             {
+                                                var mapQuery = Uri.EscapeDataString((venue.Name ?? "") + " " + (venue.City ?? ""));
                                                 <div class="venue-info">
-                                                    <strong>@venue.Name</strong>
+                                                    <strong>
+                                                        <a href="https://maps.apple.com/?q=@mapQuery" target="_blank" class="venue-map-link apple-maps-link">@venue.Name</a>
+                                                        <a href="https://www.google.com/maps/search/?api=1&query=@mapQuery" target="_blank" class="venue-map-link google-maps-link">@venue.Name</a>
+                                                    </strong>
                                                 </div>
                                             }
                                             else
@@ -177,7 +181,12 @@
                                             <div class="showtimes">
                                                 @foreach (var showtime in performance.Showtimes)
                                                 {
-                                                    <div data-testid="showtime" class="showtime">
+                                                    var ticketHref = !string.IsNullOrEmpty(showtime.TicketUrl)
+                                                        ? showtime.TicketUrl
+                                                        : venues.TryGetValue(performance.VenueId, out var searchVenue)
+                                                            ? $"https://duckduckgo.com/?q={Uri.EscapeDataString(searchVenue.Name ?? "")}+!ducky"
+                                                            : null;
+                                                    <a data-testid="showtime" class="showtime" href="@ticketHref" target="_blank">
                                                         <span class="time">
                                                             @showtime.StartAt.ToString("HH:mm")
                                                         </span>
@@ -190,15 +199,7 @@
                                                                 }
                                                             </span>
                                                         }
-                                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
-                                                        {
-                                                            <a data-testid="ticket-link" href="@showtime.TicketUrl" target="_blank" class="ticket-link">Buy Tickets</a>
-                                                        }
-                                                        else if (venues.TryGetValue(performance.VenueId, out var searchVenue))
-                                                        {
-                                                            <a href="https://duckduckgo.com/?q=!+@Uri.EscapeDataString(searchVenue.Name + " " + Movie!.Title)" target="_blank" class="ticket-link ticket-link-search">Buy Tickets</a>
-                                                        }
-                                                    </div>
+                                                    </a>
                                                 }
                                             </div>
                                         </div>
