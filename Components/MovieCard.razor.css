@@ -35,11 +35,15 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 1;
+}
+
+.movie-card.lazy-load .movie-poster img {
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
-.movie-poster img.loaded {
+.movie-card.lazy-load .movie-poster img.loaded {
     opacity: 1;
 }
 

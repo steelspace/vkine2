@@ -1,12 +1,12 @@
-<div data-testid="movie-card" class="movie-card @(LazyLoad ? "loaded" : "")" data-movie-id="@Movie.Id" @onclick="OnClick">
+<div data-testid="movie-card" class="movie-card loaded @(LazyLoad ? "lazy-load" : "")" data-movie-id="@Movie.Id" @onclick="OnClick">
     <div class="movie-poster">
         @if (!string.IsNullOrEmpty(Movie.CoverUrl))
         {
-            <img data-testid="movie-poster-img" src="@Movie.CoverUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : null)" />
+            <img data-testid="movie-poster-img" src="@Movie.CoverUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : "eager")" />
         }
         else if (!string.IsNullOrEmpty(Movie.BackdropUrl))
         {
-            <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@Movie.BackdropUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : null)" />
+            <img data-testid="movie-poster-img" class="backdrop-as-poster" src="@Movie.BackdropUrl" alt="@Movie.Title" loading="@(LazyLoad ? "lazy" : "eager")" />
         }
         else
         {
