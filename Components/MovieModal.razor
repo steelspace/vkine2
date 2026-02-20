@@ -149,13 +149,44 @@
                                     Showing only showtimes matching active filters: @FilterSummary
                                 </div>
                             }
+                            @{
+                                var totalShowtimes = schedules.Sum(s => s.Performances.Sum(p => p.Showtimes.Count));
+                                var scheduleDates = schedules.Select(s => s.Date).ToHashSet();
+                            }
+                            @if (scheduleDates.Count > 1)
+                            {
+                                var firstDate = schedules.Min(s => s.Date);
+                                var lastDate = schedules.Max(s => s.Date);
+                                <div class="schedule-calendar">
+                                    @for (var d = firstDate; d <= lastDate; d = d.AddDays(1))
+                                    {
+                                        var hasShowtimes = scheduleDates.Contains(d);
+                                        var dayLabel = d.ToString("ddd");
+                                        var shortDate = d.ToString("d.M.");
+                                        @if (hasShowtimes)
+                                        {
+                                            <a href="#schedule-@d.ToString("yyyy-MM-dd")" class="cal-day" @onclick:preventDefault="false">
+                                                <span class="cal-day-letter">@dayLabel</span>
+                                                <span class="cal-day-date">@shortDate</span>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span class="cal-day disabled">
+                                                <span class="cal-day-letter">@dayLabel</span>
+                                                <span class="cal-day-date">@shortDate</span>
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                            }
                             @foreach (var schedule in schedules)
                             {
                                 var today = DateOnly.FromDateTime(DateTime.Now);
                                 var dateLabel = schedule.Date == today ? "Today"
                                     : schedule.Date == today.AddDays(1) ? "Tomorrow"
                                     : schedule.Date.ToString("dddd");
-                                <div class="schedule-date">
+                                <div class="schedule-date" id="schedule-@schedule.Date.ToString("yyyy-MM-dd")">
                                     <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString(schedule.Date.Year == today.Year ? "MMMM dd" : "MMMM dd, yyyy")</h4>
                                     @foreach (var performance in schedule.Performances)
                                     {
