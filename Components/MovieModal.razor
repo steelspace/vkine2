@@ -177,7 +177,7 @@
                                             <div class="showtimes">
                                                 @foreach (var showtime in performance.Showtimes)
                                                 {
-                                                    <div data-testid="showtime" class="showtime @(showtime.TicketsAvailable ? "available" : "unavailable")">
+                                                    <div data-testid="showtime" class="showtime">
                                                         <span class="time">
                                                             @showtime.StartAt.ToString("HH:mm")
                                                         </span>
@@ -190,9 +190,13 @@
                                                                 }
                                                             </span>
                                                         }
-                                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl) && showtime.TicketsAvailable)
+                                                        @if (!string.IsNullOrEmpty(showtime.TicketUrl))
                                                         {
                                                             <a data-testid="ticket-link" href="@showtime.TicketUrl" target="_blank" class="ticket-link">Buy Tickets</a>
+                                                        }
+                                                        else if (venues.TryGetValue(performance.VenueId, out var searchVenue))
+                                                        {
+                                                            <a href="https://duckduckgo.com/?q=!+@Uri.EscapeDataString(searchVenue.Name + " " + Movie!.Title)" target="_blank" class="ticket-link ticket-link-search">Buy Tickets</a>
                                                         }
                                                     </div>
                                                 }
