@@ -156,7 +156,7 @@
                                     : schedule.Date == today.AddDays(1) ? "Tomorrow"
                                     : schedule.Date.ToString("dddd");
                                 <div class="schedule-date">
-                                    <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString("MMMM dd, yyyy")</h4>
+                                    <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString(schedule.Date.Year == today.Year ? "MMMM dd" : "MMMM dd, yyyy")</h4>
                                     @foreach (var performance in schedule.Performances)
                                     {
                                         <div data-testid="performance" class="performance">
