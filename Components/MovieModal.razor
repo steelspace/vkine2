@@ -157,8 +157,12 @@
                             }
                             @foreach (var schedule in schedules)
                             {
+                                var today = DateOnly.FromDateTime(DateTime.Now);
+                                var dateLabel = schedule.Date == today ? "Today"
+                                    : schedule.Date == today.AddDays(1) ? "Tomorrow"
+                                    : schedule.Date.ToString("dddd");
                                 <div class="schedule-date">
-                                    <h4 data-testid="schedule-date">@schedule.Date.ToString("dddd, MMMM dd, yyyy")</h4>
+                                    <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString("MMMM dd, yyyy")</h4>
                                     @foreach (var performance in schedule.Performances)
                                     {
                                         <div data-testid="performance" class="performance">
