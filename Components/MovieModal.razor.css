@@ -488,6 +488,13 @@
 
 .schedule-date {
     margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--separator);
+}
+
+.schedule-date:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .schedule-date h4 {
@@ -499,9 +506,8 @@
 
 .performance {
     margin-bottom: 1rem;
-    padding: 12px 14px;
-    background: var(--bg-primary);
-    border-radius: var(--radius-md);
+    padding: 0;
+    background: transparent;
 }
 
 .venue-info {
@@ -511,7 +517,7 @@
 
 .venue-info strong {
     font-size: var(--font-size-subheadline);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .venue-city {
@@ -594,7 +600,7 @@
     background: var(--accent);
     color: var(--text-on-dark);
     border-radius: 5px;
-    font-size: var(--font-size-caption2);
+    font-size: 10px;
     font-weight: 600;
 }
 
@@ -711,4 +717,14 @@
     .modal-info-row {
         gap: 2px;
     }
+}
+
+/* ── Dark theme: more visible borders ────────────────────────── */
+
+:global([data-theme="dark"]) .schedule-date {
+    border-bottom-color: rgba(255, 255, 255, 0.22);
+}
+
+:global([data-theme="dark"]) .showtime {
+    border-color: rgba(255, 255, 255, 0.22);
 }

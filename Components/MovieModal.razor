@@ -193,7 +193,8 @@
                                                             <span class="badges">
                                                                 @foreach (var badge in showtime.Badges)
                                                                 {
-                                                                    <span class="badge" title="@badge.Description">@badge.Code</span>
+                                                                    if (badge.Code == "ČSFD Sál") { continue; }
+                                                                    <span class="badge" title="@badge.Description">@(badge.Code == "T" ? "CZ-SUB" : badge.Code == "D" ? "CZ-DUB" : badge.Code)</span>
                                                                 }
                                                             </span>
                                                         }
