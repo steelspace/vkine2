@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using System.Text.RegularExpressions;
+using System.Text;
 using vkine.Mappers;
 using vkine.Models;
 
@@ -118,12 +119,23 @@ public class MovieService(
             return new List<Movie>();
         }
 
-        // Tokenize query and escape regex characters so user input doesn't break regex
-        var tokens = query
-            .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(t => Regex.Escape(t.Trim()))
-            .Where(t => t.Length > 0)
-            .ToList();
+        // Tokenize query using spans and build accent-insensitive regex patterns so
+        // unaccented input (e.g. "svihaci") matches accented data ("Šviháci").
+        var tokens = new List<string>();
+        var span = query.AsSpan();
+        var len = span.Length;
+        var idx = 0;
+        while (idx < len)
+        {
+            // skip whitespace
+            while (idx < len && char.IsWhiteSpace(span[idx])) idx++;
+            if (idx >= len) break;
+            var start = idx;
+            while (idx < len && !char.IsWhiteSpace(span[idx])) idx++;
+            var tokenSpan = span[start..idx];
+            var pattern = BuildAccentInsensitivePattern(tokenSpan);
+            if (!string.IsNullOrEmpty(pattern)) tokens.Add(pattern);
+        }
 
         if (tokens.Count == 0) return new List<Movie>();
 
@@ -176,6 +188,83 @@ public class MovieService(
         var documents = await _moviesCollection.Find(finalFilter).Limit(limit).ToListAsync();
 
         return documents.Select(_movieMapper.Map).ToList();
+    }
+
+    // Map base characters to Czech diacritic variants so a user typing an unaccented
+    // character will still match accented text in the DB (e.g. 's' -> [sš]).
+    private static readonly Dictionary<char, char[]> _diacriticMap = new()
+    {
+        ['a'] = new[] { 'a', 'á' },
+        ['c'] = new[] { 'c', 'č' },
+        ['d'] = new[] { 'd', 'ď' },
+        ['e'] = new[] { 'e', 'é', 'ě' },
+        ['i'] = new[] { 'i', 'í' },
+        ['n'] = new[] { 'n', 'ň' },
+        ['o'] = new[] { 'o', 'ó' },
+        ['r'] = new[] { 'r', 'ř' },
+        ['s'] = new[] { 's', 'š' },
+        ['t'] = new[] { 't', 'ť' },
+        ['u'] = new[] { 'u', 'ú', 'ů' },
+        ['y'] = new[] { 'y', 'ý' },
+        ['z'] = new[] { 'z', 'ž' }
+    };
+
+    private static string BuildAccentInsensitivePattern(ReadOnlySpan<char> token)
+    {
+        if (token.Length == 0) return string.Empty;
+
+        var sb = new StringBuilder();
+        foreach (var ch in token)
+        {
+            var lower = char.ToLowerInvariant(ch);
+            if (_diacriticMap.TryGetValue(lower, out var variants))
+            {
+                sb.Append('[');
+                foreach (var v in variants)
+                {
+                    AppendEscapedChar(sb, v, inCharClass: true);
+                }
+                sb.Append(']');
+            }
+            else
+            {
+                AppendEscapedChar(sb, ch, inCharClass: false);
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    private static void AppendEscapedChar(StringBuilder sb, char ch, bool inCharClass)
+    {
+        // Characters that need escaping in regex (outside char class)
+        const string special = ".^$*+?()[]{}|\\";
+
+        if (inCharClass)
+        {
+            // Inside a char class, '-', '^', ']' and '\\' are special
+            if (ch == '-' || ch == '^' || ch == ']' || ch == '\\')
+            {
+                sb.Append('\\');
+                sb.Append(ch);
+            }
+            else
+            {
+                sb.Append(ch);
+            }
+        }
+        else
+        {
+            if (special.IndexOf(ch) >= 0)
+            {
+                sb.Append('\\');
+                sb.Append(ch);
+            }
+            else
+            {
+                sb.Append(ch);
+            }
+        }
     }
 
     private void CacheMovie(Movie movie)
