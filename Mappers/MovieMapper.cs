@@ -1,3 +1,4 @@
+using System.Globalization;
 using vkine.Models;
 using vkine.Services;
 
@@ -37,6 +38,7 @@ public class MovieMapper(ICountryLookupService lookupService)
             Genres = document.Genres ?? new List<string>(),
             OriginCountryCodes = codes,
             OriginCountries = _lookupService.GetCountryNames(codes),
+            OriginalLanguage = FormatOriginalLanguage(document.OriginalLanguage),
             Cast = document.Cast ?? new List<string>(),
             Crew = document.Crew ?? new List<string>(),
             Directors = document.Directors ?? new List<string>(),
@@ -96,5 +98,24 @@ public class MovieMapper(ICountryLookupService lookupService)
         }
 
         return new List<string>();
+    }
+
+    private static string FormatOriginalLanguage(string? originalLanguage)
+    {
+        if (string.IsNullOrWhiteSpace(originalLanguage))
+        {
+            return string.Empty;
+        }
+
+        var trimmed = originalLanguage.Trim();
+        try
+        {
+            var culture = CultureInfo.GetCultureInfo(trimmed);
+            return culture.EnglishName;
+        }
+        catch (CultureNotFoundException)
+        {
+            return trimmed.ToUpperInvariant();
+        }
     }
 }

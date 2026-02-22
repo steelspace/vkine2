@@ -9,244 +9,252 @@
                 </svg>
             </button>
             <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(Movie?.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
-            <div class="modal-hero">
-                @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
-                {
-                    var backdropSrc = Movie.BackdropUrl;
-                    try
+                <div class="modal-hero">
+                    @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
                     {
-                        var uri = new Uri(backdropSrc);
-                        if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
+                        var backdropSrc = Movie.BackdropUrl;
+                        try
                         {
-                            backdropSrc = $"/proxy/tmdb{uri.AbsolutePath}";
+                            var uri = new Uri(backdropSrc);
+                            if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
+                            {
+                                backdropSrc = $"/proxy/tmdb{uri.AbsolutePath}";
+                            }
                         }
-                    }
-                    catch { /* if parse fails, just use original */ }
+                        catch { /* if parse fails, just use original */ }
 
-                    <div class="modal-backdrop-image">
-                        <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="requestAnimationFrame(() => { this.classList.add('loaded'); vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]'); })" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
+                        <div class="modal-backdrop-image">
+                            <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="requestAnimationFrame(() => { this.classList.add('loaded'); vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]'); })" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="modal-grabber"></div>
+                    }
+                    <div class="modal-header">
+                        <h2 data-testid="modal-title">
+                            @if (!string.IsNullOrEmpty(Movie.Homepage))
+                            {
+                                <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
+                            }
+                            else
+                            {
+                                @Movie.Title
+                            }
+                        </h2>
                     </div>
-                }
-                else
-                {
-                    <div class="modal-grabber"></div>
-                }
-                <div class="modal-header">
-                    <h2 data-testid="modal-title">
-                        @if (!string.IsNullOrEmpty(Movie.Homepage))
-                        {
-                            <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
-                        }
-                        else
-                        {
-                            @Movie.Title
-                        }
-                    </h2>
+                    <div class="modal-hero-details">
+                        <div class="modal-meta">
+                            @if (!string.IsNullOrEmpty(Movie.Year))
+                            {
+                                <span data-testid="modal-year" class="meta-item">@Movie.Year</span>
+                            }
+                            @if (!string.IsNullOrEmpty(Movie.Duration))
+                            {
+                                <span data-testid="modal-duration" class="meta-item">@Movie.Duration</span>
+                            }
+                            @if (Movie.OriginCountries.Count > 0)
+                            {
+                                <span data-testid="modal-countries" class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
+                            }
+                            @if (!string.IsNullOrEmpty(Movie.OriginalLanguage))
+                            {
+                                <span data-testid="modal-original-language-badge" class="meta-item language-callout">
+                                    <svg viewBox="0 0 512 512" aria-hidden="true" focusable="false">
+                                        <path d="M478.33,433.6l-90-218a22,22,0,0,0-40.67,0l-90,218a22,22,0,1,0,40.67,16.79L316.66,406H419.33l18.33,44.39A22,22,0,0,0,458,464a22,22,0,0,0,20.32-30.4ZM334.83,362,368,281.65,401.17,362Z" />
+                                        <path d="M267.84,342.92a22,22,0,0,0-4.89-30.7c-.2-.15-15-11.13-36.49-34.73,39.65-53.68,62.11-114.75,71.27-143.49H330a22,22,0,0,0,0-44H214V70a22,22,0,0,0-44,0V90H54a22,22,0,0,0,0,44H251.25c-9.52,26.95-27.05,69.5-53.79,108.36-31.41-41.68-43.08-68.65-43.17-68.87a22,22,0,0,0-40.58,17c.58,1.38,14.55,34.23,52.86,83.93.92,1.19,1.83,2.35,2.74,3.51-39.24,44.35-77.74,71.86-93.85,80.74a22,22,0,1,0,21.07,38.63c2.16-1.18,48.6-26.89,101.63-85.59,22.52,24.08,38,35.44,38.93,36.1a22,22,0,0,0,30.75-4.9Z" />
+                                    </svg>
+                                    <span>@Movie.OriginalLanguage</span>
+                                </span>
+                            }
+                        </div>
+                        <div class="modal-ratings">
+                            <RatingBadges Movie="@Movie" />
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-hero-details">
-                    <div class="modal-meta">
-                        @if (!string.IsNullOrEmpty(Movie.Year))
+                <div class="modal-body">
+                    <div class="modal-details">
+                        @if (!string.IsNullOrEmpty(Movie.Synopsis))
                         {
-                            <span data-testid="modal-year" class="meta-item">@Movie.Year</span>
-                        }
-                        @if (!string.IsNullOrEmpty(Movie.Duration))
-                        {
-                            <span data-testid="modal-duration" class="meta-item">@Movie.Duration</span>
-                        }
-                        @if (Movie.OriginCountries.Count > 0)
-                        {
-                            <span data-testid="modal-countries" class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
-                        }
-                    </div>
-
-                    <div class="modal-ratings">
-                        <RatingBadges Movie="@Movie" />
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-details">
-                    @if (!string.IsNullOrEmpty(Movie.Synopsis))
-                    {
-                        <div data-testid="modal-synopsis" class="modal-synopsis">
-                            <span class="section-label">Synopsis</span>
-                            <p>@Movie.Synopsis</p>
-                        </div>
-                    }
-
-                    @if (Movie.Directors.Count > 0)
-                    {
-                        <div class="modal-info-row">
-                            <span class="section-label">Director</span>
-                            <span>
-                                @for (int i = 0; i < Movie.Directors.Count; i++)
-                                {
-                                    @if (i > 0) { <text>, </text> }
-                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Directors[i])" target="_blank" class="person-link">@Movie.Directors[i]</a>
-                                }
-                            </span>
-                        </div>
-                    }
-
-                    @if (Movie.Cast.Count > 0)
-                    {
-                        <div class="modal-people">
-                            <span class="section-label">Cast</span>
-                            <p>
-                                @for (int i = 0; i < Movie.Cast.Count; i++)
-                                {
-                                    @if (i > 0) { <text>, </text> }
-                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Cast[i])" target="_blank" class="person-link">@Movie.Cast[i]</a>
-                                }
-                            </p>
-                        </div>
-                    }
-
-                    @if (Movie.Crew.Count > 0)
-                    {
-                        <div class="modal-people">
-                            <span class="section-label">Crew</span>
-                            <p>
-                                @for (int i = 0; i < Movie.Crew.Count; i++)
-                                {
-                                    @if (i > 0) { <text>, </text> }
-                                    <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Crew[i])" target="_blank" class="person-link">@Movie.Crew[i]</a>
-                                }
-                            </p>
-                        </div>
-                    }
-
-                    @if (YouTubeVideoId is not null)
-                    {
-                        <div class="trailer-section">
-                            <span class="section-label">Trailer</span>
-                            <div class="trailer-player">
-                                <iframe src="https://www.youtube.com/embed/@YouTubeVideoId?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white"
-                                        title="Trailer"
-                                        loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen></iframe>
+                            <div data-testid="modal-synopsis" class="modal-synopsis">
+                                <span class="section-label">Synopsis</span>
+                                <p>@Movie.Synopsis</p>
                             </div>
-                        </div>
-                    }
+                        }
 
-                    @if (isLoadingSchedules)
-                    {
-                        <div data-testid="modal-loading" class="modal-loading">
-                            <p>Loading showtimes...</p>
-                        </div>
-                    }
-                    else if (schedules != null && schedules.Count > 0)
-                    {
-                        <div data-testid="modal-schedules" class="modal-schedules">
-                            <h3>Upcoming Showtimes</h3>
-                            @if (HasActiveFilters)
-                            {
-                                <div class="filter-banner">
-                                    <span class="filter-banner-icon">&#9888;</span>
-                                    Showing only showtimes matching active filters: @FilterSummary
-                                </div>
-                            }
-                            @{
-                                var totalShowtimes = schedules.Sum(s => s.Performances.Sum(p => p.Showtimes.Count));
-                                var scheduleDates = schedules.Select(s => s.Date).ToHashSet();
-                            }
-                            @if (scheduleDates.Count > 1)
-                            {
-                                var firstDate = schedules.Min(s => s.Date);
-                                var lastDate = schedules.Max(s => s.Date);
-                                <div class="schedule-calendar">
-                                    @for (var d = firstDate; d <= lastDate; d = d.AddDays(1))
+                        @if (Movie.Directors.Count > 0)
+                        {
+                            <div class="modal-info-row">
+                                <span class="section-label">Director</span>
+                                <span>
+                                    @for (int i = 0; i < Movie.Directors.Count; i++)
                                     {
-                                        var hasShowtimes = scheduleDates.Contains(d);
-                                        var dayLabel = d.ToString("ddd");
-                                        var shortDate = d.ToString("d.M.");
-                                        @if (hasShowtimes)
-                                        {
-                                            <a href="#schedule-@d.ToString("yyyy-MM-dd")" class="cal-day" @onclick:preventDefault="false">
-                                                <span class="cal-day-letter">@dayLabel</span>
-                                                <span class="cal-day-date">@shortDate</span>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <span class="cal-day disabled">
-                                                <span class="cal-day-letter">@dayLabel</span>
-                                                <span class="cal-day-date">@shortDate</span>
-                                            </span>
-                                        }
+                                        @if (i > 0) { <text>, </text> }
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Directors[i])" target="_blank" class="person-link">@Movie.Directors[i]</a>
                                     }
-                                </div>
-                            }
-                            @foreach (var schedule in schedules)
-                            {
-                                var today = DateOnly.FromDateTime(DateTime.Now);
-                                var dateLabel = schedule.Date == today ? "Today"
-                                    : schedule.Date == today.AddDays(1) ? "Tomorrow"
-                                    : schedule.Date.ToString("dddd");
-                                <div class="schedule-date" id="schedule-@schedule.Date.ToString("yyyy-MM-dd")">
-                                    <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString(schedule.Date.Year == today.Year ? "MMMM dd" : "MMMM dd, yyyy")</h4>
-                                    @foreach (var performance in schedule.Performances)
+                                </span>
+                            </div>
+                        }
+
+                        @if (Movie.Cast.Count > 0)
+                        {
+                            <div class="modal-people">
+                                <span class="section-label">Cast</span>
+                                <p>
+                                    @for (int i = 0; i < Movie.Cast.Count; i++)
                                     {
-                                        <div data-testid="performance" class="performance">
-                                            @if (venues.TryGetValue(performance.VenueId, out var venue))
+                                        @if (i > 0) { <text>, </text> }
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Cast[i])" target="_blank" class="person-link">@Movie.Cast[i]</a>
+                                    }
+                                </p>
+                            </div>
+                        }
+
+                        @if (Movie.Crew.Count > 0)
+                        {
+                            <div class="modal-people">
+                                <span class="section-label">Crew</span>
+                                <p>
+                                    @for (int i = 0; i < Movie.Crew.Count; i++)
+                                    {
+                                        @if (i > 0) { <text>, </text> }
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Crew[i])" target="_blank" class="person-link">@Movie.Crew[i]</a>
+                                    }
+                                </p>
+                            </div>
+                        }
+
+                        @if (YouTubeVideoId is not null)
+                        {
+                            <div class="trailer-section">
+                                <span class="section-label">Trailer</span>
+                                <div class="trailer-player">
+                                    <iframe src="https://www.youtube.com/embed/@YouTubeVideoId?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white"
+                                            title="Trailer"
+                                            loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        }
+
+                        @if (isLoadingSchedules)
+                        {
+                            <div data-testid="modal-loading" class="modal-loading">
+                                <p>Loading showtimes...</p>
+                            </div>
+                        }
+                        else if (schedules != null && schedules.Count > 0)
+                        {
+                            <div data-testid="modal-schedules" class="modal-schedules">
+                                <h3>Upcoming Showtimes</h3>
+                                @if (HasActiveFilters)
+                                {
+                                    <div class="filter-banner">
+                                        <span class="filter-banner-icon">&#9888;</span>
+                                        Showing only showtimes matching active filters: @FilterSummary
+                                    </div>
+                                }
+                                @{
+                                    var totalShowtimes = schedules.Sum(s => s.Performances.Sum(p => p.Showtimes.Count));
+                                    var scheduleDates = schedules.Select(s => s.Date).ToHashSet();
+                                }
+                                @if (scheduleDates.Count > 1)
+                                {
+                                    var firstDate = schedules.Min(s => s.Date);
+                                    var lastDate = schedules.Max(s => s.Date);
+                                    <div class="schedule-calendar">
+                                        @for (var d = firstDate; d <= lastDate; d = d.AddDays(1))
+                                        {
+                                            var hasShowtimes = scheduleDates.Contains(d);
+                                            var dayLabel = d.ToString("ddd");
+                                            var shortDate = d.ToString("d.M.");
+                                            @if (hasShowtimes)
                                             {
-                                                var mapQuery = Uri.EscapeDataString((venue.Name ?? "") + " " + (venue.City ?? ""));
-                                                <div class="venue-info">
-                                                    <strong>
-                                                        <a href="https://maps.apple.com/?q=@mapQuery" target="_blank" class="venue-map-link apple-maps-link">@venue.Name</a>
-                                                        <a href="https://www.google.com/maps/search/?api=1&query=@mapQuery" target="_blank" class="venue-map-link google-maps-link">@venue.Name</a>
-                                                    </strong>
-                                                </div>
+                                                <a href="#schedule-@d.ToString("yyyy-MM-dd")" class="cal-day" @onclick:preventDefault="false">
+                                                    <span class="cal-day-letter">@dayLabel</span>
+                                                    <span class="cal-day-date">@shortDate</span>
+                                                </a>
                                             }
                                             else
                                             {
-                                                <div class="venue-info">
-                                                    <strong>Venue ID: @performance.VenueId</strong>
-                                                </div>
+                                                <span class="cal-day disabled">
+                                                    <span class="cal-day-letter">@dayLabel</span>
+                                                    <span class="cal-day-date">@shortDate</span>
+                                                </span>
                                             }
-                                            <div class="showtimes">
-                                                @foreach (var showtime in performance.Showtimes)
+                                        }
+                                    </div>
+                                }
+                                @foreach (var schedule in schedules)
+                                {
+                                    var today = DateOnly.FromDateTime(DateTime.Now);
+                                    var dateLabel = schedule.Date == today ? "Today"
+                                        : schedule.Date == today.AddDays(1) ? "Tomorrow"
+                                        : schedule.Date.ToString("dddd");
+                                    <div class="schedule-date" id="schedule-@schedule.Date.ToString("yyyy-MM-dd")">
+                                        <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString(schedule.Date.Year == today.Year ? "MMMM dd" : "MMMM dd, yyyy")</h4>
+                                        @foreach (var performance in schedule.Performances)
+                                        {
+                                            <div data-testid="performance" class="performance">
+                                                @if (venues.TryGetValue(performance.VenueId, out var venue))
                                                 {
-                                                    var ticketHref = !string.IsNullOrEmpty(showtime.TicketUrl)
-                                                        ? showtime.TicketUrl
-                                                        : venues.TryGetValue(performance.VenueId, out var searchVenue)
-                                                            ? $"https://duckduckgo.com/?q={Uri.EscapeDataString(searchVenue.Name ?? "")}+!ducky"
-                                                            : null;
-                                                    <a data-testid="showtime" class="showtime" href="@ticketHref" target="_blank">
-                                                        <span class="time">
-                                                            @showtime.StartAt.ToString("HH:mm")
-                                                        </span>
-                                                        @if (showtime.Badges.Count > 0)
-                                                        {
-                                                            <span class="badges">
-                                                                @foreach (var badge in showtime.Badges)
-                                                                {
-                                                                    if (badge.Code == "ČSFD Sál") { continue; }
-                                                                    <span class="badge" title="@badge.Description">@(badge.Code == "T" ? "CZ-SUB" : badge.Code == "D" ? "CZ-DUB" : badge.Code)</span>
-                                                                }
-                                                            </span>
-                                                        }
-                                                    </a>
+                                                    var mapQuery = Uri.EscapeDataString((venue.Name ?? "") + " " + (venue.City ?? ""));
+                                                    <div class="venue-info">
+                                                        <strong>
+                                                            <a href="https://maps.apple.com/?q=@mapQuery" target="_blank" class="venue-map-link apple-maps-link">@venue.Name</a>
+                                                            <a href="https://www.google.com/maps/search/?api=1&query=@mapQuery" target="_blank" class="venue-map-link google-maps-link">@venue.Name</a>
+                                                        </strong>
+                                                    </div>
                                                 }
+                                                else
+                                                {
+                                                    <div class="venue-info">
+                                                        <strong>Venue ID: @performance.VenueId</strong>
+                                                    </div>
+                                                }
+                                                <div class="showtimes">
+                                                    @foreach (var showtime in performance.Showtimes)
+                                                    {
+                                                        var ticketHref = !string.IsNullOrEmpty(showtime.TicketUrl)
+                                                            ? showtime.TicketUrl
+                                                            : venues.TryGetValue(performance.VenueId, out var searchVenue)
+                                                                ? $"https://duckduckgo.com/?q={Uri.EscapeDataString(searchVenue.Name ?? "")}+!ducky"
+                                                                : null;
+                                                        <a data-testid="showtime" class="showtime" href="@ticketHref" target="_blank">
+                                                            <span class="time">
+                                                                @showtime.StartAt.ToString("HH:mm")
+                                                            </span>
+                                                            @if (showtime.Badges.Count > 0)
+                                                            {
+                                                                <span class="badges">
+                                                                    @foreach (var badge in showtime.Badges)
+                                                                    {
+                                                                        if (badge.Code == "ČSFD Sál") { continue; }
+                                                                        <span class="badge" title="@badge.Description">@(badge.Code == "T" ? "CZ-SUB" : badge.Code == "D" ? "CZ-DUB" : badge.Code)</span>
+                                                                    }
+                                                                </span>
+                                                            }
+                                                        </a>
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    }
-                    else if (!isLoadingSchedules)
-                    {
-                        <div data-testid="modal-no-schedules" class="no-schedules">
-                            <p>No upcoming showtimes available.</p>
-                        </div>
-                    }
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else if (!isLoadingSchedules)
+                        {
+                            <div data-testid="modal-no-schedules" class="no-schedules">
+                                <p>No upcoming showtimes available.</p>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 }

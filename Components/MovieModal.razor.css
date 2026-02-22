@@ -373,6 +373,22 @@
     flex-wrap: wrap;
 }
 
+.language-callout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    border-radius: 999px;
+    font-size: var(--font-size-caption1);
+    font-weight: inherit;
+}
+
+.language-callout svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    margin-right: 0.35rem;
+}
+
 /* ── Meta Row ────────────────────────────────────────────────── */
 
 .modal-meta {
