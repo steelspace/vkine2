@@ -70,8 +70,8 @@ public class MovieDocument
     [BsonElement("origin")]
     public string? Origin { get; set; }
 
-    [BsonElement("origin_countries")]
-    public List<string>? OriginCountries { get; set; }
+    [BsonElement("origin_country_codes")]
+    public List<string>? OriginCountryCodes { get; set; }
 
     [BsonElement("homepage")]
     public string? Homepage { get; set; }

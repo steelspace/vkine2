@@ -1,12 +1,15 @@
 using vkine.Models;
+using vkine.Services;
 
 namespace vkine.Mappers;
 
 /// <summary>
 /// Handles mapping between MovieDocument (MongoDB) and Movie (domain model).
 /// </summary>
-public class MovieMapper
+public class MovieMapper(ICountryLookupService lookupService)
 {
+    private readonly ICountryLookupService _lookupService = lookupService;
+
     /// <summary>
     /// Maps a MovieDocument to a Movie domain model.
     /// </summary>
@@ -14,6 +17,8 @@ public class MovieMapper
     /// <returns>A Movie instance.</returns>
     public Movie Map(MovieDocument document)
     {
+        var codes = ParseOriginCountryCodes(document);
+        
         return new Movie
         {
             Id = document.CsfdId ?? 0,
@@ -30,7 +35,8 @@ public class MovieMapper
             Year = document.Year ?? string.Empty,
             Duration = document.Duration ?? string.Empty,
             Genres = document.Genres ?? new List<string>(),
-            OriginCountries = ParseOriginCountries(document),
+            OriginCountryCodes = codes,
+            OriginCountries = _lookupService.GetCountryNames(codes),
             Cast = document.Cast ?? new List<string>(),
             Crew = document.Crew ?? new List<string>(),
             Directors = document.Directors ?? new List<string>(),
@@ -55,31 +61,31 @@ public class MovieMapper
     }
 
     /// <summary>
-    /// Parses origin countries from a movie document.
+    /// Parses origin country codes from a movie document.
     /// Handles both array format and comma-separated string format.
     /// </summary>
     /// <param name="document">The movie document.</param>
-    /// <returns>List of unique, trimmed country names.</returns>
-    private static List<string> ParseOriginCountries(MovieDocument document)
+    /// <returns>List of unique, trimmed country codes.</returns>
+    private static List<string> ParseOriginCountryCodes(MovieDocument document)
     {
         // Prefer structured array data
-        if (document.OriginCountries != null && document.OriginCountries.Count > 0)
+        if (document.OriginCountryCodes != null && document.OriginCountryCodes.Count > 0)
         {
-            return document.OriginCountries
-                .Where(country => !string.IsNullOrWhiteSpace(country))
-                .Select(country => country.Trim())
-                .Where(country => country.Length > 0)
+            return document.OriginCountryCodes
+                .Where(code => !string.IsNullOrWhiteSpace(code))
+                .Select(code => code.Trim())
+                .Where(code => code.Length > 0)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }
 
-        // Fallback to parsing comma-separated string
+        // Fallback to parsing comma-separated string in the old origin field
         if (!string.IsNullOrWhiteSpace(document.Origin))
         {
             return document.Origin
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(country => country.Trim())
-                .Where(country => country.Length > 0)
+                .Select(code => code.Trim())
+                .Where(code => code.Length == 2) // only codes
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }

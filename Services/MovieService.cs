@@ -13,6 +13,7 @@ public class MovieService(
     IMongoDatabase database,
     IMemoryCache memoryCache,
     IScheduleService scheduleService,
+    MovieMapper movieMapper,
     ILogger<MovieService> logger) : IMovieService
 {
     private const string MOVIE_CACHE_KEY_PREFIX = "movie-";
@@ -22,7 +23,7 @@ public class MovieService(
     private readonly IMemoryCache _memoryCache = memoryCache;
     private readonly IScheduleService _scheduleService = scheduleService;
     private readonly ILogger<MovieService> _logger = logger;
-    private readonly MovieMapper _movieMapper = new();
+    private readonly MovieMapper _movieMapper = movieMapper;
 
     public async Task<List<Movie>> GetMoviesAsync(int startIndex, int count)
     {

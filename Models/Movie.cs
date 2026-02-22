@@ -19,6 +19,7 @@ public class Movie
     public string Year { get; set; } = string.Empty;
     public string Duration { get; set; } = string.Empty;
     public List<string> Genres { get; set; } = new();
+    public List<string> OriginCountryCodes { get; set; } = new();
     public List<string> OriginCountries { get; set; } = new();
     public List<string> Cast { get; set; } = new();
     public List<string> Crew { get; set; } = new();
