@@ -27,9 +27,14 @@ public class CountryLookupService : ICountryLookupService
     // Mapping for historical codes not supported by modern RegionInfo
     private static readonly Dictionary<string, string> _historicalMap = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "CS", "Československo" },
-        { "SU", "SSSR" },
-        { "YU", "Jugoslávie" }
+        { "CS", "Československo" },   // Czechoslovakia (1918–1992) - often confused with CS (Serbia & Montenegro)
+        { "DD", "Východní Německo" }, // East Germany (DDR)
+        { "SU", "SSSR" },             // Soviet Union
+        { "YU", "Jugoslávie" },       // Yugoslavia
+        { "ZR", "Zair" },             // Zaire (now Congo, Dem. Rep.)
+        { "TP", "Východní Timor" },   // East Timor (retired code, now TL)
+        { "BU", "Barma" },            // Burma (now Myanmar, MM)
+        { "DY", "Dahome" }            // Dahomey (now Benin, BJ)
     };
 
     public string GetCountryName(string code)
@@ -38,12 +43,16 @@ public class CountryLookupService : ICountryLookupService
         
         var upperCode = code.Trim().ToUpperInvariant();
 
+        // CHECK HISTORICAL MAP FIRST
+        // Modern .NET interpretation of "CS" is "Serbia and Montenegro" (the transition period 
+        // before RS/ME splitting), which is likely why it's showing "Srbsko" or similar.
+        if (_historicalMap.TryGetValue(upperCode, out var historicalName))
+        {
+            return historicalName;
+        }
+
         try
         {
-            // .NET's RegionInfo.DisplayName often returns the NativeName on macOS/Linux.
-            // To get a truly localized country name in the OS/Browser language without a mapping table,
-            // we can leverage CultureInfo.DisplayName, which includes the localized region in parentheses.
-            // Example: "pl-PL" in English is "Polish (Poland)", in Czech is "polština (Polsko)".
             var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
             var cultureName = $"{currentLanguage}-{upperCode}";
             var culture = new CultureInfo(cultureName);
@@ -57,13 +66,11 @@ public class CountryLookupService : ICountryLookupService
                 return displayName.Substring(start + 1, end - start - 1);
             }
 
-            // Fallback for cases where the parentheses format might differ or lookups fail
             return new RegionInfo(upperCode).DisplayName;
         }
         catch (ArgumentException)
         {
-            // Fallback to historical map or the code itself
-            return _historicalMap.TryGetValue(upperCode, out var name) ? name : upperCode;
+            return upperCode;
         }
     }
 
