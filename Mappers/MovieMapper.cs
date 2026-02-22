@@ -62,11 +62,11 @@ public class MovieMapper(ICountryLookupService lookupService)
 
     /// <summary>
     /// Parses origin country codes from a movie document.
-    /// Handles both array format and comma-separated string format.
+    /// Handles both array format and comma-separated/slash-separated string format.
     /// </summary>
     /// <param name="document">The movie document.</param>
     /// <returns>List of unique, trimmed country codes.</returns>
-    private static List<string> ParseOriginCountryCodes(MovieDocument document)
+    private List<string> ParseOriginCountryCodes(MovieDocument document)
     {
         // Prefer structured array data
         if (document.OriginCountryCodes != null && document.OriginCountryCodes.Count > 0)
@@ -79,15 +79,20 @@ public class MovieMapper(ICountryLookupService lookupService)
                 .ToList();
         }
 
-        // Fallback to parsing comma-separated string in the old origin field
+        // Fallback to parsing comma-separated or slash-separated string in the origin field
         if (!string.IsNullOrWhiteSpace(document.Origin))
         {
             return document.Origin
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(code => code.Trim())
-                .Where(code => code.Length == 2) // only codes
+                .Split(new[] { ',', '/' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(part => part.Trim())
+                .Select(part => 
+                {
+                    if (part.Length == 2) return part.ToUpperInvariant();
+                    return _lookupService.GetIsoCodeFromCzechName(part);
+                })
+                .Where(code => !string.IsNullOrEmpty(code))
                 .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
+                .ToList()!;
         }
 
         return new List<string>();
