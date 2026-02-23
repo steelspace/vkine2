@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+  </resheader>
+  <data name="Synopsis" xml:space="preserve">
+    <value>Synopsis</value>
+  </data>
+  <data name="Director" xml:space="preserve">
+    <value>Director</value>
+  </data>
+  <data name="Cast" xml:space="preserve">
+    <value>Cast</value>
+  </data>
+  <data name="Crew" xml:space="preserve">
+    <value>Crew</value>
+  </data>
+  <data name="Trailer" xml:space="preserve">
+    <value>Trailer</value>
+  </data>
+  <data name="LoadingShowtimes" xml:space="preserve">
+    <value>Loading showtimes...</value>
+  </data>
+  <data name="UpcomingShowtimes" xml:space="preserve">
+    <value>Upcoming Showtimes</value>
+  </data>
+  <data name="ActiveFiltersBanner" xml:space="preserve">
+    <value>Showing only showtimes matching active filters: {0}</value>
+  </data>
+  <data name="FilterTimeFormat" xml:space="preserve">
+    <value>after {0}</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+  <data name="NoShowtimes" xml:space="preserve">
+    <value>No upcoming showtimes available.</value>
+  </data>
+  <data name="VenueId" xml:space="preserve">
+    <value>Venue ID: {0}</value>
+  </data>
+</root>

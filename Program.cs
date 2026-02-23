@@ -1,3 +1,5 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using vkine.Components;
 using vkine.Services;
 using vkine.Mappers;
@@ -8,6 +10,25 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("cs")
+};
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.RequestCultureProviders = new[]
+    {
+        new CookieRequestCultureProvider()
+    };
+});
 
 var connectionString = builder.Configuration.GetConnectionString("MongoDb")
     ?? builder.Configuration["ConnectionStrings:MongoDb"];
@@ -40,6 +61,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseRequestLocalization();
 app.UseHttpsRedirection();
 
 // TMDB image proxy - avoids CORS for canvas sampling and allows client-side color detection

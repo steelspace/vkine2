@@ -1,4 +1,6 @@
-@if (IsOpen && Movie != null)
+@using System.Globalization
+
+@if (IsOpen && Movie is { } movie)
 {
     <div @ref="backdropRef" data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown="HandleKeyDown" tabindex="-1">
         <div class="modal-wrapper">
@@ -8,11 +10,11 @@
                     <line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
             </button>
-            <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(Movie?.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
+            <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(movie.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
                 <div class="modal-hero">
-                    @if (!string.IsNullOrEmpty(Movie.BackdropUrl))
+                    @if (!string.IsNullOrEmpty(movie.BackdropUrl))
                     {
-                        var backdropSrc = Movie.BackdropUrl;
+                        var backdropSrc = movie.BackdropUrl;
                         try
                         {
                             var uri = new Uri(backdropSrc);
@@ -24,7 +26,7 @@
                         catch { /* if parse fails, just use original */ }
 
                         <div class="modal-backdrop-image">
-                            <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@Movie.Title backdrop" crossorigin="anonymous" onload="requestAnimationFrame(() => { this.classList.add('loaded'); vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]'); })" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
+                            <img data-testid="modal-backdrop-img" src="@backdropSrc" alt="@movie.Title backdrop" crossorigin="anonymous" onload="requestAnimationFrame(() => { this.classList.add('loaded'); vkineMovie.analyzeBackdrop(this, '[data-testid=movie-modal-content]'); })" onerror="vkineMovie.clearBackdropClass('[data-testid=movie-modal-content]')" />
                         </div>
                     }
                     else
@@ -33,93 +35,93 @@
                     }
                     <div class="modal-header">
                         <h2 data-testid="modal-title">
-                            @if (!string.IsNullOrEmpty(Movie.Homepage))
+                            @if (!string.IsNullOrEmpty(movie.Homepage))
                             {
-                                <a data-testid="modal-title-link" href="@Movie.Homepage" target="_blank" class="movie-title-link">@Movie.Title</a>
+                                <a data-testid="modal-title-link" href="@movie.Homepage" target="_blank" class="movie-title-link">@movie.Title</a>
                             }
                             else
                             {
-                                @Movie.Title
+                                @movie.Title
                             }
                         </h2>
                     </div>
                     <div class="modal-hero-details">
                         <div class="modal-meta">
-                            @if (!string.IsNullOrEmpty(Movie.Year))
+                            @if (!string.IsNullOrEmpty(movie.Year))
                             {
-                                <span data-testid="modal-year" class="meta-item">@Movie.Year</span>
+                                <span data-testid="modal-year" class="meta-item">@movie.Year</span>
                             }
-                            @if (!string.IsNullOrEmpty(Movie.Duration))
+                            @if (!string.IsNullOrEmpty(movie.Duration))
                             {
-                                <span data-testid="modal-duration" class="meta-item">@Movie.Duration</span>
+                                <span data-testid="modal-duration" class="meta-item">@movie.Duration</span>
                             }
-                            @if (Movie.OriginCountries.Count > 0)
+                            @if (movie.OriginCountries.Count > 0)
                             {
-                                <span data-testid="modal-countries" class="meta-item">@string.Join(", ", Movie.OriginCountries)</span>
+                                <span data-testid="modal-countries" class="meta-item">@string.Join(", ", movie.OriginCountries)</span>
                             }
-                            @if (!string.IsNullOrEmpty(Movie.OriginalLanguage))
+                            @if (!string.IsNullOrEmpty(movie.OriginalLanguage))
                             {
                                 <span data-testid="modal-original-language-badge" class="meta-item language-callout">
                                     <svg viewBox="0 0 512 512" aria-hidden="true" focusable="false">
                                         <path d="M478.33,433.6l-90-218a22,22,0,0,0-40.67,0l-90,218a22,22,0,1,0,40.67,16.79L316.66,406H419.33l18.33,44.39A22,22,0,0,0,458,464a22,22,0,0,0,20.32-30.4ZM334.83,362,368,281.65,401.17,362Z" />
                                         <path d="M267.84,342.92a22,22,0,0,0-4.89-30.7c-.2-.15-15-11.13-36.49-34.73,39.65-53.68,62.11-114.75,71.27-143.49H330a22,22,0,0,0,0-44H214V70a22,22,0,0,0-44,0V90H54a22,22,0,0,0,0,44H251.25c-9.52,26.95-27.05,69.5-53.79,108.36-31.41-41.68-43.08-68.65-43.17-68.87a22,22,0,0,0-40.58,17c.58,1.38,14.55,34.23,52.86,83.93.92,1.19,1.83,2.35,2.74,3.51-39.24,44.35-77.74,71.86-93.85,80.74a22,22,0,1,0,21.07,38.63c2.16-1.18,48.6-26.89,101.63-85.59,22.52,24.08,38,35.44,38.93,36.1a22,22,0,0,0,30.75-4.9Z" />
                                     </svg>
-                                    <span>@Movie.OriginalLanguage</span>
+                                    <span>@LanguageLookup.GetDisplayName(movie.OriginalLanguage)</span>
                                 </span>
                             }
                         </div>
                         <div class="modal-ratings">
-                            <RatingBadges Movie="@Movie" />
+                            <RatingBadges Movie="@movie" />
                         </div>
                     </div>
                 </div>
                 <div class="modal-body">
                     <div class="modal-details">
-                        @if (!string.IsNullOrEmpty(Movie.Synopsis))
+                        @if (!string.IsNullOrEmpty(movie.Synopsis))
                         {
                             <div data-testid="modal-synopsis" class="modal-synopsis">
-                                <span class="section-label">Synopsis</span>
-                                <p>@Movie.Synopsis</p>
+                                <span class="section-label">@Localizer["Synopsis"]</span>
+                                <p>@movie.Synopsis</p>
                             </div>
                         }
 
-                        @if (Movie.Directors.Count > 0)
+                        @if (movie.Directors.Count > 0)
                         {
                             <div class="modal-info-row">
-                                <span class="section-label">Director</span>
+                                <span class="section-label">@Localizer["Director"]</span>
                                 <span>
-                                    @for (int i = 0; i < Movie.Directors.Count; i++)
+                                    @for (int i = 0; i < movie.Directors.Count; i++)
                                     {
                                         @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Directors[i])" target="_blank" class="person-link">@Movie.Directors[i]</a>
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Directors[i])" target="_blank" class="person-link">@movie.Directors[i]</a>
                                     }
                                 </span>
                             </div>
                         }
 
-                        @if (Movie.Cast.Count > 0)
+                        @if (movie.Cast.Count > 0)
                         {
                             <div class="modal-people">
-                                <span class="section-label">Cast</span>
+                                <span class="section-label">@Localizer["Cast"]</span>
                                 <p>
-                                    @for (int i = 0; i < Movie.Cast.Count; i++)
+                                    @for (int i = 0; i < movie.Cast.Count; i++)
                                     {
                                         @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Cast[i])" target="_blank" class="person-link">@Movie.Cast[i]</a>
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Cast[i])" target="_blank" class="person-link">@movie.Cast[i]</a>
                                     }
                                 </p>
                             </div>
                         }
 
-                        @if (Movie.Crew.Count > 0)
+                        @if (movie.Crew.Count > 0)
                         {
                             <div class="modal-people">
-                                <span class="section-label">Crew</span>
+                                <span class="section-label">@Localizer["Crew"]</span>
                                 <p>
-                                    @for (int i = 0; i < Movie.Crew.Count; i++)
+                                    @for (int i = 0; i < movie.Crew.Count; i++)
                                     {
                                         @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(Movie.Crew[i])" target="_blank" class="person-link">@Movie.Crew[i]</a>
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Crew[i])" target="_blank" class="person-link">@movie.Crew[i]</a>
                                     }
                                 </p>
                             </div>
@@ -128,7 +130,7 @@
                         @if (YouTubeVideoId is not null)
                         {
                             <div class="trailer-section">
-                                <span class="section-label">Trailer</span>
+                                <span class="section-label">@Localizer["Trailer"]</span>
                                 <div class="trailer-player">
                                     <iframe src="https://www.youtube.com/embed/@YouTubeVideoId?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&fs=1&color=white"
                                             title="Trailer"
@@ -143,18 +145,18 @@
                         @if (isLoadingSchedules)
                         {
                             <div data-testid="modal-loading" class="modal-loading">
-                                <p>Loading showtimes...</p>
+                                <p>@Localizer["LoadingShowtimes"]</p>
                             </div>
                         }
                         else if (schedules != null && schedules.Count > 0)
                         {
                             <div data-testid="modal-schedules" class="modal-schedules">
-                                <h3>Upcoming Showtimes</h3>
+                                <h3>@Localizer["UpcomingShowtimes"]</h3>
                                 @if (HasActiveFilters)
                                 {
                                     <div class="filter-banner">
                                         <span class="filter-banner-icon">&#9888;</span>
-                                        Showing only showtimes matching active filters: @FilterSummary
+                                        @Localizer["ActiveFiltersBanner", FilterSummary]
                                     </div>
                                 }
                                 @{
@@ -191,9 +193,9 @@
                                 @foreach (var schedule in schedules)
                                 {
                                     var today = DateOnly.FromDateTime(DateTime.Now);
-                                    var dateLabel = schedule.Date == today ? "Today"
-                                        : schedule.Date == today.AddDays(1) ? "Tomorrow"
-                                        : schedule.Date.ToString("dddd");
+                                    var dateLabel = schedule.Date == today ? Localizer["Today"]
+                                        : schedule.Date == today.AddDays(1) ? Localizer["Tomorrow"]
+                                        : schedule.Date.ToString("dddd", CultureInfo.CurrentCulture);
                                     <div class="schedule-date" id="schedule-@schedule.Date.ToString("yyyy-MM-dd")">
                                         <h4 data-testid="schedule-date">@dateLabel, @schedule.Date.ToString(schedule.Date.Year == today.Year ? "MMMM dd" : "MMMM dd, yyyy")</h4>
                                         @foreach (var performance in schedule.Performances)
@@ -212,7 +214,7 @@
                                                 else
                                                 {
                                                     <div class="venue-info">
-                                                        <strong>Venue ID: @performance.VenueId</strong>
+                                                        <strong>@Localizer["VenueId", performance.VenueId]</strong>
                                                     </div>
                                                 }
                                                 <div class="showtimes">
@@ -249,7 +251,7 @@
                         else if (!isLoadingSchedules)
                         {
                             <div data-testid="modal-no-schedules" class="no-schedules">
-                                <p>No upcoming showtimes available.</p>
+                                <p>@Localizer["NoShowtimes"]</p>
                             </div>
                         }
                     </div>

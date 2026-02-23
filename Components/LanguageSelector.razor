@@ -1,0 +1,53 @@
+@using System
+@using System.Globalization
+@using System.Linq
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Localization
+@using Microsoft.Extensions.Options
+
+<select class="language-select" aria-label="@Localizer["LanguageSelectAria"]" @onchange="HandleChange">
+    @foreach (var culture in SupportedCultures)
+    {
+        <option value="@culture.Name" selected="@(string.Equals(culture.Name, CurrentCulture, StringComparison.OrdinalIgnoreCase))">
+            @culture.NativeName
+        </option>
+    }
+</select>
+
+@code {
+    [Inject]
+    private IOptions<RequestLocalizationOptions> LocalizationOptions { get; set; } = default!;
+
+    [Inject]
+    private IStringLocalizer<LanguageSelector> Localizer { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private IReadOnlyList<CultureInfo> SupportedCultures { get; set; } = Array.Empty<CultureInfo>();
+
+    private string CurrentCulture => CultureInfo.CurrentUICulture.Name;
+
+    protected override void OnInitialized()
+    {
+        var options = LocalizationOptions.Value;
+        var cultures = options?.SupportedUICultures?.Count > 0
+            ? options.SupportedUICultures
+            : options?.SupportedCultures;
+
+        SupportedCultures = cultures is not null && cultures.Count > 0
+            ? cultures.ToArray()
+            : new[] { CultureInfo.CurrentUICulture };
+    }
+
+    private async Task HandleChange(ChangeEventArgs args)
+    {
+        var culture = args?.Value?.ToString();
+        if (string.IsNullOrEmpty(culture))
+        {
+            return;
+        }
+
+        await JSRuntime.InvokeVoidAsync("vkineLocale.setCultureAndReload", culture);
+    }
+}

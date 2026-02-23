@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+  </resheader>
+  <data name="Synopsis" xml:space="preserve">
+    <value>Synopse</value>
+  </data>
+  <data name="Director" xml:space="preserve">
+    <value>Režisér</value>
+  </data>
+  <data name="Cast" xml:space="preserve">
+    <value>Obsazení</value>
+  </data>
+  <data name="Crew" xml:space="preserve">
+    <value>Tvůrci</value>
+  </data>
+  <data name="Trailer" xml:space="preserve">
+    <value>Upoutávka</value>
+  </data>
+  <data name="LoadingShowtimes" xml:space="preserve">
+    <value>Načítání představení…</value>
+  </data>
+  <data name="UpcomingShowtimes" xml:space="preserve">
+    <value>Nadcházející představení</value>
+  </data>
+  <data name="ActiveFiltersBanner" xml:space="preserve">
+    <value>Zobrazují se jen představení odpovídající aktivním filtrům: {0}</value>
+  </data>
+  <data name="FilterTimeFormat" xml:space="preserve">
+    <value>po {0}</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Zítra</value>
+  </data>
+  <data name="NoShowtimes" xml:space="preserve">
+    <value>Žádná nadcházející představení nejsou k dispozici.</value>
+  </data>
+  <data name="VenueId" xml:space="preserve">
+    <value>ID sálu: {0}</value>
+  </data>
+</root>

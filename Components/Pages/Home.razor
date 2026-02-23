@@ -1,10 +1,14 @@
 @page "/home"
 @rendermode InteractiveServer
+@inject IStringLocalizer<Home> Localizer
 
 <PageTitle>vkine</PageTitle>
 
 <div class="home-toolbar">
-    <ThemeToggle />
+    <div class="toolbar-actions">
+        <LanguageSelector />
+        <ThemeToggle />
+    </div>
 </div>
 
 <div class="hero">
@@ -21,10 +25,10 @@
                 <line x1="17" y1="7" x2="22" y2="7"/>
             </svg>
         </div>
-        <h1 class="hero-title">What's playing</h1>
-        <p class="hero-subtitle">Discover movies in Czech cinemas</p>
+        <h1 class="hero-title">@Localizer["HeroTitle"]</h1>
+        <p class="hero-subtitle">@Localizer["HeroSubtitle"]</p>
         <a href="/movies" class="hero-cta">
-            <span>Browse Movies</span>
+            <span>@Localizer["HeroBrowseCta"]</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"/>
                 <polyline points="12 5 19 12 12 19"/>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
+  </resheader>
+  <data name="CsfdRatingTitle" xml:space="preserve">
+    <value>Hodnocení ČSFD</value>
+  </data>
+  <data name="TmdbRatingTitle" xml:space="preserve">
+    <value>Hodnocení TMDB</value>
+  </data>
+  <data name="ImdbRatingWithVotes" xml:space="preserve">
+    <value>Hodnocení IMDb ({0:N0} hlasů)</value>
+  </data>
+  <data name="ViewOnImdb" xml:space="preserve">
+    <value>Zobrazit na IMDb</value>
+  </data>
+</root>

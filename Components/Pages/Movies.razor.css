@@ -47,6 +47,12 @@ html[data-theme="dark"] .sticky-toolbar {
     gap: 10px;
 }
 
+.toolbar-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .toolbar-row {
     display: flex;
     flex-wrap: wrap;

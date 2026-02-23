@@ -1,32 +1,36 @@
 @page "/"
 @page "/movies"
 @rendermode InteractiveServer
+@using System.Globalization
 
 <PageTitle>Movies</PageTitle>
 
 <div class="sticky-toolbar" @ref="_toolbarRef">
     <div class="sticky-toolbar-inner">
         <div class="toolbar-search-row">
-        <div data-testid="toolbar-search" class="search-field">
-            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input data-testid="search-input" class="search-input" placeholder="Search movies, descriptions, cast and crew" aria-label="Search movies, descriptions, cast and crew" @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
-            @if (!string.IsNullOrEmpty(searchQuery) && !isSearching)
-            {
-                <button data-testid="search-clear" class="search-clear-btn" @onclick="ClearSearch" title="Clear search">
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                        <line x1="1" y1="1" x2="11" y2="11"/>
-                        <line x1="11" y1="1" x2="1" y2="11"/>
+                <div data-testid="toolbar-search" class="search-field">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                     </svg>
-                </button>
-            }
+                    <input data-testid="search-input" class="search-input" placeholder='@Localizer["SearchPlaceholder"]' aria-label='@Localizer["SearchPlaceholder"]' @oninput="OnSearchInput" @onkeydown="OnKeyDownSearch" value="@searchQuery" />
+                    @if (!string.IsNullOrEmpty(searchQuery) && !isSearching)
+                    {
+                        <button data-testid="search-clear" class="search-clear-btn" @onclick="ClearSearch" title='@Localizer["ClearSearch"]'>
+                            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <line x1="1" y1="1" x2="11" y2="11"/>
+                                <line x1="11" y1="1" x2="1" y2="11"/>
+                            </svg>
+                        </button>
+                    }
             
-        </div>
+                </div>
 
-        <ThemeToggle />
-        </div>
+                <div class="toolbar-controls">
+                    <LanguageSelector />
+                    <ThemeToggle />
+                </div>
+                </div>
 
         <div class="toolbar-row">
             <div class="date-range-picker">
@@ -36,10 +40,10 @@
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                <input data-testid="date-range-input" @ref="_dateRangeInput" class="date-range-input" placeholder="Date range" aria-label="Date range" readonly />
+                <input data-testid="date-range-input" @ref="_dateRangeInput" class="date-range-input" placeholder='@Localizer["DateRange"]' aria-label='@Localizer["DateRange"]' readonly />
                 @if (_dateFrom.HasValue)
                 {
-                    <button data-testid="date-clear" class="date-clear-btn" @onclick="ClearDateRange" title="Clear date filter">
+                    <button data-testid="date-clear" class="date-clear-btn" @onclick="ClearDateRange" title='@Localizer["ClearDateFilter"]'>
                         <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                             <line x1="1" y1="1" x2="11" y2="11"/>
                             <line x1="11" y1="1" x2="1" y2="11"/>
@@ -57,11 +61,11 @@
             
 
             <div data-testid="sort-group" class="sort-group">
-                <span class="sort-label">Sort</span>
+                <span class="sort-label">@Localizer["SortLabel"]</span>
                 <div class="segmented-control">
                     <button data-testid="sort-rating" class="segment @(_currentSort == SortField.Rating ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.Rating)">
-                        <span>Rating</span>
+                        <span>@Localizer["SortRating"]</span>
                         @if (_currentSort == SortField.Rating)
                         {
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
@@ -69,7 +73,7 @@
                     </button>
                     <button data-testid="sort-name" class="segment @(_currentSort == SortField.Name ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.Name)">
-                        <span>Name</span>
+                        <span>@Localizer["SortName"]</span>
                         @if (_currentSort == SortField.Name)
                         {
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
@@ -77,7 +81,7 @@
                     </button>
                     <button data-testid="sort-year" class="segment @(_currentSort == SortField.ReleaseDate ? "active" : "")"
                             @onclick="() => ToggleSort(SortField.ReleaseDate)">
-                        <span>Year</span>
+                        <span>@Localizer["SortYear"]</span>
                         @if (_currentSort == SortField.ReleaseDate)
                         {
                             <span class="sort-arrow">@(_sortAscending ? "▲" : "▼")</span>
@@ -95,7 +99,7 @@
     @if (!string.IsNullOrWhiteSpace(searchQuery))
     {
         <div data-testid="movies-stats" class="movies-stats">
-            <p data-testid="results-count">@searchResults.Count results</p>
+            <p data-testid="results-count">@Localizer["ResultsCountFormat", searchResults.Count]</p>
         </div>
 
         <div data-testid="movies-grid" class="movies-grid">
@@ -113,17 +117,17 @@
                 <span></span>
                 <span></span>
             </div>
-            <p>Loading movies…</p>
+            <p>@Localizer["LoadingMovies"]</p>
         </div>
     }
     else
     {
         <div data-testid="movies-stats" class="movies-stats">
             <p data-testid="all-movies-count">
-                @AllMovieIds.Count movies
+                @Localizer["AllMoviesCountFormat", AllMovieIds.Count]
                 @if (_dateFrom.HasValue && _dateTo.HasValue)
                 {
-                    <span class="stats-date-range">@_dateFrom.Value.ToString("MMM d") – @_dateTo.Value.ToString("MMM d, yyyy")</span>
+                    <span class="stats-date-range">@_dateFrom.Value.ToString("MMM d", CultureInfo.CurrentCulture) – @_dateTo.Value.ToString(_dateTo.Value.Year == _dateFrom.Value.Year ? "MMM d" : "MMM d, yyyy", CultureInfo.CurrentCulture)</span>
                 }
             </p>
         </div>

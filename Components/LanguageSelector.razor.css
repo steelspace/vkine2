@@ -1,0 +1,20 @@
+.language-select {
+    border-radius: 999px;
+    border: 1.5px solid var(--separator);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: var(--font-size-footnote);
+    font-weight: 500;
+    padding: 6px 16px;
+    min-width: 130px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-default), box-shadow var(--duration-fast) var(--ease-default);
+}
+
+.language-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-focus);
+    outline: none;
+}

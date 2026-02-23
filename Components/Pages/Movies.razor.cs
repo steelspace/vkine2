@@ -1,5 +1,7 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using vkine.Models;
 using vkine.Services;
@@ -13,6 +15,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     [Inject]
     private IScheduleService ScheduleService { get; set; } = default!;
+
+    [Inject]
+    private IStringLocalizer<Movies> Localizer { get; set; } = default!;
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
@@ -152,8 +157,8 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     internal const int TimeSliderMin = 540; // 9:00
 
     private string TimeFromLabel => _timeFromMinutes <= TimeSliderMin
-        ? "Off"
-        : TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(_timeFromMinutes)).ToString("HH:mm");
+        ? Localizer["TimeSliderOff"]
+        : TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(_timeFromMinutes)).ToString("HH:mm", CultureInfo.CurrentCulture);
 
     private TimeOnly? TimeFromValue => _timeFromMinutes > TimeSliderMin
         ? TimeOnly.FromTimeSpan(TimeSpan.FromMinutes(_timeFromMinutes))

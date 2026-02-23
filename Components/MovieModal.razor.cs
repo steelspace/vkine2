@@ -1,6 +1,8 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using vkine.Models;
 using vkine.Services;
@@ -11,6 +13,7 @@ public partial class MovieModal : ComponentBase
 {
     [Inject] private IScheduleService ScheduleService { get; set; } = default!;
     [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private IStringLocalizer<MovieModal> Localizer { get; set; } = default!;
 
     [Parameter]
     public bool IsOpen { get; set; }
@@ -48,9 +51,14 @@ public partial class MovieModal : ComponentBase
         {
             var parts = new List<string>();
             if (DateFrom.HasValue && DateTo.HasValue)
+            {
                 parts.Add($"{DateFrom.Value:MMM d} – {DateTo.Value:MMM d, yyyy}");
+            }
             if (TimeFrom.HasValue)
-                parts.Add($"after {TimeFrom.Value:HH:mm}");
+            {
+                var formattedTime = TimeFrom.Value.ToString("HH:mm", CultureInfo.CurrentCulture);
+                parts.Add(Localizer["FilterTimeFormat", formattedTime]);
+            }
             return string.Join(", ", parts);
         }
     }
