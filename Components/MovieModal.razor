@@ -85,46 +85,104 @@
                             </div>
                         }
 
-                        @if (movie.Directors.Count > 0)
+                        @if (movie.Credits.Count > 0)
                         {
-                            <div class="modal-info-row">
-                                <span class="section-label">@Localizer["Director"]</span>
-                                <span>
-                                    @for (int i = 0; i < movie.Directors.Count; i++)
-                                    {
-                                        @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Directors[i])" target="_blank" class="person-link">@movie.Directors[i]</a>
-                                    }
-                                </span>
-                            </div>
-                        }
+                            var creditsByRole = movie.Credits
+                                .GroupBy(c => c.Role, StringComparer.OrdinalIgnoreCase)
+                                .OrderBy(g => g.Key switch
+                                {
+                                    "Director" => 0,
+                                    "Actor" => 1,
+                                    _ => 2
+                                })
+                                .ThenBy(g => g.Key);
 
-                        @if (movie.Cast.Count > 0)
-                        {
-                            <div class="modal-people">
-                                <span class="section-label">@Localizer["Cast"]</span>
-                                <p>
-                                    @for (int i = 0; i < movie.Cast.Count; i++)
-                                    {
-                                        @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Cast[i])" target="_blank" class="person-link">@movie.Cast[i]</a>
-                                    }
-                                </p>
-                            </div>
-                        }
+                            @foreach (var group in creditsByRole)
+                            {
+                                var roleKey = group.Key switch
+                                {
+                                    "Actor" => "Cast",
+                                    _ => group.Key
+                                };
 
-                        @if (movie.Crew.Count > 0)
+                                <div class="modal-credits-group">
+                                    <span class="section-label">@Localizer.GetString(roleKey, roleKey)</span>
+                                    <div class="credits-list">
+                                        @foreach (var credit in group)
+                                        {
+                                            var photoSrc = credit.PhotoUrl;
+                                            if (!string.IsNullOrEmpty(photoSrc))
+                                            {
+                                                try
+                                                {
+                                                    var uri = new Uri(photoSrc);
+                                                    if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
+                                                    {
+                                                        photoSrc = $"/proxy/tmdb{uri.AbsolutePath}";
+                                                    }
+                                                }
+                                                catch { }
+                                            }
+
+                                            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(credit.Name)" target="_blank" class="credit-chip">
+                                                @if (!string.IsNullOrEmpty(photoSrc))
+                                                {
+                                                    <img class="credit-avatar" src="@photoSrc" alt="" loading="lazy" />
+                                                }
+                                                else
+                                                {
+                                                    <span class="credit-avatar-placeholder">@credit.Name[0]</span>
+                                                }
+                                                <span class="credit-name">@credit.Name</span>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
                         {
-                            <div class="modal-people">
-                                <span class="section-label">@Localizer["Crew"]</span>
-                                <p>
-                                    @for (int i = 0; i < movie.Crew.Count; i++)
-                                    {
-                                        @if (i > 0) { <text>, </text> }
-                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Crew[i])" target="_blank" class="person-link">@movie.Crew[i]</a>
-                                    }
-                                </p>
-                            </div>
+                            @if (movie.Directors.Count > 0)
+                            {
+                                <div class="modal-info-row">
+                                    <span class="section-label">@Localizer["Director"]</span>
+                                    <span>
+                                        @for (int i = 0; i < movie.Directors.Count; i++)
+                                        {
+                                            @if (i > 0) { <text>, </text> }
+                                            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Directors[i])" target="_blank" class="person-link">@movie.Directors[i]</a>
+                                        }
+                                    </span>
+                                </div>
+                            }
+
+                            @if (movie.Cast.Count > 0)
+                            {
+                                <div class="modal-people">
+                                    <span class="section-label">@Localizer["Cast"]</span>
+                                    <p>
+                                        @for (int i = 0; i < movie.Cast.Count; i++)
+                                        {
+                                            @if (i > 0) { <text>, </text> }
+                                            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Cast[i])" target="_blank" class="person-link">@movie.Cast[i]</a>
+                                        }
+                                    </p>
+                                </div>
+                            }
+
+                            @if (movie.Crew.Count > 0)
+                            {
+                                <div class="modal-people">
+                                    <span class="section-label">@Localizer["Crew"]</span>
+                                    <p>
+                                        @for (int i = 0; i < movie.Crew.Count; i++)
+                                        {
+                                            @if (i > 0) { <text>, </text> }
+                                            <a href="https://www.google.com/search?q=@Uri.EscapeDataString(movie.Crew[i])" target="_blank" class="person-link">@movie.Crew[i]</a>
+                                        }
+                                    </p>
+                                </div>
+                            }
                         }
 
                         @if (YouTubeVideoId is not null)

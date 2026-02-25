@@ -452,6 +452,64 @@
     color: var(--accent);
 }
 
+/* ── Credits (rich, with avatars) ────────────────────────────── */
+
+.modal-credits-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.credits-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.credit-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px 3px 3px;
+    border-radius: 999px;
+    background: var(--surface-secondary, rgba(128, 128, 128, 0.08));
+    color: var(--text-primary);
+    font-size: var(--font-size-footnote);
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.credit-chip:hover {
+    background: var(--surface-tertiary, rgba(128, 128, 128, 0.16));
+    color: var(--accent);
+}
+
+.credit-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.credit-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent-bg, rgba(128, 128, 128, 0.12));
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.credit-name {
+    white-space: nowrap;
+}
+
 /* ── Schedules ───────────────────────────────────────────────── */
 
 /* ── Trailer ─────────────────────────────────────────────────── */

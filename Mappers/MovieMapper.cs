@@ -43,7 +43,8 @@ public class MovieMapper
             Crew = document.Crew ?? new List<string>(),
             Directors = document.Directors ?? new List<string>(),
             Homepage = document.Homepage ?? string.Empty,
-            TrailerUrl = document.TrailerUrl
+            TrailerUrl = document.TrailerUrl,
+            Credits = document.Credits ?? new List<Credit>()
         };
     }
 

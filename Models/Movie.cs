@@ -27,4 +27,5 @@ public class Movie
     public List<string> Directors { get; set; } = new();
     public string Homepage { get; set; } = string.Empty;
     public string? TrailerUrl { get; set; }
+    public List<Credit> Credits { get; set; } = new();
 } 

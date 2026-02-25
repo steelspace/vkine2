@@ -81,4 +81,7 @@ public class MovieDocument
 
     [BsonElement("trailer_url")]
     public string? TrailerUrl { get; set; }
+
+    [BsonElement("credits")]
+    public List<Credit>? Credits { get; set; }
 }
