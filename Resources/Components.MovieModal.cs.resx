@@ -21,6 +21,9 @@
   <data name="Cast" xml:space="preserve">
     <value>Obsazení</value>
   </data>
+  <data name="TopCast" xml:space="preserve">
+    <value>Top 10 obsazení</value>
+  </data>
   <data name="Crew" xml:space="preserve">
     <value>Tvůrci</value>
   </data>
@@ -50,5 +53,8 @@
   </data>
   <data name="VenueId" xml:space="preserve">
     <value>ID sálu: {0}</value>
+  </data>
+  <data name="SkipToShowtimes" xml:space="preserve">
+    <value>Přeskočit na představení</value>
   </data>
 </root>

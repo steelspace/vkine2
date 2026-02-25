@@ -21,6 +21,9 @@
   <data name="Cast" xml:space="preserve">
     <value>Cast</value>
   </data>
+  <data name="TopCast" xml:space="preserve">
+    <value>Top 10 Cast</value>
+  </data>
   <data name="Crew" xml:space="preserve">
     <value>Crew</value>
   </data>
@@ -50,5 +53,8 @@
   </data>
   <data name="VenueId" xml:space="preserve">
     <value>Venue ID: {0}</value>
+  </data>
+  <data name="SkipToShowtimes" xml:space="preserve">
+    <value>Skip to showtimes</value>
   </data>
 </root>

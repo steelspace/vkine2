@@ -76,6 +76,7 @@
                     </div>
                 </div>
                 <div class="modal-body">
+                    <a href="#showtimes-section" class="skip-to-showtimes" @onclick:preventDefault="false">@Localizer["SkipToShowtimes"] ↓</a>
                     <div class="modal-details">
                         @if (!string.IsNullOrEmpty(movie.Synopsis))
                         {
@@ -99,7 +100,7 @@
                             {
                                 var roleKey = group.Key switch
                                 {
-                                    "Actor" => "Cast",
+                                    "Actor" => "TopCast",
                                     _ => group.Key
                                 };
                                 var entries = group.Key.Equals("Actor", StringComparison.OrdinalIgnoreCase)
@@ -209,7 +210,7 @@
                         }
                         else if (schedules != null && schedules.Count > 0)
                         {
-                            <div data-testid="modal-schedules" class="modal-schedules">
+                            <div data-testid="modal-schedules" id="showtimes-section" class="modal-schedules">
                                 <h3>@Localizer["UpcomingShowtimes"]</h3>
                                 @if (HasActiveFilters)
                                 {
