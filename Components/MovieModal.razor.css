@@ -522,7 +522,7 @@
     font-size: var(--font-size-footnote);
     text-decoration: none;
     transition: background 0.15s ease;
-    width: 120px;
+    width: 86px;
 }
 
 .credit-chip:hover {
@@ -531,8 +531,8 @@
 }
 
 .credit-avatar {
-    width: 108px;
-    height: 108px;
+    width: 80px;
+    height: 80px;
     border-radius: 8px;
     object-fit: cover;
     flex-shrink: 0;
@@ -542,8 +542,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 108px;
-    height: 108px;
+    width: 80px;
+    height: 80px;
     border-radius: 8px;
     background: var(--accent-bg, rgba(128, 128, 128, 0.12));
     color: var(--text-secondary);
