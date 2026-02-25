@@ -11,7 +11,7 @@
                 </svg>
             </button>
             <div data-testid="movie-modal-content" class="modal-content @( !string.IsNullOrEmpty(movie.BackdropUrl) ? "has-backdrop" : "")" @onclick:stopPropagation="true">
-                <div class="modal-hero">
+                <div id="modal-top" class="modal-hero">
                     @if (!string.IsNullOrEmpty(movie.BackdropUrl))
                     {
                         var backdropSrc = movie.BackdropUrl;
@@ -316,6 +316,7 @@
                         }
                     </div>
                 </div>
+                <a href="#modal-top" class="scroll-to-top" @onclick:preventDefault="false" title="@Localizer["ScrollToTop"]">↑</a>
             </div>
         </div>
     </div>

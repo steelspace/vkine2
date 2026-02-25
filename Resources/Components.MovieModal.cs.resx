@@ -57,4 +57,7 @@
   <data name="SkipToShowtimes" xml:space="preserve">
     <value>Přeskočit na představení</value>
   </data>
+  <data name="ScrollToTop" xml:space="preserve">
+    <value>Nahoru</value>
+  </data>
 </root>

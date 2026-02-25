@@ -57,4 +57,7 @@
   <data name="SkipToShowtimes" xml:space="preserve">
     <value>Skip to showtimes</value>
   </data>
+  <data name="ScrollToTop" xml:space="preserve">
+    <value>Scroll to top</value>
+  </data>
 </root>

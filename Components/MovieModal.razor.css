@@ -263,6 +263,33 @@
     color: var(--accent);
 }
 
+.scroll-to-top {
+    position: sticky;
+    bottom: 1rem;
+    float: right;
+    margin-right: 0.75rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--fill-secondary);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1;
+    box-shadow: none;
+    transition: background var(--duration-fast) var(--ease-default),
+                color var(--duration-fast) var(--ease-default);
+    z-index: 10;
+}
+
+.scroll-to-top:hover {
+    background: var(--fill-primary);
+    color: var(--text-primary);
+}
+
 /* backdrop image fills the hero section; modal container clips corners */
 .modal-backdrop-image {
     position: absolute;
