@@ -87,15 +87,13 @@
 
                         @if (movie.Credits.Count > 0)
                         {
+                            string[] visibleRoles = ["Director", "Actor", "Director of Photography", "Producer", "Screenplay"];
+
                             var creditsByRole = movie.Credits
+                                .Where(c => visibleRoles.Contains(c.Role, StringComparer.OrdinalIgnoreCase))
                                 .GroupBy(c => c.Role, StringComparer.OrdinalIgnoreCase)
-                                .OrderBy(g => g.Key switch
-                                {
-                                    "Director" => 0,
-                                    "Actor" => 1,
-                                    _ => 2
-                                })
-                                .ThenBy(g => g.Key);
+                                .OrderBy(g => Array.IndexOf(visibleRoles, g.Key))
+                                .ToList();
 
                             @foreach (var group in creditsByRole)
                             {
@@ -104,11 +102,14 @@
                                     "Actor" => "Cast",
                                     _ => group.Key
                                 };
+                                var entries = group.Key.Equals("Actor", StringComparison.OrdinalIgnoreCase)
+                                    ? group.Take(10)
+                                    : group.AsEnumerable();
 
                                 <div class="modal-credits-group">
                                     <span class="section-label">@Localizer.GetString(roleKey, roleKey)</span>
                                     <div class="credits-list">
-                                        @foreach (var credit in group)
+                                        @foreach (var credit in entries)
                                         {
                                             var photoSrc = credit.PhotoUrl;
                                             if (!string.IsNullOrEmpty(photoSrc))
