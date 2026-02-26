@@ -76,11 +76,15 @@ export function initDateRangePicker(inputElement, dotnetReference) {
 
     dotnetRef = dotnetReference;
 
+    const culture = (window.vkineLocale?.getCulture?.() || 'en').toLowerCase();
+    const isCzech = culture.startsWith('cs');
+
     flatpickrInstance = flatpickr(inputElement, {
         mode: 'range',
         dateFormat: 'Y-m-d',
         altInput: true,
-        altFormat: 'M j',
+        altFormat: isCzech ? 'j. M.' : 'M j',
+        locale: isCzech && flatpickr.l10ns && flatpickr.l10ns.cs ? flatpickr.l10ns.cs : undefined,
         minDate: 'today',
         allowInput: false,
         clickOpens: true,
