@@ -12,6 +12,8 @@ public class Movie
     public int? ImdbRatingCount { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;
+    public string DescriptionCs { get; set; } = string.Empty;
+    public string DescriptionEn { get; set; } = string.Empty;
     public string? CsfdRating { get; set; }
     public double? TmdbRating { get; set; }
     public string CoverUrl { get; set; } = string.Empty;

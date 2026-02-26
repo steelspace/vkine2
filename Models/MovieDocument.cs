@@ -33,14 +33,32 @@ public class MovieDocument
     [BsonElement("vote_average")]
     public double? VoteAverage { get; set; }
 
+    [BsonElement("vote_count")]
+    public int? VoteCount { get; set; }
+
+    [BsonElement("popularity")]
+    public double? Popularity { get; set; }
+
     [BsonElement("title")]
     public string? Title { get; set; }
+
+    [BsonElement("original_title")]
+    public string? OriginalTitle { get; set; }
 
     [BsonElement("description")]
     public string? Description { get; set; }
 
+    [BsonElement("description_cs")]
+    public string? DescriptionCs { get; set; }
+
+    [BsonElement("description_en")]
+    public string? DescriptionEn { get; set; }
+
     [BsonElement("poster_url")]
     public string? PosterUrl { get; set; }
+
+    [BsonElement("csfd_poster_url")]
+    public string? CsfdPosterUrl { get; set; }
 
     [BsonElement("backdrop_url")]
     public string? BackdropUrl { get; set; }
@@ -84,4 +102,10 @@ public class MovieDocument
 
     [BsonElement("credits")]
     public List<Credit>? Credits { get; set; }
+
+    [BsonElement("release_date")]
+    public DateTime? ReleaseDate { get; set; }
+
+    [BsonElement("stored_at")]
+    public DateTime? StoredAt { get; set; }
 }

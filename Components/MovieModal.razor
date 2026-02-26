@@ -78,11 +78,20 @@
                 <div class="modal-body">
                     <a href="#showtimes-section" class="skip-to-showtimes" @onclick:preventDefault="false">@Localizer["SkipToShowtimes"] ↓</a>
                     <div class="modal-details">
-                        @if (!string.IsNullOrEmpty(movie.Synopsis))
+                        @{
+                            var localizedSynopsis = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs"
+                                ? (!string.IsNullOrEmpty(movie.DescriptionCs) ? movie.DescriptionCs : movie.DescriptionEn)
+                                : (!string.IsNullOrEmpty(movie.DescriptionEn) ? movie.DescriptionEn : movie.DescriptionCs);
+                            if (string.IsNullOrEmpty(localizedSynopsis))
+                            {
+                                localizedSynopsis = movie.Synopsis;
+                            }
+                        }
+                        @if (!string.IsNullOrEmpty(localizedSynopsis))
                         {
                             <div data-testid="modal-synopsis" class="modal-synopsis">
                                 <span class="section-label">@Localizer["Synopsis"]</span>
-                                <p>@movie.Synopsis</p>
+                                <p>@localizedSynopsis</p>
                             </div>
                         }
 

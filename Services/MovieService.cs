@@ -174,6 +174,8 @@ public class MovieService(
             return Builders<MovieDocument>.Filter.Or(
                 Builders<MovieDocument>.Filter.Regex(d => d.Title, new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex(d => d.Description, new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex(d => d.DescriptionCs, new BsonRegularExpression(token, "i")),
+                Builders<MovieDocument>.Filter.Regex(d => d.DescriptionEn, new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("cast", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("crew", new BsonRegularExpression(token, "i")),
                 Builders<MovieDocument>.Filter.Regex("directors", new BsonRegularExpression(token, "i")),
