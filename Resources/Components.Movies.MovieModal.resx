@@ -60,4 +60,22 @@
   <data name="ScrollToTop" xml:space="preserve">
     <value>Scroll to top</value>
   </data>
+  <data name="Director of Photography" xml:space="preserve">
+    <value>Director of Photography</value>
+  </data>
+  <data name="Producer" xml:space="preserve">
+    <value>Producer</value>
+  </data>
+  <data name="Screenplay" xml:space="preserve">
+    <value>Screenplay</value>
+  </data>
+  <data name="Writer" xml:space="preserve">
+    <value>Writer</value>
+  </data>
+  <data name="Co-Writer" xml:space="preserve">
+    <value>Co-Writer</value>
+  </data>
+  <data name="Actor" xml:space="preserve">
+    <value>Actor</value>
+  </data>
 </root>

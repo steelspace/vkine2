@@ -60,4 +60,22 @@
   <data name="ScrollToTop" xml:space="preserve">
     <value>Nahoru</value>
   </data>
+  <data name="Director of Photography" xml:space="preserve">
+    <value>Kameraman</value>
+  </data>
+  <data name="Producer" xml:space="preserve">
+    <value>Producent</value>
+  </data>
+  <data name="Screenplay" xml:space="preserve">
+    <value>Scénář</value>
+  </data>
+  <data name="Writer" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Co-Writer" xml:space="preserve">
+    <value>Spoluautor</value>
+  </data>
+  <data name="Actor" xml:space="preserve">
+    <value>Herec</value>
+  </data>
 </root>
