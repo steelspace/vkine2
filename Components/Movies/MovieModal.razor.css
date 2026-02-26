@@ -284,9 +284,20 @@
     font-size: 1rem;
     line-height: 1;
     box-shadow: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
     transition: background var(--duration-fast) var(--ease-default),
-                color var(--duration-fast) var(--ease-default);
+                color var(--duration-fast) var(--ease-default),
+                opacity var(--duration-fast) var(--ease-default),
+                transform var(--duration-fast) var(--ease-default);
     z-index: 10;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
 .scroll-to-top:hover {

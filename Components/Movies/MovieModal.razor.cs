@@ -81,7 +81,7 @@ public partial class MovieModal : ComponentBase
                 _wasOpen = true;
                 await JS.InvokeVoidAsync("vkineMovie.lockScroll");
             }
-            await JS.InvokeVoidAsync("vkineMovie.updateSkipButton");
+            await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
         }
         else if (_wasOpen)
         {

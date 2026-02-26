@@ -105,6 +105,29 @@
     btn.classList.toggle('visible', content.scrollHeight > content.clientHeight);
   }
 
+  function updateScrollTopButton() {
+    const content = document.querySelector('[data-testid="movie-modal-content"]');
+    const btn = content?.querySelector('.scroll-to-top');
+    if (!content || !btn) return;
+    const fontSize = parseFloat(getComputedStyle(content).fontSize) || 16;
+    const threshold = fontSize * 5;
+    btn.classList.toggle('visible', content.scrollTop >= threshold);
+  }
+
+  function setupModalScrollControls() {
+    const content = document.querySelector('[data-testid="movie-modal-content"]');
+    if (!content) return;
+    if (content.dataset.scrollControlsBound !== '1') {
+      content.addEventListener('scroll', () => {
+        updateSkipButton();
+        updateScrollTopButton();
+      }, { passive: true });
+      content.dataset.scrollControlsBound = '1';
+    }
+    updateSkipButton();
+    updateScrollTopButton();
+  }
+
   window.vkineMovie = Object.assign(window.vkineMovie || {}, {
     analyzeBackdrop,
     clearBackdropClass,
@@ -112,6 +135,8 @@
     removeEscapeHandler,
     lockScroll,
     unlockScroll,
-    updateSkipButton
+    updateSkipButton,
+    updateScrollTopButton,
+    setupModalScrollControls
   });
 })();
