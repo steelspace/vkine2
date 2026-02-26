@@ -498,6 +498,73 @@
 
 /* ── Credits (rich, with avatars) ────────────────────────────── */
 
+/* Crew: single wrapping flow with role below name */
+
+.crew-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.crew-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px 4px 4px;
+    border-radius: 20px;
+    background: var(--surface-secondary, rgba(128, 128, 128, 0.08));
+    color: var(--text-primary);
+    font-size: var(--font-size-footnote);
+    text-decoration: none;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+}
+
+.crew-chip:hover {
+    background: var(--surface-tertiary, rgba(128, 128, 128, 0.16));
+    color: var(--accent);
+}
+
+.crew-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.crew-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent-bg, rgba(128, 128, 128, 0.12));
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.crew-chip-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.crew-name {
+    font-weight: 500;
+}
+
+.crew-role {
+    font-size: 10px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* Cast: card chips with avatars */
+
 .modal-credits-group {
     display: flex;
     flex-direction: column;

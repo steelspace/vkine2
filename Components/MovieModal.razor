@@ -98,29 +98,61 @@
 
                         @if (movie.Credits.Count > 0)
                         {
-                            string[] visibleRoles = ["Director", "Actor", "Director of Photography", "Producer", "Screenplay"];
+                            string[] crewRoles = ["Director", "Director of Photography", "Producer", "Screenplay"];
 
-                            var creditsByRole = movie.Credits
-                                .Where(c => visibleRoles.Contains(c.Role, StringComparer.OrdinalIgnoreCase))
-                                .GroupBy(c => c.Role, StringComparer.OrdinalIgnoreCase)
-                                .OrderBy(g => Array.IndexOf(visibleRoles, g.Key))
+                            var crewCredits = movie.Credits
+                                .Where(c => crewRoles.Contains(c.Role, StringComparer.OrdinalIgnoreCase))
+                                .OrderBy(c => Array.IndexOf(crewRoles, c.Role))
                                 .ToList();
 
-                            @foreach (var group in creditsByRole)
-                            {
-                                var roleKey = group.Key switch
-                                {
-                                    "Actor" => "TopCast",
-                                    _ => group.Key
-                                };
-                                var entries = group.Key.Equals("Actor", StringComparison.OrdinalIgnoreCase)
-                                    ? group.Take(10)
-                                    : group.AsEnumerable();
+                            var castCredits = movie.Credits
+                                .Where(c => c.Role.Equals("Actor", StringComparison.OrdinalIgnoreCase))
+                                .Take(10)
+                                .ToList();
 
+                            @if (crewCredits.Count > 0)
+                            {
+                                <div class="crew-chips">
+                                    @foreach (var credit in crewCredits)
+                                    {
+                                        var photoSrc = credit.PhotoUrl;
+                                        if (!string.IsNullOrEmpty(photoSrc))
+                                        {
+                                            try
+                                            {
+                                                var uri = new Uri(photoSrc);
+                                                if (string.Equals(uri.Host, "image.tmdb.org", StringComparison.OrdinalIgnoreCase))
+                                                {
+                                                    photoSrc = $"/proxy/tmdb{uri.AbsolutePath}";
+                                                }
+                                            }
+                                            catch { }
+                                        }
+
+                                        <a href="https://www.google.com/search?q=@Uri.EscapeDataString(credit.Name)" target="_blank" class="crew-chip">
+                                            @if (!string.IsNullOrEmpty(photoSrc))
+                                            {
+                                                <img class="crew-avatar" src="@photoSrc" alt="" loading="lazy" />
+                                            }
+                                            else
+                                            {
+                                                <span class="crew-avatar-placeholder">@credit.Name[0]</span>
+                                            }
+                                            <span class="crew-chip-text">
+                                                <span class="crew-name">@credit.Name</span>
+                                                <span class="crew-role">@Localizer.GetString(credit.Role, credit.Role)</span>
+                                            </span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+
+                            @if (castCredits.Count > 0)
+                            {
                                 <div class="modal-credits-group">
-                                    <span class="section-label">@Localizer.GetString(roleKey, roleKey)</span>
+                                    <span class="section-label">@Localizer.GetString("TopCast", "TopCast")</span>
                                     <div class="credits-list">
-                                        @foreach (var credit in entries)
+                                        @foreach (var credit in castCredits)
                                         {
                                             var photoSrc = credit.PhotoUrl;
                                             if (!string.IsNullOrEmpty(photoSrc))
