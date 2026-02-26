@@ -91,7 +91,6 @@
                         @if (!string.IsNullOrEmpty(localizedSynopsis))
                         {
                             <div data-testid="modal-synopsis" class="modal-synopsis">
-                                <span class="section-label">@Localizer["Synopsis"]</span>
                                 <p>@localizedSynopsis</p>
                             </div>
                         }
@@ -130,14 +129,12 @@
                                         }
 
                                         <a href="https://www.google.com/search?q=@Uri.EscapeDataString(credit.Name)" target="_blank" class="crew-chip">
-                                            @if (!string.IsNullOrEmpty(photoSrc))
-                                            {
-                                                <img class="crew-avatar" src="@photoSrc" alt="" loading="lazy" />
-                                            }
-                                            else
-                                            {
-                                                <span class="crew-avatar-placeholder">@credit.Name[0]</span>
-                                            }
+                                            <span class="crew-avatar-placeholder">@credit.Name[0]
+                                                @if (!string.IsNullOrEmpty(photoSrc))
+                                                {
+                                                    <img class="crew-avatar" src="@photoSrc" alt="" loading="lazy" onload="this.classList.add('loaded')" />
+                                                }
+                                            </span>
                                             <span class="crew-chip-text">
                                                 <span class="crew-name">@credit.Name</span>
                                                 <span class="crew-role">@Localizer.GetString(credit.Role, credit.Role)</span>
@@ -169,14 +166,12 @@
                                             }
 
                                             <a href="https://www.google.com/search?q=@Uri.EscapeDataString(credit.Name)" target="_blank" class="credit-chip">
-                                                @if (!string.IsNullOrEmpty(photoSrc))
-                                                {
-                                                    <img class="credit-avatar" src="@photoSrc" alt="" loading="lazy" />
-                                                }
-                                                else
-                                                {
-                                                    <span class="credit-avatar-placeholder">@credit.Name[0]</span>
-                                                }
+                                                <span class="credit-avatar-placeholder">@credit.Name[0]
+                                                    @if (!string.IsNullOrEmpty(photoSrc))
+                                                    {
+                                                        <img class="credit-avatar" src="@photoSrc" alt="" loading="lazy" onload="this.classList.add('loaded')" />
+                                                    }
+                                                </span>
                                                 <span class="credit-name">@credit.Name</span>
                                             </a>
                                         }
