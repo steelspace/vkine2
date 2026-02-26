@@ -98,7 +98,7 @@
 
                         @if (movie.Credits.Count > 0)
                         {
-                            string[] crewRoles = ["Director", "Director of Photography", "Producer", "Screenplay"];
+                            string[] crewRoles = ["Director", "Director of Photography", "Producer", "Screenplay", "Writer", "Co-Writer"];
 
                             var crewCredits = movie.Credits
                                 .Where(c => crewRoles.Contains(c.Role, StringComparer.OrdinalIgnoreCase))
