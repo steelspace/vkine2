@@ -14,6 +14,7 @@ public partial class MovieModal : ComponentBase
     [Inject] private IScheduleService ScheduleService { get; set; } = default!;
     [Inject] private IJSRuntime JS { get; set; } = default!;
     [Inject] private IStringLocalizer<MovieModal> Localizer { get; set; } = default!;
+    [Inject] private ICountryLookupService CountryLookup { get; set; } = default!;
 
     [Parameter]
     public bool IsOpen { get; set; }

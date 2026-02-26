@@ -23,14 +23,17 @@
     <div class="movie-info">
         @{ var cardTitle = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs" || string.IsNullOrEmpty(Movie.TitleEn) ? Movie.Title : Movie.TitleEn; }
         <h3 data-testid="movie-title" class="movie-title">@cardTitle</h3>
-        <div class="movie-meta @(Movie.OriginCountries.Count > 1 ? "multi-country" : "")">
+        <div class="movie-meta @(Movie.OriginCountryCodes.Count > 1 ? "multi-country" : "")">
             @if (!string.IsNullOrEmpty(Movie.Year))
             {
                 <span data-testid="movie-year" class="movie-year">@Movie.Year</span>
             }
-            @if (Movie.OriginCountries.Count > 0)
+            @{
+                var cardCountries = CountryLookup.GetCountryNames(Movie.OriginCountryCodes);
+            }
+            @if (cardCountries.Count > 0)
             {
-                <span class="movie-countries">@string.Join(", ", Movie.OriginCountries)</span>
+                <span class="movie-countries">@string.Join(", ", cardCountries)</span>
             }
         </div>
         <div class="movie-ratings">

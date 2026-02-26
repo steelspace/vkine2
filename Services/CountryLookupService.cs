@@ -33,16 +33,28 @@ public interface ICountryLookupService
 public class CountryLookupService : ICountryLookupService
 {
     // Mapping for historical codes not supported by modern RegionInfo
-    private static readonly Dictionary<string, string> _historicalMap = new(StringComparer.OrdinalIgnoreCase)
+    private static readonly Dictionary<string, string> _historicalMapEn = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "CS", "Czechoslovakia" },   // Czechoslovakia (1918–1992) - often confused with CS (Serbia & Montenegro)
-        { "DD", "East Germany" },      // East Germany (DDR)
-        { "SU", "Soviet Union" },      // Soviet Union
-        { "YU", "Yugoslavia" },        // Yugoslavia
-        { "ZR", "Zaire" },             // Zaire (now Congo, Dem. Rep.)
-        { "TP", "East Timor" },        // East Timor (retired code, now TL)
-        { "BU", "Burma" },             // Burma (now Myanmar, MM)
-        { "DY", "Dahomey" }            // Dahomey (now Benin, BJ)
+        { "CS", "Czechoslovakia" },
+        { "DD", "East Germany" },
+        { "SU", "Soviet Union" },
+        { "YU", "Yugoslavia" },
+        { "ZR", "Zaire" },
+        { "TP", "East Timor" },
+        { "BU", "Burma" },
+        { "DY", "Dahomey" }
+    };
+
+    private static readonly Dictionary<string, string> _historicalMapCs = new(StringComparer.OrdinalIgnoreCase)
+    {
+        { "CS", "Československo" },
+        { "DD", "Východní Německo" },
+        { "SU", "Sovětský svaz" },
+        { "YU", "Jugoslávie" },
+        { "ZR", "Zair" },
+        { "TP", "Východní Timor" },
+        { "BU", "Barma" },
+        { "DY", "Dahomej" }
     };
 
     // Mapping of Czech country names (as used on CSFD) to ISO alpha-2 codes
@@ -370,36 +382,52 @@ public class CountryLookupService : ICountryLookupService
 
     private static readonly Dictionary<string, string> CsfdCzechNameToIsoAlpha2Normalized = BuildNormalizedCzechNameMap();
 
+    // Reverse map: ISO alpha-2 → Czech country name (built from the CSFD map)
+    private static readonly Dictionary<string, string> _isoToCzechName = BuildIsoToCzechNameMap();
+
+    private static Dictionary<string, string> BuildIsoToCzechNameMap()
+    {
+        var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var (czech, iso) in CsfdCzechNameToIsoAlpha2)
+        {
+            // Capitalize first letter for display
+            var display = char.ToUpper(czech[0]) + czech[1..];
+            map.TryAdd(iso, display);
+        }
+        return map;
+    }
+
     public string GetCountryName(string code)
     {
         if (string.IsNullOrWhiteSpace(code)) return string.Empty;
         
         var upperCode = code.Trim().ToUpperInvariant();
 
-        // CHECK HISTORICAL MAP FIRST
-        // Modern .NET interpretation of "CS" is "Serbia and Montenegro" (the transition period 
-        // before RS/ME splitting), which is likely why it's showing "Srbsko" or similar.
-        if (_historicalMap.TryGetValue(upperCode, out var historicalName))
+        if (_historicalMapEn.ContainsKey(upperCode))
         {
-            return historicalName;
+            var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+            var historicalMap = string.Equals(lang, "cs", StringComparison.OrdinalIgnoreCase)
+                ? _historicalMapCs
+                : _historicalMapEn;
+            return historicalMap[upperCode];
         }
 
+        var currentLang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+        if (string.Equals(currentLang, "cs", StringComparison.OrdinalIgnoreCase))
+        {
+            // Czech: use our curated CSFD map, fall back to OS DisplayName
+            if (_isoToCzechName.TryGetValue(upperCode, out var czechName))
+                return czechName;
+
+            try { return new RegionInfo(upperCode).DisplayName; }
+            catch (ArgumentException) { return upperCode; }
+        }
+
+        // English (and any other language): RegionInfo.EnglishName is always English
         try
         {
-            var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            var cultureName = $"{currentLanguage}-{upperCode}";
-            var culture = new CultureInfo(cultureName);
-            var displayName = culture.DisplayName;
-
-            var start = displayName.IndexOf('(');
-            var end = displayName.LastIndexOf(')');
-
-            if (start != -1 && end > start)
-            {
-                return displayName.Substring(start + 1, end - start - 1);
-            }
-
-            return new RegionInfo(upperCode).DisplayName;
+            return new RegionInfo(upperCode).EnglishName;
         }
         catch (ArgumentException)
         {

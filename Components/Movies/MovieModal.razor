@@ -56,9 +56,12 @@
                             {
                                 <span data-testid="modal-duration" class="meta-item">@movie.Duration</span>
                             }
-                            @if (movie.OriginCountries.Count > 0)
+                            @{
+                                var modalCountries = CountryLookup.GetCountryNames(movie.OriginCountryCodes);
+                            }
+                            @if (modalCountries.Count > 0)
                             {
-                                <span data-testid="modal-countries" class="meta-item">@string.Join(", ", movie.OriginCountries)</span>
+                                <span data-testid="modal-countries" class="meta-item">@string.Join(", ", modalCountries)</span>
                             }
                             @if (!string.IsNullOrEmpty(movie.OriginalLanguage))
                             {
