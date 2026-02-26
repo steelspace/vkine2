@@ -21,7 +21,8 @@
         }
     </div>
     <div class="movie-info">
-        <h3 data-testid="movie-title" class="movie-title">@Movie.Title</h3>
+        @{ var cardTitle = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs" || string.IsNullOrEmpty(Movie.TitleEn) ? Movie.Title : Movie.TitleEn; }
+        <h3 data-testid="movie-title" class="movie-title">@cardTitle</h3>
         <div class="movie-meta @(Movie.OriginCountries.Count > 1 ? "multi-country" : "")">
             @if (!string.IsNullOrEmpty(Movie.Year))
             {

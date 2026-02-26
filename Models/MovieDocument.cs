@@ -74,7 +74,7 @@ public class MovieDocument
     public List<string>? Directors { get; set; }
 
     [BsonElement("localized_titles")]
-    public LocalizedTitles? LocalizedTitles { get; set; }
+    public Dictionary<string, string>? LocalizedTitles { get; set; }
 
     [BsonElement("year")]
     public string? Year { get; set; }

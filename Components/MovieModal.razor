@@ -33,15 +33,16 @@
                     {
                         <div class="modal-grabber"></div>
                     }
+                    @{ var modalTitle = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs" || string.IsNullOrEmpty(movie.TitleEn) ? movie.Title : movie.TitleEn; }
                     <div class="modal-header">
                         <h2 data-testid="modal-title">
                             @if (!string.IsNullOrEmpty(movie.Homepage))
                             {
-                                <a data-testid="modal-title-link" href="@movie.Homepage" target="_blank" class="movie-title-link">@movie.Title</a>
+                                <a data-testid="modal-title-link" href="@movie.Homepage" target="_blank" class="movie-title-link">@modalTitle</a>
                             }
                             else
                             {
-                                @movie.Title
+                                @modalTitle
                             }
                         </h2>
                     </div>
