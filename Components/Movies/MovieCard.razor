@@ -1,3 +1,9 @@
+@{
+    var cardTitle = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs" || string.IsNullOrEmpty(Movie.TitleEn) ? Movie.Title : Movie.TitleEn;
+    var initials = GetInitials(cardTitle);
+    var backgroundStyle = GetGradientStyle(cardTitle ?? Movie.Id.ToString());
+}
+
 <div data-testid="movie-card" class="movie-card loaded @(LazyLoad ? "lazy-load" : "")" data-movie-id="@Movie.Id" @onclick="OnClick">
     <div class="movie-poster">
         @if (!string.IsNullOrEmpty(Movie.CoverUrl))
@@ -10,18 +16,13 @@
         }
         else
         {
-            <div class="no-poster">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                    <line x1="7" y1="2" x2="7" y2="22"/>
-                    <line x1="17" y1="2" x2="17" y2="22"/>
-                    <line x1="2" y1="12" x2="22" y2="12"/>
-                </svg>
+            <div class="no-poster" style="@backgroundStyle">
+                <span class="initials">@initials</span>
             </div>
         }
     </div>
     <div class="movie-info">
-        @{ var cardTitle = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs" || string.IsNullOrEmpty(Movie.TitleEn) ? Movie.Title : Movie.TitleEn; }
+        
         <h3 data-testid="movie-title" class="movie-title">@cardTitle</h3>
         <div class="movie-meta @(Movie.OriginCountryCodes.Count > 1 ? "multi-country" : "")">
             @if (!string.IsNullOrEmpty(Movie.Year))
@@ -40,4 +41,37 @@
             <RatingBadges Movie="@Movie" Compact="true" />
         </div>
     </div>
+
+@code {
+    private string GetInitials(string title)
+    {
+        if (string.IsNullOrWhiteSpace(title)) return "?";
+        var parts = title.Split(new[] { ' ', '\t', '-', ':' }, StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length == 1)
+        {
+            var p = parts[0];
+            return p.Length <= 2 ? p.ToUpperInvariant() : p.Substring(0, 2).ToUpperInvariant();
+        }
+        return (parts[0][0].ToString() + parts[1][0].ToString()).ToUpperInvariant();
+    }
+
+    private string GetGradientStyle(string seed)
+    {
+        if (seed == null) seed = string.Empty;
+        byte[] hash;
+        using (var md5 = System.Security.Cryptography.MD5.Create())
+        {
+            hash = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(seed));
+        }
+        var h = hash[0] % 360;
+        var s = 55 + (hash[1] % 20); // 55-74
+        var l = 42 + (hash[2] % 16); // 42-57
+        var h2 = (h + 25 + (hash[3] % 40)) % 360;
+        var s2 = Math.Max(40, s - 8);
+        var l2 = Math.Min(70, l + 8);
+        var c1 = $"hsl({h}, {s}%, {l}% )";
+        var c2 = $"hsl({h2}, {s2}%, {l2}% )";
+        return $"background: linear-gradient(135deg, {c1}, {c2}); color: white;";
+    }
+}
 </div>

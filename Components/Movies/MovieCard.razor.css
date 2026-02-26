@@ -55,6 +55,22 @@
     justify-content: center;
     background: linear-gradient(135deg, var(--fill-tertiary) 0%, var(--fill-primary) 100%);
     color: var(--text-tertiary);
+    overflow: hidden;
+    padding: 0;
+}
+
+.no-poster .initials {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    display: block;
+}
+
+.no-poster svg {
+    opacity: 0.9;
 }
 
 /* Movie Info */
