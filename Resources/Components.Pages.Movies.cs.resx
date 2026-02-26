@@ -19,7 +19,7 @@
     <value>Vymazat hledání</value>
   </data>
   <data name="DateRange" xml:space="preserve">
-    <value>Rozsah dat</value>
+    <value>Od / do</value>
   </data>
   <data name="ClearDateFilter" xml:space="preserve">
     <value>Zrušit filtr dat</value>
@@ -46,6 +46,6 @@
     <value>Načítám filmy…</value>
   </data>
   <data name="TimeSliderOff" xml:space="preserve">
-    <value>Vypnuto</value>
+    <value>Čas</value>
   </data>
 </root>
