@@ -166,9 +166,10 @@ export function initTimeSlider() {
     if (!slider || !label) return;
 
     const MIN = 540; // must match TimeSliderMin
+    const offLabel = label.getAttribute('data-off-label') || label.textContent?.trim() || 'Time';
 
     function formatTime(minutes) {
-        if (minutes <= MIN) return 'Off';
+        if (minutes <= MIN) return offLabel;
         const h = String(Math.floor(minutes / 60)).padStart(2, '0');
         const m = String(minutes % 60).padStart(2, '0');
         return `${h}:${m}`;

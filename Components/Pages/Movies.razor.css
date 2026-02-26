@@ -263,7 +263,7 @@ html[data-theme="dark"] .sticky-toolbar {
     font-size: var(--font-size-footnote);
     color: var(--text-tertiary);
     white-space: nowrap;
-    min-width: 2.5em;
+    width: 4.5em;
     transition: color var(--duration-fast) var(--ease-default);
 }
 
@@ -310,6 +310,14 @@ html[data-theme="dark"] .sticky-toolbar {
     border: none;
     box-shadow: var(--shadow-thumb);
     cursor: pointer;
+}
+
+html[data-theme="dark"] .time-slider::-webkit-slider-thumb {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+html[data-theme="dark"] .time-slider::-moz-range-thumb {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 .time-slider::-moz-range-track {

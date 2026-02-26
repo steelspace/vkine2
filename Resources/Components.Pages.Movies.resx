@@ -46,6 +46,6 @@
     <value>Loading movies…</value>
   </data>
   <data name="TimeSliderOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Time</value>
   </data>
 </root>
