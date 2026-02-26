@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using vkine.Models;
 
-namespace vkine.Components;
+namespace vkine.Components.Movies;
 
 public partial class RatingBadges : ComponentBase
 {

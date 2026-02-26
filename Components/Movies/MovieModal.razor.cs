@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 using vkine.Models;
 using vkine.Services;
 
-namespace vkine.Components;
+namespace vkine.Components.Movies;
 
 public partial class MovieModal : ComponentBase
 {

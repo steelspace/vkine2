@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace vkine.Components;
+namespace vkine.Components.Shared;
 
 public partial class ThemeToggle : ComponentBase
 {
