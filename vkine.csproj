@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <DefaultItemExcludes>$(DefaultItemExcludes);vkine.AppHost\**;vkine.ServiceDefaults\**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);vkine.AppHost\**;vkine.ServiceDefaults\**;vkine.Tests\**</DefaultItemExcludes>
     <UserSecretsId>df99c427-0683-485f-8311-92c776f844ed</UserSecretsId>
   </PropertyGroup>
 

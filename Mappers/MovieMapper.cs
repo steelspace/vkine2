@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using vkine.Models;
 using vkine.Services;
 
@@ -87,12 +84,11 @@ public class MovieMapper
 
     private List<string> ParseOriginCountryCodes(MovieDocument document)
     {
-        if (document.OriginCountryCodes != null && document.OriginCountryCodes.Count > 0)
+        if (document.OriginCountryCodes is { Count: > 0 })
         {
             return document.OriginCountryCodes
                 .Where(code => !string.IsNullOrWhiteSpace(code))
                 .Select(code => code.Trim())
-                .Where(code => code.Length > 0)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }
@@ -100,23 +96,16 @@ public class MovieMapper
         if (!string.IsNullOrWhiteSpace(document.Origin))
         {
             return document.Origin
-                .Split(new[] { ',', '/' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(part => part.Trim())
-                .Select(part =>
-                {
-                    if (part.Length == 2)
-                    {
-                        return part.ToUpperInvariant();
-                    }
-
-                    return _lookupService.GetIsoCodeFromCzechName(part);
-                })
+                .Split([',', '/'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(part => part.Length == 2
+                    ? part.ToUpperInvariant()
+                    : _lookupService.GetIsoCodeFromCzechName(part))
                 .Where(code => !string.IsNullOrEmpty(code))
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList()!;
         }
 
-        return new List<string>();
+        return [];
     }
 
     private static string FormatOriginalLanguage(string? originalLanguage)
