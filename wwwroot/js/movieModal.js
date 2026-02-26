@@ -98,12 +98,20 @@
     document.body.style.paddingRight = '';
   }
 
+  function updateSkipButton() {
+    const content = document.querySelector('[data-testid="movie-modal-content"]');
+    const btn = content?.querySelector('.skip-to-showtimes');
+    if (!content || !btn) return;
+    btn.classList.toggle('visible', content.scrollHeight > content.clientHeight);
+  }
+
   window.vkineMovie = Object.assign(window.vkineMovie || {}, {
     analyzeBackdrop,
     clearBackdropClass,
     installEscapeHandler,
     removeEscapeHandler,
     lockScroll,
-    unlockScroll
+    unlockScroll,
+    updateSkipButton
   });
 })();
