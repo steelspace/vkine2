@@ -12,6 +12,7 @@ public class Movie
     public int? ImdbRatingCount { get; set; }
     public string Title { get; set; } = string.Empty;
     public string TitleEn { get; set; } = string.Empty;
+    public string OriginalTitle { get; set; } = string.Empty;
     public string Synopsis { get; set; } = string.Empty;
     public string DescriptionCs { get; set; } = string.Empty;
     public string DescriptionEn { get; set; } = string.Empty;

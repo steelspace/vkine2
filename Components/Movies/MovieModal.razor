@@ -45,6 +45,13 @@
                                 @modalTitle
                             }
                         </h2>
+                        @{
+                            var originalLine = !string.IsNullOrEmpty(movie.OriginalTitle) ? movie.OriginalTitle : movie.Title;
+                        }
+                        @if (!string.IsNullOrEmpty(originalLine) && !string.Equals(originalLine, modalTitle, StringComparison.OrdinalIgnoreCase))
+                        {
+                            <p class="original-title">@originalLine</p>
+                        }
                     </div>
                     <div class="modal-hero-details">
                         <div class="modal-meta">

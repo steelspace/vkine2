@@ -26,6 +26,7 @@ public class MovieMapper
             ImdbRatingCount = document.ImdbRatingCount is > 0 ? document.ImdbRatingCount : null,
             Title = ResolveTitle(document),
             TitleEn = ResolveEnglishTitle(document),
+            OriginalTitle = document.OriginalTitle ?? string.Empty,
             Synopsis = document.Description ?? document.DescriptionCs ?? string.Empty,
             DescriptionCs = document.DescriptionCs ?? document.Description ?? string.Empty,
             DescriptionEn = document.DescriptionEn ?? string.Empty,

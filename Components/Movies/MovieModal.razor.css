@@ -192,6 +192,7 @@
 
 .modal-header {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     padding: 1.25rem 1.5rem 1rem;
 }
@@ -214,6 +215,20 @@
 
 .movie-title-link:hover {
     text-decoration: underline;
+}
+
+.original-title {
+    margin: 0.1rem 0 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    padding-right: 2.5rem;
+    line-height: 1.3;
+}
+
+.modal-content.has-backdrop .original-title {
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 
 /* Close button (Apple circular style) — always visible above content */
