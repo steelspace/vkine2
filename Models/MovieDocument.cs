@@ -73,6 +73,9 @@ public class MovieDocument
     [BsonElement("directors")]
     public List<string>? Directors { get; set; }
 
+    [BsonElement("tmdb_title")]
+    public string? TmdbTitle { get; set; }
+
     [BsonElement("localized_titles")]
     public Dictionary<string, string>? LocalizedTitles { get; set; }
 

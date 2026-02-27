@@ -67,10 +67,14 @@ public class MovieMapper
 
     private static string ResolveEnglishTitle(MovieDocument document)
     {
+        if (!string.IsNullOrEmpty(document.TmdbTitle))
+        {
+            return document.TmdbTitle;
+        }
+
         if (document.LocalizedTitles is not null)
         {
-            // Prefer US, then GB, then any English-region key
-            foreach (var key in new[] { "US", "GB", "AU" })
+            foreach (var key in new[] { "US", "GB", "ENG", "AU" })
             {
                 if (document.LocalizedTitles.TryGetValue(key, out var title) && !string.IsNullOrEmpty(title))
                 {

@@ -160,4 +160,54 @@ public class MovieMapperTests
 
         Assert.Empty(result.OriginCountryCodes);
     }
+
+    // ── English title resolution ─────────────────────────────
+
+    [Fact]
+    public void TitleEn_PrefersTmdbTitle()
+    {
+        var doc = CreateDoc();
+        doc.TmdbTitle = "TMDB English Title";
+        doc.LocalizedTitles = new() { ["US"] = "US Title" };
+
+        var result = _mapper.Map(doc);
+
+        Assert.Equal("TMDB English Title", result.TitleEn);
+    }
+
+    [Fact]
+    public void TitleEn_FallsBackToLocalizedUS_WhenTmdbTitleMissing()
+    {
+        var doc = CreateDoc();
+        doc.TmdbTitle = null;
+        doc.LocalizedTitles = new() { ["US"] = "US Title", ["GB"] = "GB Title" };
+
+        var result = _mapper.Map(doc);
+
+        Assert.Equal("US Title", result.TitleEn);
+    }
+
+    [Fact]
+    public void TitleEn_FallsBackToLocalizedGB_WhenNoUS()
+    {
+        var doc = CreateDoc();
+        doc.TmdbTitle = null;
+        doc.LocalizedTitles = new() { ["GB"] = "GB Title" };
+
+        var result = _mapper.Map(doc);
+
+        Assert.Equal("GB Title", result.TitleEn);
+    }
+
+    [Fact]
+    public void TitleEn_ReturnsEmpty_WhenNoTmdbTitleOrLocalized()
+    {
+        var doc = CreateDoc();
+        doc.TmdbTitle = null;
+        doc.LocalizedTitles = null;
+
+        var result = _mapper.Map(doc);
+
+        Assert.Equal(string.Empty, result.TitleEn);
+    }
 }
