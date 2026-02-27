@@ -1,0 +1,53 @@
+@page "/premieres"
+@rendermode InteractiveServer
+@using System.Globalization
+
+<PageTitle>@Localizer["PageTitle"]</PageTitle>
+
+<div class="premieres-toolbar">
+    <div class="toolbar-actions">
+        <LanguageSelector />
+        <ThemeToggle />
+    </div>
+</div>
+
+<div class="premieres-container">
+    @if (isLoading)
+    {
+        <div class="loading-container">
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p>@Localizer["Loading"]</p>
+        </div>
+    }
+    else if (groupedPremieres.Count == 0)
+    {
+        <div class="empty-state">
+            <p>@Localizer["NoPremieresFound"]</p>
+        </div>
+    }
+    else
+    {
+        <div class="premieres-stats">
+            <p>@Localizer["PremieresCountFormat", totalCount]</p>
+        </div>
+
+        @foreach (var group in groupedPremieres)
+        {
+            <section class="premiere-group">
+                <h2 class="premiere-date-header">@group.Date.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentUICulture)</h2>
+                <div class="movies-grid">
+                    @foreach (var movie in group.Movies)
+                    {
+                        <MovieCard Movie="@movie" OnClick="() => OpenModal(movie)" />
+                    }
+                </div>
+            </section>
+        }
+    }
+</div>
+
+<MovieModal IsOpen="@isModalOpen" Movie="@selectedMovie" OnClose="@CloseModal" />

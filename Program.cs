@@ -47,6 +47,7 @@ builder.Services.AddSingleton<ICountryLookupService, CountryLookupService>();
 builder.Services.AddSingleton<MovieMapper>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
+builder.Services.AddScoped<IPremiereService, PremiereService>();
 
 // used by the TMDB image proxy
 builder.Services.AddHttpClient();
