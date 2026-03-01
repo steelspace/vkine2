@@ -87,30 +87,16 @@ public class MovieMapper
         return string.Empty;
     }
 
-    private List<string> ParseOriginCountryCodes(MovieDocument document)
+    private static List<string> ParseOriginCountryCodes(MovieDocument document)
     {
-        if (document.OriginCountryCodes is { Count: > 0 })
-        {
-            return document.OriginCountryCodes
-                .Where(code => !string.IsNullOrWhiteSpace(code))
-                .Select(code => code.Trim())
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList();
-        }
+        if (document.OriginCountryCodes is not { Count: > 0 })
+            return [];
 
-        if (!string.IsNullOrWhiteSpace(document.Origin))
-        {
-            return document.Origin
-                .Split([',', '/'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                .Select(part => part.Length == 2
-                    ? part.ToUpperInvariant()
-                    : _lookupService.GetIsoCodeFromCzechName(part))
-                .Where(code => !string.IsNullOrEmpty(code))
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .ToList()!;
-        }
-
-        return [];
+        return document.OriginCountryCodes
+            .Where(code => !string.IsNullOrWhiteSpace(code))
+            .Select(code => code.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
     }
 
     private static string FormatOriginalLanguage(string? originalLanguage)

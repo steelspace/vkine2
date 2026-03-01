@@ -406,12 +406,27 @@ public class CountryLookupService : ICountryLookupService
     private static Dictionary<string, string> BuildIsoToCzechNameMap()
     {
         var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+        // First pass: prefer entries that contain Czech diacritics (genuine Czech names)
         foreach (var (czech, iso) in CsfdCzechNameToIsoAlpha2)
         {
-            // Capitalize first letter for display
-            var display = char.ToUpper(czech[0]) + czech[1..];
-            map.TryAdd(iso, display);
+            if (czech.Any(c => c > 127))
+            {
+                var display = char.ToUpper(czech[0]) + czech[1..];
+                map.TryAdd(iso, display);
+            }
         }
+
+        // Second pass: fill in any remaining ISO codes with ASCII entries
+        foreach (var (czech, iso) in CsfdCzechNameToIsoAlpha2)
+        {
+            if (czech.All(c => c <= 127))
+            {
+                var display = char.ToUpper(czech[0]) + czech[1..];
+                map.TryAdd(iso, display);
+            }
+        }
+
         return map;
     }
 
