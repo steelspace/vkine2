@@ -32,29 +32,47 @@ public interface ICountryLookupService
 
 public class CountryLookupService : ICountryLookupService
 {
-    // Mapping for historical codes not supported by modern RegionInfo
+    // Mapping for historical and custom codes not supported by modern RegionInfo
     private static readonly Dictionary<string, string> _historicalMapEn = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "CS", "Czechoslovakia" },
-        { "DD", "East Germany" },
-        { "SU", "Soviet Union" },
-        { "YU", "Yugoslavia" },
-        { "ZR", "Zaire" },
-        { "TP", "East Timor" },
-        { "BU", "Burma" },
-        { "DY", "Dahomey" }
+        { "AH",  "Austro-Hungarian Empire" },
+        { "BU",  "Burma" },
+        { "CS",  "Czechoslovakia" },
+        { "DD",  "East Germany" },
+        { "DY",  "Dahomey" },
+        { "HV",  "Upper Volta" },
+        { "OT",  "Ottoman Empire" },
+        { "RH",  "Rhodesia" },
+        { "SU",  "Soviet Union" },
+        { "TP",  "East Timor" },
+        { "UAR", "United Arab Republic" },
+        { "XK",  "Kosovo" },
+        { "XM",  "Protectorate of Bohemia and Moravia" },
+        { "XR",  "German Reich" },
+        { "YD",  "South Yemen" },
+        { "YU",  "Yugoslavia" },
+        { "ZR",  "Zaire" },
     };
 
     private static readonly Dictionary<string, string> _historicalMapCs = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "CS", "Československo" },
-        { "DD", "Východní Německo" },
-        { "SU", "Sovětský svaz" },
-        { "YU", "Jugoslávie" },
-        { "ZR", "Zair" },
-        { "TP", "Východní Timor" },
-        { "BU", "Barma" },
-        { "DY", "Dahomej" }
+        { "AH",  "Rakousko-Uhersko" },
+        { "BU",  "Barma" },
+        { "CS",  "Československo" },
+        { "DD",  "Východní Německo" },
+        { "DY",  "Dahomej" },
+        { "HV",  "Horní Volta" },
+        { "OT",  "Osmanská říše" },
+        { "RH",  "Rhodesie" },
+        { "SU",  "Sovětský svaz" },
+        { "TP",  "Východní Timor" },
+        { "UAR", "Sjednocená arabská republika" },
+        { "XK",  "Kosovo" },
+        { "XM",  "Protektorát Čechy a Morava" },
+        { "XR",  "Německá říše" },
+        { "YD",  "Jižní Jemen" },
+        { "YU",  "Jugoslávie" },
+        { "ZR",  "Zair" },
     };
 
     // Mapping of Czech country names (as used on CSFD) to ISO alpha-2 codes
@@ -236,7 +254,7 @@ public class CountryLookupService : ICountryLookupService
         ["nsr"] = "DE",
         ["německo"] = "DE",
         ["německá demokratická republika"] = "DD",
-        ["německá říše"] = "DE",
+        ["německá říše"] = "XR",
         ["německé císařství"] = "DE",
         ["německý spolek"] = "DE",
         ["omán"] = "OM",
@@ -255,7 +273,7 @@ public class CountryLookupService : ICountryLookupService
         ["polsko"] = "PL",
         ["portoriko"] = "PR",
         ["portugalsko"] = "PT",
-        ["protektorát čechy a morava"] = "CZ",
+        ["protektorát čechy a morava"] = "XM",
         ["prusko"] = "DE",
         ["pákistán"] = "PK",
         ["rakousko"] = "AT",
