@@ -38,6 +38,12 @@ public partial class MovieModal : ComponentBase
 
     private string? YouTubeVideoId => ExtractYouTubeVideoId(Movie?.TrailerUrl);
 
+    private static string FormatLanguage(string code)
+    {
+        try { return CultureInfo.GetCultureInfo(code).DisplayName; }
+        catch (CultureNotFoundException) { return code.ToUpperInvariant(); }
+    }
+
     private static string? ExtractYouTubeVideoId(string? url)
     {
         if (string.IsNullOrWhiteSpace(url)) return null;

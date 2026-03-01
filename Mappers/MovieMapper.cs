@@ -1,4 +1,3 @@
-using System.Globalization;
 using vkine.Models;
 using vkine.Services;
 
@@ -100,21 +99,5 @@ public class MovieMapper
     }
 
     private static string FormatOriginalLanguage(string? originalLanguage)
-    {
-        if (string.IsNullOrWhiteSpace(originalLanguage))
-        {
-            return string.Empty;
-        }
-
-        var trimmed = originalLanguage.Trim();
-        try
-        {
-            var culture = CultureInfo.GetCultureInfo(trimmed);
-            return culture.EnglishName;
-        }
-        catch (CultureNotFoundException)
-        {
-            return trimmed.ToUpperInvariant();
-        }
-    }
+        => originalLanguage?.Trim() ?? string.Empty;
 }
