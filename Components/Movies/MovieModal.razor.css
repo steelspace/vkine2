@@ -909,6 +909,11 @@ a.cal-day:hover {
     font-weight: 600;
 }
 
+.showtime .badge-logo {
+    padding: 2px 4px;
+    line-height: 0;
+}
+
 .showtime .ticket-link {
     padding: 4px 10px;
     background: var(--accent);
