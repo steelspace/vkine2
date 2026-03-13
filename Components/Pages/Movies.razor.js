@@ -129,6 +129,30 @@ export function clearDateRange() {
     }
 }
 
+export function openDatePicker() {
+    if (flatpickrInstance) {
+        flatpickrInstance.open();
+    }
+}
+
+export function initChipTimeSlider() {
+    const slider = document.querySelector('.chip-time-slider');
+    const label = document.getElementById('chip-time-label');
+    if (!slider || !label || slider.dataset.chipBound === '1') return;
+    slider.dataset.chipBound = '1';
+
+    const MIN = 540;
+    const offLabel = label.dataset.off || label.textContent?.trim() || '';
+
+    slider.addEventListener('input', () => {
+        const val = parseInt(slider.value, 10);
+        label.textContent = val <= MIN
+            ? offLabel
+            : String(Math.floor(val / 60)).padStart(2, '0') + ':' + String(val % 60).padStart(2, '0');
+        label.classList.toggle('active', val > MIN);
+    });
+}
+
 function formatDate(date) {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');

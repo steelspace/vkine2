@@ -42,6 +42,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     // Time-of-day filter (minutes from midnight; 540 = 9:00 = off / leftmost)
     private int _timeFromMinutes = 540;
+    private bool _timeChipOpen = false;
 
     // Sort state
     private enum SortField { None, Rating, Name, ReleaseDate }
@@ -93,6 +94,10 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             await _jsModule.InvokeVoidAsync("initDateRangePicker", _dateRangeInput, _dotnetRef);
             await _jsModule.InvokeVoidAsync("initStickyToolbar", _toolbarRef);
             await _jsModule.InvokeVoidAsync("initTimeSlider");
+        }
+        if (_timeChipOpen && _jsModule is not null)
+        {
+            await _jsModule.InvokeVoidAsync("initChipTimeSlider");
         }
         if (!_jsInitialized && !isLoading && AllMovieIds.Count > 0 && string.IsNullOrWhiteSpace(searchQuery))
         {
@@ -152,6 +157,53 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     {
         _timeFromMinutes = int.Parse(e.Value?.ToString() ?? "0");
         await ApplyFilters();
+    }
+
+    private void ToggleTimeChip() => _timeChipOpen = !_timeChipOpen;
+
+    private async Task ClearTimeFilter()
+    {
+        _timeFromMinutes = TimeSliderMin;
+        _timeChipOpen = false;
+        await ApplyFilters();
+    }
+
+    private async Task OpenDatePickerChip()
+    {
+        if (_jsModule is not null)
+            await _jsModule.InvokeVoidAsync("openDatePicker");
+    }
+
+    private async Task CycleSort()
+    {
+        var sequence = new (SortField field, bool asc)[]
+        {
+            (SortField.Rating, false),
+            (SortField.Rating, true),
+            (SortField.Name, true),
+            (SortField.Name, false),
+            (SortField.ReleaseDate, false),
+            (SortField.ReleaseDate, true),
+        };
+        var idx = Array.FindIndex(sequence, x => x.field == _currentSort && x.asc == _sortAscending);
+        var next = sequence[(idx + 1) % sequence.Length];
+        _currentSort = next.field;
+        _sortAscending = next.asc;
+        await ApplySortingAsync();
+    }
+
+    private string DateChipLabel
+    {
+        get
+        {
+            if (!_dateFrom.HasValue) return Localizer["DateRange"];
+            var culture = CultureInfo.CurrentUICulture;
+            if (!_dateTo.HasValue || _dateFrom == _dateTo)
+                return _dateFrom.Value.ToString("MMM d", culture);
+            if (_dateFrom.Value.Month == _dateTo.Value.Month && _dateFrom.Value.Year == _dateTo.Value.Year)
+                return $"{_dateFrom.Value.ToString("MMM d", culture)}–{_dateTo.Value.Day}";
+            return $"{_dateFrom.Value.ToString("MMM d", culture)}–{_dateTo.Value.ToString("MMM d", culture)}";
+        }
     }
 
     internal const int TimeSliderMin = 540; // 9:00

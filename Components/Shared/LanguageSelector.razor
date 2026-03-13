@@ -5,14 +5,11 @@
 @using Microsoft.Extensions.Localization
 @using Microsoft.Extensions.Options
 
-<select class="language-select" aria-label="@Localizer["LanguageSelectAria"]" @onchange="HandleChange">
-    @foreach (var culture in SupportedCultures)
-    {
-        <option value="@culture.Name" selected="@(string.Equals(culture.Name, CurrentCulture, StringComparison.OrdinalIgnoreCase))">
-            @culture.NativeName
-        </option>
-    }
-</select>
+<button type="button" class="lang-toggle" @onclick="Cycle"
+        aria-label="@Localizer["LanguageSelectAria"]"
+        title="@Localizer["LanguageSelectAria"]">
+    <span class="lang-code">@CurrentCode</span>
+</button>
 
 @code {
     [Inject]
@@ -28,6 +25,8 @@
 
     private string CurrentCulture => CultureInfo.CurrentUICulture.Name;
 
+    private string CurrentCode => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpperInvariant();
+
     protected override void OnInitialized()
     {
         var options = LocalizationOptions.Value;
@@ -40,14 +39,12 @@
             : new[] { CultureInfo.CurrentUICulture };
     }
 
-    private async Task HandleChange(ChangeEventArgs args)
+    private async Task Cycle()
     {
-        var culture = args?.Value?.ToString();
-        if (string.IsNullOrEmpty(culture))
-        {
-            return;
-        }
-
-        await JSRuntime.InvokeVoidAsync("vkineLocale.setCultureAndReload", culture);
+        var current = SupportedCultures
+            .FirstOrDefault(c => string.Equals(c.Name, CurrentCulture, StringComparison.OrdinalIgnoreCase));
+        var idx = current is not null ? SupportedCultures.ToList().IndexOf(current) : 0;
+        var next = SupportedCultures[(idx + 1) % SupportedCultures.Count];
+        await JSRuntime.InvokeVoidAsync("vkineLocale.setCultureAndReload", next.Name);
     }
 }

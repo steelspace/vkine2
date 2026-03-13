@@ -1,28 +1,15 @@
 (function () {
-  const storageKey = 'vkine-theme'; // values: 'system' | 'light' | 'dark'
-
-  function appliedThemeFromMode(mode) {
-    if (mode === 'system' || !mode) {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return mode;
-  }
+  const storageKey = 'vkine-theme'; // values: 'light' | 'dark'
 
   function apply(mode) {
-    const actual = appliedThemeFromMode(mode);
-    document.documentElement.setAttribute('data-theme', actual);
-    // expose current applied theme value
-    document.documentElement.dataset.vkineThemeMode = mode || 'system';
-    document.dispatchEvent(new CustomEvent('vkine-theme-changed', { detail: { mode, applied: actual } }));
+    document.documentElement.setAttribute('data-theme', mode);
+    document.documentElement.dataset.vkineThemeMode = mode;
+    document.dispatchEvent(new CustomEvent('vkine-theme-changed', { detail: { mode, applied: mode } }));
   }
 
   function set(mode) {
     try {
-      if (mode === 'system') {
-        localStorage.removeItem(storageKey);
-      } else {
-        localStorage.setItem(storageKey, mode);
-      }
+      localStorage.setItem(storageKey, mode);
     } catch (e) {
       console.warn('Could not persist theme', e);
     }
@@ -31,15 +18,15 @@
 
   function get() {
     try {
-      return localStorage.getItem(storageKey) || 'system';
+      const stored = localStorage.getItem(storageKey);
+      return stored === 'dark' ? 'dark' : 'light';
     } catch (e) {
-      return 'system';
+      return 'light';
     }
   }
 
   function init() {
-    const stored = get();
-    apply(stored);
+    apply(get());
 
     // DOM fallback: allow elements with `.toggle-theme` to toggle theme even when Blazor/interop is not connected
     document.addEventListener('click', function (ev) {
@@ -54,17 +41,6 @@
         console.warn('[vkine-theme] click-handler error', err);
       }
     });
-
-    // react to OS preference changes when mode is system
-    if (window.matchMedia) {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      mq.addEventListener && mq.addEventListener('change', (e) => {
-        const current = get();
-        if (!current || current === 'system') {
-          apply('system');
-        }
-      });
-    }
   }
 
   // expose API
@@ -74,8 +50,7 @@
     set,
     apply,
     toggle() {
-      const current = get();
-      const next = current === 'system' ? 'dark' : current === 'dark' ? 'light' : 'system';
+      const next = get() === 'dark' ? 'light' : 'dark';
       set(next);
       return next;
     }
