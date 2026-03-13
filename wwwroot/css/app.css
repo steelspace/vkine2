@@ -50,7 +50,7 @@
     --dark-bg-primary: #0B0B0D;
     --dark-bg-secondary: #0F0F11;
     --dark-bg-tertiary: #1C1C1E;
-    --dark-separator: rgba(255,255,255,0.06);
+    --dark-separator: rgba(255,255,255,0.18);
 
     /* Shadows */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);

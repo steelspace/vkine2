@@ -24,7 +24,7 @@
 /* Dark theme: use a dark translucent toolbar to match theme variables */
 html[data-theme="dark"] .sticky-toolbar {
     background: var(--toolbar-bg);
-    border-bottom-color: var(--separator);
+    border-bottom-color: rgba(255,255,255,0.08);
 }
 
 .sticky-toolbar.toolbar-hidden {
@@ -347,6 +347,7 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
     background: var(--fill-tertiary);
     border-radius: 9px;
     padding: 2px;
+    border: 1.5px solid var(--separator);
 }
 
 .segment {
@@ -644,10 +645,19 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
     }
 
     /* Stretch filter controls (except sort) to full width when stacked on small screens */
-    .toolbar-row > :not(.sort-group),
-    .toolbar-search-row > :not(.sort-group) {
+    .toolbar-row > :not(.sort-group) {
         flex: 1 1 100%;
         min-width: 0;
+    }
+
+    /* Search field takes all remaining space; controls stay fixed */
+    .toolbar-search-row .search-field {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .toolbar-search-row .toolbar-controls {
+        flex-shrink: 0;
     }
 }
 
