@@ -252,11 +252,11 @@ export function initStickyToolbar(toolbarElement) {
             const currentY = window.scrollY;
             // Only hide/show after scrolling past the toolbar's own height
             if (currentY > 80) {
-                if (currentY > lastScrollY + 5) {
+                if (currentY > lastScrollY + 20) {
                     // Scrolling down — hide
                     toolbarElement.classList.add('toolbar-hidden');
-                } else if (currentY < lastScrollY - 3) {
-                    // Scrolling up (even slightly) — show
+                } else if (currentY < lastScrollY - 5) {
+                    // Scrolling up — show
                     toolbarElement.classList.remove('toolbar-hidden');
                 }
             } else {
@@ -267,6 +267,13 @@ export function initStickyToolbar(toolbarElement) {
             ticking = false;
         });
     };
+
+    // When the toolbar changes height (e.g. time slider expands), reset lastScrollY
+    // so layout-shift-induced scroll deltas don't falsely trigger hide.
+    const toolbarResizeObs = new ResizeObserver(() => {
+        lastScrollY = window.scrollY;
+    });
+    toolbarResizeObs.observe(toolbarElement);
 
     window.addEventListener('scroll', scrollHandler, { passive: true });
 }
