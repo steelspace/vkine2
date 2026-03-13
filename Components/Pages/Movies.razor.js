@@ -84,7 +84,9 @@ export function initDateRangePicker(inputElement, dotnetReference) {
         dateFormat: 'Y-m-d',
         altInput: true,
         altFormat: isCzech ? 'j. M.' : 'M j',
-        locale: isCzech && flatpickr.l10ns && flatpickr.l10ns.cs ? flatpickr.l10ns.cs : undefined,
+        locale: isCzech && flatpickr.l10ns && flatpickr.l10ns.cs
+            ? { ...flatpickr.l10ns.cs, weekdays: { ...flatpickr.l10ns.cs.weekdays, shorthand: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'] } }
+            : { firstDayOfWeek: 1, weekdays: { shorthand: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'], longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] } },
         minDate: 'today',
         allowInput: false,
         clickOpens: true,
