@@ -459,14 +459,23 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         movies.AddRange(sorted);
     }
 
+    private static string GetSortTitle(Movie? movie)
+    {
+        if (movie is null) return "\uffff";
+        var isCzech = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "cs";
+        return isCzech
+            ? (string.IsNullOrEmpty(movie.Title) ? movie.TitleEn : movie.Title)
+            : (string.IsNullOrEmpty(movie.TitleEn) ? movie.Title : movie.TitleEn);
+    }
+
     private List<(int Id, Movie? Movie)> ApplySort(List<(int Id, Movie? Movie)> items) => (_currentSort switch
     {
         SortField.Rating => _sortAscending
             ? items.OrderBy(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
             : items.OrderByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1),
         SortField.Name => _sortAscending
-            ? items.OrderBy(x => x.Movie?.Title ?? "\uffff", StringComparer.OrdinalIgnoreCase)
-            : items.OrderByDescending(x => x.Movie?.Title ?? "", StringComparer.OrdinalIgnoreCase),
+            ? items.OrderBy(x => GetSortTitle(x.Movie), StringComparer.Create(CultureInfo.CurrentUICulture, ignoreCase: true))
+            : items.OrderByDescending(x => GetSortTitle(x.Movie), StringComparer.Create(CultureInfo.CurrentUICulture, ignoreCase: true)),
         SortField.ReleaseDate => _sortAscending
             ? items.OrderBy(x => ParseFirstYear(x.Movie?.Year, 9999))
                    .ThenByDescending(x => x.Movie is not null ? CalculateAverageRating(x.Movie) : -1)
