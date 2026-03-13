@@ -86,13 +86,16 @@ public partial class MovieModal : ComponentBase
             {
                 _wasOpen = true;
                 await JS.InvokeVoidAsync("vkineMovie.lockScroll");
+                await JS.InvokeVoidAsync("vkineMovie.pushModalHistory");
             }
             await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
+            await JS.InvokeVoidAsync("vkineMovie.setupSwipeToClose");
         }
         else if (_wasOpen)
         {
             _wasOpen = false;
             await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
+            await JS.InvokeVoidAsync("vkineMovie.popModalHistory");
         }
     }
 

@@ -1,4 +1,75 @@
 (function () {
+  // ── History API: browser back button closes modal ────────────────
+  let _closedViaPopState = false;
+
+  function pushModalHistory() {
+    history.pushState({ vkineModal: true }, '');
+  }
+
+  function popModalHistory() {
+    if (_closedViaPopState) {
+      _closedViaPopState = false;
+      return;
+    }
+    if (history.state && history.state.vkineModal) {
+      history.back();
+    }
+  }
+
+  window.addEventListener('popstate', () => {
+    const modal = document.querySelector('[data-testid="movie-modal"]');
+    if (!modal) return;
+    _closedViaPopState = true;
+    const close = modal.querySelector('[data-testid="modal-close"]');
+    if (close) close.click();
+  });
+
+  // ── Swipe-down to close ──────────────────────────────────────────
+  function setupSwipeToClose() {
+    const content = document.querySelector('[data-testid="movie-modal-content"]');
+    if (!content || content.dataset.swipeBound === '1') return;
+    content.dataset.swipeBound = '1';
+
+    let startY = 0;
+    let startScrollTop = 0;
+    let dragging = false;
+
+    content.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      startScrollTop = content.scrollTop;
+      dragging = false;
+    }, { passive: true });
+
+    content.addEventListener('touchmove', (e) => {
+      const dy = e.touches[0].clientY - startY;
+      if (startScrollTop <= 0 && dy > 0) {
+        dragging = true;
+        const clamped = Math.min(dy, window.innerHeight * 0.6);
+        content.style.transition = 'none';
+        content.style.transform = `translateY(${clamped}px)`;
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    content.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      const dy = e.changedTouches[0].clientY - startY;
+      content.style.transition = '';
+      if (dy > 80) {
+        content.style.transition = 'transform 0.25s ease';
+        content.style.transform = `translateY(100%)`;
+        setTimeout(() => {
+          const close = document.querySelector('[data-testid="modal-close"]');
+          if (close) close.click();
+        }, 220);
+      } else {
+        content.style.transform = '';
+      }
+      dragging = false;
+    }, { passive: true });
+  }
+
+
   // Analyze the top area of a backdrop image and toggle .backdrop-light / .backdrop-dark
   function analyzeBackdrop(img, containerSelector) {
     try {
@@ -137,6 +208,9 @@
     unlockScroll,
     updateSkipButton,
     updateScrollTopButton,
-    setupModalScrollControls
+    setupModalScrollControls,
+    pushModalHistory,
+    popModalHistory,
+    setupSwipeToClose
   });
 })();
