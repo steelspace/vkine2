@@ -39,6 +39,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private bool _datePickerInitialized;
     private ElementReference _dateRangeInput;
     private bool _isDateFiltering;
+    private bool _isDraggingTimeSlider;
 
     // Time-of-day filter (minutes from midnight; 540 = 9:00 = off / leftmost)
     private int _timeFromMinutes = 540;
@@ -153,8 +154,17 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         await ApplyFilters();
     }
 
+    protected override bool ShouldRender() => !_isDraggingTimeSlider;
+
+    private void OnTimeFromInput(ChangeEventArgs e)
+    {
+        _isDraggingTimeSlider = true;
+        _timeFromMinutes = int.Parse(e.Value?.ToString() ?? "0");
+    }
+
     private async Task OnTimeFromChanged(ChangeEventArgs e)
     {
+        _isDraggingTimeSlider = false;
         _timeFromMinutes = int.Parse(e.Value?.ToString() ?? "0");
         await ApplyFilters();
     }

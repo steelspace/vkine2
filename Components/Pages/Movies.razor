@@ -55,7 +55,7 @@
 <div data-testid="time-filter" class="time-filter">
                 <span id="time-filter-value" class="time-filter-value @(_timeFromMinutes > TimeSliderMin ? "active" : "")">@TimeFromLabel</span>
                 <input data-testid="time-slider" type="range" class="time-slider" min="540" max="1410" step="30"
-                       value="@_timeFromMinutes" @onchange="OnTimeFromChanged" aria-describedby="time-filter-value" />
+                       value="@_timeFromMinutes" @oninput="OnTimeFromInput" @onchange="OnTimeFromChanged" aria-describedby="time-filter-value" />
             </div>
 
             
@@ -147,7 +147,7 @@
             {
                 <div class="filter-chips-time-expand">
                     <input type="range" class="time-slider chip-time-slider" min="540" max="1410" step="30"
-                           value="@_timeFromMinutes" @onchange="OnTimeFromChanged"
+                           value="@_timeFromMinutes" @oninput="OnTimeFromInput" @onchange="OnTimeFromChanged"
                            aria-label="@Localizer["TimeSliderOff"]" />
                     <span id="chip-time-label" class="time-filter-value @(_timeFromMinutes > TimeSliderMin ? "active" : "")"
                           data-off="@Localizer["TimeSliderOff"]">@TimeFromLabel</span>

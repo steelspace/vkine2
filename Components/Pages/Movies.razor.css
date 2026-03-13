@@ -254,8 +254,9 @@ html[data-theme="dark"] .sticky-toolbar {
 .time-filter {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     min-width: 160px;
+    padding-left: 8px;
 }
 
 .time-filter-value {
@@ -263,7 +264,11 @@ html[data-theme="dark"] .sticky-toolbar {
     font-size: var(--font-size-footnote);
     color: var(--text-tertiary);
     white-space: nowrap;
-    width: 4.5em;
+    width: 3.2em;
+    min-width: 3.2em;
+    max-width: 3.2em;
+    text-align: right;
+    padding-right: 4px;
     transition: color var(--duration-fast) var(--ease-default);
 }
 
@@ -338,7 +343,8 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
     font-size: var(--font-size-footnote);
     color: var(--text-secondary);
     font-weight: 500;
-    margin-right: 0.25rem;
+    margin-left: 0.75rem;
+    margin-right: 0;
     white-space: nowrap;
 }
 
