@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 set -e
 
 SSH_KEY=~/.ssh/oracle_vm
