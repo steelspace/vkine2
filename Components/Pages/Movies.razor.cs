@@ -38,7 +38,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private DateOnly? _dateTo;
     private bool _datePickerInitialized;
     private ElementReference _dateRangeInput;
-    private bool _isDateFiltering;
     private bool _isDraggingTimeSlider;
 
     // Time-of-day filter (minutes from midnight; 540 = 9:00 = off / leftmost)
@@ -50,7 +49,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private SortField _currentSort = SortField.Rating;
     private bool _sortAscending = false;
     private List<int>? _unsortedMovieIds;
-    private bool _isSortLoading;
 
     // All movie IDs (ordered by earliest showtime) — loaded once, persisted across prerender
     [PersistentState]
@@ -280,9 +278,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     /// </summary>
     private async Task ApplyFilters()
     {
-        _isDateFiltering = true;
-        StateHasChanged();
-
         if (_dateFrom.HasValue && _dateTo.HasValue)
         {
             AllMovieIds = await ScheduleService.GetMovieIdsInDateRangeAsync(
@@ -309,7 +304,6 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         }
 
         _jsInitialized = false;
-        _isDateFiltering = false;
         StateHasChanged();
     }
 
@@ -429,13 +423,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         // Save unsorted order
         _unsortedMovieIds ??= AllMovieIds.ToList();
 
-        _isSortLoading = true;
-        StateHasChanged();
-
         await EnsureAllMoviesLoadedAsync();
         SortMovieIds();
 
-        _isSortLoading = false;
         _jsInitialized = false;
         StateHasChanged();
     }
