@@ -30,7 +30,7 @@
 }
 
 .page-nav-item.active {
-    background: var(--bg-tertiary);
+    background: var(--control-active-bg);
     color: var(--text-primary);
     font-weight: 600;
     box-shadow: var(--shadow-sm);

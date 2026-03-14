@@ -347,7 +347,7 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
 .segmented-control {
     display: inline-flex;
     background: var(--fill-tertiary);
-    border-radius: 9px;
+    border-radius: var(--radius-pill);
     padding: 2px;
     border: 1.5px solid var(--separator);
 }
@@ -357,7 +357,7 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
     align-items: center;
     gap: 3px;
     padding: 6px 14px;
-    border-radius: 7px;
+    border-radius: var(--radius-pill);
     font-size: var(--font-size-footnote);
     font-weight: 500;
     color: var(--text-secondary);
@@ -371,7 +371,7 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
 }
 
 .segment.active {
-    background: var(--bg-secondary);
+    background: var(--control-active-bg);
     color: var(--text-primary);
     font-weight: 600;
     box-shadow: var(--shadow-sm);
