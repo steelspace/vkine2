@@ -17,12 +17,13 @@
     --bg-primary: #F2F2F7;
     --bg-secondary: #FFFFFF;
     --bg-tertiary: #E5E5EA;
-    --bg-grouped: #F2F2F7;
 
     /* Fills */
     --fill-primary: rgba(120, 120, 128, 0.2);
     --fill-secondary: rgba(120, 120, 128, 0.16);
     --fill-tertiary: rgba(120, 120, 128, 0.12);
+    --surface-secondary: rgba(120, 120, 128, 0.08);
+    --surface-tertiary: rgba(120, 120, 128, 0.14);
 
     /* Overlay / UI helpers */
     --overlay: rgba(0, 0, 0, 0.4);

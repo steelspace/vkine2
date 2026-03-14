@@ -154,10 +154,6 @@ html[data-theme="dark"] .sticky-toolbar {
     transform: scale(0.85);
 }
 
-/* ── Inline Spinner ──────────────────────────────────────────── */
-
-/* spinner removed */
-
 /* ── Filters ──────────────────────────────────────────────────── */
 .date-range-picker {
     position: relative;
@@ -503,7 +499,7 @@ html[data-theme="dark"] .time-slider::-moz-range-thumb {
 }
 
 @keyframes shimmer {
-    0% { background-position: 200% 0; }
+    0%   { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
 

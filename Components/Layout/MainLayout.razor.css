@@ -16,10 +16,3 @@
     padding-top: 0;
 }
 
-/* ── Responsive ──────────────────────────────────────────────── */
-
-@media (max-width: 480px) {
-    .nav-bar-content {
-        padding: 0 16px;
-    }
-}

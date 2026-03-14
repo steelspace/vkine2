@@ -35,7 +35,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    opacity: 1;
 }
 
 .movie-card.lazy-load .movie-poster img {
@@ -105,7 +104,7 @@
     margin: 0;
 }
 
- .movie-year {
+.movie-year {
     font-weight: 600;
     color: var(--text-secondary);
 }

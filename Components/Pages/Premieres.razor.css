@@ -120,6 +120,6 @@
     }
 
     .premiere-date-header {
-        font-size: var(--font-size-headline);
+        font-size: var(--font-size-body);
     }
 }
