@@ -56,10 +56,33 @@
     }
   };
 
+  function getPreferred() {
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored === 'dark' || stored === 'light') return stored;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } catch (e) {
+      return 'light';
+    }
+  }
+
+  // Guard against Blazor's DOM morph stripping data-theme from <html>
+  function installThemeGuard() {
+    new MutationObserver(() => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const preferred = getPreferred();
+      if (current !== preferred) {
+        document.documentElement.setAttribute('data-theme', preferred);
+        document.documentElement.dataset.vkineThemeMode = preferred;
+      }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
   // auto init on load
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => { init(); installThemeGuard(); });
   } else {
     init();
+    installThemeGuard();
   }
 })();
