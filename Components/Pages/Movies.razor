@@ -193,6 +193,10 @@
                 {
                     <span class="stats-date-range">@_dateFrom.Value.ToString("MMM d", CultureInfo.CurrentCulture) – @_dateTo.Value.ToString(_dateTo.Value.Year == _dateFrom.Value.Year ? "MMM d" : "MMM d, yyyy", CultureInfo.CurrentCulture)</span>
                 }
+                @if (TimeFromValue.HasValue)
+                {
+                    <span class="stats-date-range">@Localizer["StatsTimeFrom", TimeFromLabel]</span>
+                }
             </p>
         </div>
 

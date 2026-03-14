@@ -48,4 +48,7 @@
   <data name="TimeSliderOff" xml:space="preserve">
     <value>Čas</value>
   </data>
+  <data name="StatsTimeFrom" xml:space="preserve">
+    <value>od {0}</value>
+  </data>
 </root>
