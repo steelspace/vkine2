@@ -5,6 +5,14 @@ let pendingIds = new Set();
 let debounceTimer = null;
 let flatpickrInstance = null;
 let scrollHandler = null;
+let searchPlaceholderResizeHandler = null;
+
+function updateSearchPlaceholder(input) {
+    const full = input.getAttribute('aria-label') || input.getAttribute('placeholder');
+    const short = input.getAttribute('data-placeholder-short');
+    if (!short) return;
+    input.setAttribute('placeholder', window.innerWidth <= 768 ? short : full);
+}
 
 export function observeCards(gridElement, dotnetReference) {
     // Disconnect previous observer if re-attaching after search clear
@@ -223,6 +231,14 @@ export function initStickyToolbar(toolbarElement) {
         if (searchInput && !searchInput.getAttribute('aria-label')) {
             const placeholder = searchInput.getAttribute('placeholder') || 'Search';
             searchInput.setAttribute('aria-label', placeholder);
+        }
+        if (searchInput) {
+            updateSearchPlaceholder(searchInput);
+            if (searchPlaceholderResizeHandler) {
+                window.removeEventListener('resize', searchPlaceholderResizeHandler);
+            }
+            searchPlaceholderResizeHandler = () => updateSearchPlaceholder(searchInput);
+            window.addEventListener('resize', searchPlaceholderResizeHandler, { passive: true });
         }
 
         const dateInput = toolbarElement.querySelector('.date-range-input');

@@ -329,23 +329,6 @@ html[data-theme="dark"] .time-slider::-moz-range-track {
     background: rgba(255, 255, 255, 0.22);
 }
 
-@media (prefers-color-scheme: dark) {
-    .time-slider {
-        background: rgba(255, 255, 255, 0.22);
-    }
-
-    .time-slider::-webkit-slider-thumb {
-        background: rgba(255, 255, 255, 0.9);
-    }
-
-    .time-slider::-moz-range-thumb {
-        background: rgba(255, 255, 255, 0.9);
-    }
-
-    .time-slider::-moz-range-track {
-        background: rgba(255, 255, 255, 0.22);
-    }
-}
 
 .time-slider::-moz-range-track {
     height: 4px;

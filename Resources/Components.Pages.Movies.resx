@@ -15,6 +15,9 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Search movies, descriptions, cast and crew</value>
   </data>
+  <data name="SearchPlaceholderShort" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="ClearSearch" xml:space="preserve">
     <value>Clear search</value>
   </data>
