@@ -115,7 +115,7 @@
                     }
                 </button>
 
-                <button class="filter-chip @(_timeFromMinutes > TimeSliderMin ? "active" : "") @(_timeChipOpen ? "chip-expanded" : "")" type="button" @onclick="ToggleTimeChip">
+                <button class="filter-chip @(_timeFromMinutes > TimeSliderMin ? "active" : "") @(_timeChipOpen ? "chip-expanded" : "")" type="button" data-testid="time-chip-toggle" @onclick="ToggleTimeChip">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <circle cx="12" cy="12" r="10"/>
                         <polyline points="12 6 12 12 16 14"/>

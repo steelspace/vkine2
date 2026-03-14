@@ -124,6 +124,7 @@ export function initDateRangePicker(inputElement, dotnetReference) {
             const aria = inputElement.getAttribute('aria-label') || inputElement.getAttribute('placeholder') || 'Date range';
             if (!alt.getAttribute('aria-label')) alt.setAttribute('aria-label', aria);
             if (!alt.getAttribute('role')) alt.setAttribute('role', 'textbox');
+            alt.setAttribute('data-testid', 'date-range-input-visible');
         }
     } catch (err) {
         // best-effort

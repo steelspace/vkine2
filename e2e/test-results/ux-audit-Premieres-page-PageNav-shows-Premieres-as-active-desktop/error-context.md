@@ -1,0 +1,109 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - heading "An unhandled exception occurred while processing the request." [level=1] [ref=e2]
+  - generic [ref=e3]:
+    - text: "TimeoutException: A timeout occurred after 30001ms selecting a server using CompositeServerSelector{ Selectors = ReadPreferenceServerSelector{ ReadPreference = { Mode : Primary } }, LatencyLimitingServerSelector{ AllowedLatencyRange = 00:00:00.0150000 }, OperationsCountServerSelector }. Client view of cluster state is { ClusterId : \"1\", Type : \"ReplicaSet\", State : \"Connected\", Servers : [{ ServerId: \"{ ClusterId : 1, EndPoint : \"Unspecified/movies-shard-00-00.uk2du.azure.mongodb.net:27017\" }\", EndPoint: \"Unspecified/movies-shard-00-00.uk2du.azure.mongodb.net:27017\", ReasonChanged: \"Heartbeat\", State: \"Connected\", ServerVersion: 8.0.0, TopologyVersion: { \"processId\" : { \"$oid\" : \"69b2ebbdbcd22fcfb9ed447a\" }, \"counter\" : 4 }, Type: \"ReplicaSetSecondary\", Tags: \"{ availabilityZone : 1, diskState : READY, nodeType : ELECTABLE, provider : AZURE, region : EUROPE_NORTH, workloadType : OPERATIONAL }\", WireVersionRange: \"[0, 25]\", LastHeartbeatTimestamp: \"2026-03-14T14:39:45.8922950Z\", LastUpdateTimestamp: \"2026-03-14T14:39:45.8922950Z\" }, { ServerId: \"{ ClusterId : 1, EndPoint : \"Unspecified/movies-shard-00-01.uk2du.azure.mongodb.net:27017\" }\", EndPoint: \"Unspecified/movies-shard-00-01.uk2du.azure.mongodb.net:27017\", ReasonChanged: \"Heartbeat\", State: \"Disconnected\", ServerVersion: , TopologyVersion: , Type: \"Unknown\", HeartbeatException: \"MongoDB.Driver.MongoConnectionException: An exception occurred while receiving a message from the server."
+    - text: "---> System.TimeoutException: The operation has timed out."
+    - text: "at MongoDB.Driver.Core.Misc.StreamExtensionMethods.ExecuteOperationWithTimeout[TState](Stream stream, TState state, Action`2 operation, Int32 timeoutMs, CancellationToken cancellationToken)"
+    - text: at MongoDB.Driver.Core.Misc.StreamExtensionMethods.ReadBytes(Stream stream, Byte[] buffer, Int32 offset, Int32 count, Int32 timeoutMs, CancellationToken cancellationToken)
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveBuffer(OperationContext operationContext)
+    - text: "--- End of inner exception stack trace ---"
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveBuffer(OperationContext operationContext)
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveMessage(OperationContext operationContext, Int32 responseTo, IMessageEncoderSelector encoderSelector, MessageEncoderSettings messageEncoderSettings)
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.SendMessageAndProcessResponse(OperationContext operationContext, CommandRequestMessage message, Int32 responseTo, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.Execute(OperationContext operationContext, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandWireProtocol`1.Execute(OperationContext operationContext, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.Connections.HelloHelper.GetResult(OperationContext operationContext, IConnection connection, CommandWireProtocol`1 helloProtocol)"
+    - text: "at MongoDB.Driver.Core.Servers.ServerMonitor.GetHelloResult(OperationContext operationContext, IConnection connection, CommandWireProtocol`1 helloProtocol)"
+    - text: "at MongoDB.Driver.Core.Servers.ServerMonitor.Heartbeat(CancellationToken cancellationToken)\", LastHeartbeatTimestamp: \"2026-03-14T14:39:25.8798090Z\", LastUpdateTimestamp: \"2026-03-14T14:39:25.8798100Z\" }, { ServerId: \"{ ClusterId : 1, EndPoint : \"Unspecified/movies-shard-00-02.uk2du.azure.mongodb.net:27017\" }\", EndPoint: \"Unspecified/movies-shard-00-02.uk2du.azure.mongodb.net:27017\", ReasonChanged: \"Heartbeat\", State: \"Disconnected\", ServerVersion: , TopologyVersion: , Type: \"Unknown\", HeartbeatException: \"MongoDB.Driver.MongoConnectionException: An exception occurred while receiving a message from the server."
+    - text: "---> System.TimeoutException: The operation has timed out."
+    - text: "at MongoDB.Driver.Core.Misc.StreamExtensionMethods.ExecuteOperationWithTimeout[TState](Stream stream, TState state, Action`2 operation, Int32 timeoutMs, CancellationToken cancellationToken)"
+    - text: at MongoDB.Driver.Core.Misc.StreamExtensionMethods.ReadBytes(Stream stream, Byte[] buffer, Int32 offset, Int32 count, Int32 timeoutMs, CancellationToken cancellationToken)
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveBuffer(OperationContext operationContext)
+    - text: "--- End of inner exception stack trace ---"
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveBuffer(OperationContext operationContext)
+    - text: at MongoDB.Driver.Core.Connections.BinaryConnection.ReceiveMessage(OperationContext operationContext, Int32 responseTo, IMessageEncoderSelector encoderSelector, MessageEncoderSettings messageEncoderSettings)
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.SendMessageAndProcessResponse(OperationContext operationContext, CommandRequestMessage message, Int32 responseTo, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandUsingCommandMessageWireProtocol`1.Execute(OperationContext operationContext, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.WireProtocol.CommandWireProtocol`1.Execute(OperationContext operationContext, IConnection connection)"
+    - text: "at MongoDB.Driver.Core.Connections.HelloHelper.GetResult(OperationContext operationContext, IConnection connection, CommandWireProtocol`1 helloProtocol)"
+    - text: "at MongoDB.Driver.Core.Servers.ServerMonitor.GetHelloResult(OperationContext operationContext, IConnection connection, CommandWireProtocol`1 helloProtocol)"
+    - text: "at MongoDB.Driver.Core.Servers.ServerMonitor.Heartbeat(CancellationToken cancellationToken)\", LastHeartbeatTimestamp: \"2026-03-14T14:39:47.9126480Z\", LastUpdateTimestamp: \"2026-03-14T14:39:47.9126480Z\" }] }."
+  - paragraph [ref=e4]: MongoDB.Driver.Core.Clusters.Cluster.SelectServerAsync(OperationContext operationContext, IServerSelector selector)
+  - list [ref=e5]:
+    - listitem [ref=e6] [cursor=pointer]: Stack
+    - listitem [ref=e7] [cursor=pointer]: Query
+    - listitem [ref=e8] [cursor=pointer]: Cookies
+    - listitem [ref=e9] [cursor=pointer]: Headers
+    - listitem [ref=e10] [cursor=pointer]: Routing
+  - list [ref=e12]:
+    - listitem [ref=e13]:
+      - heading [level=2] [ref=e14]
+      - list [ref=e15]:
+        - listitem [ref=e16]:
+          - heading "MongoDB.Driver.Core.Clusters.Cluster.SelectServerAsync(OperationContext operationContext, IServerSelector selector)" [level=3] [ref=e17]
+        - listitem [ref=e18]:
+          - heading "MongoDB.Driver.Core.Clusters.IClusterExtensions.SelectServerAndPinIfNeededAsync(IClusterInternal cluster, OperationContext operationContext, ICoreSessionHandle session, IServerSelector selector, IReadOnlyCollection<ServerDescription> deprioritizedServers)" [level=3] [ref=e19]
+        - listitem [ref=e20]:
+          - heading "MongoDB.Driver.Core.Bindings.ReadPreferenceBinding.GetReadChannelSourceAsync(OperationContext operationContext, IReadOnlyCollection<ServerDescription> deprioritizedServers)" [level=3] [ref=e21]
+        - listitem [ref=e22]:
+          - heading "MongoDB.Driver.Core.Operations.RetryableReadContext.AcquireOrReplaceChannelAsync(OperationContext operationContext, IReadOnlyCollection<ServerDescription> deprioritizedServers)" [level=3] [ref=e23]
+        - listitem [ref=e24]:
+          - heading "MongoDB.Driver.Core.Operations.RetryableReadContext.CreateAsync(OperationContext operationContext, IReadBinding binding, bool retryRequested)" [level=3] [ref=e25]
+        - listitem [ref=e26]:
+          - heading "MongoDB.Driver.Core.Operations.FindOperation<TDocument>.ExecuteAsync(OperationContext operationContext, IReadBinding binding)" [level=3] [ref=e27]
+        - listitem [ref=e28]:
+          - heading "MongoDB.Driver.OperationExecutor.ExecuteReadOperationAsync<TResult>(OperationContext operationContext, IClientSessionHandle session, IReadOperation<TResult> operation, ReadPreference readPreference, bool allowChannelPinning)" [level=3] [ref=e29]
+        - listitem [ref=e30]:
+          - heading "MongoDB.Driver.MongoCollectionImpl<TDocument>.ExecuteReadOperationAsync<TResult>(IClientSessionHandle session, IReadOperation<TResult> operation, ReadPreference explicitReadPreference, Nullable<TimeSpan> timeout, CancellationToken cancellationToken)" [level=3] [ref=e31]
+        - listitem [ref=e32]:
+          - heading "MongoDB.Driver.MongoCollectionImpl<TDocument>.FindAsync<TProjection>(FilterDefinition<TDocument> filter, FindOptions<TDocument, TProjection> options, CancellationToken cancellationToken)" [level=3] [ref=e33]
+        - listitem [ref=e34]:
+          - heading "MongoDB.Driver.IAsyncCursorSourceExtensions.ToListAsync<TDocument>(IAsyncCursorSource<TDocument> source, CancellationToken cancellationToken)" [level=3] [ref=e35]
+        - listitem [ref=e36]:
+          - heading "vkine.Services.PremiereService.GetUpcomingPremieresAsync() in PremiereService.cs" [level=3] [ref=e37]:
+            - text: vkine.Services.PremiereService.GetUpcomingPremieresAsync() in
+            - code [ref=e38]: PremiereService.cs
+          - button "+" [ref=e39] [cursor=pointer]
+          - list [ref=e41]:
+            - listitem [ref=e42]: var all = await _collection.Find(_ => true).ToListAsync();
+        - listitem [ref=e43]:
+          - heading "vkine.Components.Pages.Premieres.OnInitializedAsync() in Premieres.razor.cs" [level=3] [ref=e44]:
+            - text: vkine.Components.Pages.Premieres.OnInitializedAsync() in
+            - code [ref=e45]: Premieres.razor.cs
+          - button "+" [ref=e46] [cursor=pointer]
+          - list [ref=e48]:
+            - listitem [ref=e49]: var premieres = await PremiereService.GetUpcomingPremieresAsync();
+        - listitem [ref=e50]:
+          - heading "Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()" [level=3] [ref=e51]
+        - listitem [ref=e52]:
+          - heading "Microsoft.AspNetCore.Components.RenderTree.Renderer.GetErrorHandledTask(Task taskToHandle, ComponentState owningComponentState)" [level=3] [ref=e53]
+        - listitem [ref=e54]:
+          - heading "Microsoft.AspNetCore.Components.RenderTree.Renderer.GetErrorHandledTask(Task taskToHandle, ComponentState owningComponentState)" [level=3] [ref=e55]
+        - listitem [ref=e56]:
+          - heading "Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.<WaitForNonStreamingPendingTasks>g__Execute|58_0()" [level=3] [ref=e57]
+        - listitem [ref=e58]:
+          - heading "Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.WaitForResultReady(bool waitForQuiescence, PrerenderedComponentHtmlContent result)" [level=3] [ref=e59]
+        - listitem [ref=e60]:
+          - heading "Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, bool waitForQuiescence)" [level=3] [ref=e61]
+        - listitem [ref=e62]:
+          - heading "System.Runtime.CompilerServices.ValueTaskAwaiter<TResult>.GetResult()" [level=3] [ref=e63]
+        - listitem [ref=e64]:
+          - heading "Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)" [level=3] [ref=e65]
+        - listitem [ref=e66]:
+          - heading "Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)" [level=3] [ref=e67]
+        - listitem [ref=e68]:
+          - heading "Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext+<>c+<<InvokeAsync>b__10_0>d.MoveNext()" [level=3] [ref=e69]
+        - listitem [ref=e70]:
+          - heading "Microsoft.AspNetCore.Builder.ServerRazorComponentsEndpointConventionBuilderExtensions+<>c__DisplayClass1_1+<<AddInteractiveServerRenderMode>b__1>d.MoveNext()" [level=3] [ref=e71]
+        - listitem [ref=e72]:
+          - heading "Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)" [level=3] [ref=e73]
+        - listitem [ref=e74]:
+          - heading "Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)" [level=3] [ref=e75]
+        - listitem [ref=e76]:
+          - heading "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)" [level=3] [ref=e77]
+    - listitem [ref=e78]:
+      - button "Show raw exception details" [ref=e80] [cursor=pointer]
+```
