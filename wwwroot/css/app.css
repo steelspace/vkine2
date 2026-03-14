@@ -195,7 +195,7 @@ html[data-theme="dark"] {
 
     --separator: var(--dark-separator);
     --separator-opaque: rgba(255,255,255,0.06);
-    --control-active-bg: #2C2C2E;
+    --control-active-bg: #3A3A3C;
 }
 
 /* Ensure explicit light theme overrides OS dark preference when user chooses "light" */
@@ -220,6 +220,7 @@ html[data-theme="light"] {
 
     --separator: rgba(60, 60, 67, 0.12);
     --separator-opaque: #C6C6C8;
+    --control-active-bg: #FFFFFF;
 }
 
 /* ── Light-theme backdrop placeholder ────────────────────────── */
@@ -257,6 +258,6 @@ html[data-theme="dark"]  .theme-toggle .icon-moon { display: inline-block; }
 
         --separator: var(--dark-separator);
         --separator-opaque: rgba(255,255,255,0.06);
-        --control-active-bg: #2C2C2E;
+        --control-active-bg: #3A3A3C;
     }
 }
