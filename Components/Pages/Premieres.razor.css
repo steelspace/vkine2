@@ -3,6 +3,8 @@
 .premieres-toolbar {
     display: flex;
     justify-content: flex-end;
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 12px 20px 0;
     gap: 0.5rem;
     align-items: center;
