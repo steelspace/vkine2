@@ -138,6 +138,12 @@
     margin-top: auto;
 }
 
+/* ── Dark theme ──────────────────────────────────────────────── */
+
+:root[data-theme="dark"] .movie-info {
+    background: var(--bg-tertiary);
+}
+
 /* ── Responsive ──────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
