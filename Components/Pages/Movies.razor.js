@@ -77,7 +77,7 @@ export function observeCards(gridElement, dotnetReference) {
     observePosterImages(gridElement);
 }
 
-export function initDateRangePicker(inputElement, dotnetReference) {
+export function initDateRangePicker(inputElement, dotnetReference, defaultDates) {
     if (flatpickrInstance) {
         flatpickrInstance.destroy();
     }
@@ -116,6 +116,11 @@ export function initDateRangePicker(inputElement, dotnetReference) {
             }
         }
     });
+
+    // Pre-select dates from URL without triggering onChange (false = no event)
+    if (defaultDates?.length) {
+        flatpickrInstance.setDate(defaultDates, false);
+    }
 
     // copy accessible name to the altInput that flatpickr creates
     try {

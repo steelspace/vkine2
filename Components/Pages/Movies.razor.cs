@@ -1,6 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using vkine.Models;
@@ -21,6 +22,9 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
 
     private bool isModalOpen = false;
     private Movie? selectedMovie = null;
@@ -61,16 +65,42 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
     private IJSObjectReference? _jsModule;
     private DotNetObjectReference<Movies>? _dotnetRef;
     private bool _jsInitialized;
+    private bool _sessionStorageChecked;
 
     protected override async Task OnInitializedAsync()
     {
+        var urlQuery = new Uri(NavigationManager.Uri).Query;
+
+        if (!string.IsNullOrEmpty(urlQuery))
+        {
+            ParseQueryString(urlQuery);
+            _sessionStorageChecked = true; // URL has params — no need to check sessionStorage
+        }
+        // else: _sessionStorageChecked = false, OnAfterRenderAsync will read sessionStorage
+
         // If state was restored from prerender, skip the DB call
         if (AllMovieIds.Count == 0)
         {
-            AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(0, int.MaxValue);
+            if (_dateFrom.HasValue && _dateTo.HasValue)
+            {
+                AllMovieIds = await ScheduleService.GetMovieIdsInDateRangeAsync(
+                    _dateFrom.Value, _dateTo.Value, TimeFromValue);
+            }
+            else
+            {
+                AllMovieIds = await ScheduleService.GetMovieIdsWithUpcomingPerformancesAsync(
+                    0, int.MaxValue, TimeFromValue);
+            }
         }
 
-        // Apply default sort (rating descending) — requires all movie data
+        // Restore search results if query is in the URL
+        if (!string.IsNullOrWhiteSpace(searchQuery))
+        {
+            _unfilteredSearchResults = await MovieService.SearchMoviesAsync(searchQuery, 50);
+            await ApplySearchFilters();
+        }
+
+        // Apply sort — requires all movie data
         if (_currentSort != SortField.None)
         {
             _unsortedMovieIds = AllMovieIds.ToList();
@@ -78,11 +108,81 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             SortMovieIds();
         }
 
-        isLoading = false;
+        if (_sessionStorageChecked)
+            isLoading = false;
+        // else: OnAfterRenderAsync will read sessionStorage then set isLoading = false
+    }
+
+    private void ParseQueryString(string queryString)
+    {
+        var query = QueryHelpers.ParseQuery(queryString);
+
+        if (query.TryGetValue("q", out var q) && !string.IsNullOrEmpty(q))
+            searchQuery = q.ToString();
+
+        if (query.TryGetValue("sort", out var sort) &&
+            Enum.TryParse<SortField>(sort, ignoreCase: true, out var sortField))
+            _currentSort = sortField;
+
+        _sortAscending = query.TryGetValue("asc", out var asc) && asc == "true";
+
+        if (query.TryGetValue("time", out var time) &&
+            int.TryParse(time, out var timeMinutes) && timeMinutes > TimeSliderMin)
+            _timeFromMinutes = timeMinutes;
+
+        if (query.TryGetValue("from", out var from) && DateOnly.TryParse(from, out var dateFrom))
+            _dateFrom = dateFrom;
+
+        if (query.TryGetValue("to", out var to) && DateOnly.TryParse(to, out var dateTo))
+            _dateTo = dateTo;
+    }
+
+    private async Task UpdateUrl()
+    {
+        var @params = new Dictionary<string, object?>();
+
+        if (!string.IsNullOrEmpty(searchQuery))
+            @params["q"] = searchQuery;
+
+        // Omit sort params only when they match the default (Rating, descending)
+        if (_currentSort != SortField.Rating || _sortAscending)
+            @params["sort"] = _currentSort.ToString().ToLowerInvariant();
+
+        if (_sortAscending)
+            @params["asc"] = "true";
+
+        if (_timeFromMinutes > TimeSliderMin)
+            @params["time"] = _timeFromMinutes.ToString();
+
+        if (_dateFrom.HasValue)
+            @params["from"] = _dateFrom.Value.ToString("yyyy-MM-dd");
+
+        if (_dateTo.HasValue)
+            @params["to"] = _dateTo.Value.ToString("yyyy-MM-dd");
+
+        var url = NavigationManager.GetUriWithQueryParameters(@params);
+        var queryString = new Uri(url).Query;
+        await JSRuntime.InvokeVoidAsync("history.replaceState", (object?)null, "", url);
+        await JSRuntime.InvokeVoidAsync("sessionStorage.setItem", "vkine-movies-filters", queryString);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        // Restore filters from sessionStorage when navigating back (no URL params on return)
+        if (!_sessionStorageChecked)
+        {
+            _sessionStorageChecked = true;
+            var stored = await JSRuntime.InvokeAsync<string?>("sessionStorage.getItem", "vkine-movies-filters");
+            if (!string.IsNullOrEmpty(stored))
+            {
+                ParseQueryString(stored);
+                await ApplyFilters();
+            }
+            isLoading = false;
+            StateHasChanged();
+            return;
+        }
+
         // Initialize JS module early so sticky toolbar + date picker can be set up
         if (!_datePickerInitialized && !isLoading)
         {
@@ -90,7 +190,10 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             _dotnetRef ??= DotNetObjectReference.Create(this);
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./Components/Pages/Movies.razor.js");
-            await _jsModule.InvokeVoidAsync("initDateRangePicker", _dateRangeInput, _dotnetRef);
+            var initialDates = _dateFrom.HasValue
+                ? new[] { _dateFrom.Value.ToString("yyyy-MM-dd"), (_dateTo ?? _dateFrom).Value.ToString("yyyy-MM-dd") }
+                : null;
+            await _jsModule.InvokeVoidAsync("initDateRangePicker", _dateRangeInput, _dotnetRef, initialDates);
             await _jsModule.InvokeVoidAsync("initStickyToolbar", _toolbarRef);
             await _jsModule.InvokeVoidAsync("initTimeSlider");
         }
@@ -304,16 +407,18 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         }
 
         _jsInitialized = false;
+        await UpdateUrl();
         StateHasChanged();
     }
 
-    private void ClearSearch()
+    private async Task ClearSearch()
     {
         searchQuery = string.Empty;
         searchResults.Clear();
         _unfilteredSearchResults.Clear();
         _searchCts?.Cancel();
         _jsInitialized = false;
+        await UpdateUrl();
     }
 
     private async Task OnSearchInput(ChangeEventArgs e)
@@ -334,6 +439,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
                 searchResults.Clear();
                 _unfilteredSearchResults.Clear();
                 _jsInitialized = false; // grid will re-enter the DOM, observer must re-attach
+                await UpdateUrl();
                 StateHasChanged();
                 return;
             }
@@ -347,6 +453,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             {
                 _unfilteredSearchResults = results;
                 await ApplySearchFilters();
+                await UpdateUrl();
             }
         }
         catch (TaskCanceledException) { }
@@ -375,6 +482,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
                 {
                     _unfilteredSearchResults = results;
                     await ApplySearchFilters();
+                    await UpdateUrl();
                 }
             }
             finally
@@ -416,6 +524,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         if (!string.IsNullOrWhiteSpace(searchQuery) && searchResults.Count > 0)
         {
             SortMovieList(searchResults);
+            await UpdateUrl();
             StateHasChanged();
             return;
         }
@@ -427,6 +536,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         SortMovieIds();
 
         _jsInitialized = false;
+        await UpdateUrl();
         StateHasChanged();
     }
 
