@@ -1,6 +1,6 @@
 (function () {
   const cookieName = '.AspNetCore.Culture';
-  const cookieOptions = 'path=/;SameSite=Lax';
+  const cookieOptions = 'path=/;SameSite=Lax;max-age=31536000';
 
   function safe(fn) {
     try {
