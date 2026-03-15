@@ -39,7 +39,7 @@
         @foreach (var group in groupedPremieres)
         {
             <section class="premiere-group">
-                <h2 class="premiere-date-header">@group.Date.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentUICulture)</h2>
+                <h2 class="premiere-date-header">@group.Date.ToString("MMMM yyyy", CultureInfo.CurrentUICulture)</h2>
                 <div class="movies-grid">
                     @foreach (var movie in group.Movies)
                     {

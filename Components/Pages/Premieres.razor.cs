@@ -29,7 +29,7 @@ public partial class Premieres : ComponentBase
 
             groupedPremieres = premieres
                 .Where(p => movies.ContainsKey(p.CsfdId))
-                .GroupBy(p => p.PremiereDateOnly)
+                .GroupBy(p => new DateOnly(p.PremiereDateOnly.Year, p.PremiereDateOnly.Month, 1))
                 .Select(g => new PremiereGroup
                 {
                     Date = g.Key,
