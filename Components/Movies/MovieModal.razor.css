@@ -168,7 +168,11 @@
     }
 }
 
-/* Grabber indicator */
+/* Grabber indicator — hidden in page mode */
+.modal-backdrop.page-mode .modal-grabber {
+    display: none;
+}
+
 .modal-grabber {
     width: 36px;
     height: 5px;
@@ -1041,6 +1045,7 @@ a.cal-day:hover {
     animation: none;
     z-index: auto;
     min-height: 100dvh;
+    will-change: transform;
 }
 
 .modal-backdrop.page-mode .modal-wrapper {

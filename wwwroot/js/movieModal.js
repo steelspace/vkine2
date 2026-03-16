@@ -216,6 +216,72 @@
     requestAnimationFrame(() => window.scrollTo({ top, behavior: 'instant' }));
   }
 
+  // ── Swipe-down to go back (page mode) ───────────────────────────────────
+  function setupPageSwipeToClose() {
+    const backdrop = document.querySelector('[data-testid="movie-modal"].page-mode');
+    if (!backdrop || backdrop.dataset.pageSwipeBound === '1') return;
+    backdrop.dataset.pageSwipeBound = '1';
+
+    const content = backdrop.querySelector('[data-testid="movie-modal-content"]');
+    let startY = 0;
+    let dragging = false;
+
+    function applyDrag(dy) {
+      const clamped = Math.min(dy, window.innerHeight * 0.6);
+      backdrop.style.transition = 'none';
+      backdrop.style.transform = `translateY(${clamped}px)`;
+      if (content) {
+        content.style.borderRadius = '22px 22px 0 0';
+        content.style.overflow = 'clip';
+      }
+    }
+
+    function resetDrag() {
+      backdrop.style.transition = 'transform 0.3s ease';
+      backdrop.style.transform = '';
+      if (content) {
+        content.style.transition = 'border-radius 0.3s ease';
+        content.style.borderRadius = '';
+        setTimeout(() => {
+          content.style.transition = '';
+          content.style.overflow = '';
+        }, 300);
+      }
+      setTimeout(() => backdrop.style.transition = '', 300);
+    }
+
+    document.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      dragging = false;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (window.scrollY > 0) return;
+      const dy = e.touches[0].clientY - startY;
+      if (dy > 0) {
+        dragging = true;
+        applyDrag(dy);
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (dy > 80) {
+        backdrop.style.transition = 'transform 0.25s ease';
+        backdrop.style.transform = `translateY(100%)`;
+        setTimeout(() => {
+          const close = backdrop.querySelector('[data-testid="modal-close"]');
+          if (close) close.click();
+        }, 220);
+      } else {
+        resetDrag();
+      }
+      dragging = false;
+    }, { passive: true });
+  }
+
   // Scroll controls for page mode (scroll on window instead of modal-content)
   function setupPageScrollControls() {
     if (window._vkinePageScrollBound) return;
@@ -253,6 +319,7 @@
     updateScrollTopButton,
     setupModalScrollControls,
     setupPageScrollControls,
+    setupPageSwipeToClose,
     saveMoviesScroll,
     restoreMoviesScroll,
     pushModalHistory,

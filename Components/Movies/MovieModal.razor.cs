@@ -100,6 +100,7 @@ public partial class MovieModal : ComponentBase
             if (PageMode)
             {
                 await JS.InvokeVoidAsync("vkineMovie.setupPageScrollControls");
+                await JS.InvokeVoidAsync("vkineMovie.setupPageSwipeToClose");
             }
             else
             {
