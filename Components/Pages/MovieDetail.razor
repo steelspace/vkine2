@@ -1,0 +1,27 @@
+@page "/movie/{Id:int}"
+@rendermode InteractiveServer
+@using vkine.Components.Movies
+
+<PageTitle>@(_movie?.Title ?? "Movie")</PageTitle>
+
+@if (_loading)
+{
+    <div class="movie-detail-loading">
+        <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+}
+else if (_movie is not null)
+{
+    <MovieModal IsOpen="true" Movie="@_movie" OnClose="@GoBack" PageMode="true"
+                DateFrom="@_dateFrom" DateTo="@_dateTo" TimeFrom="@_timeFrom" />
+}
+else
+{
+    <div class="movie-detail-not-found">
+        <p>Movie not found.</p>
+    </div>
+}

@@ -2,7 +2,7 @@
 
 @if (IsOpen && Movie is { } movie)
 {
-    <div @ref="backdropRef" data-testid="movie-modal" class="modal-backdrop" @onclick="OnClose" @onkeydown="HandleKeyDown" tabindex="-1">
+    <div @ref="backdropRef" data-testid="movie-modal" class="modal-backdrop @(PageMode ? "page-mode" : "")" @onclick="@(PageMode ? default(EventCallback) : OnClose)" @onkeydown="HandleKeyDown" tabindex="-1">
         <div class="modal-wrapper">
             <button data-testid="modal-close" class="modal-close" @onclick="OnClose" @onclick:stopPropagation="true">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">

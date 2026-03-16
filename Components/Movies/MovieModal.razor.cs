@@ -26,6 +26,9 @@ public partial class MovieModal : ComponentBase
     public EventCallback OnClose { get; set; }
 
     [Parameter]
+    public bool PageMode { get; set; }
+
+    [Parameter]
     public DateOnly? DateFrom { get; set; }
 
     [Parameter]
@@ -81,21 +84,37 @@ public partial class MovieModal : ComponentBase
     {
         if (IsOpen && Movie != null)
         {
-            try { await backdropRef.FocusAsync(); } catch { }
+            if (!PageMode)
+            {
+                try { await backdropRef.FocusAsync(); } catch { }
+            }
             if (!_wasOpen)
             {
                 _wasOpen = true;
-                await JS.InvokeVoidAsync("vkineMovie.lockScroll");
-                await JS.InvokeVoidAsync("vkineMovie.pushModalHistory");
+                if (!PageMode)
+                {
+                    await JS.InvokeVoidAsync("vkineMovie.lockScroll");
+                    await JS.InvokeVoidAsync("vkineMovie.pushModalHistory");
+                }
             }
-            await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
-            await JS.InvokeVoidAsync("vkineMovie.setupSwipeToClose");
+            if (PageMode)
+            {
+                await JS.InvokeVoidAsync("vkineMovie.setupPageScrollControls");
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
+                await JS.InvokeVoidAsync("vkineMovie.setupSwipeToClose");
+            }
         }
         else if (_wasOpen)
         {
             _wasOpen = false;
-            await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
-            await JS.InvokeVoidAsync("vkineMovie.popModalHistory");
+            if (!PageMode)
+            {
+                await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
+                await JS.InvokeVoidAsync("vkineMovie.popModalHistory");
+            }
         }
     }
 

@@ -208,6 +208,7 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>(
                 "import", "./Components/Pages/Movies.razor.js");
             await _jsModule.InvokeVoidAsync("observeCards", _gridRef, _dotnetRef);
+            await JSRuntime.InvokeVoidAsync("vkineMovie.restoreMoviesScroll");
         }
     }
 
@@ -677,10 +678,24 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         _dotnetRef?.Dispose();
     }
 
-    private void OpenModal(Movie movie)
+    private async Task OpenModal(Movie movie)
     {
-        selectedMovie = movie;
-        isModalOpen = true;
+        var isMobile = await JSRuntime.InvokeAsync<bool>("eval", "window.innerWidth <= 768");
+        if (isMobile)
+        {
+            var queryParams = new Dictionary<string, object?>();
+            if (_dateFrom.HasValue) queryParams["from"] = _dateFrom.Value.ToString("yyyy-MM-dd");
+            if (_dateTo.HasValue) queryParams["to"] = _dateTo.Value.ToString("yyyy-MM-dd");
+            if (_timeFromMinutes > TimeSliderMin) queryParams["time"] = _timeFromMinutes.ToString();
+            var url = NavigationManager.GetUriWithQueryParameters($"/movie/{movie.Id}", queryParams);
+            await JSRuntime.InvokeVoidAsync("vkineMovie.saveMoviesScroll");
+            NavigationManager.NavigateTo(url);
+        }
+        else
+        {
+            selectedMovie = movie;
+            isModalOpen = true;
+        }
     }
 
     private void CloseModal()

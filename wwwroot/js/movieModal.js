@@ -199,6 +199,49 @@
     updateScrollTopButton();
   }
 
+  // ── Scroll position save/restore for Movies ↔ MovieDetail navigation ──
+  const SCROLL_KEY = 'vkine-movies-scroll';
+
+  function saveMoviesScroll() {
+    sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+  }
+
+  function restoreMoviesScroll() {
+    const y = sessionStorage.getItem(SCROLL_KEY);
+    if (y === null) return;
+    sessionStorage.removeItem(SCROLL_KEY);
+    const top = parseInt(y, 10);
+    if (!top) return;
+    // Defer to let Blazor finish painting the layout
+    requestAnimationFrame(() => window.scrollTo({ top, behavior: 'instant' }));
+  }
+
+  // Scroll controls for page mode (scroll on window instead of modal-content)
+  function setupPageScrollControls() {
+    if (window._vkinePageScrollBound) return;
+    window._vkinePageScrollBound = true;
+
+    function update() {
+      const content = document.querySelector('[data-testid="movie-modal-content"]');
+      if (!content) return;
+
+      const scrollTopBtn = content.querySelector('.scroll-to-top');
+      if (scrollTopBtn) {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 80);
+      }
+
+      const skipBtn = content.querySelector('.skip-to-showtimes');
+      if (skipBtn) {
+        const showtimes = document.getElementById('showtimes-section');
+        const visible = showtimes ? showtimes.getBoundingClientRect().top > window.innerHeight : false;
+        skipBtn.classList.toggle('visible', visible);
+      }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
   window.vkineMovie = Object.assign(window.vkineMovie || {}, {
     analyzeBackdrop,
     clearBackdropClass,
@@ -209,6 +252,9 @@
     updateSkipButton,
     updateScrollTopButton,
     setupModalScrollControls,
+    setupPageScrollControls,
+    saveMoviesScroll,
+    restoreMoviesScroll,
     pushModalHistory,
     popModalHistory,
     setupSwipeToClose
