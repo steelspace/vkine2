@@ -18,7 +18,7 @@
 
   window.addEventListener('popstate', () => {
     const modal = document.querySelector('[data-testid="movie-modal"]');
-    if (!modal) return;
+    if (!modal || modal.classList.contains('page-mode')) return;
     _closedViaPopState = true;
     const close = modal.querySelector('[data-testid="modal-close"]');
     if (close) close.click();
