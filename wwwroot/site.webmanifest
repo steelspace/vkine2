@@ -1,0 +1,11 @@
+{
+  "name": "vkine",
+  "short_name": "vkine",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }
+  ],
+  "theme_color": "#000003",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
