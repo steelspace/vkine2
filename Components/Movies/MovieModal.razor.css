@@ -989,7 +989,7 @@ a.cal-day:hover {
     }
 
     .modal-body {
-        padding: 0 1rem 1rem;
+        padding: 0 1rem max(1.5rem, env(safe-area-inset-bottom));
     }
 
     .modal-hero-details {
@@ -1011,7 +1011,7 @@ a.cal-day:hover {
     }
 
     .modal-body {
-        padding: 0 0.75rem 0.75rem;
+        padding: 0 0.75rem max(1.5rem, env(safe-area-inset-bottom));
     }
 
     .modal-hero-details {
@@ -1073,7 +1073,7 @@ a.cal-day:hover {
 
 @media (max-width: 768px) {
     .modal-backdrop.page-mode .modal-wrapper {
-        padding: 0 0 40px;
+        padding: 0 0 max(40px, env(safe-area-inset-bottom));
     }
 
     .modal-backdrop.page-mode .modal-content {
