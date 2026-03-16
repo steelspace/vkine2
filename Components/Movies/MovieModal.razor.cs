@@ -82,41 +82,46 @@ public partial class MovieModal : ComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (IsOpen && Movie != null)
+        try
         {
-            if (!PageMode)
+            if (IsOpen && Movie != null)
             {
-                try { await backdropRef.FocusAsync(); } catch { }
-            }
-            if (!_wasOpen)
-            {
-                _wasOpen = true;
                 if (!PageMode)
                 {
-                    await JS.InvokeVoidAsync("vkineMovie.lockScroll");
-                    await JS.InvokeVoidAsync("vkineMovie.pushModalHistory");
+                    try { await backdropRef.FocusAsync(); } catch { }
+                }
+                if (!_wasOpen)
+                {
+                    _wasOpen = true;
+                    if (!PageMode)
+                    {
+                        await JS.InvokeVoidAsync("vkineMovie.lockScroll");
+                        await JS.InvokeVoidAsync("vkineMovie.pushModalHistory");
+                    }
+                }
+                if (PageMode)
+                {
+                    await JS.InvokeVoidAsync("vkineMovie.setupPageScrollControls");
+                    await JS.InvokeVoidAsync("vkineMovie.setupPageSwipeToClose");
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
+                    await JS.InvokeVoidAsync("vkineMovie.setupSwipeToClose");
                 }
             }
-            if (PageMode)
+            else if (_wasOpen)
             {
-                await JS.InvokeVoidAsync("vkineMovie.setupPageScrollControls");
-                await JS.InvokeVoidAsync("vkineMovie.setupPageSwipeToClose");
-            }
-            else
-            {
-                await JS.InvokeVoidAsync("vkineMovie.setupModalScrollControls");
-                await JS.InvokeVoidAsync("vkineMovie.setupSwipeToClose");
-            }
-        }
-        else if (_wasOpen)
-        {
-            _wasOpen = false;
-            if (!PageMode)
-            {
-                await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
-                await JS.InvokeVoidAsync("vkineMovie.popModalHistory");
+                _wasOpen = false;
+                if (!PageMode)
+                {
+                    await JS.InvokeVoidAsync("vkineMovie.unlockScroll");
+                    await JS.InvokeVoidAsync("vkineMovie.popModalHistory");
+                }
             }
         }
+        catch (OperationCanceledException) { }
+        catch (JSDisconnectedException) { }
     }
 
     protected override async Task OnParametersSetAsync()

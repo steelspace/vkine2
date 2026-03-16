@@ -53,11 +53,18 @@ test.describe('Movies page', () => {
     }
   });
 
-  test('date range picker opens on click', async ({ page }) => {
-    // flatpickr hides the original input and creates a visible altInput
-    const dateInput = page.locator('[data-testid="date-range-input-visible"], .flatpickr-input.flatpickr-alt-input').first();
-    await expect(dateInput).toBeVisible();
-    await dateInput.click();
+  test('date range picker opens on click', async ({ page, isMobile }) => {
+    if (isMobile) {
+      // On mobile the toolbar is hidden; date picker is triggered via the date chip
+      const dateChip = page.locator('.filter-chip').first();
+      await expect(dateChip).toBeVisible();
+      await dateChip.click();
+    } else {
+      // flatpickr hides the original input and creates a visible altInput
+      const dateInput = page.locator('[data-testid="date-range-input-visible"], .flatpickr-input.flatpickr-alt-input').first();
+      await expect(dateInput).toBeVisible();
+      await dateInput.click();
+    }
     await page.waitForTimeout(400);
     const calendar = page.locator('.flatpickr-calendar');
     await expect(calendar, 'Calendar should appear after clicking date input').toBeVisible();
@@ -71,15 +78,25 @@ test.describe('Movies page', () => {
     await expect(slider).toBeVisible({ timeout: 5_000 });
   });
 
-  test('sort segmented control switches active segment', async ({ page }) => {
-    const segments = page.locator('.segment');
-    const count = await segments.count();
-    expect(count, 'Should have sort segments').toBeGreaterThan(1);
-    // Click second segment
-    await segments.nth(1).click();
-    await page.waitForTimeout(300);
-    const activeClass = await segments.nth(1).getAttribute('class');
-    expect(activeClass, 'Clicked segment should become active').toContain('active');
+  test('sort segmented control switches active segment', async ({ page, isMobile }) => {
+    if (isMobile) {
+      // On mobile the sort group is hidden; sorting is via the sort chip
+      const sortChip = page.locator('.sort-chip');
+      await expect(sortChip).toBeVisible();
+      const before = await sortChip.innerText();
+      await sortChip.click();
+      await page.waitForTimeout(300);
+      const after = await sortChip.innerText();
+      expect(after, 'Sort chip should change after click').not.toBe(before);
+    } else {
+      const segments = page.locator('.segment');
+      const count = await segments.count();
+      expect(count, 'Should have sort segments').toBeGreaterThan(1);
+      await segments.nth(1).click();
+      await page.waitForTimeout(300);
+      const activeClass = await segments.nth(1).getAttribute('class');
+      expect(activeClass, 'Clicked segment should become active').toContain('active');
+    }
   });
 
   test('PageNav shows Movies as active', async ({ page }) => {

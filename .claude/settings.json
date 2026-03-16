@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(npx playwright:*)",
-      "Bash(node debug-toolbar-theme.js)"
+      "Bash(node debug-toolbar-theme.js)",
+      "Bash(xargs kill:*)",
+      "Bash(wait)"
     ],
     "additionalDirectories": [
       "/tmp",
