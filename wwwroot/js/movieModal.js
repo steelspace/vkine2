@@ -47,7 +47,7 @@
         const clamped = Math.min(dy, window.innerHeight * 0.6);
         content.style.transition = 'none';
         content.style.transform = `translateY(${clamped}px)`;
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
       }
     }, { passive: false });
 
@@ -65,6 +65,12 @@
       } else {
         content.style.transform = '';
       }
+      dragging = false;
+    }, { passive: true });
+
+    content.addEventListener('touchcancel', () => {
+      content.style.transition = '';
+      content.style.transform = '';
       dragging = false;
     }, { passive: true });
   }
@@ -261,7 +267,7 @@
       if (dy > 0) {
         dragging = true;
         applyDrag(dy);
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
       }
     }, { passive: false });
 
@@ -278,6 +284,11 @@
       } else {
         resetDrag();
       }
+      dragging = false;
+    }, { passive: true });
+
+    document.addEventListener('touchcancel', () => {
+      resetDrag();
       dragging = false;
     }, { passive: true });
   }
