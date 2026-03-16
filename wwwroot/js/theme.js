@@ -1,9 +1,14 @@
 (function () {
   const storageKey = 'vkine-theme'; // values: 'light' | 'dark'
 
+  const themeColors = { dark: '#0B0B0D', light: '#F2F2F7' };
+
   function apply(mode) {
     document.documentElement.setAttribute('data-theme', mode);
     document.documentElement.dataset.vkineThemeMode = mode;
+    // Update theme-color meta for iOS/iPadOS browser chrome (address bar, status bar)
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) metaThemeColor.setAttribute('content', themeColors[mode] || themeColors.dark);
     document.dispatchEvent(new CustomEvent('vkine-theme-changed', { detail: { mode, applied: mode } }));
   }
 
