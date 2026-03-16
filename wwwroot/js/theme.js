@@ -26,7 +26,11 @@
   }
 
   function init() {
-    apply(get());
+    // Inline script in App.razor already applied the correct theme; only apply here
+    // if no data-theme is set (e.g. script was blocked or page loaded without the guard).
+    if (!document.documentElement.hasAttribute('data-theme')) {
+      apply(getPreferred());
+    }
 
     // DOM fallback: allow elements with `.toggle-theme` to toggle theme even when Blazor/interop is not connected
     document.addEventListener('click', function (ev) {
@@ -50,7 +54,8 @@
     set,
     apply,
     toggle() {
-      const next = get() === 'dark' ? 'light' : 'dark';
+      const current = document.documentElement.getAttribute('data-theme') || get();
+      const next = current === 'dark' ? 'light' : 'dark';
       set(next);
       return next;
     }
