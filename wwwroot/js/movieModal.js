@@ -218,6 +218,9 @@
     sessionStorage.removeItem(SCROLL_KEY);
     const top = parseInt(y, 10);
     if (!top) return;
+    // Suppress poster fade-in when navigating back to the list
+    document.body.classList.add('no-poster-fade');
+    setTimeout(() => document.body.classList.remove('no-poster-fade'), 1500);
     // Defer to let Blazor finish painting the layout
     requestAnimationFrame(() => window.scrollTo({ top, behavior: 'instant' }));
   }
