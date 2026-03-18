@@ -139,26 +139,15 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
 
     private async Task UpdateUrl()
     {
-        var @params = new Dictionary<string, object?>();
-
-        if (!string.IsNullOrEmpty(searchQuery))
-            @params["q"] = searchQuery;
-
-        // Omit sort params only when they match the default (Rating, descending)
-        if (_currentSort != SortField.Rating || _sortAscending)
-            @params["sort"] = _currentSort.ToString().ToLowerInvariant();
-
-        if (_sortAscending)
-            @params["asc"] = "true";
-
-        if (_timeFromMinutes > TimeSliderMin)
-            @params["time"] = _timeFromMinutes.ToString();
-
-        if (_dateFrom.HasValue)
-            @params["from"] = _dateFrom.Value.ToString("yyyy-MM-dd");
-
-        if (_dateTo.HasValue)
-            @params["to"] = _dateTo.Value.ToString("yyyy-MM-dd");
+        var @params = new Dictionary<string, object?>
+        {
+            ["q"]    = !string.IsNullOrEmpty(searchQuery) ? searchQuery : null,
+            ["sort"] = (_currentSort != SortField.Rating || _sortAscending) ? _currentSort.ToString().ToLowerInvariant() : null,
+            ["asc"]  = _sortAscending ? "true" : null,
+            ["time"] = _timeFromMinutes > TimeSliderMin ? _timeFromMinutes.ToString() : null,
+            ["from"] = _dateFrom.HasValue ? _dateFrom.Value.ToString("yyyy-MM-dd") : null,
+            ["to"]   = _dateTo.HasValue   ? _dateTo.Value.ToString("yyyy-MM-dd")   : null,
+        };
 
         var url = NavigationManager.GetUriWithQueryParameters(@params);
         var queryString = new Uri(url).Query;
