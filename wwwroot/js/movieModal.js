@@ -12,7 +12,10 @@
       return;
     }
     if (history.state && history.state.vkineModal) {
-      history.back();
+      // Use replaceState instead of history.back() to avoid triggering Blazor's
+      // enhanced navigation, which would re-morph the page DOM and remove the
+      // flatpickr calendar that was appended to <body>.
+      history.replaceState(null, '');
     }
   }
 
