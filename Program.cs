@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddHubOptions(options => options.MaximumReceiveMessageSize = 512 * 1024); // 512 KB — needed for back-navigation movie cache
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 

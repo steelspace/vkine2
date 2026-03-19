@@ -208,6 +208,21 @@
     updateScrollTopButton();
   }
 
+  // ── Loaded-movie data cache for flicker-free back navigation ───────
+  const CACHE_KEY = 'vkine-movies-cache';
+
+  function saveMoviesCache(json) {
+    try { sessionStorage.setItem(CACHE_KEY, json); } catch (e) { /* quota exceeded — ignore */ }
+  }
+
+  function loadMoviesCache() {
+    try {
+      const v = sessionStorage.getItem(CACHE_KEY);
+      sessionStorage.removeItem(CACHE_KEY);
+      return v ?? null;
+    } catch (e) { return null; }
+  }
+
   // ── Scroll position save/restore for Movies ↔ MovieDetail navigation ──
   const SCROLL_KEY = 'vkine-movies-scroll';
 
@@ -339,6 +354,8 @@
     setupPageSwipeToClose,
     saveMoviesScroll,
     restoreMoviesScroll,
+    saveMoviesCache,
+    loadMoviesCache,
     pushModalHistory,
     popModalHistory,
     setupSwipeToClose

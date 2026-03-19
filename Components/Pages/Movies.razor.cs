@@ -167,6 +167,18 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
                 ParseQueryString(stored);
                 await ApplyFilters();
             }
+            var cacheJson = await JSRuntime.InvokeAsync<string?>("vkineMovie.loadMoviesCache");
+            if (!string.IsNullOrEmpty(cacheJson))
+            {
+                try
+                {
+                    var cached = System.Text.Json.JsonSerializer.Deserialize<List<MovieCardCache>>(cacheJson);
+                    if (cached is not null)
+                        foreach (var c in cached)
+                            _loadedMovies[c.Id] = FromCardCache(c);
+                }
+                catch { /* ignore corrupt cache */ }
+            }
             isLoading = false;
             StateHasChanged();
             return;
@@ -678,6 +690,15 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
             if (_timeFromMinutes > TimeSliderMin) queryParams["time"] = _timeFromMinutes.ToString();
             var url = NavigationManager.GetUriWithQueryParameters($"/movie/{movie.Id}", queryParams);
             await JSRuntime.InvokeVoidAsync("vkineMovie.saveMoviesScroll");
+            if (_loadedMovies.Count > 0)
+            {
+                // Cap to 80 entries in AllMovieIds order (current sort) — keeps payload
+                // well under the 512 KB SignalR limit even with large catalogs.
+                var idsToCache = AllMovieIds.Where(_loadedMovies.ContainsKey).Take(80);
+                var dto = idsToCache.Select(id => ToCardCache(_loadedMovies[id])).ToList();
+                var json = System.Text.Json.JsonSerializer.Serialize(dto);
+                await JSRuntime.InvokeVoidAsync("vkineMovie.saveMoviesCache", json);
+            }
             NavigationManager.NavigateTo(url);
         }
         else
@@ -692,4 +713,32 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         isModalOpen = false;
         selectedMovie = null;
     }
+
+    // Minimal DTO for the back-navigation cache — only fields rendered by MovieCard/RatingBadges.
+    // Keeps the serialized payload well under the SignalR 32 KB message limit.
+    private sealed record MovieCardCache(
+        int Id, string Title, string TitleEn, string Year,
+        string CoverUrl, string BackdropUrl,
+        List<string> OriginCountryCodes,
+        string? CsfdRating,
+        int? TmdbId, double? TmdbRating,
+        string? ImdbId, double? ImdbRating, int? ImdbRatingCount);
+
+    private static MovieCardCache ToCardCache(Movie m) => new(
+        m.Id, m.Title, m.TitleEn, m.Year,
+        m.CoverUrl, m.BackdropUrl,
+        m.OriginCountryCodes,
+        m.CsfdRating,
+        m.TmdbId, m.TmdbRating,
+        m.ImdbId, m.ImdbRating, m.ImdbRatingCount);
+
+    private static Movie FromCardCache(MovieCardCache c) => new()
+    {
+        Id = c.Id, Title = c.Title, TitleEn = c.TitleEn, Year = c.Year,
+        CoverUrl = c.CoverUrl, BackdropUrl = c.BackdropUrl,
+        OriginCountryCodes = c.OriginCountryCodes,
+        CsfdRating = c.CsfdRating,
+        TmdbId = c.TmdbId, TmdbRating = c.TmdbRating,
+        ImdbId = c.ImdbId, ImdbRating = c.ImdbRating, ImdbRatingCount = c.ImdbRatingCount
+    };
 }
