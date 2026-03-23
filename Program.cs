@@ -1,5 +1,6 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using vkine.Api;
 using vkine.Components;
 using vkine.Services;
 using vkine.Mappers;
@@ -105,6 +106,7 @@ app.MapGet("/proxy/tmdb/{**path}", async (string path, IHttpClientFactory httpFa
 
 app.MapStaticAssets();
 app.UseAntiforgery();
+ApiEndpoints.Map(app);
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
