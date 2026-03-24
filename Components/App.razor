@@ -24,6 +24,40 @@
 </head>
 <body>
     <Routes />
+
+    <div id="components-reconnect-modal">
+        <div class="reconnect-backdrop"></div>
+        <div class="reconnect-card">
+            <div class="reconnect-state reconnect-state--connecting">
+                <div class="reconnect-spinner"></div>
+                <p class="reconnect-title">Reconnecting&hellip;</p>
+                <p class="reconnect-message">Restoring your connection.</p>
+            </div>
+            <div class="reconnect-state reconnect-state--failed">
+                <div class="reconnect-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0 1 19 12.55M5 12.55a10.94 10.94 0 0 1 5.17-2.39M10.71 5.05A16 16 0 0 1 22.56 9M1.42 9a15.91 15.91 0 0 1 4.7-2.88M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>
+                    </svg>
+                </div>
+                <p class="reconnect-title">Connection Lost</p>
+                <p class="reconnect-message">Check your internet connection and try again.</p>
+                <button class="reconnect-btn" onclick="window.Blazor.reconnect()">Try Again</button>
+            </div>
+            <div class="reconnect-state reconnect-state--rejected">
+                <div class="reconnect-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                </div>
+                <p class="reconnect-title">Session Ended</p>
+                <p class="reconnect-message">Your session has expired. Reload to continue.</p>
+                <button class="reconnect-btn" onclick="location.reload()">Reload Page</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/cs.js"></script>
     <script src="/js/theme.js"></script>

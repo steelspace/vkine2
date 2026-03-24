@@ -267,3 +267,137 @@ body.no-poster-fade .movie-poster img {
     transition: none !important;
     opacity: 1 !important;
 }
+
+/* ── Blazor Reconnection Modal ───────────────────────────────── */
+
+#components-reconnect-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+#components-reconnect-modal.components-reconnect-show,
+#components-reconnect-modal.components-reconnect-failed,
+#components-reconnect-modal.components-reconnect-rejected {
+    display: flex;
+}
+
+.reconnect-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    animation: reconnect-fade-in 0.25s var(--ease-default) both;
+}
+
+.reconnect-card {
+    position: relative;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: 32px 28px 28px;
+    width: min(320px, calc(100vw - 40px));
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: reconnect-slide-up 0.35s var(--ease-spring) both;
+}
+
+/* State visibility */
+.reconnect-state { display: none; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+
+#components-reconnect-modal.components-reconnect-show    .reconnect-state--connecting { display: flex; }
+#components-reconnect-modal.components-reconnect-failed  .reconnect-state--failed     { display: flex; }
+#components-reconnect-modal.components-reconnect-rejected .reconnect-state--rejected  { display: flex; }
+
+/* Spinner — iOS-style activity indicator */
+.reconnect-spinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2.5px solid var(--fill-tertiary);
+    border-top-color: var(--accent);
+    animation: reconnect-spin 0.8s linear infinite;
+    margin-bottom: 8px;
+}
+
+/* Icon for failed/rejected states */
+.reconnect-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--fill-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.reconnect-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.reconnect-title {
+    font-size: var(--font-size-title3);
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-top: 4px;
+}
+
+.reconnect-message {
+    font-size: var(--font-size-footnote);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.reconnect-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: var(--font-size-subheadline);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-default),
+                transform var(--duration-fast) var(--ease-default);
+}
+
+.reconnect-btn:hover  { background: var(--accent-hover); }
+.reconnect-btn:active { background: var(--accent-active); transform: scale(0.98); }
+
+/* Animations */
+@keyframes reconnect-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes reconnect-slide-up {
+    from { opacity: 0; transform: scale(0.92) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes reconnect-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Dark mode */
+[data-theme="dark"] .reconnect-card {
+    background: var(--dark-bg-tertiary);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .reconnect-title   { color: var(--dark-text-primary); }
+[data-theme="dark"] .reconnect-message { color: var(--dark-text-secondary); }
