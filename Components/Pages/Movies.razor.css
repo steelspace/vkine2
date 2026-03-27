@@ -561,6 +561,11 @@ html[data-theme="dark"] .time-slider::-moz-range-track {
     display: none;
 }
 
+/* Mobile-only: always-visible full-width preset row — hidden on desktop */
+.date-presets-mobile {
+    display: none;
+}
+
 .filter-chip {
     display: inline-flex;
     align-items: center;
@@ -667,6 +672,43 @@ html[data-theme="dark"] .time-slider::-moz-range-track {
         flex-direction: column;
         gap: 0;
         padding: 2px 0 4px;
+    }
+
+    .date-presets-mobile {
+        display: flex;
+        gap: 6px;
+        padding: 2px 2px 6px;
+    }
+
+    .date-preset-mobile-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 6px;
+        border-radius: 999px;
+        border: 1.5px solid var(--separator);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        font-size: var(--font-size-footnote);
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background var(--duration-fast) var(--ease-default),
+                    border-color var(--duration-fast) var(--ease-default),
+                    color var(--duration-fast) var(--ease-default);
+    }
+
+    .date-preset-mobile-btn:active {
+        opacity: 0.75;
+    }
+
+    .date-preset-mobile-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
     }
 
     .filter-chips-scroll {

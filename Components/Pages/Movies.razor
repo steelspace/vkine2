@@ -100,11 +100,14 @@
         </div>
 
         <div class="filter-chips-row">
-            <div class="filter-chips-scroll">
 
-                <button class="filter-chip @(IsPresetToday() ? "active" : "")" type="button" @onclick="SelectToday">@Localizer["PresetToday"]</button>
-                <button class="filter-chip @(IsPresetNextTwoDays() ? "active" : "")" type="button" @onclick="SelectNextTwoDays">@Localizer["PresetNext2Days"]</button>
-                <button class="filter-chip @(IsPresetWeekend() ? "active" : "")" type="button" @onclick="SelectThisWeekend">@Localizer["PresetWeekend"]</button>
+            <div class="date-presets-mobile">
+                <button class="date-preset-mobile-btn @(IsPresetToday() ? "active" : "")" type="button" @onclick="SelectToday">@Localizer["PresetToday"]</button>
+                <button class="date-preset-mobile-btn @(IsPresetNextTwoDays() ? "active" : "")" type="button" @onclick="SelectNextTwoDays">@Localizer["PresetNext2Days"]</button>
+                <button class="date-preset-mobile-btn @(IsPresetWeekend() ? "active" : "")" type="button" @onclick="SelectThisWeekend">@Localizer["PresetWeekend"]</button>
+            </div>
+
+            <div class="filter-chips-scroll">
 
                 <button class="filter-chip @(_dateFrom.HasValue ? "active" : "")" type="button" @onclick="OpenDatePickerChip">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
