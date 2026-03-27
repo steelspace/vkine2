@@ -246,6 +246,49 @@ html[data-theme="dark"] .sticky-toolbar {
     transform: scale(0.85);
 }
 
+/* ── Date Preset Buttons ─────────────────────────────────────── */
+
+.date-preset-buttons {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.date-preset-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1.5px solid var(--separator);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: var(--font-size-footnote);
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--duration-fast) var(--ease-default),
+                border-color var(--duration-fast) var(--ease-default),
+                color var(--duration-fast) var(--ease-default);
+}
+
+.date-preset-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.date-preset-btn:active {
+    opacity: 0.75;
+}
+
+.date-preset-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
 /* Time slider */
 .time-filter {
     display: flex;
@@ -612,6 +655,10 @@ html[data-theme="dark"] .time-slider::-moz-range-track {
     }
 
     .toolbar-row {
+        display: none;
+    }
+
+    .date-preset-buttons {
         display: none;
     }
 

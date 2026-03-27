@@ -143,6 +143,12 @@ export function clearDateRange() {
     }
 }
 
+export function setDateRange(from, to) {
+    if (flatpickrInstance) {
+        flatpickrInstance.setDate([from, to], false);
+    }
+}
+
 export function openDatePicker() {
     if (flatpickrInstance) {
         flatpickrInstance.open();

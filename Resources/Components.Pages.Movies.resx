@@ -54,4 +54,13 @@
   <data name="StatsTimeFrom" xml:space="preserve">
     <value>from {0}</value>
   </data>
+  <data name="PresetToday" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="PresetNext2Days" xml:space="preserve">
+    <value>2 days</value>
+  </data>
+  <data name="PresetWeekend" xml:space="preserve">
+    <value>Weekend</value>
+  </data>
 </root>

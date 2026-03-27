@@ -257,6 +257,84 @@ public partial class Movies : ComponentBase, IDisposable, IAsyncDisposable
         await ApplyFilters();
     }
 
+    private async Task SelectToday()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        _dateFrom = today;
+        _dateTo = today;
+        await SyncDatePickerAndApplyFilters();
+    }
+
+    private async Task SelectNextTwoDays()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        _dateFrom = today;
+        _dateTo = today.AddDays(2);
+        await SyncDatePickerAndApplyFilters();
+    }
+
+    private async Task SelectThisWeekend()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        DateOnly saturday, sunday;
+        if (today.DayOfWeek == DayOfWeek.Saturday)
+        {
+            saturday = today;
+            sunday = today.AddDays(1);
+        }
+        else if (today.DayOfWeek == DayOfWeek.Sunday)
+        {
+            saturday = today;
+            sunday = today;
+        }
+        else
+        {
+            var daysUntilSat = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek + 7) % 7;
+            saturday = today.AddDays(daysUntilSat);
+            sunday = saturday.AddDays(1);
+        }
+        _dateFrom = saturday;
+        _dateTo = sunday;
+        await SyncDatePickerAndApplyFilters();
+    }
+
+    private async Task SyncDatePickerAndApplyFilters()
+    {
+        if (_jsModule is not null && _dateFrom.HasValue && _dateTo.HasValue)
+        {
+            await _jsModule.InvokeVoidAsync("setDateRange",
+                _dateFrom.Value.ToString("yyyy-MM-dd"),
+                _dateTo.Value.ToString("yyyy-MM-dd"));
+        }
+        await ApplyFilters();
+    }
+
+    private bool IsPresetToday()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        return _dateFrom == today && _dateTo == today;
+    }
+
+    private bool IsPresetNextTwoDays()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        return _dateFrom == today && _dateTo == today.AddDays(2);
+    }
+
+    private bool IsPresetWeekend()
+    {
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        DateOnly saturday, sunday;
+        if (today.DayOfWeek == DayOfWeek.Saturday) { saturday = today; sunday = today.AddDays(1); }
+        else if (today.DayOfWeek == DayOfWeek.Sunday) { saturday = today; sunday = today; }
+        else
+        {
+            var d = ((int)DayOfWeek.Saturday - (int)today.DayOfWeek + 7) % 7;
+            saturday = today.AddDays(d); sunday = saturday.AddDays(1);
+        }
+        return _dateFrom == saturday && _dateTo == sunday;
+    }
+
     protected override bool ShouldRender() => !_isDraggingTimeSlider;
 
     private void OnTimeFromInput(ChangeEventArgs e)

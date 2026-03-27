@@ -53,6 +53,12 @@
                 }
             </div>
 
+            <div class="date-preset-buttons">
+                <button class="date-preset-btn @(IsPresetToday() ? "active" : "")" type="button" @onclick="SelectToday">@Localizer["PresetToday"]</button>
+                <button class="date-preset-btn @(IsPresetNextTwoDays() ? "active" : "")" type="button" @onclick="SelectNextTwoDays">@Localizer["PresetNext2Days"]</button>
+                <button class="date-preset-btn @(IsPresetWeekend() ? "active" : "")" type="button" @onclick="SelectThisWeekend">@Localizer["PresetWeekend"]</button>
+            </div>
+
 <div data-testid="time-filter" class="time-filter">
                 <span id="time-filter-value" class="time-filter-value @(_timeFromMinutes > TimeSliderMin ? "active" : "")">@TimeFromLabel</span>
                 <input id="time-slider" name="time-from" data-testid="time-slider" type="range" class="time-slider" min="540" max="1410" step="30"
@@ -95,6 +101,10 @@
 
         <div class="filter-chips-row">
             <div class="filter-chips-scroll">
+
+                <button class="filter-chip @(IsPresetToday() ? "active" : "")" type="button" @onclick="SelectToday">@Localizer["PresetToday"]</button>
+                <button class="filter-chip @(IsPresetNextTwoDays() ? "active" : "")" type="button" @onclick="SelectNextTwoDays">@Localizer["PresetNext2Days"]</button>
+                <button class="filter-chip @(IsPresetWeekend() ? "active" : "")" type="button" @onclick="SelectThisWeekend">@Localizer["PresetWeekend"]</button>
 
                 <button class="filter-chip @(_dateFrom.HasValue ? "active" : "")" type="button" @onclick="OpenDatePickerChip">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
